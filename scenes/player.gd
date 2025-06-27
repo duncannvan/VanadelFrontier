@@ -4,11 +4,11 @@ extends CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 
 func get_input():
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction = Input.get_vector("left", "right", "up", "down")
 	velocity = direction * speed
-	print(direction)
+	
 	if direction != Vector2.ZERO:
-		if abs(direction.x) > abs(direction.y):
+		if abs(direction.x) >= abs(direction.y):
 			sprite.animation = "right" if direction.x > 0 else "left"
 		else:
 			sprite.animation = "down" if direction.y > 0 else "up"
