@@ -18,6 +18,8 @@ func _ready() -> void:
 	player = get_node(PLAYER_PATH)
 	
 	var area2d : Area2D = $Area2D
+	
+	# Signals
 	area2d.body_entered.connect(_body_entered)
 	area2d.body_exited.connect(_body_exited)
 	
@@ -35,6 +37,27 @@ func _process(delta: float) -> void:
 	
 	var direction : Vector2 = (player.position - position).normalized()
 	
-	velocity = direction * SPEED
+	if not is_knockback:
+		velocity = direction * SPEED
+	
 	move_and_slide()
+
+var is_knockback: bool = false
+const KNOCKBACK_MAGNITUDE = 300
+const KNOCKBACK_TIME = 0.1
+var health = 100
+func _apply_knockback(knockback: Vector2):
+		is_knockback = true
+		velocity = knockback.normalized() * KNOCKBACK_MAGNITUDE
+
+		await get_tree().create_timer(KNOCKBACK_TIME).timeout
+		is_knockback = false
+		velocity = Vector2.ZERO
+		
+		#TODO: play knockback animation
+		
+func take_damage(amount: int, knockback: Vector2) -> void:
+	health -= amount
+	_apply_knockback(knockback)
+	
 	

@@ -6,6 +6,7 @@ const KNOCKBACK_MAGNITUDE = 200
 const KNOCKBACK_TIME = .1 
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+var attack_hitbox: Area2D
 
 @export var health = 100
 @export var is_invincible = false
@@ -25,9 +26,28 @@ func _initialize_hearts() -> void:
 func _ready() -> void:
 	_initialize_hearts()
 	
+	attack_hitbox = $AttackHitbox
+	# Signals
+	attack_hitbox.body_entered.connect(_on_body_entered)
+	
+func _on_body_entered(body: Node2D) -> void:
+	body.take_damage(10, body.position - self.position)
+	
 func remove_heart() -> void:
 	if hearts_container.get_child_count() > 0:
 		hearts_container.get_child(-1).queue_free()
+
+var attacking: bool = false
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack") and not attacking:
+		attacking = true
+		attack_hitbox.monitoring = true
+		attack_hitbox.visible = true
+		await get_tree().create_timer(.2).timeout
+		attack_hitbox.monitoring = false
+		attack_hitbox.visible = false
+		attacking = false
+		
 
 func _get_input() -> void:
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
@@ -41,10 +61,11 @@ func _get_input() -> void:
 		sprite.play()
 	else:
 		sprite.stop()
-		
+			  
 func _physics_process(delta) -> void:
 	if not is_knockback:
 		_get_input()
+	
 	move_and_slide()
 	
 func _blink_damage(interval: float = 0.1) -> void:
