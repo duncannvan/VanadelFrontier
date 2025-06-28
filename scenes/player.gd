@@ -3,13 +3,31 @@ extends CharacterBody2D
 const SPEED = 100
 const INVINCIBILITY_TIME = 1
 const KNOCKBACK_MAGNITUDE = 200
-const KNOCKBACK_TIME = .1
+const KNOCKBACK_TIME = .1 
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 @export var health = 100
 @export var is_invincible = false
 var knockback: Vector2 = Vector2.ZERO
 var is_knockback: bool = false
+
+const HEARTS_CONTAINER_PATH = '../Player/Hearts'
+var hearts_container: Container
+var heart_scene: Resource = preload('res://scenes/heart.tscn')
+
+func _initialize_hearts() -> void:
+	hearts_container = get_node(HEARTS_CONTAINER_PATH)
+	for i in range(10):
+		var heart = heart_scene.instantiate()
+		hearts_container.add_child(heart)
+
+func _ready() -> void:
+	_initialize_hearts()
+	
+func remove_heart() -> void:
+	if hearts_container.get_child_count() > 0:
+		hearts_container.get_child(-1).queue_free()
 
 func _get_input() -> void:
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
@@ -30,18 +48,18 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 	
 func _blink_damage(interval: float = 0.1) -> void:
-	modulate = Color(1, 0, 0) 
+	sprite.modulate = Color(1, 0, 0) 
 	await get_tree().create_timer(interval).timeout
 
-	modulate = Color(1, 1, 1) 
+	sprite.modulate = Color(1, 1, 1) 
 	await get_tree().create_timer(interval).timeout
 
 func _blink_invincibility(interval: float = 0.1):
 	while is_invincible:
-		modulate.a = 0.5  
+		sprite.modulate.a = 0.5  
 		await get_tree().create_timer(interval).timeout
 
-		modulate.a = 1 
+		sprite.modulate.a = 1 
 		await get_tree().create_timer(interval).timeout
 
 func _give_invincibility() -> void:
@@ -63,11 +81,11 @@ func _apply_knockback(knockback: Vector2):
 		
 func take_damage(amount: int, knockback: Vector2) -> void:
 	if not is_invincible:
+		health -= amount
+		remove_heart()
 		_blink_damage()
 		_give_invincibility()
-		
 		_apply_knockback(knockback)
-		health -= amount
 		
 
 	
