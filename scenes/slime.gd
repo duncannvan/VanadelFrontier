@@ -1,28 +1,33 @@
 extends CharacterBody2D
 
-@export var speed = 10.0
-@export var player_path = "../Player" 
-var player
+const SPEED = 10 
+const DAMAGE = 10
+const PLAYER_PATH: NodePath = "../Player"
+
+# Forward declaration. Character needs to exist before finding position
+var player : CharacterBody2D 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var sprite = $AnimatedSprite2D
+	var sprite: AnimatedSprite2D = $AnimatedSprite2D
 	sprite.animation = "bounce"
 	sprite.play()
 	
-	player = get_node(player_path)
+	player = get_node(PLAYER_PATH)
 	
-	var area2d = $Area2D
+	var area2d : Area2D = $Area2D
 	area2d.body_entered.connect(_body_entered)
 	
-func _body_entered(body) -> void:
-	print("Collision with:", body.name)	
+
+func _body_entered(body: Node2D) -> void:
+	body.take_damage(DAMAGE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not player: return
 	
-	var direction = (player.position - position).normalized()
-	velocity = direction * speed
+	var direction : Vector2 = (player.position - position).normalized()
+	
+	velocity = direction * SPEED
 	move_and_slide()
 	
