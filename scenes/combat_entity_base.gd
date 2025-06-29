@@ -47,19 +47,10 @@ func _die() -> void:
 	hurtbox.set_deferred("monitorable", false)
 	
 	if sprite.sprite_frames.has_animation("dead"):
-		print('playing')
 		sprite.play("dead")
 	
 	await get_tree().create_timer(TIME_BEFORE_DESPAWN).timeout
-	# Move camera outside player
-	if has_node("Camera2D"):
-		var camera: Camera2D = $Camera2D
-		var camera_pos = camera.global_position  # Save global position
-
-		camera.get_parent().remove_child(camera)
-		get_tree().root.add_child(camera)
-
-		camera.global_position = camera_pos  # Reapply it after reparenting
+	
 	self.queue_free()
 	
 

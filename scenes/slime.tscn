@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=11 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://assets/sprites/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://cln361r7usbwc" path="res://scenes/slime.gd" id="1_p2gj0"]
@@ -27,10 +27,6 @@ region = Rect2(128, 0, 32, 32)
 atlas = ExtResource("1_371uh")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v5wyi"]
-atlas = ExtResource("1_371uh")
-region = Rect2(0, 32, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_0l8pv"]
 animations = [{
 "frames": [{
@@ -57,15 +53,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"bounce",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v5wyi")
-}],
-"loop": false,
-"name": &"dead",
-"speed": 5.0
+"speed": 12.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnioy"]
@@ -78,14 +66,14 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0l8pv")
-animation = &"dead"
+animation = &"bounce"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
-position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_vnioy")
 
 [node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -7)
 collision_layer = 64
 collision_mask = 8
 
@@ -95,6 +83,7 @@ position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_vnioy")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -7)
 collision_layer = 32
 collision_mask = 16
 
