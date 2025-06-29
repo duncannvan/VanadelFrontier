@@ -16,6 +16,7 @@ func _ready() -> void:
 	sprite = $AnimatedSprite2D
 	hitbox = $Hitbox
 	hurtbox = $Hurtbox
+	hurt_effects = $HurtEffects
 	
 	sprite.animation = "bounce"
 	sprite.play()

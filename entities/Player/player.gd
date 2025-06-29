@@ -3,8 +3,8 @@ extends CombatEntityBase
 const INVINCIBILITY_TIME = 1
 
 @export var is_invincible = false
-@export var hp_bar: Container
-var heart_scene: Resource = preload('res://ui/hp_bar/heart.tscn')
+
+signal health_changed(health: int)
 
 #TODO: Turn off attacking and move when dead
 
@@ -17,16 +17,9 @@ func _ready() -> void:
 	hurtbox = $Hurtbox
 	health = 30
 	
-	_initialize_hearts()
-	
 	# Signals
 	hitbox.area_entered.connect(_on_area_entered)
 	
-func _initialize_hearts() -> void:
-	for i in range(health/10):
-		var heart = heart_scene.instantiate()
-		hp_bar.add_child(heart)
-
 # if mob found in hitbox
 func _on_area_entered(area: Area2D) -> void:
 	var mob = area.get_parent()
@@ -34,10 +27,6 @@ func _on_area_entered(area: Area2D) -> void:
 	if direction == Vector2.ZERO:
 		direction = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()
 	mob.take_damage(damage, direction)
-	
-func remove_heart() -> void:
-	if hp_bar.get_child_count() > 0:
-		hp_bar.get_child(-1).queue_free()
 
 # Turns on hitbox
 var attacking: bool = false
@@ -88,7 +77,9 @@ func _give_invincibility() -> void:
 func take_damage(damageAmount: int, knockbackDirection: Vector2 = Vector2.ZERO) -> void:
 	if not is_invincible:
 		_give_invincibility()
-		remove_heart()
 		super.take_damage(damageAmount, knockbackDirection)	
+		
+		# Update GUI
+		health_changed.emit(health)
 
 	

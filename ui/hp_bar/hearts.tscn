@@ -1,5 +1,10 @@
-[gd_scene format=3 uid="uid://dlw2lj8r425o5"]
+[gd_scene load_steps=3 format=3 uid="uid://dlw2lj8r425o5"]
+
+[ext_resource type="Script" uid="uid://pe0u0i0t2ljv" path="res://ui/hp_bar/hearts.gd" id="1_ygdi1"]
+[ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://ui/hp_bar/heart.tscn" id="2_2udnd"]
 
 [node name="Hearts" type="HBoxContainer"]
 offset_right = 54.0
 offset_bottom = 3.0
+script = ExtResource("1_ygdi1")
+heart_scene = ExtResource("2_2udnd")

@@ -6,6 +6,7 @@ var damage = 10
 var sprite: AnimatedSprite2D
 var hurtbox: Area2D
 var hitbox: Area2D
+var hurt_effects: GPUParticles2D
 
 const KNOCKBACK_MAGNITUDE = 200
 const KNOCKBACK_TIME = .1 
@@ -30,14 +31,19 @@ func _blink_damage(interval: float = 0.1) -> void:
 	await get_tree().create_timer(interval).timeout
 
 func take_damage(damageAmount: int, knockbackDirection: Vector2 = Vector2.ZERO):
+	if hurt_effects:
+		hurt_effects.restart()
+		hurt_effects.emitting = true
+	if not knockbackDirection.is_normalized(): 
+		knockbackDirection = knockbackDirection.normalized()
+		
+	_apply_knockback(knockbackDirection)
+	_blink_damage()
+	
 	health -= damageAmount
 	if health <= 0:
 		_die()
 	
-	if not knockbackDirection.is_normalized(): 
-		knockbackDirection = knockbackDirection.normalized()
-	_apply_knockback(knockbackDirection)
-	_blink_damage()
 
 func _die() -> void:
 	#TODO: Play death animation
