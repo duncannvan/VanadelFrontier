@@ -29,7 +29,7 @@ region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5wyi"]
 atlas = ExtResource("1_371uh")
-region = Rect2(192, 0, 32, 32)
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0l8pv"]
 animations = [{
@@ -44,6 +44,9 @@ animations = [{
 "texture": SubResource("AtlasTexture_pjw23")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_pjw23")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2npkn")
 }, {
 "duration": 1.0,
@@ -51,13 +54,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gstla")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v5wyi")
 }],
 "loop": true,
 "name": &"bounce",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5wyi")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnioy"]
@@ -70,7 +78,7 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0l8pv")
-animation = &"bounce"
+animation = &"dead"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true

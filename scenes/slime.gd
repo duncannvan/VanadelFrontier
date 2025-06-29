@@ -12,6 +12,7 @@ func _ready() -> void:
 	# Constructor
 	speed = 50
 	damage = 10
+	health = 100
 	sprite = $AnimatedSprite2D
 	hitbox = $Hitbox
 	hurtbox = $Hurtbox

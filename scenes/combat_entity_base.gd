@@ -46,6 +46,10 @@ func _die() -> void:
 	hitbox.monitoring = false
 	hurtbox.set_deferred("monitorable", false)
 	
+	if sprite.sprite_frames.has_animation("dead"):
+		print('playing')
+		sprite.play("dead")
+	
 	await get_tree().create_timer(TIME_BEFORE_DESPAWN).timeout
 	# Move camera outside player
 	if has_node("Camera2D"):
