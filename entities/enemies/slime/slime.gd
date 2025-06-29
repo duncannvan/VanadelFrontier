@@ -1,50 +1,55 @@
-extends CombatEntityBase
+class_name Slime extends CombatEntityBase
 
-const DAMAGE_INTERVAL = 0.5
-const PLAYER_PATH: NodePath = "../Player"
-
-# Forward declaration. Character needs to exist before finding position
-var player: CharacterBody2D 
-var slimeInPlayer: bool
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# Constructor
-	speed = 50
-	damage = 10
-	health = 100
-	sprite = $AnimatedSprite2D
-	hitbox = $Hitbox
-	hurtbox = $Hurtbox
+# Constructor
+func _init() -> void:
+	var data: Dictionary = {
+							"health" = 100,
+							"speed" = 50,
+							"damage" = 10,
+							"knockback_mag" = 200,
+							}
+	super._init(data)
 	
-	sprite.animation = "bounce"
-	sprite.play()
+# Called when the node enters the scene tree for the first time
+func _ready() -> void:		
+	_player = get_node(PLAYER_PATH)
+	_set_nodes($AnimatedSprite2D, $Hitbox, $Hurtbox)
 	
-	player = get_node(PLAYER_PATH)
+	_sprite.animation = "bounce"
+	_sprite.play()
 	
 	# Signals
-	hitbox.area_entered.connect(_area_entered)
-	hitbox.area_exited.connect(_area_exited)
+	_hitbox.area_entered.connect(_area_entered)
+	_hitbox.area_exited.connect(_area_exited)
 	
 func _area_exited(area: Area2D) -> void:
-	slimeInPlayer = false
+	_state = States.MOVING
+	
 func _area_entered(area: Area2D) -> void:
-	player = area.get_parent()
-	slimeInPlayer = true
-	while slimeInPlayer:
-		player.take_damage(damage, velocity.normalized())
+	var playerArea2D: CharacterBody2D = area.get_parent()
+	_state = States.ATTACKING
+	while _state == States.ATTACKING:
+		playerArea2D._upon_hit(_damage, velocity.normalized())
 		await get_tree().create_timer(DAMAGE_INTERVAL).timeout
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not player: return
+	if not _player: return
 	
-	var direction : Vector2 = (player.position - position).normalized()
+	var direction : Vector2 = (_player.position - position).normalized()
 	
-	if not is_knockback:
-		velocity = direction * speed
+	if not 0:
+		velocity = direction * _speed
 	
 	move_and_slide()
 
+enum States {MOVING, ATTACKING}
+var _state: States = States.MOVING
+# Forward declaration. Character needs to exist before finding position
+var _player: Player 
+
+# Constants
+const DAMAGE_INTERVAL = 0.5
+const PLAYER_PATH: NodePath = "../Player"
 
 	
