@@ -8,11 +8,7 @@ const HEARTS_CONTAINER_PATH = '../Player/Hearts'
 var hearts_container: Container
 var heart_scene: Resource = preload('res://scenes/heart.tscn')
 
-func _initialize_hearts() -> void:
-	hearts_container = get_node(HEARTS_CONTAINER_PATH)
-	for i in range(10):
-		var heart = heart_scene.instantiate()
-		hearts_container.add_child(heart)
+#TODO: Turn off attacking and move when dead
 
 func _ready() -> void:
 	# Constructor
@@ -21,11 +17,19 @@ func _ready() -> void:
 	sprite = $AnimatedSprite2D
 	hitbox = $Hitbox
 	hurtbox = $Hurtbox
+	health = 30
 	
 	_initialize_hearts()
 	
 	# Signals
 	hitbox.area_entered.connect(_on_area_entered)
+	
+func _initialize_hearts() -> void:
+	hearts_container = get_node(HEARTS_CONTAINER_PATH)
+	for i in range(health/10):
+		var heart = heart_scene.instantiate()
+		hearts_container.add_child(heart)
+
 	
 # if mob found in hitbox
 func _on_area_entered(area: Area2D) -> void:
@@ -67,13 +71,6 @@ func _physics_process(delta) -> void:
 		_get_input()
 	
 	move_and_slide()
-	
-func _blink_damage(interval: float = 0.1) -> void:
-	sprite.modulate = Color(1, 0, 0) 
-	await get_tree().create_timer(interval).timeout
-
-	sprite.modulate = Color(1, 1, 1) 
-	await get_tree().create_timer(interval).timeout
 
 func _blink_invincibility(interval: float = 0.1):
 	while is_invincible:
@@ -91,7 +88,6 @@ func _give_invincibility() -> void:
 
 func take_damage(damageAmount: int, knockbackDirection: Vector2 = Vector2.ZERO) -> void:
 	if not is_invincible:
-		_blink_damage()
 		_give_invincibility()
 		remove_heart()
 		super.take_damage(damageAmount, knockbackDirection)	
