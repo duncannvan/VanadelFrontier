@@ -21,6 +21,7 @@ func _ready() -> void:
 	sprite.play()
 	
 	player = get_node(PLAYER_PATH)
+	if not player: return
 	
 	# Signals
 	hitbox.area_entered.connect(_area_entered)

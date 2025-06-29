@@ -30,7 +30,10 @@ func _initialize_hearts() -> void:
 # if mob found in hitbox
 func _on_area_entered(area: Area2D) -> void:
 	var mob = area.get_parent()
-	mob.take_damage(damage, (mob.position - self.position).normalized())
+	var direction: Vector2 = (mob.position - self.position).normalized()
+	if direction == Vector2.ZERO:
+		direction = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()
+	mob.take_damage(damage, direction)
 	
 func remove_heart() -> void:
 	if hp_bar.get_child_count() > 0:
