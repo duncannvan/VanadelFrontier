@@ -1,17 +1,8 @@
-extends CharacterBody2D
+extends CombatEntityBase
 
-const SPEED = 100
 const INVINCIBILITY_TIME = 1
-const KNOCKBACK_MAGNITUDE = 200
-const KNOCKBACK_TIME = .1 
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-var attack_hitbox: Area2D
-
-@export var health = 100
 @export var is_invincible = false
-var knockback: Vector2 = Vector2.ZERO
-var is_knockback: bool = false
 
 const HEARTS_CONTAINER_PATH = '../Player/Hearts'
 var hearts_container: Container
@@ -24,34 +15,43 @@ func _initialize_hearts() -> void:
 		hearts_container.add_child(heart)
 
 func _ready() -> void:
+	# Constructor
+	speed = 100
+	damage = 50
+	sprite = $AnimatedSprite2D
+	hitbox = $Hitbox
+	hurtbox = $Hurtbox
+	
 	_initialize_hearts()
 	
-	attack_hitbox = $AttackHitbox
 	# Signals
-	attack_hitbox.body_entered.connect(_on_body_entered)
+	hitbox.area_entered.connect(_on_area_entered)
 	
-func _on_body_entered(body: Node2D) -> void:
-	body.take_damage(10, body.position - self.position)
+# if mob found in hitbox
+func _on_area_entered(area: Area2D) -> void:
+	var mob = area.get_parent()
+	mob.take_damage(damage, (mob.position - self.position).normalized())
 	
 func remove_heart() -> void:
 	if hearts_container.get_child_count() > 0:
 		hearts_container.get_child(-1).queue_free()
 
+# Turns on hitbox
 var attacking: bool = false
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack") and not attacking:
 		attacking = true
-		attack_hitbox.monitoring = true
-		attack_hitbox.visible = true
+		hitbox.monitoring = true
+		hitbox.visible = true
 		await get_tree().create_timer(.2).timeout
-		attack_hitbox.monitoring = false
-		attack_hitbox.visible = false
+		hitbox.monitoring = false
+		hitbox.visible = false
 		attacking = false
 		
 
 func _get_input() -> void:
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
-	velocity = direction * SPEED 
+	velocity = direction * speed 
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) >= abs(direction.y):
@@ -89,24 +89,11 @@ func _give_invincibility() -> void:
 	await get_tree().create_timer(INVINCIBILITY_TIME).timeout
 	is_invincible = false
 
-func _apply_knockback(knockback: Vector2):
-		is_knockback = true
-		velocity = knockback.normalized() * KNOCKBACK_MAGNITUDE
-
-		await get_tree().create_timer(KNOCKBACK_TIME).timeout
-		is_knockback = false
-		velocity = Vector2.ZERO
-		
-		#TODO: play knockback animation
-		sprite.stop()
-		
-func take_damage(amount: int, knockback: Vector2) -> void:
+func take_damage(damageAmount: int, knockbackDirection: Vector2 = Vector2.ZERO) -> void:
 	if not is_invincible:
-		health -= amount
-		remove_heart()
 		_blink_damage()
 		_give_invincibility()
-		_apply_knockback(knockback)
-		
+		remove_heart()
+		super.take_damage(damageAmount, knockbackDirection)	
 
 	

@@ -243,20 +243,29 @@ animation = &"down"
 speed_scale = 1.5
 offset = Vector2(-3, -5)
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 visible = false
 show_behind_parent = true
-collision_layer = 2
-collision_mask = 4
+collision_layer = 16
+collision_mask = 32
 monitoring = false
 
-[node name="Sprite2D" type="Sprite2D" parent="AttackHitbox"]
+[node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
 modulate = Color(1, 1, 1, 0.403922)
 rotation = 3.14159
 scale = Vector2(0.900651, 0.900651)
 texture = ExtResource("3_qhqgy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 show_behind_parent = true
 scale = Vector2(2.89789, 2.89789)
 shape = SubResource("CircleShape2D_dqkch")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+show_behind_parent = true
+collision_layer = 8
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_d2wvv")

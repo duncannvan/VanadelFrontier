@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=8 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://assets/sprites/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://scenes/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cx23fbehkvdub" path="res://scenes/slime.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlw2lj8r425o5" path="res://scenes/hearts.tscn" id="4_tbgi4"]
 
@@ -470,6 +471,7 @@ texture = ExtResource("1_0wfyh")
 sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_tbgi4")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(3, -3)

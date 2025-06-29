@@ -77,11 +77,20 @@ show_behind_parent = true
 position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_vnioy")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+show_behind_parent = true
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_vnioy")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 show_behind_parent = true
 position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_vnioy")
