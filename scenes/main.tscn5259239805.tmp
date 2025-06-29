@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://scenes/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cx23fbehkvdub" path="res://entities/enemies/slime/slime.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlw2lj8r425o5" path="res://ui/hp_bar/hearts.tscn" id="4_tbgi4"]
-[ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://scripts/player_camera.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://scenes/player_camera.gd" id="6_tefeu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_0wfyh")
@@ -487,11 +487,10 @@ zoom = Vector2(4, 4)
 script = ExtResource("6_tefeu")
 player = NodePath("../Player")
 
-[node name="Hearts" parent="PlayerCamera" instance=ExtResource("4_tbgi4")]
+[node name="Player" parent="." instance=ExtResource("1_o5qli")]
+
+[node name="Hearts" parent="Player" instance=ExtResource("4_tbgi4")]
 offset_left = -144.0
 offset_top = -81.0
 offset_right = -92.0
 offset_bottom = -78.0
-
-[node name="Player" parent="." node_paths=PackedStringArray("hp_bar") instance=ExtResource("1_o5qli")]
-hp_bar = NodePath("../PlayerCamera/Hearts")

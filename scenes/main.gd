@@ -1,7 +1,7 @@
 extends Node2D
 
 var slimes = []
-var slime_scene: PackedScene= preload("res://scenes/slime.tscn")
+var slime_scene: PackedScene= preload("res://entities/enemies/slime/slime.tscn")
 const SPAWN_TIMER = 2
 const MAX_SLIMES = 10
 

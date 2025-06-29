@@ -48,19 +48,13 @@ attack={
 
 [layer_names]
 
-2d_physics/layer_1="Environment"
+2d_physics/layer_1="Obstacles"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="Mob"
+2d_physics/layer_3="Mobs"
 2d_physics/layer_4="Player Hurtbox"
 2d_physics/layer_5="Player Hitbox"
 2d_physics/layer_6="Mob Hurtbox"
 2d_physics/layer_7="Mob Hitbox"
-
-[layer_names]
-
-2d_physics/layer_1="Obstacles"
-2d_physics/layer_2="Player"
-2d_physics/layer_3="Mobs"
 
 [rendering]
 

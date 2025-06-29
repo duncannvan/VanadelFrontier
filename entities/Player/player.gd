@@ -3,10 +3,8 @@ extends CombatEntityBase
 const INVINCIBILITY_TIME = 1
 
 @export var is_invincible = false
-
-const HEARTS_CONTAINER_PATH = '../Player/Hearts'
-var hearts_container: Container
-var heart_scene: Resource = preload('res://scenes/heart.tscn')
+@export var hp_bar: Container
+var heart_scene: Resource = preload('res://ui/hp_bar/heart.tscn')
 
 #TODO: Turn off attacking and move when dead
 
@@ -25,20 +23,18 @@ func _ready() -> void:
 	hitbox.area_entered.connect(_on_area_entered)
 	
 func _initialize_hearts() -> void:
-	hearts_container = get_node(HEARTS_CONTAINER_PATH)
 	for i in range(health/10):
 		var heart = heart_scene.instantiate()
-		hearts_container.add_child(heart)
+		hp_bar.add_child(heart)
 
-	
 # if mob found in hitbox
 func _on_area_entered(area: Area2D) -> void:
 	var mob = area.get_parent()
 	mob.take_damage(damage, (mob.position - self.position).normalized())
 	
 func remove_heart() -> void:
-	if hearts_container.get_child_count() > 0:
-		hearts_container.get_child(-1).queue_free()
+	if hp_bar.get_child_count() > 0:
+		hp_bar.get_child(-1).queue_free()
 
 # Turns on hitbox
 var attacking: bool = false
