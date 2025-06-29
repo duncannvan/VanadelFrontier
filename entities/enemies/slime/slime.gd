@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 	
 	var direction : Vector2 = (_player.position - position).normalized()
 	
-	if not 0:
+	if not is_knockback:
 		velocity = direction * _speed
 	
 	move_and_slide()
