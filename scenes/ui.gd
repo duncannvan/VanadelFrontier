@@ -6,10 +6,9 @@ extends CanvasLayer
 
 func _ready() -> void:
 	player.health_changed.connect(_on_health_changed)
-	_on_health_changed(player.health)
+	_on_health_changed(player._health)
 	
 func _on_health_changed(health: int) -> void:
-	print(health)
 	for child in hearts.get_children():
 		child.queue_free()
 

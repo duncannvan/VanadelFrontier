@@ -8,20 +8,21 @@ func _init(entityInfo: Dictionary) -> void:
 	_damage 	   = entityInfo.get("damage", 50)
 	_knockback_mag = entityInfo.get("knockback_mag", 200)
 	
-func _set_nodes(sprite: AnimatedSprite2D, hurtbox: Area2D, hitbox: Area2D):
+func _init_nodes(sprite: AnimatedSprite2D, hurtbox: Area2D, hitbox: Area2D, hurt_effects: GPUParticles2D = null):
 	assert(sprite and hurtbox and hitbox)
 	_sprite = sprite
 	_hurtbox = hurtbox
 	_hitbox = hitbox
+	_hurt_effects = hurt_effects
 
 # Apply knockback vector to entity for n seconds
 func _apply_knockback(knockbackDirection: Vector2) -> void:
 		is_knockback = true
 		if not knockbackDirection:
 			knockbackDirection = -Vector2.RIGHT.rotated(rotation) 
-			
-		print(knockbackDirection)
+		
 		velocity = knockbackDirection.normalized() * _knockback_mag
+		
 		await get_tree().create_timer(BLINK_TIME).timeout
 		velocity = Vector2.ZERO
 		is_knockback = false
@@ -37,11 +38,16 @@ func _blink_hurt() -> void:
 	
 # Damage handler 
 func _upon_hit(damageAmount: int, knockbackDirection: Vector2) -> void:
+	if _hurt_effects:
+		_hurt_effects.restart()
+		_hurt_effects.emitting = true
+
+	_apply_knockback(knockbackDirection)
+	_blink_hurt()
+	
 	_health -= damageAmount
 	if _health <= 0: 
 		_die()
-	_apply_knockback(knockbackDirection)
-	_blink_hurt()
 	
 # Death handler
 func _die() -> void:
@@ -67,6 +73,7 @@ var _knockback_mag: int
 var _sprite: AnimatedSprite2D
 var _hurtbox: Area2D
 var _hitbox: Area2D
+var _hurt_effects: GPUParticles2D
 var is_knockback = false
 # Constants
 const BLINK_TIME : float = .1 

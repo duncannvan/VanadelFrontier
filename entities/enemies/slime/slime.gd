@@ -13,9 +13,7 @@ func _init() -> void:
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:		
 	_player = get_node(PLAYER_PATH)
-	_set_nodes($AnimatedSprite2D, $Hitbox, $Hurtbox)
-	hurt_effects = $HurtEffects
-
+	_init_nodes($AnimatedSprite2D, $Hurtbox, $Hitbox, $HurtEffects)
 	
 	_sprite.animation = "bounce"
 	_sprite.play()
