@@ -12,7 +12,6 @@ func _init() -> void:
 	
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:		
-	_player = get_node(PLAYER_PATH)
 	_init_nodes($AnimatedSprite2D, $Hurtbox, $Hitbox, $HurtEffects)
 	
 	_sprite.animation = "bounce"
@@ -35,9 +34,9 @@ func _area_entered(enemy_hurtbox: HurtBox) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not _player: return
+	if not target: return
 	
-	var direction : Vector2 = (_player.position - position).normalized()
+	var direction : Vector2 = (target.position - position).normalized()
 	
 	if _state != States.KNOCKEDBACK:
 		velocity = direction * _speed
@@ -49,13 +48,15 @@ func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
 	await super.apply_knockback(knockbackDirection)
 	_state = States.MOVING
 
+
 enum States {MOVING, ATTACKING, KNOCKEDBACK}
 var _state: States = States.MOVING
-# Forward declaration. Character needs to exist before finding position
-var _player: Player 
 
 # Constants
 const DAMAGE_INTERVAL = 0.5
 const PLAYER_PATH: NodePath = "../Player"
+
+# Public members
+var target: Node2D = null
 
 	
