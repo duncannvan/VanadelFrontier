@@ -29,6 +29,7 @@ func _on_area_entered(enemy_hurtbox: HurtBox) -> void:
 
 # Turns on hitbox
 func _input(event: InputEvent) -> void:
+	if _is_state(States.DEAD): return
 	assert(_hitbox and _hurtbox)
 	if event.is_action_pressed("attack") and not _is_state(States.ATTACKING):
 		_add_state(States.ATTACKING)
@@ -58,6 +59,8 @@ func _get_input() -> void:
 
 			  
 func _physics_process(delta) -> void:
+	if _is_state(States.DEAD): return
+	
 	if not _is_state(States.KNOCKEDBACK):
 		_get_input()
 	move_and_slide()
@@ -81,7 +84,7 @@ func _give_invincibility() -> void:
 
 # Damage taken handler
 func take_damage(damageAmount: int) -> void:
-	if not _is_state(States.INVINCIBLE):
+	if not _is_state(States.INVINCIBLE) and not _is_state(States.DEAD):
 		_give_invincibility()
 		
 		super.take_damage(damageAmount)	
@@ -89,9 +92,18 @@ func take_damage(damageAmount: int) -> void:
 		health_changed.emit(_health) # updates gui
 		
 func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
-		_add_state(States.KNOCKEDBACK)
-		await super.apply_knockback(knockbackDirection)
-		_exit_state(States.KNOCKEDBACK)
+		if not _is_state(States.INVINCIBLE) and not _is_state(States.DEAD):
+			print('heyy')
+			_add_state(States.KNOCKEDBACK)
+			await super.apply_knockback(knockbackDirection)
+			_exit_state(States.KNOCKEDBACK)
+
+func die() -> void:
+	_set_state(States.DEAD)
+	super.die()
+	
+func _set_state(state: States) -> void:
+	_state = state
 
 func _add_state(state: States) -> void:
 	_state |= state
@@ -102,9 +114,9 @@ func _is_state(state: States) -> bool:
 func _exit_state(state: States) -> void :
 	_state &= ~state
 	
-enum States {IDLE = 0x1, WALKING = 0x2, ATTACKING = 0x4, KNOCKEDBACK = 0x8, INVINCIBLE = 0x10}
+enum States {IDLE = 0x1, WALKING = 0x2, ATTACKING = 0x4, KNOCKEDBACK = 0x8, INVINCIBLE = 0x10, DEAD = 0x20}
 	
-# Private members	
+# Private variables	
 var _state: States = States.IDLE
 
 # Constants

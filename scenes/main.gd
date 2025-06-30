@@ -1,9 +1,11 @@
 extends Node2D
 
 func _spawn_slimes() -> void:
-	while len(_slimes) <= MAX_SLIMES:
+	while len(_slimes) <= MAX_SLIMES and _player:
 		var slime = _slime_scene.instantiate()
+		
 		slime.target = _player
+
 		add_child(slime)
 		await get_tree().create_timer(SPAWN_TIMER).timeout
 		

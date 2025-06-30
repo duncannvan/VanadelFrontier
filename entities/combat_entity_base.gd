@@ -45,10 +45,10 @@ func take_damage(damageAmount: int) -> void:
 	
 	_health -= damageAmount
 	if _health <= 0: 
-		_die()
+		die()
 	
 # Death handler
-func _die() -> void:
+func die() -> void:
 	assert(_sprite and _hitbox and _hurtbox)
 	#TODO: Play death animation
 	_speed = 0
@@ -72,7 +72,8 @@ var _sprite: AnimatedSprite2D
 var _hurtbox: Area2D
 var _hitbox: Area2D
 var _hurt_effects: GPUParticles2D
+
 # Constants
 const BLINK_TIME : float = .1 
 const KNOCKBACK_DURATION: float = .1
-const TIME_BEFORE_DESPAWN : int = 2
+const TIME_BEFORE_DESPAWN : int = 5
