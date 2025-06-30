@@ -5,41 +5,30 @@ func _init() -> void:
 	var data: Dictionary = {
 							"health" = 30,
 							"speed" = 100,
-							"damage" = 50,
 							"knockback_force" = 200,
 							}
 	super._init(data)
 	
 # Handled when node enters the scence tree
 func _ready() -> void:
-	_init_nodes($AnimatedSprite2D, $Hurtbox, $Hitbox)
-	# Signals
-	assert(_hitbox)
-	_hitbox.area_entered.connect(_on_area_entered)
+	_init_nodes($AnimatedSprite2D, $HurtBox, $HitBox)
 
-# Combat entity detected in hitbox
-func _on_area_entered(enemy_hurtbox: HurtBox) -> void:
-	var mob = enemy_hurtbox.get_parent()
-	assert(mob)
-	var direction: Vector2 = (mob.position - self.position).normalized()
-	if direction == Vector2.ZERO:
-		direction = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()
-	mob.take_damage(_damage)
-	mob.apply_knockback(direction)
-
-# Turns on hitbox
 func _input(event: InputEvent) -> void:
 	if _is_state(States.DEAD): return
 	assert(_hitbox and _hurtbox)
 	if event.is_action_pressed("attack") and not _is_state(States.ATTACKING):
 		_add_state(States.ATTACKING)
 		_hitbox.on()
+		_hitbox.get_node("HitEffects").visible = true #TODO: Move into weapon script
 		await get_tree().create_timer(.2).timeout
+		_hitbox.get_node("HitEffects").visible = false
 		_hitbox.off()
 		_exit_state(States.ATTACKING)
 		
 # Get direction vector according to the input keys
 func _get_input() -> void:
+	if _is_state(States.DEAD): return
+	
 	assert(_sprite)
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
 	velocity = direction * _speed 
@@ -56,13 +45,11 @@ func _get_input() -> void:
 		_sprite.stop()
 		_add_state(States.IDLE)
 		_exit_state(States.WALKING)
-
 			  
 func _physics_process(delta) -> void:
-	if _is_state(States.DEAD): return
-	
 	if not _is_state(States.KNOCKEDBACK):
 		_get_input()
+		
 	move_and_slide()
 
 # Blink invincibility frames
@@ -83,28 +70,24 @@ func _give_invincibility() -> void:
 	_exit_state(States.INVINCIBLE)
 
 # Damage taken handler
-func take_damage(damageAmount: int) -> void:
-	if not _is_state(States.INVINCIBLE) and not _is_state(States.DEAD):
+func take_damage(damageAmount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
+	if not _is_state(States.DEAD) and not _is_state(States.INVINCIBLE):
+		apply_knockback(knockback_dir)
 		_give_invincibility()
-		
+
 		super.take_damage(damageAmount)	
 		
 		health_changed.emit(_health) # updates gui
 		
 func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
-		if not _is_state(States.INVINCIBLE) and not _is_state(States.DEAD):
-			print('heyy')
-			_add_state(States.KNOCKEDBACK)
-			await super.apply_knockback(knockbackDirection)
-			_exit_state(States.KNOCKEDBACK)
+	_add_state(States.KNOCKEDBACK)
+	await super.apply_knockback(knockbackDirection)
+	_exit_state(States.KNOCKEDBACK)
 
 func die() -> void:
-	_set_state(States.DEAD)
+	_add_state(States.DEAD)
 	super.die()
 	
-func _set_state(state: States) -> void:
-	_state = state
-
 func _add_state(state: States) -> void:
 	_state |= state
 
@@ -123,5 +106,3 @@ var _state: States = States.IDLE
 const INVINCIBILITY_TIME = 1
 const NUM_HEALTH_PER_HEART = 10
 signal health_changed(health: int)
-
-#TODO: Turn off attacking and move when dead

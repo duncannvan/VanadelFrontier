@@ -489,6 +489,13 @@ zoom = Vector2(4, 4)
 script = ExtResource("6_tefeu")
 player = NodePath("../Player")
 
-[node name="UI" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("6_o6xl0")]
-_player = NodePath("../Player")
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HealthUI" parent="UI" node_paths=PackedStringArray("_player") instance=ExtResource("6_o6xl0")]
+_player = NodePath("../../Player")
 _heart_scene = ExtResource("8_tipki")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

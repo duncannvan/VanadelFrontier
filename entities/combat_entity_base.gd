@@ -5,7 +5,6 @@ func _init(entityInfo: Dictionary) -> void:
 	#Set member variables and defaults
 	_health 	   = entityInfo.get("health", 100)
 	_speed 		   = entityInfo.get("speed", 100)
-	_damage 	   = entityInfo.get("damage", 50)
 	knockback_force = entityInfo.get("knockback_force", 200)
 	
 func _init_nodes(sprite: AnimatedSprite2D, hurtbox: HurtBox, hitbox: HitBox, hurt_effects: GPUParticles2D = null):
@@ -15,18 +14,6 @@ func _init_nodes(sprite: AnimatedSprite2D, hurtbox: HurtBox, hitbox: HitBox, hur
 	_hitbox = hitbox
 	_hurt_effects = hurt_effects
 
-# Apply knockback vector to this entity for n seconds
-func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
-#		# knockback opposite of facing direction
-		if not knockbackDirection:
-			knockbackDirection = -Vector2.RIGHT.rotated(rotation) 
-		
-		velocity = knockbackDirection.normalized() * knockback_force
-		
-		await get_tree().create_timer(KNOCKBACK_DURATION).timeout
-		velocity = Vector2.ZERO
-		#TODO: play knockback animation
-
 # Blink the entity to represent damage taken
 func _blink_hurt() -> void:
 	assert(_sprite)
@@ -35,8 +22,19 @@ func _blink_hurt() -> void:
 	_sprite.modulate = Color(1, 1, 1) 
 	await get_tree().create_timer(BLINK_TIME).timeout
 	
+	# Apply knockback vector to this entity for n seconds 
+func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
+#		# knockback opposite of facing direction
+		if not knockbackDirection:
+			knockbackDirection = -Vector2.RIGHT.rotated(rotation) 
+		
+		velocity = knockbackDirection.normalized() * knockback_force
+		await get_tree().create_timer(KNOCKBACK_DURATION).timeout
+		velocity = Vector2.ZERO
+		#TODO: play knockback animation
+		
 # Damage handler 
-func take_damage(damageAmount: int) -> void:
+func take_damage(damageAmount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
 	if _hurt_effects:
 		_hurt_effects.restart()
 		_hurt_effects.emitting = true
@@ -53,14 +51,11 @@ func die() -> void:
 	#TODO: Play death animation
 	_speed = 0
 	_sprite.stop()
-	_hitbox.monitoring = false
-	_hurtbox.set_deferred("monitorable", false) #Cannot update physic componement mid processing so wait until frame is complete to update
 	
-	if _sprite.sprite_frames.has_animation("dead"):
-		_sprite.play("dead")
+	_hurtbox.off()
+	_hitbox.off() # turn off body hitbox for mobs
 	
 	await get_tree().create_timer(TIME_BEFORE_DESPAWN).timeout
-	
 	self.queue_free()
 	
 # Private members
@@ -76,4 +71,4 @@ var _hurt_effects: GPUParticles2D
 # Constants
 const BLINK_TIME : float = .1 
 const KNOCKBACK_DURATION: float = .1
-const TIME_BEFORE_DESPAWN : int = 5
+const TIME_BEFORE_DESPAWN : int = 3

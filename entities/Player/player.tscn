@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://entities/player/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cbetiiavj1c80" path="res://assets/sprites/character.png" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://scripts/hitbox.gd" id="3_fkugw"]
 [ext_resource type="Texture2D" uid="uid://ds6keo5tbk1v2" path="res://assets/sprites/hitbox.png" id="3_qhqgy"]
-[ext_resource type="PackedScene" uid="uid://c5n7q270v6st3" path="res://scenes/hitbox.tscn" id="4_8fjmc"]
-[ext_resource type="PackedScene" uid="uid://oquuv1y64gin" path="res://scenes/hurtbox.tscn" id="4_fkugw"]
+[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://scripts/hurtbox.gd" id="5_8fjmc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
 size = Vector2(10, 9.5)
@@ -228,11 +228,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bls4j"]
-size = Vector2(10, 7)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_qiwj3"]
 radius = 32.0156
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bls4j"]
+size = Vector2(10, 7.5)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -249,27 +249,29 @@ animation = &"down"
 speed_scale = 1.5
 offset = Vector2(-3, -5)
 
-[node name="Hurtbox" parent="." instance=ExtResource("4_fkugw")]
-show_behind_parent = true
-collision_layer = 8
-collision_mask = 68
-
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(0, 8.5)
-shape = SubResource("RectangleShape2D_bls4j")
-
-[node name="Hitbox" parent="." instance=ExtResource("4_8fjmc")]
+[node name="HitBox" type="Area2D" parent="."]
 show_behind_parent = true
 collision_layer = 16
 collision_mask = 32
-monitoring = false
+script = ExtResource("3_fkugw")
+damage = 50
+metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
-[node name="CollisionShape2D" parent="Hitbox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_qiwj3")
+disabled = true
 
-[node name="HitEffects" parent="Hitbox" index="1"]
+[node name="HitEffects" type="Sprite2D" parent="HitBox"]
+visible = false
 modulate = Color(1, 1, 1, 0.392157)
 texture = ExtResource("3_qhqgy")
 
-[editable path="Hurtbox"]
-[editable path="Hitbox"]
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 64
+script = ExtResource("5_8fjmc")
+metadata/_custom_type_script = "uid://63sbpv1faiyx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 8.25)
+shape = SubResource("RectangleShape2D_bls4j")

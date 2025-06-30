@@ -12,25 +12,10 @@ func _init() -> void:
 	
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:		
-	_init_nodes($AnimatedSprite2D, $Hurtbox, $Hitbox, $HurtEffects)
+	_init_nodes($AnimatedSprite2D, $HurtBox, $HitBox, $HurtEffects)
 	
 	_sprite.animation = "bounce"
 	_sprite.play()
-	
-	# Signals
-	_hitbox.area_entered.connect(_area_entered)
-	_hitbox.area_exited.connect(_area_exited)
-	
-func _area_exited(enemy_hurtbox: HurtBox) -> void:
-	_state = States.MOVING
-	
-func _area_entered(enemy_hurtbox: HurtBox) -> void:
-	var player: CharacterBody2D = enemy_hurtbox.get_parent()
-	_state = States.ATTACKING
-	while _state == States.ATTACKING:
-		player.take_damage(_damage)
-		player.apply_knockback(velocity.normalized())
-		await get_tree().create_timer(DAMAGE_INTERVAL).timeout
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -42,6 +27,10 @@ func _process(delta: float) -> void:
 		velocity = direction * _speed
 	
 	move_and_slide()
+	
+func take_damage(damageAmount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
+	apply_knockback(knockback_dir)
+	super.take_damage(damageAmount, knockback_dir)
 	
 func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
 	_state = States.KNOCKEDBACK
