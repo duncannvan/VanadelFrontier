@@ -6,7 +6,7 @@ func _init() -> void:
 							"health" = 100,
 							"speed" = 50,
 							"damage" = 10,
-							"knockback_mag" = 200,
+							"knockback_force" = 200,
 							}
 	super._init(data)
 	
@@ -22,14 +22,15 @@ func _ready() -> void:
 	_hitbox.area_entered.connect(_area_entered)
 	_hitbox.area_exited.connect(_area_exited)
 	
-func _area_exited(area: Area2D) -> void:
+func _area_exited(enemy_hurtbox: HurtBox) -> void:
 	_state = States.MOVING
 	
-func _area_entered(area: Area2D) -> void:
-	var playerArea2D: CharacterBody2D = area.get_parent()
+func _area_entered(enemy_hurtbox: HurtBox) -> void:
+	var player: CharacterBody2D = enemy_hurtbox.get_parent()
 	_state = States.ATTACKING
 	while _state == States.ATTACKING:
-		playerArea2D._upon_hit(_damage, velocity.normalized())
+		player.take_damage(_damage)
+		player.apply_knockback(velocity.normalized())
 		await get_tree().create_timer(DAMAGE_INTERVAL).timeout
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,12 +39,17 @@ func _process(delta: float) -> void:
 	
 	var direction : Vector2 = (_player.position - position).normalized()
 	
-	if not is_knockback:
+	if _state != States.KNOCKEDBACK:
 		velocity = direction * _speed
 	
 	move_and_slide()
+	
+func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
+	_state = States.KNOCKEDBACK
+	await super.apply_knockback(knockbackDirection)
+	_state = States.MOVING
 
-enum States {MOVING, ATTACKING}
+enum States {MOVING, ATTACKING, KNOCKEDBACK}
 var _state: States = States.MOVING
 # Forward declaration. Character needs to exist before finding position
 var _player: Player 

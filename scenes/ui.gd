@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@export var player: CharacterBody2D
+@export var player: Player
 @onready var hearts: Container = $Hearts
 @export var heart_scene: PackedScene
 

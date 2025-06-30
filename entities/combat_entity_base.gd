@@ -6,26 +6,25 @@ func _init(entityInfo: Dictionary) -> void:
 	_health 	   = entityInfo.get("health", 100)
 	_speed 		   = entityInfo.get("speed", 100)
 	_damage 	   = entityInfo.get("damage", 50)
-	_knockback_mag = entityInfo.get("knockback_mag", 200)
+	knockback_force = entityInfo.get("knockback_force", 200)
 	
-func _init_nodes(sprite: AnimatedSprite2D, hurtbox: Area2D, hitbox: Area2D, hurt_effects: GPUParticles2D = null):
+func _init_nodes(sprite: AnimatedSprite2D, hurtbox: HurtBox, hitbox: HitBox, hurt_effects: GPUParticles2D = null):
 	assert(sprite and hurtbox and hitbox)
 	_sprite = sprite
 	_hurtbox = hurtbox
 	_hitbox = hitbox
 	_hurt_effects = hurt_effects
 
-# Apply knockback vector to entity for n seconds
-func _apply_knockback(knockbackDirection: Vector2) -> void:
-		is_knockback = true
+# Apply knockback vector to this entity for n seconds
+func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
+#		# knockback opposite of facing direction
 		if not knockbackDirection:
 			knockbackDirection = -Vector2.RIGHT.rotated(rotation) 
 		
-		velocity = knockbackDirection.normalized() * _knockback_mag
+		velocity = knockbackDirection.normalized() * knockback_force
 		
-		await get_tree().create_timer(BLINK_TIME).timeout
+		await get_tree().create_timer(KNOCKBACK_DURATION).timeout
 		velocity = Vector2.ZERO
-		is_knockback = false
 		#TODO: play knockback animation
 
 # Blink the entity to represent damage taken
@@ -37,12 +36,11 @@ func _blink_hurt() -> void:
 	await get_tree().create_timer(BLINK_TIME).timeout
 	
 # Damage handler 
-func _upon_hit(damageAmount: int, knockbackDirection: Vector2) -> void:
+func take_damage(damageAmount: int) -> void:
 	if _hurt_effects:
 		_hurt_effects.restart()
 		_hurt_effects.emitting = true
 
-	_apply_knockback(knockbackDirection)
 	_blink_hurt()
 	
 	_health -= damageAmount
@@ -69,12 +67,12 @@ func _die() -> void:
 var _health: int
 var _speed: int
 var _damage: int
-var _knockback_mag: int
+var knockback_force: int
 var _sprite: AnimatedSprite2D
 var _hurtbox: Area2D
 var _hitbox: Area2D
 var _hurt_effects: GPUParticles2D
-var is_knockback = false
 # Constants
 const BLINK_TIME : float = .1 
+const KNOCKBACK_DURATION: float = .1
 const TIME_BEFORE_DESPAWN : int = 2
