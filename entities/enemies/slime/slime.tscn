@@ -81,7 +81,7 @@ collision_layer = 68
 script = ExtResource("1_p2gj0")
 metadata/_edit_group_ = true
 
-[node name="SlimeSprite" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0l8pv")
 animation = &"bounce"
 
