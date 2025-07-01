@@ -5,5 +5,5 @@
 [node name="Heart" type="TextureRect"]
 offset_right = 16.0
 offset_bottom = 16.0
-scale = Vector2(2.37453, 2.37453)
+scale = Vector2(0.719982, 0.719982)
 texture = ExtResource("1_v23yl")

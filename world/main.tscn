@@ -484,10 +484,9 @@ tile_map_data = PackedByteArray("AAD9/wEAAwABAAEAAAD+/wEAAwABAAEAAAD//wEAAwABAAE
 tile_set = SubResource("TileSet_jyhfs")
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
-position = Vector2(104, 49)
+position = Vector2(-1, 105)
 
 [node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
-zoom = Vector2(4, 4)
 script = ExtResource("6_tefeu")
 player = NodePath("../Player")
 
