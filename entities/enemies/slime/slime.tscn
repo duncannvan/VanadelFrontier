@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=19 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://assets/sprites/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://cln361r7usbwc" path="res://entities/enemies/slime/slime.gd" id="1_p2gj0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://scripts/hurtbox.gd" id="4_vwks7"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://scripts/hitbox.gd" id="5_0bfvh"]
 [ext_resource type="PackedScene" uid="uid://d82txrmy6xth" path="res://entities/enemies/slime/slime_death_effect.tscn" id="6_0bfvh"]
+[ext_resource type="Script" uid="uid://bl4821tdwipuv" path="res://scripts/aggro_range.gd" id="7_lcogp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2gj0"]
 atlas = ExtResource("1_371uh")
@@ -124,3 +125,14 @@ metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 shape = SubResource("CircleShape2D_spiil")
 
 [node name="SlimeDeathEffect" parent="." instance=ExtResource("6_0bfvh")]
+
+[node name="AggroRange" type="Area2D" parent="."]
+scale = Vector2(1.65661, 1.65661)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_lcogp")
+metadata/_custom_type_script = "uid://bl4821tdwipuv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+scale = Vector2(4.39725, 4.39725)
+shape = SubResource("CircleShape2D_spiil")

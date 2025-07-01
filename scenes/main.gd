@@ -1,14 +1,13 @@
 extends Node2D
 
-
 func _on_timer_timeout() -> void:
 	if _count >= MAX_SLIMES:
 		return
-	if not _player:
-		$Timer.stop()
 	
 	var slime: Slime = _slime_scene.instantiate()
-	slime.target = _player
+	slime.base_target = _base
+	slime.current_target = _base
+	
 	add_child(slime)
 	_count += 1
 	
@@ -20,6 +19,9 @@ func _on_slime_removed():
 	
 # Private members
 @export var _player: Player
+@export var _base: Node2D
+
+
 var _count: int = 0 
 var _slime_scene: PackedScene= preload("res://entities/enemies/slime/slime.tscn")
 
