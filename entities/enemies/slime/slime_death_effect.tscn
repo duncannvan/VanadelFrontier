@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://d82txrmy6xth"]
+
+[ext_resource type="Texture2D" uid="uid://54af4f2n8dcn" path="res://assets/sprites/slime_hurt_particle.png" id="1_yvnty"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mmb43"]
+particle_flag_disable_z = true
+velocity_pivot = Vector3(0, 1, 0)
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 150, 0)
+scale_min = 0.85
+scale_max = 0.85
+
+[node name="SlimeDeathEffect" type="GPUParticles2D"]
+modulate = Color(0.34902, 0.756863, 0.207843, 1)
+show_behind_parent = true
+emitting = false
+amount = 5
+texture = ExtResource("1_yvnty")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_mmb43")

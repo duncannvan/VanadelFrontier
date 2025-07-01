@@ -7,22 +7,21 @@ func _init(entityInfo: Dictionary) -> void:
 	_speed 		   = entityInfo.get("speed", 100)
 	knockback_force = entityInfo.get("knockback_force", 200)
 	
-func _init_nodes(sprite: AnimatedSprite2D, hurtbox: HurtBox, hitbox: HitBox, hurt_effects: GPUParticles2D = null):
+func _init_nodes(sprite: AnimatedSprite2D, hurtbox: HurtBox, hitbox: HitBox):
 	assert(sprite and hurtbox and hitbox)
 	_sprite = sprite
 	_hurtbox = hurtbox
 	_hitbox = hitbox
-	_hurt_effects = hurt_effects
 
 # Blink the entity to represent damage taken
-func _blink_hurt() -> void:
+func hurt_effects(color: Color = Color.WHITE) -> void:
 	assert(_sprite)
 	_sprite.modulate = Color(10,10,10,10)
 	await get_tree().create_timer(BLINK_TIME).timeout
 	_sprite.modulate = Color(1, 1, 1) 
 	await get_tree().create_timer(BLINK_TIME).timeout
 	
-	# Apply knockback vector to this entity for n seconds 
+# Apply knockback vector to this entity for n seconds 
 func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
 #		# knockback opposite of facing direction
 		if not knockbackDirection:
@@ -35,28 +34,27 @@ func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
 		
 # Damage handler 
 func take_damage(damageAmount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
-	if _hurt_effects:
-		_hurt_effects.restart()
-		_hurt_effects.emitting = true
-
-	_blink_hurt()
+	hurt_effects()
 	
 	_health -= damageAmount
 	if _health <= 0: 
 		die()
+		
+# Virtual method
+func on_death():
+	pass
 	
 # Death handler
 func die() -> void:
+	on_death()
 	assert(_sprite and _hitbox and _hurtbox)
-	#TODO: Play death animation
 	_speed = 0
 	_sprite.stop()
 	
 	_hurtbox.off()
 	_hitbox.off() # turn off body hitbox for mobs
 	
-	await get_tree().create_timer(TIME_BEFORE_DESPAWN).timeout
-	self.queue_free()
+	queue_free()
 	
 # Private members
 var _health: int
@@ -66,7 +64,6 @@ var knockback_force: int
 var _sprite: AnimatedSprite2D
 var _hurtbox: Area2D
 var _hitbox: Area2D
-var _hurt_effects: GPUParticles2D
 
 # Constants
 const BLINK_TIME : float = .1 

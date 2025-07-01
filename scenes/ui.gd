@@ -14,6 +14,6 @@ func _on_health_changed(health: int) -> void:
 
 # Private members
 @export var _player: Player
-@onready var _heart_container: Container = $HeartContainer
+@onready var _heart_container: Container = $MarginContainer/HeartContainer
 @export var _heart_scene: PackedScene
 		

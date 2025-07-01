@@ -12,7 +12,7 @@ func _init() -> void:
 	
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:		
-	_init_nodes($AnimatedSprite2D, $HurtBox, $HitBox, $HurtEffects)
+	_init_nodes($AnimatedSprite2D, $HurtBox, $HitBox)
 	
 	_sprite.animation = "bounce"
 	_sprite.play()
@@ -27,6 +27,17 @@ func _process(delta: float) -> void:
 		velocity = direction * _speed
 	
 	move_and_slide()
+	
+func hurt_effects(color: Color = Color.WHITE):
+	$HurtEffects.restart()
+	$HurtEffects.emitting = true
+	super.hurt_effects()
+	
+func on_death():
+	var slime_death_effect_instance: GPUParticles2D = slime_death_effect.instantiate()
+	slime_death_effect_instance.global_position = global_position
+	get_parent().add_child(slime_death_effect_instance)
+	slime_death_effect_instance.emitting = true
 	
 func take_damage(damageAmount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
 	apply_knockback(knockback_dir)
@@ -47,5 +58,6 @@ const PLAYER_PATH: NodePath = "../Player"
 
 # Public members
 var target: Node2D = null
+@export var slime_death_effect: PackedScene
 
 	

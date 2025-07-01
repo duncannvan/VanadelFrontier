@@ -1,16 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl4k1gietd5kd"]
+[gd_scene load_steps=4 format=3 uid="uid://cl4k1gietd5kd"]
 
 [ext_resource type="PackedScene" uid="uid://dlw2lj8r425o5" path="res://ui/hp_bar/hearts.tscn" id="1_x4jx1"]
 [ext_resource type="Script" uid="uid://co8wvck2spd4t" path="res://scenes/ui.gd" id="1_yev5y"]
+[ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://ui/hp_bar/heart.tscn" id="3_yev5y"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_yev5y")
 
-[node name="HeartContainer" parent="." instance=ExtResource("1_x4jx1")]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 5.0
-offset_bottom = 5.0
-scale = Vector2(2.71291, 3.6513)
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 16.0
+offset_bottom = 16.0
+scale = Vector2(1.94757, 2.03825)
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+
+[node name="HeartContainer" parent="MarginContainer" instance=ExtResource("1_x4jx1")]
+layout_mode = 2
+
+[node name="Heart" parent="MarginContainer/HeartContainer" instance=ExtResource("3_yev5y")]
+layout_mode = 2
