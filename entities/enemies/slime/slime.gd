@@ -1,5 +1,20 @@
 class_name Slime extends CombatEntityBase
 
+enum States {
+	MOVING, 
+	ATTACKING, 
+	KNOCKEDBACK
+	}
+
+const DAMAGE_INTERVAL: float = 0.5
+const PLAYER_PATH: NodePath = "../Player"
+
+@export var slime_death_effect: PackedScene
+
+var current_target: Node2D
+var base_target: Node2D 
+var _state: States = States.MOVING
+
 # Constructor
 func _init() -> void:
 	var data: Dictionary = {
@@ -10,14 +25,14 @@ func _init() -> void:
 		}
 	super._init(data)
 	
-# Called when the node enters the scene tree for the first time
+	
 func _ready() -> void:
-	_init_nodes($AnimatedSprite2D, $HurtBox, $HitBox)
+	_init_nodes($AnimatedSprite2D, $HurtBox)
 	
 	_sprite.animation = "bounce"
 	_sprite.play()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	if not current_target: return
 	
@@ -28,38 +43,35 @@ func _process(delta: float) -> void:
 	
 	move_and_slide()
 	
-func hurt_effects(color: Color = Color.WHITE):
+	
+func _hurt_effects(color := Color.WHITE):
 	$HurtEffects.restart()
 	$HurtEffects.emitting = true
-	super.hurt_effects()
+	super._hurt_effects()
 	
-func on_death():
+	
+func _on_death():
 	$AggroRange.off()
+	$BodyHitBox.off()
+	
+	# Slime death effect
 	var slime_death_effect_instance: GPUParticles2D = slime_death_effect.instantiate()
 	slime_death_effect_instance.global_position = global_position
 	get_parent().add_child(slime_death_effect_instance)
 	slime_death_effect_instance.emitting = true
 	
-func take_damage(damageAmount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
-	apply_knockback(knockback_dir)
+	
+func take_damage(damageAmount: int, knockback_dir := Vector2.ZERO) -> void:
+	_apply_knockback(knockback_dir)
 	super.take_damage(damageAmount, knockback_dir)
 	
-func apply_knockback(knockbackDirection: Vector2 = Vector2.ZERO) -> void:
+	
+func _apply_knockback(knockbackDirection := Vector2.ZERO) -> void:
 	_state = States.KNOCKEDBACK
-	await super.apply_knockback(knockbackDirection)
+	await super._apply_knockback(knockbackDirection)
 	_state = States.MOVING
 
 
-enum States {MOVING, ATTACKING, KNOCKEDBACK}
-var _state: States = States.MOVING
 
-# Constants
-const DAMAGE_INTERVAL = 0.5
-const PLAYER_PATH: NodePath = "../Player"
-
-# Public members
-var current_target: Node2D
-var base_target: Node2D 
-@export var slime_death_effect: PackedScene
 
 	

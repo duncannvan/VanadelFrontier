@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cl4k1gietd5kd"]
 
 [ext_resource type="PackedScene" uid="uid://dlw2lj8r425o5" path="res://ui/hp_bar/hearts.tscn" id="1_x4jx1"]
-[ext_resource type="Script" uid="uid://co8wvck2spd4t" path="res://scenes/ui.gd" id="1_yev5y"]
+[ext_resource type="Script" uid="uid://co8wvck2spd4t" path="res://ui/ui.gd" id="1_yev5y"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
