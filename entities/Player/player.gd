@@ -31,6 +31,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	var _hitbox = $HitBox
 	if _is_state(States.DEAD): return
 	assert(_hitbox and _hurtbox)
 	if event.is_action_pressed("attack") and not _is_state(States.ATTACKING):
