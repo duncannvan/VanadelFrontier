@@ -21,9 +21,8 @@ func _on_area_exited(hurtbox: HurtBox) -> void:
 	player_in_body_hitbox = false
 
 func on() -> void:
+	
 	self.get_node("CollisionShape2D").set_deferred("disabled", false)
-	#self.get_node("HitEffects").visible = true
 	
 func off() -> void:
 	self.get_node("CollisionShape2D").set_deferred("disabled", true)
-	#self.get_node("HitEffects").visible = false

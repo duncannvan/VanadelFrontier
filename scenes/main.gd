@@ -4,6 +4,8 @@ extends Node2D
 func _on_timer_timeout() -> void:
 	if _count >= MAX_SLIMES:
 		return
+	if not _player:
+		$Timer.stop()
 	
 	var slime: Slime = _slime_scene.instantiate()
 	slime.target = _player
