@@ -14,7 +14,7 @@ func _on_timer_timeout() -> void:
 	if _count >= MAX_SLIMES:
 		return
 	
-	var slime: Slime = _slime_scene.instantiate()
+	var slime: Mob = _slime_scene.instantiate()
 	slime.base_target = _base
 	slime.current_target = _base
 	

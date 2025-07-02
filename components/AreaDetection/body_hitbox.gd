@@ -8,7 +8,6 @@ func _ready() -> void:
 
 
 func _on_area_entered(hurtbox: HurtBox) -> void:
-	pass
 	# DOT if player stays in body hitbox
 	var player: CharacterBody2D = hurtbox.get_parent()
 	var knockback_direction = -player.facing_direction 

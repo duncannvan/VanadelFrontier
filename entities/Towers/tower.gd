@@ -1,17 +1,10 @@
 class_name Tower extends StaticBody2D
 
-enum State {
-	READY, 
-	RELOADING,
-	}
-
-@export var cooldown: float = 3.0
+@export var _shoot_timer: Timer
+@export var _aggro_range: Area2D
 @export var projectile_scene: PackedScene
 
 var _current_target: CombatUnit = null
-
-@onready var _shoot_timer = $ShootTimer
-@onready var _aggro_range = $AggroRange
 
 
 func _ready() -> void:
@@ -39,6 +32,7 @@ func _on_shoot_timer_timeout() -> void:
 func _spawn_projectile() -> void:
 	var projectile = projectile_scene.instantiate()
 	projectile.global_position = global_position
+	projectile.look_at(_current_target.position)
 	projectile.target = _current_target
 	get_parent().add_child(projectile)
 	

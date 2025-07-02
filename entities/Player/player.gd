@@ -20,9 +20,6 @@ var facing_direction := Vector2.DOWN
 
 @onready var _hitbox = $HitBox
 
-#func _ready() -> void:
-	#_init_nodes($AnimatedSprite2D, $HurtBox)
-
  
 func _physics_process(delta) -> void:
 	#if not _is_state(State.KNOCKEDBACK):

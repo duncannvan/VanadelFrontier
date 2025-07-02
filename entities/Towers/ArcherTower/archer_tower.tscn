@@ -10,9 +10,11 @@ size = Vector2(22, 11)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rjvqp"]
 radius = 69.0072
 
-[node name="ArcherTower" type="StaticBody2D"]
+[node name="ArcherTower" type="StaticBody2D" node_paths=PackedStringArray("_shoot_timer", "_aggro_range")]
 collision_mask = 0
 script = ExtResource("1_p1euq")
+_shoot_timer = NodePath("ShootTimer")
+_aggro_range = NodePath("AggroRange")
 projectile_scene = ExtResource("2_1bov1")
 metadata/_custom_type_script = "uid://r83sr74eop47"
 
