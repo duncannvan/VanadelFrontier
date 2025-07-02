@@ -1,22 +1,23 @@
 class_name BodyHitbox extends HitBox
 
-var player_in_body_hitbox: bool = false
+const DAMAGE_INTERVAL: float = 0.5
 
 
 func _ready() -> void:
 	connect("area_entered", _on_area_entered)
-	connect("area_exited", _on_area_exited)
 
 
 func _on_area_entered(hurtbox: HurtBox) -> void:
+	pass
 	# DOT if player stays in body hitbox
-	if body_hitbox:
-		var player: CharacterBody2D = hurtbox.get_parent()
-		player_in_body_hitbox = true
-		while player_in_body_hitbox:
-			player.take_damage(damage)
-			await get_tree().create_timer(DAMAGE_INTERVAL).timeout
-
-
-func _on_area_exited(hurtbox: HurtBox) -> void:
-	player_in_body_hitbox = false
+	var player: CharacterBody2D = hurtbox.get_parent()
+	var knockback_direction = -player.facing_direction 
+	var knockback_vector = knockback_direction * knockback_force
+	
+	while has_overlapping_areas():
+		player.take_damage(
+			damage, 
+			knockback_vector,
+			knockback_duration
+			)
+		await get_tree().create_timer(DAMAGE_INTERVAL).timeout

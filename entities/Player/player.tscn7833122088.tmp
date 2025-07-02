@@ -254,6 +254,8 @@ show_behind_parent = true
 collision_layer = 16
 collision_mask = 32
 script = ExtResource("3_fkugw")
+damage = 50
+knockback_duration = 0.5
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]

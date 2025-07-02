@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://54af4f2n8dcn"
-path="res://.godot/imported/slime_hurt_particle.png-9d819ede4e96d907bfb92b6777b86727.ctex"
+uid="uid://wx5dbofehrwp"
+path="res://.godot/imported/arrow.png-bbd335070bdf81e88eb62bb6c396cfe3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/slime_hurt_particle.png"
-dest_files=["res://.godot/imported/slime_hurt_particle.png-9d819ede4e96d907bfb92b6777b86727.ctex"]
+source_file="res://Assets/Sprites/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-bbd335070bdf81e88eb62bb6c396cfe3.ctex"]
 
 [params]
 

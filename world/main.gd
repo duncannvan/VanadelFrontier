@@ -26,4 +26,3 @@ func _on_timer_timeout() -> void:
 
 func _on_slime_removed():
 	_count -= 1
-	

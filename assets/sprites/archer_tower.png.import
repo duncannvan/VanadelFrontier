@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://54af4f2n8dcn"
-path="res://.godot/imported/slime_hurt_particle.png-9d819ede4e96d907bfb92b6777b86727.ctex"
+uid="uid://codrmtt2grqt1"
+path="res://.godot/imported/archer_tower.png-84fe4667dd36e592199583dc6280f27f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/slime_hurt_particle.png"
-dest_files=["res://.godot/imported/slime_hurt_particle.png-9d819ede4e96d907bfb92b6777b86727.ctex"]
+source_file="res://Assets/Sprites/archer_tower.png"
+dest_files=["res://.godot/imported/archer_tower.png-84fe4667dd36e592199583dc6280f27f.ctex"]
 
 [params]
 

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbn3u2nduf6g3"]
+
+[ext_resource type="Script" uid="uid://8wqdysh14oxj" path="res://Components/AreaDetection/projectile.gd" id="1_nkmf2"]
+[ext_resource type="Texture2D" uid="uid://wx5dbofehrwp" path="res://Assets/Sprites/arrow.png" id="2_3wm2j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ysdnu"]
+size = Vector2(3, 11)
+
+[node name="ArcherProjectile" type="Area2D"]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("1_nkmf2")
+damage = 50
+metadata/_custom_type_script = "uid://8wqdysh14oxj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3wm2j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_ysdnu")

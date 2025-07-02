@@ -1,14 +1,12 @@
 class_name HitBox extends Area2D
 
-const DAMAGE_INTERVAL: float = 0.5
-
-@export var damage = 10
-@export var body_hitbox: bool = false
-
+@export var damage: int = 10
+@export var knockback_force: int = 200
+@export var knockback_duration: float = 0.2
 
 func on() -> void:	
-	self.get_node("CollisionShape2D").set_deferred("disabled", false)
-	
-	
+	$CollisionShape2D.set_deferred("disabled", false)
+
+
 func off() -> void:
-	self.get_node("CollisionShape2D").set_deferred("disabled", true)
+	$CollisionShape2D.set_deferred("disabled", true)
