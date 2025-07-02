@@ -4,7 +4,7 @@ enum State {
 	MOVING, 
 	ATTACKING, 
 	KNOCKEDBACK
-	}
+}
 
 const PLAYER_PATH: NodePath = "../Player"
 
@@ -19,15 +19,15 @@ var _state: State = State.MOVING
 # Constructor
 #func _init() -> void:
 	#var data: Dictionary = {
-		#"health" = 100,
+		#"max_health" = 100,
 		#"speed" = 50,
-		#"knockback_force" = 200,
 		#}
 	#super._init(data)
 
 
 func _ready() -> void:
-	_init_nodes($AnimatedSprite2D, $HurtBox)
+	super()
+	_check_nodes()
 	
 	_sprite.animation = "bounce"
 	_sprite.play()
@@ -37,10 +37,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not current_target: return
+	if not current_target or not entity_data: return
 	var direction : Vector2 = (current_target.global_position - global_position).normalized()
 	if _state != State.KNOCKEDBACK:
-		velocity = direction * speed
+		velocity = direction * _speed
 	
 	move_and_slide()
 

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EntityStats" load_steps=2 format=3 uid="uid://dc3f7o3eovhjl"]
+
+[ext_resource type="Script" uid="uid://788pniifmi5m" path="res://Entities/entity_stats.gd" id="1_ncv4v"]
+
+[resource]
+script = ExtResource("1_ncv4v")
+max_health = 100
+speed = 50

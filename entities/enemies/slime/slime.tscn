@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=19 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
-[ext_resource type="Script" uid="uid://cln361r7usbwc" path="res://Entities/Enemies/slime/slime.gd" id="1_p2gj0"]
+[ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/Slime/slime.gd" id="1_p2gj0"]
+[ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://Entities/Enemies/Slime/slime_stats.tres" id="2_fg4mt"]
 [ext_resource type="Texture2D" uid="uid://54af4f2n8dcn" path="res://Assets/Sprites/slime_hurt_particle.png" id="3_xh4mf"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="4_vwks7"]
 [ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/slime/slime_death_effect.tscn" id="6_0bfvh"]
@@ -80,12 +81,13 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_spiil"]
 radius = 7.0
 
-[node name="Slime" type="CharacterBody2D"]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_hurtbox")]
 top_level = true
 collision_layer = 4
 script = ExtResource("1_p2gj0")
-slime_death_effect = ExtResource("6_0bfvh")
-speed = 60
+_sprite = NodePath("AnimatedSprite2D")
+_hurtbox = NodePath("HurtBox")
+entity_data = ExtResource("2_fg4mt")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

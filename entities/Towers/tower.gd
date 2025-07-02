@@ -11,10 +11,11 @@ enum State {
 var _current_target: CombatUnit = null
 
 @onready var _shoot_timer = $ShootTimer
-@onready var AggroRange = $AggroRange
+@onready var _aggro_range = $AggroRange
+
 
 func _ready() -> void:
-	AggroRange.connect("body_entered", _on_body_entered)
+	_aggro_range.connect("body_entered", _on_body_entered)
 
 
 func _on_body_entered(mob: CombatUnit) -> void:
@@ -25,7 +26,7 @@ func _on_body_entered(mob: CombatUnit) -> void:
 	
 func _on_shoot_timer_timeout() -> void:
 	if not _current_target: 
-		var _mobs_in_range: Array[Node2D] = AggroRange.get_overlapping_bodies()
+		var _mobs_in_range: Array[Node2D] = _aggro_range.get_overlapping_bodies()
 		if _mobs_in_range:
 			_current_target = _mobs_in_range[0]
 		

@@ -9,7 +9,7 @@ enum State {
 	KNOCKEDBACK = 0x8, 
 	INVINCIBLE = 0x10, 
 	DEAD = 0x20
-	}
+}
 
 const NUM_HEALTH_PER_HEART: int = 10
 
@@ -20,18 +20,8 @@ var facing_direction := Vector2.DOWN
 
 @onready var _hitbox = $HitBox
 
-# Constructor
-#func _init() -> void:
-	#var data: Dictionary = {
-		#"health" = 30,
-		#"speed" = 100,
-		#"knockback_force" = 200,
-	#}
-	#super._init(data)
-
-
-func _ready() -> void:
-	_init_nodes($AnimatedSprite2D, $HurtBox)
+#func _ready() -> void:
+	#_init_nodes($AnimatedSprite2D, $HurtBox)
 
  
 func _physics_process(delta) -> void:
@@ -58,7 +48,7 @@ func _on_damage_taken() -> bool:
 		return false
 		
 	_give_invincibility()
-	health_changed.emit(health) # updates gui
+	health_changed.emit(_health) # updates gui
 	return true
 	
 func take_damage(
@@ -70,7 +60,7 @@ func take_damage(
 	_give_invincibility()
 	super(damage, knockback_vector, knockback_duration)
 
-	health_changed.emit(health) # updates gui
+	health_changed.emit(_health) # updates gui
 
 
 func _apply_knockback(
@@ -130,7 +120,7 @@ func _give_invincibility() -> void:
 
 func _walk_handler(direction: Vector2) -> void:
 	if direction: facing_direction = direction
-	velocity = direction * speed 
+	velocity = direction * _speed 
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) >= abs(direction.y):

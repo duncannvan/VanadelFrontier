@@ -7,7 +7,7 @@ extends Control
 
 func _ready() -> void:
 	_player.health_changed.connect(_on_health_changed)
-	_on_health_changed(_player.health)
+	_on_health_changed(_player.get_max_health())
 
 
 func _on_health_changed(health: int) -> void:

@@ -775,6 +775,6 @@ metadata/_edit_lock_ = true
 position = Vector2(127, 0)
 
 [node name="ArcherTower" parent="." instance=ExtResource("8_04q08")]
-position = Vector2(54, 51)
+position = Vector2(55, 98)
 
 [connection signal="timeout" from="SpawnSlimes" to="." method="_on_timer_timeout"]

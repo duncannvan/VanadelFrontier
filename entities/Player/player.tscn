@@ -1,6 +1,7 @@
-[gd_scene load_steps=38 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=39 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
+[ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://Entities/Player/player_stats.tres" id="2_4wf4l"]
 [ext_resource type="Texture2D" uid="uid://cbetiiavj1c80" path="res://Assets/Sprites/character.png" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="3_fkugw"]
 [ext_resource type="Texture2D" uid="uid://ds6keo5tbk1v2" path="res://Assets/Sprites/hitbox.png" id="3_qhqgy"]
@@ -234,9 +235,12 @@ radius = 32.0156
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bls4j"]
 size = Vector2(10, 7.5)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_hurtbox")]
 collision_layer = 2
 script = ExtResource("1_g2els")
+_sprite = NodePath("AnimatedSprite2D")
+_hurtbox = NodePath("HurtBox")
+entity_data = ExtResource("2_4wf4l")
 
 [node name="PlayerCollisionBody" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7.25)
