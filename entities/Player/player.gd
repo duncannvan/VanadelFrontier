@@ -23,9 +23,11 @@ var facing_direction := Vector2.DOWN
 
 
 func _ready() -> void:
-	_health_component.health_changed.connect(_on_health_changed)
+	_health_component.connect("health_changed", _on_health_changed)
+	_health_component.connect("died", _die)
 	super()
  
+
 func _physics_process(delta) -> void:
 	#if not _is_state(State.KNOCKEDBACK):
 		#_get_input()
@@ -48,12 +50,10 @@ func take_damage() -> void:
 	_give_invincibility()
 	super()
 
-func apply_knockback(
-	knockback_vector := Vector2.ZERO, 
-	knockback_duration: float = 0.0
-	) -> void:
+
+func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
+	# TODO: play knockback animation 
 	if _is_state(State.KNOCKEDBACK) or _is_state(State.INVINCIBLE): return
-	# TODO: play knockback animation
 	_sprite.stop()
 	_add_state(State.KNOCKEDBACK)
 	await super(knockback_vector, knockback_duration)
@@ -102,13 +102,16 @@ func _walk_handler(direction: Vector2) -> void:
 		_exit_state(State.WALKING)
 
 
+# TODO: Move into weapon/attack node
+
 func _attack_handler() -> void:
 	_add_state(State.ATTACKING)
 	_hitbox.on()
-	_hitbox.get_node("HitEffects").visible = true #TODO: Move into weapon script
-	await get_tree().create_timer(.2).timeout
+	_hitbox.get_node("HitEffects").visible = true 
+	await get_tree().create_timer(.1).timeout
 	_hitbox.get_node("HitEffects").visible = false
 	_hitbox.off()
+	await get_tree().create_timer(.3).timeout # Scuffed attack cooldown
 	_exit_state(State.ATTACKING)
 	
 
@@ -130,9 +133,6 @@ func _on_health_changed(old_health: int, new_health: int) -> void:
 
 	update_health_ui.emit(new_health) # updates gui
 	
-	if new_health <= 0:
-		_die()
-
 
 func get_max_health() -> int: 
 	return _health_component.get_max_health()

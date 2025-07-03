@@ -1,9 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvs46icsemkb1"]
+[gd_scene load_steps=8 format=3 uid="uid://dvs46icsemkb1"]
 
 [ext_resource type="Texture2D" uid="uid://cw4sd6ho2yhky" path="res://Assets/Sprites/base.png" id="1_pvqg0"]
+[ext_resource type="Script" uid="uid://ixdci2fyk3ha" path="res://World/base.gd" id="1_rx2yr"]
+[ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="3_5mgm5"]
+[ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://World/health_bar.gd" id="4_3dymw"]
+[ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/health_bar_under.png" id="4_xan5k"]
+[ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/health_bar_progress.png" id="5_1oxys"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ch56s"]
+radius = 11.0
 
 [node name="Base" type="Node2D"]
+script = ExtResource("1_rx2yr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(5, 5)
 texture = ExtResource("1_pvqg0")
+
+[node name="MobDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MobDetector"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_ch56s")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_5mgm5")
+metadata/_custom_type_script = "uid://beldcflw254u"
+
+[node name="HealthBar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("health_component")]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 8.0
+value = 100.0
+texture_under = ExtResource("4_xan5k")
+texture_progress = ExtResource("5_1oxys")
+script = ExtResource("4_3dymw")
+health_component = NodePath("../HealthComponent")

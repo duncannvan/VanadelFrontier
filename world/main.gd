@@ -1,27 +1,14 @@
 extends Node2D
 
-const SPAWN_TIMER = 2
-const MAX_SLIMES = 3
+# temp
+@onready var base_health_component = $Base/HealthComponent
+@onready var mob_spawner = $MobSpawner
 
-@export var _base: Node2D
-
-var _count: int = 0 
-var _slime_scene: PackedScene= preload("res://entities/enemies/slime/slime.tscn")
-
-
-func _on_timer_timeout() -> void:
-	if _count >= MAX_SLIMES:
-		return
-	
-	var slime: Mob = _slime_scene.instantiate()
-	slime.base_target = _base
-	slime.current_target = _base
-	
-	add_child(slime)
-	_count += 1
-	
-	slime.tree_exited.connect(_on_slime_removed)
+func _ready() -> void: 
+	base_health_component.connect("died", _on_base_died)
 
 
-func _on_slime_removed():
-	_count -= 1
+
+func _on_base_died() -> void:
+	print("GAME OVER")
+	mob_spawner.disable()

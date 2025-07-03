@@ -4,5 +4,4 @@
 
 [resource]
 script = ExtResource("1_ncv4v")
-max_health = 100
 speed = 50

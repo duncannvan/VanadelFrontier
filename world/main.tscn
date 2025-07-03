@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=12 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://kdpmxcdl0po8" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="8_04q08"]
 [ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://UI/hp_bar/heart.tscn" id="8_tipki"]
+[ext_resource type="Script" uid="uid://doyciu6e3cwrq" path="res://World/mob_spawner.gd" id="9_pyyff"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_0wfyh")
@@ -738,9 +739,8 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("_base")]
+[node name="Main" type="Node2D"]
 script = ExtResource("1_tbgi4")
-_base = NodePath("Base")
 metadata/_edit_lock_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -759,12 +759,9 @@ script = ExtResource("6_tefeu")
 player = NodePath("../Player")
 metadata/_edit_lock_ = true
 
-[node name="SpawnSlimes" type="Timer" parent="."]
-autostart = true
-
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HealthUI" parent="UI" node_paths=PackedStringArray("_player") instance=ExtResource("6_o6xl0")]
+[node name="PlayerHearts" parent="UI" node_paths=PackedStringArray("_player") instance=ExtResource("6_o6xl0")]
 _player = NodePath("../../Player")
 _heart_scene = ExtResource("8_tipki")
 metadata/_edit_use_anchors_ = true
@@ -774,6 +771,12 @@ metadata/_edit_lock_ = true
 position = Vector2(127, 0)
 
 [node name="ArcherTower" parent="." instance=ExtResource("8_04q08")]
-position = Vector2(78, -38)
+position = Vector2(55, -94)
 
-[connection signal="timeout" from="SpawnSlimes" to="." method="_on_timer_timeout"]
+[node name="MobSpawner" type="Node2D" parent="." node_paths=PackedStringArray("_base_target")]
+position = Vector2(87, -1)
+script = ExtResource("9_pyyff")
+_base_target = NodePath("../Base")
+
+[node name="MobSpawnTimer" type="Timer" parent="MobSpawner"]
+autostart = true
