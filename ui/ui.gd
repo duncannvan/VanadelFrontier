@@ -6,7 +6,7 @@ extends Control
 @onready var _heart_container: Container = $MarginContainer/HeartContainer
 
 func _ready() -> void:
-	_player.health_changed.connect(_on_health_changed)
+	_player.update_health_ui.connect(_on_health_changed)
 	_on_health_changed(_player.get_max_health())
 
 

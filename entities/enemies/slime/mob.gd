@@ -17,6 +17,8 @@ var current_target: Node2D
 var base_target: Node2D
 var _state: State = State.MOVING
 
+@onready var _health_component: HealthComponent = $HealthComponent
+
 
 func _ready() -> void:
 	super()
@@ -27,6 +29,7 @@ func _ready() -> void:
 	
 	_aggro_range.connect("body_entered", _on_area_entered)
 	_aggro_range.connect("body_exited", _on_area_exited)
+	_health_component.health_changed.connect(_on_health_changed)
 
 
 func _physics_process(delta: float) -> void:
@@ -56,7 +59,7 @@ func _on_death():
 	_death_effect_instance.emitting = true
 	
 
-func _apply_knockback(
+func apply_knockback(
 	knockback_vector := Vector2.ZERO, 
 	knockback_duration: float = 0.0
 	) -> void:
@@ -73,3 +76,11 @@ func _on_area_entered(enemy: CombatUnit) -> void:
 func _on_area_exited(enemy: CombatUnit) -> void:
 	modulate = Color.WHITE
 	current_target = base_target
+
+
+func _on_health_changed(old_health: int, new_health: int) -> void:
+	if new_health < old_health:
+		take_damage()
+
+	if new_health < 0:
+		_die()

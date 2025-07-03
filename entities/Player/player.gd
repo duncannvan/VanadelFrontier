@@ -1,6 +1,6 @@
 class_name Player extends CombatUnit
 
-signal health_changed(health: int)
+signal update_health_ui(health: int)
 
 enum State {
 	IDLE = 0x1, 
@@ -18,13 +18,17 @@ const NUM_HEALTH_PER_HEART: int = 10
 var _state: State = State.IDLE
 var facing_direction := Vector2.DOWN
 
-@onready var _hitbox = $HitBox
+@onready var _hitbox: HitBox =$HitBox
+@onready var _health_component: HealthComponent = $HealthComponent
 
+
+func _ready() -> void:
+	_health_component.health_changed.connect(_on_health_changed)
+	super()
  
 func _physics_process(delta) -> void:
 	#if not _is_state(State.KNOCKEDBACK):
 		#_get_input()
-		
 	move_and_slide()
 
 
@@ -40,57 +44,20 @@ func _input(event: InputEvent) -> void:
 		_attack_handler()
 
 
-func _on_damage_taken() -> bool:
-	if _is_state(State.DEAD) or _is_state(State.INVINCIBLE):
-		return false
-		
+func take_damage() -> void:
 	_give_invincibility()
-	health_changed.emit(_health) # updates gui
-	return true
-	
-func take_damage(
-	damage: int,
-	knockback_vector: Vector2 = Vector2.ZERO,
-	knockback_duration: float = 0.0
-) -> void:
-	if _is_state(State.DEAD) or _is_state(State.INVINCIBLE): return
-	_give_invincibility()
-	super(damage, knockback_vector, knockback_duration)
+	super()
 
-	health_changed.emit(_health) # updates gui
-
-
-func _apply_knockback(
+func apply_knockback(
 	knockback_vector := Vector2.ZERO, 
 	knockback_duration: float = 0.0
 	) -> void:
+	if _is_state(State.KNOCKEDBACK) or _is_state(State.INVINCIBLE): return
 	# TODO: play knockback animation
 	_sprite.stop()
 	_add_state(State.KNOCKEDBACK)
 	await super(knockback_vector, knockback_duration)
 	_exit_state(State.KNOCKEDBACK)
-
-
-#
-#func _get_input() -> void:
-	#if _is_state(State.DEAD): return
-	#
-	#assert(_sprite)
-	#var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
-	#velocity = direction * speed 
-	#
-	#if direction != Vector2.ZERO:
-		#if abs(direction.x) >= abs(direction.y):
-			#_sprite.animation = "right" if direction.x > 0 else "left"
-		#else:
-			#_sprite.animation = "down" if direction.y > 0 else "up"
-		#_sprite.play()
-		#_add_state(State.WALKING)
-		#_exit_state(State.IDLE)
-	#else:
-		#_sprite.stop()
-		#_add_state(State.IDLE)
-		#_exit_state(State.WALKING)
 
 
 func on_death() -> void:
@@ -111,8 +78,10 @@ func _blink_invincibility() -> void:
 func _give_invincibility() -> void:
 	_add_state(State.INVINCIBLE)
 	_blink_invincibility()
+	_health_component.give_invincibility()
 	await get_tree().create_timer(invincibility_time).timeout
 	_exit_state(State.INVINCIBLE)
+	_health_component.disable_invincibility()
 
 
 func _walk_handler(direction: Vector2) -> void:
@@ -153,3 +122,17 @@ func _is_state(state: State) -> bool:
 
 func _exit_state(state: State) -> void :
 	_state &= ~state
+
+
+func _on_health_changed(old_health: int, new_health: int) -> void:
+	if new_health < old_health:
+		take_damage()
+
+	update_health_ui.emit(new_health) # updates gui
+	
+	if new_health <= 0:
+		_die()
+
+
+func get_max_health() -> int: 
+	return _health_component.get_max_health()

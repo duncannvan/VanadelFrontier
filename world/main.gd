@@ -3,7 +3,6 @@ extends Node2D
 const SPAWN_TIMER = 2
 const MAX_SLIMES = 3
 
-@export var _player: Player
 @export var _base: Node2D
 
 var _count: int = 0 

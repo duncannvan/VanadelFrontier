@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=40 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://Entities/Player/player_stats.tres" id="2_4wf4l"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="3_fkugw"]
 [ext_resource type="Texture2D" uid="uid://ds6keo5tbk1v2" path="res://Assets/Sprites/hitbox.png" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_8fjmc"]
+[ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_01a4e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
 size = Vector2(10, 9.5)
@@ -269,12 +270,18 @@ visible = false
 modulate = Color(1, 1, 1, 0.392157)
 texture = ExtResource("3_qhqgy")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("_health_component")]
 collision_layer = 8
 collision_mask = 64
 script = ExtResource("5_8fjmc")
+_health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+unique_name_in_owner = true
 position = Vector2(0, 8.25)
 shape = SubResource("RectangleShape2D_bls4j")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_01a4e")
+metadata/_custom_type_script = "uid://beldcflw254u"

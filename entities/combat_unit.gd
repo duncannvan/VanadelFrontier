@@ -3,9 +3,7 @@ class_name CombatUnit extends CharacterBody2D
 const BLINK_TIME : float = 0.1 
 const TIME_BEFORE_DESPAWN : int = 3
 
-var _max_health: int
 var _speed: int
-var _health: int 
 
 @export var _sprite: AnimatedSprite2D
 @export var _hurtbox: HurtBox
@@ -21,9 +19,7 @@ func _ready() -> void:
 
 
 func _init_data() -> void:
-	_max_health = entity_data.max_health
 	_speed = entity_data.speed
-	_health = _max_health
 	
 
 func _check_nodes():
@@ -34,11 +30,11 @@ func _check_nodes():
 func _emit_hurt_effects(color := Color.WHITE) -> void:
 	_sprite.modulate = Color(10,10,10,10)
 	await get_tree().create_timer(BLINK_TIME).timeout
-	_sprite.modulate = Color(1, 1, 1) 
+	_sprite.modulate = Color(1, 1, 1)
 	await get_tree().create_timer(BLINK_TIME).timeout
 
 
-func _apply_knockback(
+func apply_knockback(
 	knockback_vector := Vector2.ZERO, 
 	knockback_duration: float = 0.0
 	) -> void:
@@ -47,18 +43,8 @@ func _apply_knockback(
 	velocity = Vector2.ZERO
 
 
-func take_damage(
-	damage: int,
-	knockback_vector: Vector2 = Vector2.ZERO,
-	knockback_duration: float = 0.0
-) -> void:
+func take_damage() -> void:
 	_emit_hurt_effects()
-	_health -= damage
-	
-	_apply_knockback(knockback_vector, knockback_duration)
-
-	if _health <= 0: 
-		_die()
 
 
 # Override in child
@@ -74,7 +60,3 @@ func _die() -> void:
 	_hurtbox.off()
 	
 	queue_free()
-
-
-func get_max_health() -> int:
-	return _max_health

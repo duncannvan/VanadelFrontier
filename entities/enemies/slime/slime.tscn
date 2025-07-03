@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=20 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/Slime/mob.gd" id="1_p2gj0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="4_vwks7"]
 [ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="6_0bfvh"]
 [ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_lcogp"]
+[ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2gj0"]
 atlas = ExtResource("1_371uh")
@@ -81,12 +82,13 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_spiil"]
 radius = 7.0
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_aggro_range", "_hurt_effects", "_sprite", "_hurtbox")]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_body_hitbox", "_aggro_range", "_hurt_effects", "_sprite", "_hurtbox")]
 top_level = true
 collision_layer = 4
 script = ExtResource("1_p2gj0")
 _death_effect = ExtResource("6_0bfvh")
-_aggro_range = NodePath("AggroRange")
+_body_hitbox = NodePath("BodyHitBox")
+_aggro_range = NodePath("MobAggroRange")
 _hurt_effects = NodePath("HurtEffects")
 _sprite = NodePath("AnimatedSprite2D")
 _hurtbox = NodePath("HurtBox")
@@ -112,10 +114,11 @@ process_material = SubResource("ParticleProcessMaterial_th4tt")
 [node name="SlimeBody" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vnioy")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("_health_component")]
 collision_layer = 32
 collision_mask = 16
 script = ExtResource("4_vwks7")
+_health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
@@ -130,11 +133,16 @@ metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitBox"]
 shape = SubResource("CircleShape2D_spiil")
 
-[node name="AggroRange" type="Area2D" parent="."]
+[node name="MobAggroRange" type="Area2D" parent="."]
 scale = Vector2(1.65661, 1.65661)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MobAggroRange"]
 scale = Vector2(4.39725, 4.39725)
 shape = SubResource("CircleShape2D_spiil")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("8_ha687")
+_max_health = 20
+metadata/_custom_type_script = "uid://beldcflw254u"

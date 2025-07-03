@@ -1,21 +1,24 @@
 class_name HurtBox extends Area2D
 
-func _ready() -> void:
-	connect("area_entered", _on_area_entered)
-	
-	
-func _on_area_entered(hitbox: HitBox):
-	var knockback_dir: Vector2 = (owner.global_position - hitbox.get_parent().global_position).normalized()
-	var knockback_vector = knockback_dir * hitbox.knockback_force
-	
-	
-	if owner.has_method("take_damage"):
-		owner.take_damage(
-			hitbox.damage, 
-			knockback_vector,
-			hitbox.knockback_duration
-			)
+@export var _health_component: HealthComponent
+
+
+#func _ready() -> void:
+	#connect("area_entered", _on_area_entered)
+#
+#
+#func _on_area_entered(hitbox: HitBox):
+	#if _health_component:		
+		#_health_component.take_damage(hitbox.damage)
 
 
 func off() -> void:
 	get_node("CollisionShape2D").set_deferred("disabled", true)
+
+
+func has_health_component() -> bool:
+	return !!_health_component
+
+
+func get_health_component() -> HealthComponent:
+	return _health_component
