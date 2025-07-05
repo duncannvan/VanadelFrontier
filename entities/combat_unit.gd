@@ -6,7 +6,6 @@ const TIME_BEFORE_DESPAWN : int = 3
 var _speed: int
 
 @export var _sprite: AnimatedSprite2D
-@export var _hurtbox: HurtBox
 @export var entity_data: EntityStats
 
 
@@ -24,7 +23,6 @@ func _init_data() -> void:
 
 func _check_nodes():
 	assert(_sprite, "%s missing sprite" % self)
-	assert(_hurtbox, "%s missing hurtbox" % self)
 
 
 func _emit_hurt_effects(color := Color.WHITE) -> void:
@@ -32,19 +30,6 @@ func _emit_hurt_effects(color := Color.WHITE) -> void:
 	await get_tree().create_timer(BLINK_TIME).timeout
 	_sprite.modulate = Color(1, 1, 1)
 	await get_tree().create_timer(BLINK_TIME).timeout
-
-
-func apply_knockback(
-	knockback_vector := Vector2.ZERO, 
-	knockback_duration: float = 0.0
-	) -> void:
-	velocity = knockback_vector
-	await get_tree().create_timer(knockback_duration).timeout
-	velocity = Vector2.ZERO
-
-
-func take_damage() -> void:
-	_emit_hurt_effects()
 
 
 # Override in child
@@ -57,6 +42,5 @@ func _die() -> void:
 	_speed = 0
 	_sprite.stop()
 	
-	_hurtbox.off()
 	
 	queue_free()

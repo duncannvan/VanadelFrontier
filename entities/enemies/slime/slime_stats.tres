@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_ncv4v")
-speed = 50
+speed = 30

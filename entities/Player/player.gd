@@ -18,9 +18,14 @@ const NUM_HEALTH_PER_HEART: int = 10
 var _state: State = State.IDLE
 var facing_direction := Vector2.DOWN
 
-@onready var _hitbox: HitBox =$HitBox
+@onready var _hitbox: HitBox = $HitBox
 @onready var _health_component: HealthComponent = $HealthComponent
+@onready var _hurtbox: HurtBox = $HurtBox
 
+
+func _init() -> void:
+	set_collision_layer(2)
+	
 
 func _ready() -> void:
 	_health_component.connect("health_changed", _on_health_changed)
@@ -29,8 +34,6 @@ func _ready() -> void:
  
 
 func _physics_process(delta) -> void:
-	#if not _is_state(State.KNOCKEDBACK):
-		#_get_input()
 	move_and_slide()
 
 
@@ -47,16 +50,16 @@ func _input(event: InputEvent) -> void:
 
 
 func take_damage() -> void:
-	_give_invincibility()
-	super()
+	_emit_hurt_effects()
+	give_invincibility()
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
-	# TODO: play knockback animation 
-	if _is_state(State.KNOCKEDBACK) or _is_state(State.INVINCIBLE): return
 	_sprite.stop()
 	_add_state(State.KNOCKEDBACK)
-	await super(knockback_vector, knockback_duration)
+	velocity = knockback_vector
+	await get_tree().create_timer(knockback_duration).timeout
+	velocity = Vector2.ZERO
 	_exit_state(State.KNOCKEDBACK)
 
 
@@ -75,13 +78,13 @@ func _blink_invincibility() -> void:
 		await get_tree().create_timer(BLINK_TIME).timeout
 
 
-func _give_invincibility() -> void:
+func give_invincibility() -> void:
 	_add_state(State.INVINCIBLE)
+	_hurtbox.off()
 	_blink_invincibility()
-	_health_component.give_invincibility()
 	await get_tree().create_timer(invincibility_time).timeout
+	_hurtbox.on()
 	_exit_state(State.INVINCIBLE)
-	_health_component.disable_invincibility()
 
 
 func _walk_handler(direction: Vector2) -> void:
@@ -103,7 +106,6 @@ func _walk_handler(direction: Vector2) -> void:
 
 
 # TODO: Move into weapon/attack node
-
 func _attack_handler() -> void:
 	_add_state(State.ATTACKING)
 	_hitbox.on()

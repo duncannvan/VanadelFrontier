@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=46 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://Entities/Player/player_stats.tres" id="2_4wf4l"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/blockout_top_down.png" id="3_lub02"]
 [ext_resource type="Texture2D" uid="uid://ds6keo5tbk1v2" path="res://Assets/Sprites/hitbox.png" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_8fjmc"]
-[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://attack_effect.gd" id="5_iplt1"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="5_iplt1"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="6_owvpp"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_01a4e"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="7_iplt1"]
@@ -236,11 +236,14 @@ metadata/_custom_type_script = "uid://c6nd4i5durrew"
 [sub_resource type="Resource" id="Resource_xr8lj"]
 script = ExtResource("7_iplt1")
 _knockback_force = 200
-_knockback_duration = 0.1
+_knockback_duration = 0.2
 metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qiwj3"]
 radius = 32.0156
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bls4j"]
+size = Vector2(10, 7.5)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite")]
 collision_layer = 2
@@ -281,12 +284,13 @@ collision_layer = 8
 collision_mask = 64
 script = ExtResource("5_8fjmc")
 _health_component = NodePath("../HealthComponent")
+invincibility_time = 1.0
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 unique_name_in_owner = true
-position = Vector2(0, 7.25)
-shape = SubResource("RectangleShape2D_d2wvv")
+position = Vector2(0, 8.25)
+shape = SubResource("RectangleShape2D_bls4j")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_01a4e")

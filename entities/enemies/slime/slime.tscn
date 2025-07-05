@@ -1,35 +1,35 @@
 [gd_scene load_steps=20 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
-[ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/Slime/mob.gd" id="1_p2gj0"]
+[ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_p2gj0"]
 [ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://Entities/Enemies/Slime/slime_stats.tres" id="2_fg4mt"]
 [ext_resource type="Texture2D" uid="uid://54af4f2n8dcn" path="res://Assets/Sprites/slime_hurt_particle.png" id="3_xh4mf"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="4_vwks7"]
 [ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="6_0bfvh"]
-[ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_lcogp"]
+[ext_resource type="PackedScene" uid="uid://c4lk7ocik2bdd" path="res://Entities/Enemies/body_hitbox.tscn" id="7_ha687"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p2gj0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
 atlas = ExtResource("1_371uh")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n6pvg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_utbsb"]
 atlas = ExtResource("1_371uh")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pjw23"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7js1"]
 atlas = ExtResource("1_371uh")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2npkn"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f406"]
 atlas = ExtResource("1_371uh")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fd6lc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3an5"]
 atlas = ExtResource("1_371uh")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gstla"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cymo"]
 atlas = ExtResource("1_371uh")
 region = Rect2(160, 0, 32, 32)
 
@@ -37,25 +37,25 @@ region = Rect2(160, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p2gj0")
+"texture": SubResource("AtlasTexture_ha687")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n6pvg")
+"texture": SubResource("AtlasTexture_utbsb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pjw23")
+"texture": SubResource("AtlasTexture_b7js1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pjw23")
+"texture": SubResource("AtlasTexture_b7js1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2npkn")
+"texture": SubResource("AtlasTexture_6f406")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fd6lc")
+"texture": SubResource("AtlasTexture_y3an5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gstla")
+"texture": SubResource("AtlasTexture_1cymo")
 }],
 "loop": true,
 "name": &"bounce",
@@ -82,16 +82,13 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_spiil"]
 radius = 7.0
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_body_hitbox", "_aggro_range", "_hurt_effects", "_sprite", "_hurtbox")]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_hurt_effects", "_sprite")]
 top_level = true
 collision_layer = 4
 script = ExtResource("1_p2gj0")
 _death_effect = ExtResource("6_0bfvh")
-_body_hitbox = NodePath("BodyHitBox")
-_aggro_range = NodePath("MobAggroRange")
 _hurt_effects = NodePath("HurtEffects")
 _sprite = NodePath("AnimatedSprite2D")
-_hurtbox = NodePath("HurtBox")
 entity_data = ExtResource("2_fg4mt")
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 metadata/_edit_group_ = true
@@ -124,21 +121,14 @@ metadata/_custom_type_script = "uid://63sbpv1faiyx"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_1ls0r")
 
-[node name="BodyHitBox" type="Area2D" parent="."]
-collision_layer = 64
-collision_mask = 8
-script = ExtResource("6_lcogp")
-metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
+[node name="BodyHitBox" parent="." instance=ExtResource("7_ha687")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitBox"]
-shape = SubResource("CircleShape2D_spiil")
-
-[node name="MobAggroRange" type="Area2D" parent="."]
+[node name="AggroRange" type="Area2D" parent="."]
 scale = Vector2(1.65661, 1.65661)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MobAggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
 scale = Vector2(4.39725, 4.39725)
 shape = SubResource("CircleShape2D_spiil")
 
