@@ -1,9 +1,10 @@
 extends Node2D
 
 const SPAWN_TIMER = 2
-@export var max_slimes: int = 3
+@export var max_mobs: int = 2
 
-@export var _base_target: Node2D
+@export var _base: Node2D
+@export var _player: Player
 @export var _mob_scenes: Array[PackedScene] 
 
 var _count: int = 0 
@@ -17,16 +18,20 @@ func _ready() -> void:
 	
 
 func _on_spawn_mobs_timer_timeout() -> void:
-	if _count >= max_slimes:
+	if _count >= max_mobs:
 		return
 	
 	for mob_scene in _mob_scenes:
 		var mob: Mob = mob_scene.instantiate()
-		mob.base_target = _base_target
-		mob.current_target = _base_target
+		if mob.get_targeting_type() == mob.TargetingType.BASE:
+			if _base:
+				mob.set_target(_base) 
+		elif mob.get_targeting_type() == mob.TargetingType.PLAYER:
+			if _player:
+				mob.set_target(_player)
+				
 		mob.global_position = global_position
-	
-	
+		
 		owner.add_child(mob)
 		_count += 1
 	

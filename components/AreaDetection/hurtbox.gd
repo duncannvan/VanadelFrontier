@@ -1,9 +1,4 @@
-## Make sure to set mask to hitbox layer
 class_name HurtBox extends Area2D
-
-@export var _health_component: HealthComponent
-#@export var invincibility_time: float = 0.5
-
 
 func _enter_tree() -> void:
 	if owner is Player:
@@ -20,15 +15,6 @@ func receive_hit(hitbox: HitBox, attack_effects: Array[AttackEffect]):
 		
 		effect.apply(owner, hitbox.global_position)
 		
-	# I-frames
-	#off()
-	#if owner.has_method("give_invincibility"):
-		#owner.give_invincibility()
-	#await get_tree().create_timer(invincibility_time).timeout
-	#if owner.has_method("disable_invincibility"):
-		#owner.disable_invincibility()
-	#on()
-
 
 func off() -> void:
 	get_node("CollisionShape2D").set_deferred("disabled", true)

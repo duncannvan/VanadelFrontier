@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=24 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_p2gj0"]
@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://54af4f2n8dcn" path="res://Assets/Sprites/slime_hurt_particle.png" id="3_xh4mf"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="4_vwks7"]
 [ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="6_0bfvh"]
-[ext_resource type="PackedScene" uid="uid://c4lk7ocik2bdd" path="res://Entities/Enemies/body_hitbox.tscn" id="7_ha687"]
+[ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_lcogp"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://attack_effect.gd" id="8_6f406"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
+[ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_y3an5"]
+[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="10_6f406"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
 atlas = ExtResource("1_371uh")
@@ -79,13 +82,22 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ls0r"]
 radius = 7.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_spiil"]
-radius = 7.0
+[sub_resource type="Resource" id="Resource_6f406"]
+script = ExtResource("9_y3an5")
+_damage = 10
+metadata/_custom_type_script = "uid://c6nd4i5durrew"
+
+[sub_resource type="Resource" id="Resource_y3an5"]
+script = ExtResource("10_6f406")
+_knockback_force = 200
+_knockback_duration = 0.1
+metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_hurt_effects", "_sprite")]
 top_level = true
 collision_layer = 4
 script = ExtResource("1_p2gj0")
+_targeting_type = 1
 _death_effect = ExtResource("6_0bfvh")
 _hurt_effects = NodePath("HurtEffects")
 _sprite = NodePath("AnimatedSprite2D")
@@ -109,30 +121,29 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_th4tt")
 
 [node name="SlimeBody" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_vnioy")
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("_health_component")]
+[node name="HurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 16
 script = ExtResource("4_vwks7")
-_health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_1ls0r")
 
-[node name="BodyHitBox" parent="." instance=ExtResource("7_ha687")]
-
-[node name="AggroRange" type="Area2D" parent="."]
-scale = Vector2(1.65661, 1.65661)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
-scale = Vector2(4.39725, 4.39725)
-shape = SubResource("CircleShape2D_spiil")
-
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("8_ha687")
 _max_health = 20
 metadata/_custom_type_script = "uid://beldcflw254u"
+
+[node name="BodyHitbox" type="Area2D" parent="."]
+script = ExtResource("6_lcogp")
+_attack_effects = Array[ExtResource("8_6f406")]([SubResource("Resource_6f406"), SubResource("Resource_y3an5")])
+metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
+
+[node name="SlimeBody" type="CollisionShape2D" parent="BodyHitbox"]
+visible = false
+shape = SubResource("CircleShape2D_vnioy")

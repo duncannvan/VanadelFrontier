@@ -771,12 +771,20 @@ offset_bottom = 4.0
 grow_horizontal = 0
 
 [node name="Base" parent="." instance=ExtResource("7_o6xl0")]
-position = Vector2(127, 0)
+position = Vector2(-1, 5)
 
 [node name="ArcherTower" parent="." instance=ExtResource("8_04q08")]
-position = Vector2(18, 100)
+position = Vector2(-25, 113)
 
-[node name="MobSpawner" parent="." node_paths=PackedStringArray("_base_target") instance=ExtResource("8_1hcjw")]
-position = Vector2(-160, -2)
-max_slimes = 2
-_base_target = NodePath("../Base")
+[node name="ArcherTower2" parent="." instance=ExtResource("8_04q08")]
+position = Vector2(123, 79)
+
+[node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
+position = Vector2(-163, -5)
+_base = NodePath("../Base")
+_player = NodePath("../Player")
+
+[node name="MobSpawner2" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
+position = Vector2(7, -180)
+_base = NodePath("../Base")
+_player = NodePath("../Player")

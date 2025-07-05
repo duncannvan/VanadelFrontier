@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://q3sxjb4kbqci"]
+[gd_scene load_steps=18 format=3 uid="uid://q3sxjb4kbqci"]
 
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_t670c"]
 [ext_resource type="Script" uid="uid://788pniifmi5m" path="res://Entities/entity_stats.gd" id="2_6ihyg"]
 [ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/rolling_ball.png" id="2_qr1m2"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_6ihyg"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="5_6ihyg"]
-[ext_resource type="PackedScene" uid="uid://c4lk7ocik2bdd" path="res://Entities/Enemies/body_hitbox.tscn" id="6_8b7ej"]
+[ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_8b7ej"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://attack_effect.gd" id="7_k086u"]
+[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_st3w1"]
 
 [sub_resource type="Resource" id="Resource_8b7ej"]
 script = ExtResource("2_6ihyg")
@@ -48,11 +50,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"Roll",
-"speed": 5.0
+"speed": 12.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a6lfn"]
 radius = 6.0
+
+[sub_resource type="Resource" id="Resource_a6lfn"]
+script = ExtResource("9_st3w1")
+_knockback_force = 300
+_knockback_duration = 0.2
+metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
 [node name="BaseSprinter" type="CharacterBody2D" node_paths=PackedStringArray("_sprite")]
 collision_layer = 32
@@ -61,12 +69,13 @@ _sprite = NodePath("AnimatedSprite2D")
 entity_data = SubResource("Resource_8b7ej")
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BaseSprinterBody" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8b7ej")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_sf5y1")
 animation = &"Roll"
+frame_progress = 0.268464
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("_health_component")]
 script = ExtResource("3_6ihyg")
@@ -81,4 +90,10 @@ script = ExtResource("5_6ihyg")
 _max_health = 20
 metadata/_custom_type_script = "uid://beldcflw254u"
 
-[node name="BodyHitBox" parent="." instance=ExtResource("6_8b7ej")]
+[node name="BodyHitbox" type="Area2D" parent="."]
+script = ExtResource("6_8b7ej")
+_attack_effects = Array[ExtResource("7_k086u")]([SubResource("Resource_a6lfn")])
+metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox"]
+shape = SubResource("CircleShape2D_8b7ej")

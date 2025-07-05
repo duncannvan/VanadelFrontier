@@ -5,17 +5,21 @@ enum State {
 	KNOCKEDBACK
 }
 
+enum TargetingType {
+	BASE, 
+	PLAYER,
+}
+
 const PLAYER_PATH: NodePath = "../Player"
 
+@export var _targeting_type: TargetingType
 @export var _death_effect: PackedScene
 @export var _hurt_effects: GPUParticles2D
 
 var _state: State 
-var current_target: Node2D 
-var base_target: Node2D
+var _target: Node2D 
 
 @onready var _health_component: HealthComponent = $HealthComponent
-@onready var _aggro_range: Area2D = get_node_or_null("AggroRange")
 
 
 func _init() -> void:
@@ -31,16 +35,13 @@ func _ready() -> void:
 		_sprite.animation = animations[0]
 		_sprite.play()
 	
-	if _aggro_range:
-		_aggro_range.connect("body_entered", _on_area_entered)
-		_aggro_range.connect("body_exited", _on_area_exited)
 	_health_component.health_changed.connect(_on_health_changed)
 
 
 func _physics_process(delta: float) -> void:
-	if not current_target: return
+	if not _target: return
 	
-	var direction : Vector2 = (current_target.global_position - global_position).normalized()
+	var direction : Vector2 = (_target.global_position - global_position).normalized()
 	if _state != State.KNOCKEDBACK:
 		velocity = direction * _speed
 	
@@ -69,17 +70,6 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 		await get_tree().create_timer(knockback_duration).timeout
 		velocity = Vector2.ZERO
 		_state = State.ATTACKING
-		
-
-func _on_area_entered(enemy: CombatUnit) -> void:
-	modulate = Color.RED
-	current_target = enemy
-
-
-func _on_area_exited(enemy: CombatUnit) -> void:
-	modulate = Color.WHITE
-	current_target = base_target
-
 
 func _on_health_changed(old_health: int, new_health: int) -> void:
 	if new_health < old_health:
@@ -91,3 +81,11 @@ func _on_health_changed(old_health: int, new_health: int) -> void:
 
 func get_health() -> int: 
 	return _health_component.get_health()
+
+
+func get_targeting_type() -> TargetingType:
+	return _targeting_type
+
+
+func set_target(target: Node2D) -> void:
+	_target = target
