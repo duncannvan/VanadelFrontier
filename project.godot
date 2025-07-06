@@ -69,6 +69,7 @@ attack={
 2d_physics/layer_5="Player Hitbox"
 2d_physics/layer_6="Mob Hurtbox"
 2d_physics/layer_7="Mob Hitbox"
+2d_physics/layer_8="Player Bounds"
 
 [rendering]
 

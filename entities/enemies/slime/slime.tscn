@@ -145,8 +145,9 @@ script = ExtResource("6_lcogp")
 _attack_effects = Array[ExtResource("8_6f406")]([SubResource("Resource_6f406"), SubResource("Resource_y3an5")])
 metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
 
-[node name="SlimeBody" type="CollisionShape2D" parent="BodyHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox"]
 visible = false
 shape = SubResource("CircleShape2D_vnioy")
 
 [node name="MobNavigation" parent="." instance=ExtResource("12_y3an5")]
+debug_enabled = false

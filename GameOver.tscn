@@ -6,28 +6,36 @@
 font_size = 20
 
 [node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="GameOver" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("1_40baj")
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 104.0
-offset_top = 60.0
-offset_right = -107.0
-offset_bottom = -92.0
-scale = Vector2(0.904021, 0.851537)
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 85.5
+offset_top = 38.5
+offset_right = 194.5
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
 text = "Game Over"
 label_settings = SubResource("LabelSettings_4g1ep")
 
-[node name="RetryButton" type="Button" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 127.0
-offset_top = 93.0
-offset_right = -143.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="RetryButton" type="Button" parent="GameOver/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Retry"

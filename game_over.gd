@@ -1,6 +1,6 @@
-extends CanvasLayer
+extends Control
 
-@onready var retry_button = $RetryButton
+@onready var retry_button = %RetryButton
 
 func _ready() -> void:
 	retry_button.connect("button_down", _on_button_down)
