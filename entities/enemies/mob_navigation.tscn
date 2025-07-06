@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://jrj3brk03iv1"]
+
+[node name="MobNavigation" type="NavigationAgent2D"]
+avoidance_enabled = true
+debug_enabled = true

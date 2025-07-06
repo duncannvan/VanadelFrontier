@@ -1,6 +1,7 @@
 class_name Tower extends StaticBody2D
 
 @export var projectile_scene: PackedScene
+@export var _enabled: bool = true
 
 var _current_target: Mob = null
 var _mobs_in_range: Array[Mob]
@@ -21,6 +22,7 @@ func _on_body_exited(mob: Mob) -> void:
 
 
 func _on_body_entered(mob: Mob) -> void:
+	if not _enabled: return
 	_mobs_in_range.append(mob)
 	if not _current_target:
 		_current_target = mob

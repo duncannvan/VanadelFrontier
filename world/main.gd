@@ -2,7 +2,7 @@ extends Node2D
 
 # temp
 @onready var base_health_component = $Base/HealthComponent
-@onready var mob_spawner = $MobSpawner
+@onready var mob_spawner = get_node_or_null("MobSpawner")
 @onready var base_health_ui: TextureProgressBar
 @onready var base_health_bar = $UI/BaseHealthBar/%HealthBar
 
@@ -14,7 +14,8 @@ func _ready() -> void:
 
 
 func _on_base_died() -> void:
-	mob_spawner.disable()
+	if mob_spawner:
+		mob_spawner.disable()
 
 
 func _on_health_changed(old_health: int, new_health: int) -> void:

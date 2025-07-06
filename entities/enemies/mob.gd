@@ -17,9 +17,11 @@ const PLAYER_PATH: NodePath = "../Player"
 @export var _hurt_effects: GPUParticles2D
 
 var _state: State 
-var _target: Node2D 
+#@export var _target: Node2D
+var _target: Node2D
 
 @onready var _health_component: HealthComponent = $HealthComponent
+@onready var _nav_agent: NavigationAgent2D = $MobNavigation
 
 
 func _init() -> void:
@@ -29,22 +31,38 @@ func _init() -> void:
 func _ready() -> void:
 	super()
 	_check_nodes()
-	
+				
 	var animations = _sprite.sprite_frames.get_animation_names()
 	if animations.size() > 0:
 		_sprite.animation = animations[0]
 		_sprite.play()
 	
 	_health_component.health_changed.connect(_on_health_changed)
+	_nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
 
 func _physics_process(delta: float) -> void:
-	if not _target: return
+	if not _target or not _nav_agent: return
+
+	_nav_agent.target_position = _target.global_position
+
+	if NavigationServer2D.map_get_iteration_id(_nav_agent.get_navigation_map()) == 0:
+		return
+	if _nav_agent.is_navigation_finished():
+		return
 	
-	var direction : Vector2 = (_target.global_position - global_position).normalized()
-	if _state != State.KNOCKEDBACK:
-		velocity = direction * _speed
+	var next_path_position: Vector2 = _nav_agent.get_next_path_position()
+	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * _speed
+	if _nav_agent.avoidance_enabled:
+		_nav_agent.set_velocity(new_velocity)
+	else:
+		_on_velocity_computed(new_velocity)
 	
+
+func _on_velocity_computed(safe_velocity: Vector2):
+	if _state != State.KNOCKEDBACK: 
+		velocity = safe_velocity
+		
 	move_and_slide()
 
 

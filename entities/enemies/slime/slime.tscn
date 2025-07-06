@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=25 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_p2gj0"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_y3an5"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="10_6f406"]
+[ext_resource type="PackedScene" uid="uid://jrj3brk03iv1" path="res://Entities/Enemies/mob_navigation.tscn" id="12_y3an5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
 atlas = ExtResource("1_371uh")
@@ -147,3 +148,5 @@ metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
 [node name="SlimeBody" type="CollisionShape2D" parent="BodyHitbox"]
 visible = false
 shape = SubResource("CircleShape2D_vnioy")
+
+[node name="MobNavigation" parent="." instance=ExtResource("12_y3an5")]

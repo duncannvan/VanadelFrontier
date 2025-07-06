@@ -2,29 +2,25 @@
 
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_cbcji"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="1_hihby"]
-[ext_resource type="PackedScene" uid="uid://q3sxjb4kbqci" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="2_b24ak"]
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="2_jqyws"]
 [ext_resource type="PackedScene" uid="uid://kdpmxcdl0po8" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="3_b24ak"]
 [ext_resource type="PackedScene" uid="uid://cx23fbehkvdub" path="res://Entities/Enemies/Slime/slime.tscn" id="4_ml45l"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="5_b24ak"]
 [ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://World/base_health_bar.tscn" id="6_q52up"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_q52up"]
+vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1, 0, 321, 1, 323, 182, 0, 180)])
+
 [node name="TestingRoom" type="Node2D"]
 script = ExtResource("1_cbcji")
 
-[node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("1_hihby")]
-position = Vector2(207, 87)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-_mob_scenes = Array[PackedScene]([ExtResource("2_b24ak"), ExtResource("4_ml45l")])
-
 [node name="Base" parent="." instance=ExtResource("2_jqyws")]
-position = Vector2(81, 102)
-
-[node name="ArcherTower" parent="." instance=ExtResource("3_b24ak")]
-position = Vector2(187, -50)
+position = Vector2(247, 99)
 
 [node name="Player" parent="." instance=ExtResource("5_b24ak")]
+position = Vector2(122, 5)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -37,3 +33,18 @@ offset_top = 4.0
 offset_right = -109.0
 offset_bottom = 4.0
 grow_horizontal = 0
+
+[node name="Slime" parent="." instance=ExtResource("4_ml45l")]
+position = Vector2(79, 105)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_q52up")
+
+[node name="ArcherTower" parent="." instance=ExtResource("3_b24ak")]
+position = Vector2(158, 93)
+_enabled = false
+
+[node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("1_hihby")]
+_base = NodePath("../Player")
+_player = NodePath("../Player")

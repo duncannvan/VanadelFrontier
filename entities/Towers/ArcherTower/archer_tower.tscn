@@ -33,3 +33,7 @@ shape = SubResource("CircleShape2D_rjvqp")
 
 [node name="ShootCooldown" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 10)
+radius = 10.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=12 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -8,6 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="8_1hcjw"]
 [ext_resource type="PackedScene" uid="uid://kdpmxcdl0po8" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="8_04q08"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
+vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1, 0, 321, 1, 323, 182, 0, 180)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_0wfyh")
@@ -742,6 +747,11 @@ sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 script = ExtResource("1_tbgi4")
 metadata/_edit_lock_ = true
 
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(-323, -217)
+scale = Vector2(1.93601, 1.93601)
+navigation_polygon = SubResource("NavigationPolygon_1hcjw")
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -1
 position = Vector2(3, -3)
@@ -750,6 +760,7 @@ tile_set = SubResource("TileSet_jyhfs")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
+unique_name_in_owner = true
 top_level = true
 position = Vector2(40, -49)
 
@@ -774,10 +785,10 @@ grow_horizontal = 0
 position = Vector2(-1, 5)
 
 [node name="ArcherTower" parent="." instance=ExtResource("8_04q08")]
-position = Vector2(-25, 113)
+position = Vector2(-58, -8)
 
 [node name="ArcherTower2" parent="." instance=ExtResource("8_04q08")]
-position = Vector2(123, 79)
+position = Vector2(1, -58)
 
 [node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
 position = Vector2(-163, -5)

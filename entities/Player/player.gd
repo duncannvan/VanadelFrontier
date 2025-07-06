@@ -138,3 +138,4 @@ func _on_health_changed(old_health: int, new_health: int) -> void:
 
 func get_max_health() -> int: 
 	return _health_component.get_max_health()
+	

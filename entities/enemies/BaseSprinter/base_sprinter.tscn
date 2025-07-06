@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://q3sxjb4kbqci"]
+[gd_scene load_steps=19 format=3 uid="uid://q3sxjb4kbqci"]
 
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_t670c"]
 [ext_resource type="Script" uid="uid://788pniifmi5m" path="res://Entities/entity_stats.gd" id="2_6ihyg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="5_6ihyg"]
 [ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_8b7ej"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://attack_effect.gd" id="7_k086u"]
+[ext_resource type="PackedScene" uid="uid://jrj3brk03iv1" path="res://Entities/Enemies/mob_navigation.tscn" id="9_n4ad1"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_st3w1"]
 
 [sub_resource type="Resource" id="Resource_8b7ej"]
@@ -77,9 +78,8 @@ sprite_frames = SubResource("SpriteFrames_sf5y1")
 animation = &"Roll"
 frame_progress = 0.268464
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("_health_component")]
+[node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("3_6ihyg")
-_health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
@@ -97,3 +97,5 @@ metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox"]
 shape = SubResource("CircleShape2D_8b7ej")
+
+[node name="MobNavigation" parent="." instance=ExtResource("9_n4ad1")]
