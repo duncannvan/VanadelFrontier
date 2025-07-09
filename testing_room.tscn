@@ -20,7 +20,7 @@ script = ExtResource("1_cbcji")
 position = Vector2(247, 99)
 
 [node name="Player" parent="." instance=ExtResource("5_b24ak")]
-position = Vector2(122, 5)
+position = Vector2(196, 49)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -34,17 +34,15 @@ offset_right = -109.0
 offset_bottom = 4.0
 grow_horizontal = 0
 
-[node name="Slime" parent="." instance=ExtResource("4_ml45l")]
-position = Vector2(79, 105)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_q52up")
 
 [node name="ArcherTower" parent="." instance=ExtResource("3_b24ak")]
-position = Vector2(158, 93)
+position = Vector2(304, 141)
 _enabled = false
 
 [node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("1_hihby")]
 _base = NodePath("../Player")
 _player = NodePath("../Player")
+_mob_scenes = Array[PackedScene]([ExtResource("4_ml45l")])

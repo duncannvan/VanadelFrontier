@@ -1,12 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpkxmbnft76va"]
+[gd_scene load_steps=2 format=3 uid="uid://dpkxmbnft76va"]
 
 [ext_resource type="Script" uid="uid://doyciu6e3cwrq" path="res://World/mob_spawner.gd" id="1_vlkng"]
-[ext_resource type="PackedScene" uid="uid://cx23fbehkvdub" path="res://Entities/Enemies/Slime/slime.tscn" id="2_cvuog"]
-[ext_resource type="PackedScene" uid="uid://q3sxjb4kbqci" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="3_dg74w"]
 
 [node name="MobSpawner" type="Node2D"]
 script = ExtResource("1_vlkng")
-_mob_scenes = Array[PackedScene]([ExtResource("2_cvuog"), ExtResource("3_dg74w")])
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
 autostart = true

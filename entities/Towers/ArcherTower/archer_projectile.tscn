@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://8wqdysh14oxj" path="res://Components/AreaDetection/projectile.gd" id="1_nkmf2"]
 [ext_resource type="Texture2D" uid="uid://wx5dbofehrwp" path="res://Assets/Sprites/arrow.png" id="2_3wm2j"]
-[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://attack_effect.gd" id="2_woesh"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="2_woesh"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="3_y82ka"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="4_7xuhr"]
 

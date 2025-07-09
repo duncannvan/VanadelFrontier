@@ -16,12 +16,14 @@ const PLAYER_PATH: NodePath = "../Player"
 @export var _death_effect: PackedScene
 @export var _hurt_effects: GPUParticles2D
 
+
 var _state: State 
 #@export var _target: Node2D
 var _target: Node2D
 
 @onready var _health_component: HealthComponent = $HealthComponent
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
+@onready var effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
 
 
 func _init() -> void:
@@ -29,7 +31,6 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	super()
 	_check_nodes()
 				
 	var animations = _sprite.sprite_frames.get_animation_names()
@@ -39,6 +40,7 @@ func _ready() -> void:
 	
 	_health_component.health_changed.connect(_on_health_changed)
 	_nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	_health_component.connect("died", _die)
 
 
 func _physics_process(delta: float) -> void:
@@ -70,7 +72,7 @@ func _emit_hurt_effects(color := Color.WHITE):
 	if _hurt_effects:
 		$HurtEffects.restart()
 		$HurtEffects.emitting = true
-	super()
+	effects_animation_player.play("hitflash")
 
 
 func _on_death():
@@ -86,15 +88,12 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 		_state = State.KNOCKEDBACK
 		velocity = knockback_vector
 		await get_tree().create_timer(knockback_duration).timeout
-		velocity = Vector2.ZERO
 		_state = State.ATTACKING
 
+ 
 func _on_health_changed(old_health: int, new_health: int) -> void:
 	if new_health < old_health:
 		_emit_hurt_effects()
-
-	if new_health < 0:
-		_die()
 
 
 func get_health() -> int: 

@@ -1,6 +1,6 @@
 class_name HurtBox extends Area2D
 
-func _enter_tree() -> void:
+func _ready() -> void:
 	if owner is Player:
 		collision_layer = 0x8
 		collision_mask = 0x40
@@ -13,8 +13,11 @@ func receive_hit(hitbox: HitBox, attack_effects: Array[AttackEffect]):
 	for effect in attack_effects:
 		var args = effect.get_method_argument_count("apply")
 		
-		effect.apply(owner, hitbox.global_position)
-		
+		if effect is KnockbackEffect:
+			effect.apply_knockback(owner, hitbox.global_position)
+		else:
+			effect.apply(owner)
+
 
 func off() -> void:
 	get_node("CollisionShape2D").set_deferred("disabled", true)

@@ -2,7 +2,7 @@ class_name DamageEffect extends AttackEffect
 
 @export var _damage: int = 10
 
-func apply(target: CombatUnit, hitbox_position: Vector2 = Vector2.ZERO):
+func apply(target: CombatUnit):
 	if target.get_node_or_null("HealthComponent"):
 		target.get_node("HealthComponent").take_damage(_damage)
 	else:

@@ -21,6 +21,7 @@ var facing_direction := Vector2.DOWN
 @onready var _hitbox: HitBox = $HitBox
 @onready var _health_component: HealthComponent = $HealthComponent
 @onready var _hurtbox: HurtBox = $HurtBox
+@onready var _effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
 
 
 func _init() -> void:
@@ -30,7 +31,6 @@ func _init() -> void:
 func _ready() -> void:
 	_health_component.connect("health_changed", _on_health_changed)
 	_health_component.connect("died", _die)
-	super()
  
 
 func _physics_process(delta) -> void:
@@ -50,7 +50,7 @@ func _input(event: InputEvent) -> void:
 
 
 func take_damage() -> void:
-	_emit_hurt_effects()
+	_effects_animation_player.play("hitflash")
 	give_invincibility()
 
 

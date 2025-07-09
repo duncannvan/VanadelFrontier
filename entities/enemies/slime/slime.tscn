@@ -1,13 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=28 format=3 uid="uid://cx23fbehkvdub"]
 
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_p2gj0"]
-[ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://Entities/Enemies/Slime/slime_stats.tres" id="2_fg4mt"]
 [ext_resource type="Texture2D" uid="uid://54af4f2n8dcn" path="res://Assets/Sprites/slime_hurt_particle.png" id="3_xh4mf"]
+[ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="3_y3an5"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="4_vwks7"]
 [ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="6_0bfvh"]
 [ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_lcogp"]
-[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://attack_effect.gd" id="8_6f406"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="8_6f406"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_y3an5"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="10_6f406"]
@@ -94,6 +94,45 @@ _knockback_force = 200
 _knockback_duration = 0.1
 metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
+[sub_resource type="Animation" id="Animation_iplt1"]
+resource_name = "hitflash"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_owvpp"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xr8lj"]
+_data = {
+&"RESET": SubResource("Animation_owvpp"),
+&"hitflash": SubResource("Animation_iplt1")
+}
+
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_hurt_effects", "_sprite")]
 top_level = true
 collision_layer = 4
@@ -102,11 +141,12 @@ _targeting_type = 1
 _death_effect = ExtResource("6_0bfvh")
 _hurt_effects = NodePath("HurtEffects")
 _sprite = NodePath("AnimatedSprite2D")
-entity_data = ExtResource("2_fg4mt")
+_speed = null
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = ExtResource("3_y3an5")
 sprite_frames = SubResource("SpriteFrames_0l8pv")
 animation = &"bounce"
 
@@ -151,3 +191,8 @@ shape = SubResource("CircleShape2D_vnioy")
 
 [node name="MobNavigation" parent="." instance=ExtResource("12_y3an5")]
 debug_enabled = false
+
+[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xr8lj")
+}

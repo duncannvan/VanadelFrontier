@@ -1,19 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://q3sxjb4kbqci"]
+[gd_scene load_steps=21 format=3 uid="uid://q3sxjb4kbqci"]
 
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_t670c"]
-[ext_resource type="Script" uid="uid://788pniifmi5m" path="res://Entities/entity_stats.gd" id="2_6ihyg"]
+[ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="2_n4ad1"]
 [ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/rolling_ball.png" id="2_qr1m2"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_6ihyg"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="5_6ihyg"]
 [ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_8b7ej"]
-[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://attack_effect.gd" id="7_k086u"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="7_k086u"]
 [ext_resource type="PackedScene" uid="uid://jrj3brk03iv1" path="res://Entities/Enemies/mob_navigation.tscn" id="9_n4ad1"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_st3w1"]
-
-[sub_resource type="Resource" id="Resource_8b7ej"]
-script = ExtResource("2_6ihyg")
-speed = 60
-metadata/_custom_type_script = "uid://788pniifmi5m"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8b7ej"]
 radius = 6.0
@@ -63,17 +58,58 @@ _knockback_force = 300
 _knockback_duration = 0.2
 metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
+[sub_resource type="Animation" id="Animation_iplt1"]
+resource_name = "hitflash"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_owvpp"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xr8lj"]
+_data = {
+&"RESET": SubResource("Animation_owvpp"),
+&"hitflash": SubResource("Animation_iplt1")
+}
+
 [node name="BaseSprinter" type="CharacterBody2D" node_paths=PackedStringArray("_sprite")]
 collision_layer = 32
 script = ExtResource("1_t670c")
+_targeting_type = null
 _sprite = NodePath("AnimatedSprite2D")
-entity_data = SubResource("Resource_8b7ej")
+_speed = 75
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 
 [node name="BaseSprinterBody" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8b7ej")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_n4ad1")
 sprite_frames = SubResource("SpriteFrames_sf5y1")
 animation = &"Roll"
 frame_progress = 0.268464
@@ -100,3 +136,8 @@ shape = SubResource("CircleShape2D_8b7ej")
 
 [node name="MobNavigation" parent="." instance=ExtResource("9_n4ad1")]
 debug_enabled = false
+
+[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xr8lj")
+}
