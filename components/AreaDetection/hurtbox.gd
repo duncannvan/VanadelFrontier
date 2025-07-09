@@ -5,13 +5,12 @@ const PLAYER_HURTBOX_MASK = 0x40
 const MOB_HURTBOX_LAYER = 0x20
 const MOB_HURTBOX_MASK = 0x10
 
-@export var is_invincible: bool = false 
-#:
-	#set(value):
-		#is_invincible = value
-		#for child in get_children():
-			#if child is not CollisionShape2D: continue
-			#child.set_deferred("disabled", is_invincible)
+@export var is_invincible: bool = false :
+	set(value):
+		is_invincible = value
+		for child in get_children():
+			if child is not CollisionShape2D: continue
+			child.set_deferred("disabled", is_invincible)
 
 
 func _ready() -> void:

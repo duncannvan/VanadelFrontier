@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="3_y3an5"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="4_vwks7"]
 [ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="6_0bfvh"]
-[ext_resource type="Script" uid="uid://b5n0jdmx3fws7" path="res://Components/AreaDetection/body_hitbox.gd" id="6_lcogp"]
+[ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_1cymo"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="8_6f406"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_y3an5"]
@@ -142,9 +142,9 @@ _max_health = 20
 metadata/_custom_type_script = "uid://beldcflw254u"
 
 [node name="BodyHitbox" type="Area2D" parent="."]
-script = ExtResource("6_lcogp")
+script = ExtResource("8_1cymo")
 _attack_effects = Array[ExtResource("8_6f406")]([SubResource("Resource_6f406"), SubResource("Resource_y3an5")])
-metadata/_custom_type_script = "uid://b5n0jdmx3fws7"
+metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox"]
 visible = false
