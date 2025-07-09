@@ -1,21 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbn3u2nduf6g3"]
+[gd_scene load_steps=7 format=3 uid="uid://bbn3u2nduf6g3"]
 
 [ext_resource type="Script" uid="uid://8wqdysh14oxj" path="res://Components/AreaDetection/projectile.gd" id="1_nkmf2"]
 [ext_resource type="Texture2D" uid="uid://wx5dbofehrwp" path="res://Assets/Sprites/arrow.png" id="2_3wm2j"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="2_woesh"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="3_y82ka"]
-[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="4_7xuhr"]
 
-[sub_resource type="Resource" id="Resource_tkgg4"]
+[sub_resource type="Resource" id="Resource_ysdnu"]
 script = ExtResource("3_y82ka")
-_damage = 10
+_damage = 1
 metadata/_custom_type_script = "uid://c6nd4i5durrew"
-
-[sub_resource type="Resource" id="Resource_wanno"]
-script = ExtResource("4_7xuhr")
-_knockback_force = 200
-_knockback_duration = 0.1
-metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysdnu"]
 size = Vector2(11, 3)
@@ -24,7 +17,7 @@ size = Vector2(11, 3)
 collision_layer = 16
 collision_mask = 32
 script = ExtResource("1_nkmf2")
-_attack_effects = Array[ExtResource("2_woesh")]([SubResource("Resource_tkgg4"), SubResource("Resource_wanno")])
+attack_effects = Array[ExtResource("2_woesh")]([SubResource("Resource_ysdnu")])
 metadata/_custom_type_script = "uid://8wqdysh14oxj"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

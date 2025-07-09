@@ -8,13 +8,12 @@ extends Control
 
 func _ready() -> void:
 	_health_component.connect("health_changed", _on_health_changed)
-	_on_health_changed(0, _health_component.get_max_health())
 
 
-func _on_health_changed(old_health: int, new_health: int) -> void:
+func _on_health_changed() -> void:
 	for child in _heart_container.get_children():
 		child.queue_free()
 
-	for i in range(int(new_health / 10)):
+	for i in range(_health_component.get_health()):
 		var heart = _heart_scene.instantiate()
 		_heart_container.add_child(heart)

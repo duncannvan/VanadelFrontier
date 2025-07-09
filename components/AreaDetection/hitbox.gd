@@ -1,20 +1,21 @@
 class_name HitBox extends Area2D
 
-@export var _attack_effects: Array[AttackEffect]
+# Create a signal for when the hitbox hits a hurtbox
+signal hit_hurtbox(hurtbox)
+
+@export var attack_effects: Array[AttackEffect]
 
 func _ready() -> void:
-	if owner is Player:
-		collision_layer = 0x10
-		collision_mask = 0x20
-	elif owner is Mob:
-		collision_layer = 0x40
-		collision_mask = 0x8
-		
 	connect("area_entered", _on_area_entered)
 
 
 func _on_area_entered(hurtbox: HurtBox) -> void:
-	hurtbox.receive_hit(self, _attack_effects)
+	#hurtbox.receive_hit(self, _attack_effects)
+	if hurtbox.is_invincible: return
+	
+	# Signal out that we hit a hurtbox (xthis is useful for destroying projectiles when they hit something)
+	hit_hurtbox.emit(hurtbox)
+	hurtbox.hurt.emit(self)
 
 
 func on() -> void:	

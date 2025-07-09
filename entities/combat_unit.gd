@@ -3,14 +3,14 @@ class_name CombatUnit extends CharacterBody2D
 const BLINK_TIME : float = 0.1 
 const TIME_BEFORE_DESPAWN : int = 3
 
-@export var _sprite: AnimatedSprite2D
 @export var _speed: int = 50
 
 var _slowed: bool = false
 var slow_timer: Timer
 
 func _check_nodes():
-	assert(_sprite, "%s missing sprite" % self)
+	pass
+	#assert(_sprite, "%s missing sprite" % self)
 
 
 func apply_slow(speed_lost: int, slow_duration: float):
@@ -33,7 +33,4 @@ func _on_death() -> void:
 
 func _die() -> void:
 	_on_death()
-	_speed = 0
-	_sprite.stop()
-	
 	queue_free()

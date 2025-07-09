@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=44 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="2_iplt1"]
@@ -8,8 +8,7 @@
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_8fjmc"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="5_iplt1"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_01a4e"]
-[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="7_iplt1"]
-[ext_resource type="Script" uid="uid://cej0ljjf57lre" path="res://Resources/slow_effect.gd" id="7_owvpp"]
+[ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="7_iplt1"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/player_hearts_ui.tscn" id="8_lub02"]
 [ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://UI/hp_bar/heart.tscn" id="9_x1y6q"]
 [ext_resource type="AnimationLibrary" uid="uid://c0c2payaevb01" path="res://Entities/Player/player_damaged_effects_anim.tres" id="12_owvpp"]
@@ -231,22 +230,14 @@ size = Vector2(10, 9.5)
 
 [sub_resource type="Resource" id="Resource_owvpp"]
 script = ExtResource("7_iplt1")
-_knockback_force = 200
-_knockback_duration = 0.1
-metadata/_custom_type_script = "uid://dx7savleyp0lc"
-
-[sub_resource type="Resource" id="Resource_xr8lj"]
-script = ExtResource("7_owvpp")
-speed_lost = 50
-slow_duration = 1.0
-metadata/_custom_type_script = "uid://cej0ljjf57lre"
+_damage = 1
+metadata/_custom_type_script = "uid://c6nd4i5durrew"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_01a4e"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite")]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_g2els")
-_sprite = NodePath("AnimatedSprite2D")
 _speed = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -263,7 +254,7 @@ shape = SubResource("RectangleShape2D_d2wvv")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 64
+collision_mask = 0
 script = ExtResource("5_8fjmc")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
@@ -273,8 +264,10 @@ shape = SubResource("RectangleShape2D_d2wvv")
 
 [node name="HitBox" type="Area2D" parent="."]
 show_behind_parent = true
+collision_layer = 0
+collision_mask = 32
 script = ExtResource("3_fkugw")
-_attack_effects = Array[ExtResource("5_iplt1")]([SubResource("Resource_owvpp"), SubResource("Resource_xr8lj")])
+attack_effects = Array[ExtResource("5_iplt1")]([SubResource("Resource_owvpp")])
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -305,5 +298,5 @@ libraries = {
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_01a4e")
-_max_health = 30
+_max_health = 3
 metadata/_custom_type_script = "uid://beldcflw254u"

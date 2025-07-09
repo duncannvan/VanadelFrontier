@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_y3an5"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="10_6f406"]
-[ext_resource type="PackedScene" uid="uid://jrj3brk03iv1" path="res://Entities/Enemies/mob_navigation.tscn" id="12_y3an5"]
+[ext_resource type="PackedScene" uid="uid://cq7jwutfgsiv3" path="res://Entities/Enemies/mob_navigation.tscn" id="12_y3an5"]
 [ext_resource type="AnimationLibrary" uid="uid://2fab2mva6xgc" path="res://Entities/Enemies/mob_damaged_effects_anim.tres" id="13_1cymo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
@@ -84,25 +84,24 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ls0r"]
 radius = 7.0
 
-[sub_resource type="Resource" id="Resource_6f406"]
+[sub_resource type="Resource" id="Resource_1cymo"]
 script = ExtResource("9_y3an5")
-_damage = 10
+_damage = 1
 metadata/_custom_type_script = "uid://c6nd4i5durrew"
 
-[sub_resource type="Resource" id="Resource_y3an5"]
+[sub_resource type="Resource" id="Resource_bwbvy"]
 script = ExtResource("10_6f406")
 _knockback_force = 200
 _knockback_duration = 0.1
 metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_hurt_effects", "_sprite")]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_hurt_effects")]
 top_level = true
 collision_layer = 4
 script = ExtResource("1_p2gj0")
 _targeting_type = 1
 _death_effect = ExtResource("6_0bfvh")
 _hurt_effects = NodePath("HurtEffects")
-_sprite = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 metadata/_edit_group_ = true
 
@@ -129,7 +128,7 @@ shape = SubResource("CircleShape2D_vnioy")
 [node name="HurtBox" type="Area2D" parent="."]
 visible = false
 collision_layer = 32
-collision_mask = 16
+collision_mask = 0
 script = ExtResource("4_vwks7")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
@@ -138,12 +137,14 @@ shape = SubResource("CircleShape2D_1ls0r")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("8_ha687")
-_max_health = 20
+_max_health = 2
 metadata/_custom_type_script = "uid://beldcflw254u"
 
 [node name="BodyHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("8_1cymo")
-_attack_effects = Array[ExtResource("8_6f406")]([SubResource("Resource_6f406"), SubResource("Resource_y3an5")])
+attack_effects = Array[ExtResource("8_6f406")]([SubResource("Resource_1cymo"), SubResource("Resource_bwbvy")])
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox"]

@@ -16,19 +16,18 @@ const PLAYER_PATH: NodePath = "../Player"
 @export var _death_effect: PackedScene
 @export var _hurt_effects: GPUParticles2D
 
-
 var _state: State 
-#@export var _target: Node2D
 var _target: Node2D
 
 @onready var _health_component: HealthComponent = $HealthComponent
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
 @onready var effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
-
+@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _hurtbox: HurtBox = $HurtBox
 
 func _init() -> void:
 	set_collision_layer(4)
-
+	
 
 func _ready() -> void:
 	_check_nodes()
@@ -38,9 +37,10 @@ func _ready() -> void:
 		_sprite.animation = animations[0]
 		_sprite.play()
 	
-	_health_component.health_changed.connect(_on_health_changed)
-	_nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	#_health_component.health_changed.connect(_on_health_changed)
 	_health_component.connect("died", _die)
+	_hurtbox.hurt.connect(_apply_attack_effects)
+	_nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
 
 func _physics_process(delta: float) -> void:
@@ -68,12 +68,20 @@ func _on_velocity_computed(safe_velocity: Vector2):
 	move_and_slide()
 
 
-func _emit_hurt_effects(color := Color.WHITE):
+func _emit_hurt_effects():
 	if _hurt_effects:
 		$HurtEffects.restart()
 		$HurtEffects.emitting = true
 	effects_animation_player.play("hitflash")
 
+
+func _apply_attack_effects(hitbox: HitBox) -> void:
+	for effect in hitbox.attack_effects:
+		if effect is KnockbackEffect:
+			effect.apply_knockback(self, hitbox.global_position)
+		else:
+			effect.apply(self)
+			
 
 func _on_death():
 	# Slime death effect
@@ -91,10 +99,9 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 		_state = State.ATTACKING
 
  
-func _on_health_changed(old_health: int, new_health: int) -> void:
-	if new_health < old_health:
+func take_damage(damage: int) -> void:
 		_emit_hurt_effects()
-		
+		_health_component.take_damage(damage)
 
 func get_health() -> int: 
 	return _health_component.get_health()

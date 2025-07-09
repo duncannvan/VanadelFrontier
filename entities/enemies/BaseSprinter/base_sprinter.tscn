@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://q3sxjb4kbqci"]
+[gd_scene load_steps=16 format=3 uid="uid://q3sxjb4kbqci"]
 
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_t670c"]
 [ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="2_n4ad1"]
@@ -6,9 +6,7 @@
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_6ihyg"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="5_6ihyg"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="6_st3w1"]
-[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="7_k086u"]
-[ext_resource type="PackedScene" uid="uid://jrj3brk03iv1" path="res://Entities/Enemies/mob_navigation.tscn" id="9_n4ad1"]
-[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_st3w1"]
+[ext_resource type="PackedScene" uid="uid://cq7jwutfgsiv3" path="res://Entities/Enemies/mob_navigation.tscn" id="9_n4ad1"]
 [ext_resource type="AnimationLibrary" uid="uid://2fab2mva6xgc" path="res://Entities/Enemies/mob_damaged_effects_anim.tres" id="10_st3w1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8b7ej"]
@@ -53,16 +51,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_a6lfn"]
 radius = 6.0
 
-[sub_resource type="Resource" id="Resource_a6lfn"]
-script = ExtResource("9_st3w1")
-_knockback_force = 300
-_knockback_duration = 0.2
-metadata/_custom_type_script = "uid://dx7savleyp0lc"
-
-[node name="BaseSprinter" type="CharacterBody2D" node_paths=PackedStringArray("_sprite")]
+[node name="BaseSprinter" type="CharacterBody2D"]
 collision_layer = 32
 script = ExtResource("1_t670c")
-_sprite = NodePath("AnimatedSprite2D")
 _speed = 75
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 
@@ -76,6 +67,8 @@ animation = &"Roll"
 frame_progress = 0.268464
 
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
 script = ExtResource("3_6ihyg")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
@@ -84,12 +77,13 @@ shape = SubResource("CircleShape2D_a6lfn")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_6ihyg")
-_max_health = 20
+_max_health = 2
 metadata/_custom_type_script = "uid://beldcflw254u"
 
 [node name="BodyHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("6_st3w1")
-_attack_effects = Array[ExtResource("7_k086u")]([SubResource("Resource_a6lfn")])
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox"]

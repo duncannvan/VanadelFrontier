@@ -3,7 +3,7 @@ class_name HealthComponent extends Node
 signal health_changed(old_health, new_health)
 signal died()
 
-@export var _max_health: int = 100
+@export var _max_health: int = 1
 
 var _health: int
 
@@ -15,7 +15,7 @@ func _ready() -> void:
 func take_damage(damage: int) -> void:
 	var old_health = _health
 	_health -= damage
-	emit_signal("health_changed", old_health, _health)
+	emit_signal("health_changed")
 	
 	if _health <= 0:
 		emit_signal("died")

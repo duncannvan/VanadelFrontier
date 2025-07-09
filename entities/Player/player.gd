@@ -20,6 +20,7 @@ var facing_direction := Vector2.DOWN
 @onready var _health_component: HealthComponent = $HealthComponent
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _effects_animation_player: AnimationPlayer = $PlayerDamagedEffects
+@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _init() -> void:
@@ -27,7 +28,7 @@ func _init() -> void:
 	
 
 func _ready() -> void:
-	_health_component.connect("health_changed", _on_health_changed)
+	_hurtbox.hurt.connect(_apply_attack_effects)
 	_health_component.connect("died", _die)
  
 
@@ -47,8 +48,9 @@ func _input(event: InputEvent) -> void:
 		_attack_handler()
 
 
-func take_damage() -> void:
+func take_damage(damage: int) -> void:
 	_effects_animation_player.play("hitflash")
+	_health_component.take_damage(damage)
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
@@ -92,6 +94,14 @@ func _attack_handler() -> void:
 	_hitbox.off()
 	await get_tree().create_timer(.3).timeout # Scuffed attack cooldown
 	_exit_state(State.ATTACKING)
+
+
+func _apply_attack_effects(hitbox: HitBox) -> void:
+	for effect in hitbox.attack_effects:
+		if effect is KnockbackEffect:
+			effect.apply_knockback(self, hitbox.global_position)
+		else:
+			effect.apply(self)
 	
 
 func _add_state(state: State) -> void:
@@ -104,13 +114,6 @@ func _is_state(state: State) -> bool:
 
 func _exit_state(state: State) -> void :
 	_state &= ~state
-
-
-func _on_health_changed(old_health: int, new_health: int) -> void:
-	if new_health < old_health:
-		take_damage()
-
-	update_health_ui.emit(new_health) # updates gui
 	
 
 func get_max_health() -> int: 
