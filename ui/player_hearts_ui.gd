@@ -10,6 +10,7 @@ func _ready() -> void:
 	_health_component.connect("health_changed", _on_health_changed)
 	_on_health_changed(0, _health_component.get_max_health())
 
+
 func _on_health_changed(old_health: int, new_health: int) -> void:
 	for child in _heart_container.get_children():
 		child.queue_free()

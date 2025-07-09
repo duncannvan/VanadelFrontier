@@ -24,8 +24,7 @@ func apply_slow(speed_lost: int, slow_duration: float):
 	var slow_timer = await get_tree().create_timer(slow_duration).timeout
 	_speed = cur_speed
 	_slowed = false
-	
-	
+
 
 # Override in child
 func _on_death() -> void: 

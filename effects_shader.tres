@@ -6,4 +6,5 @@
 resource_local_to_scene = true
 shader = ExtResource("1_w3cgf")
 shader_parameter/flash_enabled = false
+shader_parameter/transparent_enabled = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)

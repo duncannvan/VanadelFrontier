@@ -94,7 +94,7 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 func _on_health_changed(old_health: int, new_health: int) -> void:
 	if new_health < old_health:
 		_emit_hurt_effects()
-
+		
 
 func get_health() -> int: 
 	return _health_component.get_health()

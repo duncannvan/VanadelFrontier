@@ -42,7 +42,5 @@ navigation_polygon = SubResource("NavigationPolygon_q52up")
 position = Vector2(304, 141)
 _enabled = false
 
-[node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("1_hihby")]
-_base = NodePath("../Player")
-_player = NodePath("../Player")
+[node name="MobSpawner" parent="." instance=ExtResource("1_hihby")]
 _mob_scenes = Array[PackedScene]([ExtResource("4_ml45l")])
