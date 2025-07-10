@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfkn1tevkmwyn"]
+
+[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="1_tjrlb"]
+
+[sub_resource type="Curve" id="Curve_s1j8t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kbk6i"]
+curve = SubResource("Curve_s1j8t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s1j8t"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_kbk6i")
+
+[sub_resource type="Animation" id="Animation_tjrlb"]
+resource_name = "death_animation"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MobDeathParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4nmir"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MobDeathParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ti2y3"]
+_data = {
+&"RESET": SubResource("Animation_4nmir"),
+&"death_animation": SubResource("Animation_tjrlb")
+}
+
+[node name="MobDeathEffects" type="Node2D"]
+
+[node name="MobDeathParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+texture = ExtResource("1_tjrlb")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_s1j8t")
+
+[node name="MobDeathAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ti2y3")
+}
+autoplay = "death_animation"

@@ -19,8 +19,4 @@ func _on_body_entered(body: Mob) -> void:
 
 
 func _on_died() -> void:
-	call_deferred("change_to_game_over_scene")
-
-
-func change_to_game_over_scene():
-	get_tree().change_scene_to_file("res://GameOver.tscn")
+	Global.game_over.emit()

@@ -1,28 +1,70 @@
-[gd_scene load_steps=10 format=3 uid="uid://dhl6f1w6yd4xm"]
+[gd_scene load_steps=14 format=3 uid="uid://dhl6f1w6yd4xm"]
 
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_vi1xe"]
-[ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="2_sctu6"]
-[ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="3_ybhle"]
+[ext_resource type="PackedScene" uid="uid://bfkn1tevkmwyn" path="res://Entities/Enemies/mob_death_effects.tscn" id="2_a3mig"]
+[ext_resource type="Shader" uid="uid://b3lfikqvfwseg" path="res://Entities/Enemies/mob_shader.gdshader" id="3_a3mig"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="6_3682f"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_22562"]
 [ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Entities/Player/speed_component.gd" id="8_a3mig"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_fo871"]
 [ext_resource type="AnimationLibrary" uid="uid://2fab2mva6xgc" path="res://Entities/Enemies/mob_damaged_effects_anim.tres" id="13_m4tqa"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3mig"]
+resource_local_to_scene = true
+shader = ExtResource("3_a3mig")
+shader_parameter/flash = false
+shader_parameter/gray_scale = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnioy"]
 radius = 6.0
+
+[sub_resource type="Animation" id="Animation_2tktv"]
+resource_name = "slowed_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/gray_scale_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_a3mig"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/gray_scale_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3mig"]
+_data = {
+&"RESET": SubResource("Animation_a3mig"),
+&"slowed_animation": SubResource("Animation_2tktv")
+}
 
 [node name="Mob" type="CharacterBody2D"]
 top_level = true
 collision_layer = 4
 script = ExtResource("1_vi1xe")
-_targeting_type = 1
-_death_effect = ExtResource("2_sctu6")
+_death_effect = ExtResource("2_a3mig")
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = ExtResource("3_ybhle")
+material = SubResource("ShaderMaterial_a3mig")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vnioy")
@@ -43,9 +85,14 @@ collision_mask = 8
 script = ExtResource("8_fo871")
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
-[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="DamagedAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": ExtResource("13_m4tqa")
+}
+
+[node name="SlowedAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a3mig")
 }
 
 [node name="MobNavigation" type="NavigationAgent2D" parent="."]
@@ -55,3 +102,7 @@ avoidance_enabled = true
 [node name="SpeedComponent" type="Node2D" parent="."]
 script = ExtResource("8_a3mig")
 metadata/_custom_type_script = "uid://colxr2kune7p5"
+
+[node name="DamagedParticles" type="GPUParticles2D" parent="."]
+emitting = false
+one_shot = true

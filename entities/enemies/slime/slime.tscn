@@ -2,17 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
-[ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://effects_shader.gdshader" id="2_rtx5w"]
-[ext_resource type="Texture2D" uid="uid://54af4f2n8dcn" path="res://Assets/Sprites/slime_hurt_particle.png" id="3_xh4mf"]
+[ext_resource type="Shader" uid="uid://b3lfikqvfwseg" path="res://Entities/Enemies/mob_shader.gdshader" id="2_ha687"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="4_fg4mt"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="5_ha687"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="6_utbsb"]
+[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="7_ha687"]
+[ext_resource type="Material" uid="uid://btywae5n26jre" path="res://Entities/Enemies/Slime/slime_damaged_particles.tres" id="8_ha687"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_it1cl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ha687"]
 resource_local_to_scene = true
-shader = ExtResource("2_rtx5w")
-shader_parameter/flash_enabled = false
-shader_parameter/transparent_enabled = false
+shader = ExtResource("2_ha687")
+shader_parameter/flash = false
+shader_parameter/gray_scale = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fg4mt"]
@@ -85,21 +86,10 @@ metadata/_custom_type_script = "uid://dx7savleyp0lc"
 [sub_resource type="CircleShape2D" id="CircleShape2D_6f406"]
 radius = 6.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ap3hc"]
-particle_flag_disable_z = true
-velocity_pivot = Vector3(0, 1, 0)
-direction = Vector3(0, -1, 0)
-spread = 15.0
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
-gravity = Vector3(0, 150, 0)
-scale_min = 0.85
-scale_max = 0.85
-
 [node name="Slime" instance=ExtResource("1_0lovs")]
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-material = SubResource("ShaderMaterial_it1cl")
+material = SubResource("ShaderMaterial_ha687")
 sprite_frames = SubResource("SpriteFrames_1cymo")
 animation = &"bounce"
 autoplay = "bounce"
@@ -123,20 +113,16 @@ attack_effects = Array[ExtResource("4_fg4mt")]([SubResource("Resource_b7js1"), S
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_6f406")
 
-[node name="MobNavigation" parent="." index="6"]
+[node name="MobNavigation" parent="." index="7"]
 debug_enabled = true
 
-[node name="SpeedComponent" parent="." index="7"]
+[node name="SpeedComponent" parent="." index="8"]
 visible = false
 
-[node name="HurtEffects" type="GPUParticles2D" parent="." index="8"]
-visible = false
+[node name="DamagedParticles" parent="." index="9"]
 modulate = Color(0.34902, 0.756863, 0.207843, 1)
-show_behind_parent = true
-emitting = false
-amount = 3
-texture = ExtResource("3_xh4mf")
-one_shot = true
-speed_scale = 2.0
+amount = 4
+texture = ExtResource("7_ha687")
+lifetime = 0.5
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_ap3hc")
+process_material = ExtResource("8_ha687")

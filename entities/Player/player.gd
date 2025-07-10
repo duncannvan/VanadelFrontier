@@ -12,14 +12,15 @@ enum State {
 
 const NUM_HEALTH_PER_HEART: int = 10
 
+@export var _invincibility_time: float = 1.0
 
 var _state: State = State.IDLE
-var facing_direction := Vector2.DOWN
 
 @onready var _hitbox: HitBox = $HitBox
 @onready var _health_component: HealthComponent = $HealthComponent
 @onready var _hurtbox: HurtBox = $HurtBox
-@onready var _effects_animation_player: AnimationPlayer = $PlayerDamagedEffects
+@onready var _damaged_effects_animation: AnimationPlayer = $DamagedEffectsAnimation
+@onready var _invincibility_effects_animation: AnimationPlayer = $InvincibilityEffectsAnimation
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _speed_component: SpeedComponent = $SpeedComponent
 
@@ -31,7 +32,7 @@ func _init() -> void:
 func _ready() -> void:
 	_hurtbox.hurt.connect(_apply_attack_effects)
 	_health_component.connect("died", _die)
- 
+	
 
 func _physics_process(delta) -> void:
 	move_and_slide()
@@ -49,9 +50,19 @@ func _input(event: InputEvent) -> void:
 		_attack_handler()
 
 
-func apply_damage(damage: int) -> void:
-	_effects_animation_player.play("hitflash")
+func apply_damage(damage: int, hitbox_position: Vector2) -> void:
+	_damaged_effects_animation.play("damaged_effects")
 	_health_component.apply_damage(damage)
+	_give_invincibility()
+
+
+func _give_invincibility() -> void:
+	_hurtbox.is_invincible = true
+	_invincibility_effects_animation.play("invincibility_effects")
+	await get_tree().create_timer(_invincibility_time).timeout
+	_hurtbox.is_invincible = false
+	_invincibility_effects_animation.seek(0.0) 
+	_invincibility_effects_animation.stop()
 
 
 func apply_slow(slow_percentage: float, slow_duration: int) -> void:
@@ -70,9 +81,10 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 func _die() -> void:
 	_add_state(State.DEAD)	
 	queue_free()
+	Global.game_over.emit()
+
 
 func _walk_handler(direction: Vector2) -> void:
-	if direction: facing_direction = direction
 	velocity = direction * _speed_component.speed 
 	
 	if direction != Vector2.ZERO:
@@ -103,10 +115,7 @@ func _attack_handler() -> void:
 
 func _apply_attack_effects(hitbox: HitBox) -> void:
 	for effect in hitbox.attack_effects:
-		if effect is KnockbackEffect:
-			effect.apply_knockback(self, hitbox.global_position)
-		else:
-			effect.apply(self)
+			effect.apply(self, hitbox.global_position)
 	
 
 func _add_state(state: State) -> void:

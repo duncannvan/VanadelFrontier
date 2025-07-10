@@ -1,7 +1,7 @@
-[gd_scene load_steps=47 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=53 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
-[ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="2_iplt1"]
+[ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://Entities/Player/player_shader.gdshader" id="2_r8fok"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="3_fkugw"]
 [ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/blockout_top_down.png" id="3_lub02"]
 [ext_resource type="Texture2D" uid="uid://ds6keo5tbk1v2" path="res://Assets/Sprites/hitbox.png" id="3_qhqgy"]
@@ -10,10 +10,17 @@
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_01a4e"]
 [ext_resource type="Script" uid="uid://cej0ljjf57lre" path="res://Resources/slow_effect.gd" id="7_owvpp"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/player_hearts_ui.tscn" id="8_lub02"]
+[ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_nhbkt"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_r8fok"]
 [ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://UI/hp_bar/heart.tscn" id="9_x1y6q"]
 [ext_resource type="AnimationLibrary" uid="uid://c0c2payaevb01" path="res://Entities/Player/player_damaged_effects_anim.tres" id="12_owvpp"]
 [ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Entities/Player/speed_component.gd" id="13_owvpp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nhbkt"]
+shader = ExtResource("2_r8fok")
+shader_parameter/flash = false
+shader_parameter/transparent = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x1y6q"]
 atlas = ExtResource("3_lub02")
@@ -230,26 +237,70 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
 size = Vector2(10, 9.5)
 
-[sub_resource type="Resource" id="Resource_xr8lj"]
-script = ExtResource("7_owvpp")
-slow_percentage = 0.5
-slow_duration = 1.0
-metadata/_custom_type_script = "uid://cej0ljjf57lre"
-
 [sub_resource type="Resource" id="Resource_nhbkt"]
 script = ExtResource("9_r8fok")
 _knockback_force = 200
 _knockback_duration = 0.1
 metadata/_custom_type_script = "uid://dx7savleyp0lc"
 
+[sub_resource type="Resource" id="Resource_vskfa"]
+script = ExtResource("9_nhbkt")
+_damage = 1
+metadata/_custom_type_script = "uid://c6nd4i5durrew"
+
+[sub_resource type="Resource" id="Resource_xr8lj"]
+script = ExtResource("7_owvpp")
+slow_percentage = 0.5
+slow_duration = 1.0
+metadata/_custom_type_script = "uid://cej0ljjf57lre"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_01a4e"]
+
+[sub_resource type="Animation" id="Animation_r8fok"]
+resource_name = "invincibility_effects"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/transparent")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_nhbkt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/transparent")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vskfa"]
+_data = {
+&"RESET": SubResource("Animation_nhbkt"),
+&"invincibility_effects": SubResource("Animation_r8fok")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = ExtResource("2_iplt1")
+material = SubResource("ShaderMaterial_nhbkt")
 position = Vector2(3, 5)
 sprite_frames = SubResource("SpriteFrames_qhqgy")
 animation = &"down"
@@ -275,7 +326,7 @@ show_behind_parent = true
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("3_fkugw")
-attack_effects = Array[ExtResource("5_iplt1")]([SubResource("Resource_xr8lj"), SubResource("Resource_nhbkt")])
+attack_effects = Array[ExtResource("5_iplt1")]([SubResource("Resource_nhbkt"), SubResource("Resource_vskfa"), SubResource("Resource_xr8lj")])
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -299,7 +350,7 @@ scale = Vector2(0.50114, 0.50114)
 _heart_scene = ExtResource("9_x1y6q")
 _health_component = NodePath("../HealthComponent")
 
-[node name="PlayerDamagedEffects" type="AnimationPlayer" parent="."]
+[node name="DamagedEffectsAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": ExtResource("12_owvpp")
 }
@@ -312,3 +363,8 @@ metadata/_custom_type_script = "uid://beldcflw254u"
 [node name="SpeedComponent" type="Node2D" parent="."]
 script = ExtResource("13_owvpp")
 speed = 100
+
+[node name="InvincibilityEffectsAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vskfa")
+}

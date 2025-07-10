@@ -1,17 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cise8u0ooajis"]
+[gd_scene load_steps=13 format=3 uid="uid://cise8u0ooajis"]
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_6ihyg"]
-[ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://effects_shader.gdshader" id="2_8b7ej"]
 [ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/rolling_ball.png" id="2_qr1m2"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="7_k086u"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_st3w1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k086u"]
-resource_local_to_scene = true
-shader = ExtResource("2_8b7ej")
-shader_parameter/flash_enabled = false
-shader_parameter/transparent_enabled = false
-shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8alqs"]
 atlas = ExtResource("2_qr1m2")
@@ -62,10 +54,8 @@ metadata/_custom_type_script = "uid://dx7savleyp0lc"
 radius = 6.0
 
 [node name="BaseSprinter" instance=ExtResource("1_6ihyg")]
-_targeting_type = 0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-material = SubResource("ShaderMaterial_k086u")
 sprite_frames = SubResource("SpriteFrames_a6lfn")
 animation = &"roll"
 autoplay = "roll"

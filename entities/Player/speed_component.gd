@@ -2,7 +2,7 @@ class_name SpeedComponent extends Node2D
 
 @export var speed: int = 50
 
-var _slowed: bool = false
+@export var _slowed: bool = false
 var _slow_timer: Timer
 var temp_speed: int # Holds current speed value before applying slow 
 

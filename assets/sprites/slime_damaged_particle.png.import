@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://54af4f2n8dcn"
-path="res://.godot/imported/slime_hurt_particle.png-9d819ede4e96d907bfb92b6777b86727.ctex"
+path="res://.godot/imported/slime_damaged_particle.png-12c4a0a3228e934f8074e7345e3d15e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/slime_hurt_particle.png"
-dest_files=["res://.godot/imported/slime_hurt_particle.png-9d819ede4e96d907bfb92b6777b86727.ctex"]
+source_file="res://Assets/Sprites/slime_damaged_particle.png"
+dest_files=["res://.godot/imported/slime_damaged_particle.png-12c4a0a3228e934f8074e7345e3d15e9.ctex"]
 
 [params]
 

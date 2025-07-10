@@ -43,4 +43,5 @@ _enabled = false
 
 [node name="Slime" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("4_ml45l")]
 position = Vector2(113, 76)
+_targeting_type = 1
 _target = NodePath("../Player")
