@@ -12,7 +12,7 @@ func _ready() -> void:
 	_health = _max_health
 
 
-func take_damage(damage: int) -> void:
+func apply_damage(damage: int) -> void:
 	var old_health = _health
 	_health -= damage
 	emit_signal("health_changed")

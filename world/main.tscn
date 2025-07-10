@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="8_1hcjw"]
 [ext_resource type="PackedScene" uid="uid://kdpmxcdl0po8" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="8_04q08"]
-[ext_resource type="PackedScene" uid="uid://cx23fbehkvdub" path="res://Entities/Enemies/Slime/slime.tscn" id="9_td74h"]
-[ext_resource type="PackedScene" uid="uid://q3sxjb4kbqci" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="10_6qnxk"]
+[ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="9_td74h"]
+[ext_resource type="PackedScene" uid="uid://cise8u0ooajis" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="10_6qnxk"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)

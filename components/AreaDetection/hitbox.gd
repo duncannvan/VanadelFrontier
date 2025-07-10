@@ -10,11 +10,10 @@ func _ready() -> void:
 
 
 func _on_area_entered(hurtbox: HurtBox) -> void:
-	#hurtbox.receive_hit(self, _attack_effects)
 	if hurtbox.is_invincible: return
-	
-	# Signal out that we hit a hurtbox (xthis is useful for destroying projectiles when they hit something)
+	# Signal out that we hit a hurtbox (this is useful for destroying projectiles when they hit something)
 	hit_hurtbox.emit(hurtbox)
+	
 	hurtbox.hurt.emit(self)
 
 

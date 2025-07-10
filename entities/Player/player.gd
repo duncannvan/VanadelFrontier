@@ -21,6 +21,7 @@ var facing_direction := Vector2.DOWN
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _effects_animation_player: AnimationPlayer = $PlayerDamagedEffects
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _speed_component: SpeedComponent = $SpeedComponent
 
 
 func _init() -> void:
@@ -48,9 +49,13 @@ func _input(event: InputEvent) -> void:
 		_attack_handler()
 
 
-func take_damage(damage: int) -> void:
+func apply_damage(damage: int) -> void:
 	_effects_animation_player.play("hitflash")
-	_health_component.take_damage(damage)
+	_health_component.apply_damage(damage)
+
+
+func apply_slow(speed_lost: int, slow_duration: int) -> void:
+	_speed_component.apply_slow(speed_lost, slow_duration)
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
@@ -68,7 +73,7 @@ func on_death() -> void:
 
 func _walk_handler(direction: Vector2) -> void:
 	if direction: facing_direction = direction
-	velocity = direction * _speed 
+	velocity = direction * _speed_component.speed 
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) >= abs(direction.y):

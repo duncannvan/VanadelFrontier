@@ -1,36 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://dhl6f1w6yd4xm"]
+[gd_scene load_steps=10 format=3 uid="uid://dhl6f1w6yd4xm"]
 
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_vi1xe"]
 [ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="2_sctu6"]
 [ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="3_ybhle"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="6_3682f"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_22562"]
+[ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Entities/Player/speed_component.gd" id="8_a3mig"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_fo871"]
 [ext_resource type="AnimationLibrary" uid="uid://2fab2mva6xgc" path="res://Entities/Enemies/mob_damaged_effects_anim.tres" id="13_m4tqa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnioy"]
 radius = 6.0
 
-[node name="Mob" type="CharacterBody2D" node_paths=PackedStringArray("_hurt_effects")]
+[node name="Mob" type="CharacterBody2D"]
 top_level = true
 collision_layer = 4
 script = ExtResource("1_vi1xe")
 _targeting_type = 1
 _death_effect = ExtResource("2_sctu6")
-_hurt_effects = NodePath("")
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("3_ybhle")
-animation = &""
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_vnioy")
 
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("6_3682f")
@@ -38,7 +35,6 @@ metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_22562")
-_max_health = 20
 metadata/_custom_type_script = "uid://beldcflw254u"
 
 [node name="BodyHitbox" type="Area2D" parent="."]
@@ -55,3 +51,7 @@ libraries = {
 [node name="MobNavigation" type="NavigationAgent2D" parent="."]
 target_desired_distance = 0.1
 avoidance_enabled = true
+
+[node name="SpeedComponent" type="Node2D" parent="."]
+script = ExtResource("8_a3mig")
+metadata/_custom_type_script = "uid://colxr2kune7p5"

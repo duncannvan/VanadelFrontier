@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Mob) -> void:
 	var remaining_health: int = body.get_health()
-	health_component.take_damage(remaining_health)
+	health_component.apply_damage(remaining_health)
 	
 	if body:
 		body.queue_free()

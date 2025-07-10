@@ -1,46 +1,50 @@
-[gd_scene load_steps=26 format=3 uid="uid://cx23fbehkvdub"]
+[gd_scene load_steps=21 format=3 uid="uid://sxcrwq6qjmwq"]
 
+[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
-[ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_p2gj0"]
+[ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://effects_shader.gdshader" id="2_rtx5w"]
 [ext_resource type="Texture2D" uid="uid://54af4f2n8dcn" path="res://Assets/Sprites/slime_hurt_particle.png" id="3_xh4mf"]
-[ext_resource type="Material" uid="uid://bwpc45px41xlo" path="res://effects_shader.tres" id="3_y3an5"]
-[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="4_vwks7"]
-[ext_resource type="PackedScene" uid="uid://bbylbb63teul5" path="res://Entities/Enemies/Slime/slime_death_effect.tscn" id="6_0bfvh"]
-[ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_1cymo"]
-[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="8_6f406"]
-[ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="8_ha687"]
-[ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_y3an5"]
-[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="10_6f406"]
-[ext_resource type="PackedScene" uid="uid://cq7jwutfgsiv3" path="res://Entities/Enemies/mob_navigation.tscn" id="12_y3an5"]
-[ext_resource type="AnimationLibrary" uid="uid://2fab2mva6xgc" path="res://Entities/Enemies/mob_damaged_effects_anim.tres" id="13_1cymo"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="4_fg4mt"]
+[ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="5_ha687"]
+[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="6_utbsb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_it1cl"]
+resource_local_to_scene = true
+shader = ExtResource("2_rtx5w")
+shader_parameter/flash_enabled = false
+shader_parameter/transparent_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fg4mt"]
 atlas = ExtResource("1_371uh")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_utbsb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
 atlas = ExtResource("1_371uh")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7js1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_utbsb"]
 atlas = ExtResource("1_371uh")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6f406"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7js1"]
 atlas = ExtResource("1_371uh")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y3an5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f406"]
 atlas = ExtResource("1_371uh")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1cymo"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3an5"]
 atlas = ExtResource("1_371uh")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0l8pv"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_1cymo"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fg4mt")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ha687")
 }, {
@@ -48,7 +52,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_utbsb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b7js1")
+"texture": SubResource("AtlasTexture_utbsb")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b7js1")
@@ -58,16 +62,30 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y3an5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1cymo")
 }],
 "loop": true,
 "name": &"bounce",
 "speed": 12.0
 }]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_th4tt"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
+radius = 7.0
+
+[sub_resource type="Resource" id="Resource_b7js1"]
+script = ExtResource("5_ha687")
+_damage = 1
+metadata/_custom_type_script = "uid://c6nd4i5durrew"
+
+[sub_resource type="Resource" id="Resource_6f406"]
+script = ExtResource("6_utbsb")
+_knockback_force = 200
+_knockback_duration = 0.1
+metadata/_custom_type_script = "uid://dx7savleyp0lc"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6f406"]
+radius = 6.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ap3hc"]
 particle_flag_disable_z = true
 velocity_pivot = Vector3(0, 1, 0)
 direction = Vector3(0, -1, 0)
@@ -78,39 +96,31 @@ gravity = Vector3(0, 150, 0)
 scale_min = 0.85
 scale_max = 0.85
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vnioy"]
-radius = 6.0
+[node name="Slime" instance=ExtResource("1_0lovs")]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1ls0r"]
-radius = 7.0
-
-[sub_resource type="Resource" id="Resource_1cymo"]
-script = ExtResource("9_y3an5")
-_damage = 1
-metadata/_custom_type_script = "uid://c6nd4i5durrew"
-
-[sub_resource type="Resource" id="Resource_bwbvy"]
-script = ExtResource("10_6f406")
-_knockback_force = 200
-_knockback_duration = 0.1
-metadata/_custom_type_script = "uid://dx7savleyp0lc"
-
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_hurt_effects")]
-top_level = true
-collision_layer = 4
-script = ExtResource("1_p2gj0")
-_targeting_type = 1
-_death_effect = ExtResource("6_0bfvh")
-_hurt_effects = NodePath("HurtEffects")
-metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
-metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = ExtResource("3_y3an5")
-sprite_frames = SubResource("SpriteFrames_0l8pv")
+[node name="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_it1cl")
+sprite_frames = SubResource("SpriteFrames_1cymo")
 animation = &"bounce"
+autoplay = "bounce"
 
-[node name="HurtEffects" type="GPUParticles2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_b7js1")
+
+[node name="HealthComponent" parent="." index="3"]
+_max_health = 5
+
+[node name="BodyHitbox" parent="." index="4"]
+attack_effects = Array[ExtResource("4_fg4mt")]([SubResource("Resource_b7js1"), SubResource("Resource_6f406")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
+visible = false
+shape = SubResource("CircleShape2D_6f406")
+
+[node name="MobNavigation" parent="." index="6"]
+debug_enabled = true
+
+[node name="HurtEffects" type="GPUParticles2D" parent="." index="8"]
 modulate = Color(0.34902, 0.756863, 0.207843, 1)
 show_behind_parent = true
 emitting = false
@@ -119,43 +129,4 @@ texture = ExtResource("3_xh4mf")
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_th4tt")
-
-[node name="SlimeBody" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CircleShape2D_vnioy")
-
-[node name="HurtBox" type="Area2D" parent="."]
-visible = false
-collision_layer = 32
-collision_mask = 0
-script = ExtResource("4_vwks7")
-metadata/_custom_type_script = "uid://63sbpv1faiyx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("CircleShape2D_1ls0r")
-
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("8_ha687")
-_max_health = 2
-metadata/_custom_type_script = "uid://beldcflw254u"
-
-[node name="BodyHitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
-script = ExtResource("8_1cymo")
-attack_effects = Array[ExtResource("8_6f406")]([SubResource("Resource_1cymo"), SubResource("Resource_bwbvy")])
-metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox"]
-visible = false
-shape = SubResource("CircleShape2D_vnioy")
-
-[node name="MobNavigation" parent="." instance=ExtResource("12_y3an5")]
-target_desired_distance = 0.1
-debug_enabled = false
-
-[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": ExtResource("13_1cymo")
-}
+process_material = SubResource("ParticleProcessMaterial_ap3hc")
