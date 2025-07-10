@@ -31,7 +31,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	_hurtbox.hurt.connect(_apply_attack_effects)
-	_health_component.connect("died", _die)
+	_health_component.died.connect(_die)
 	
 
 func _physics_process(delta) -> void:

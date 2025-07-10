@@ -25,12 +25,14 @@ var _state: State
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _speed_component: SpeedComponent = $SpeedComponent
 @onready var _damaged_particles: GPUParticles2D = $DamagedParticles
+@onready var _slowed_animation: AnimationPlayer = $SlowedAnimation
 
 
 func _ready() -> void:
-	_health_component.connect("died", _die)
+	_health_component.died.connect(_die)
 	_hurtbox.hurt.connect(_apply_attack_effects)
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
+	_speed_component.slow_ended.connect(_remove_slow)
 
 
 func _physics_process(delta: float) -> void:
@@ -63,8 +65,14 @@ func _on_velocity_computed(safe_velocity: Vector2):
 
 
 func apply_slow(slow_percentage: float, slow_duration: int) -> void:
+	_slowed_animation.play("slowed_effects")
 	_speed_component.apply_slow(slow_percentage, slow_duration)
 
+
+func _remove_slow() -> void:
+	_slowed_animation.seek(0.0)
+	_slowed_animation.stop()
+	
 
 func _emit_damaged_effects(hitbox_position: Vector2):
 	if _damaged_particles:

@@ -1,8 +1,10 @@
 class_name SpeedComponent extends Node2D
 
-@export var speed: int = 50
+signal slow_ended
 
+@export var speed: int = 50
 @export var _slowed: bool = false
+
 var _slow_timer: Timer
 var temp_speed: int # Holds current speed value before applying slow 
 
@@ -20,12 +22,11 @@ func apply_slow(slow_percentage: float, slow_duration: float):
 		
 	temp_speed = speed
 	_slowed = true
-	owner.modulate = Color.PURPLE
 	speed *= slow_percentage
 	_slow_timer.start()
 
 
 func _on_slow_timer_timeout() -> void:
 	speed = temp_speed
+	slow_ended.emit()
 	_slowed = false
-	owner.modulate = Color.WHITE
