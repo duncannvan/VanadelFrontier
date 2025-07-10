@@ -3,16 +3,29 @@ class_name SpeedComponent extends Node2D
 @export var speed: int = 50
 
 var _slowed: bool = false
-var slow_timer: Timer
+var _slow_timer: Timer
+var temp_speed: int # Holds current speed value before applying slow 
 
-func apply_slow(speed_lost: int, slow_duration: float):
+func _ready():
+	_slow_timer = Timer.new()
+	add_child(_slow_timer)
+	
+	_slow_timer.timeout.connect(_on_slow_timer_timeout)
+
+
+func apply_slow(slow_percentage: float, slow_duration: float):
 	if _slowed: 
-		slow_timer.start()
+		_slow_timer.start()
 		return
 		
+	temp_speed = speed
 	_slowed = true
-	var cur_speed = speed
-	speed -= speed_lost
-	var slow_timer = await get_tree().create_timer(slow_duration).timeout
-	speed = cur_speed
+	owner.modulate = Color.PURPLE
+	speed *= slow_percentage
+	_slow_timer.start()
+
+
+func _on_slow_timer_timeout() -> void:
+	speed = temp_speed
 	_slowed = false
+	owner.modulate = Color.WHITE

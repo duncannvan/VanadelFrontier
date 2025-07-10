@@ -41,5 +41,6 @@ navigation_polygon = SubResource("NavigationPolygon_q52up")
 position = Vector2(158, 86)
 _enabled = false
 
-[node name="Slime" parent="." instance=ExtResource("4_ml45l")]
+[node name="Slime" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("4_ml45l")]
 position = Vector2(113, 76)
+_target = NodePath("../Player")

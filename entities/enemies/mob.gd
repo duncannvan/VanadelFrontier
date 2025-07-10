@@ -28,9 +28,6 @@ var _state: State
 
 
 func _ready() -> void:
-	_check_nodes()
-
-	#_health_component.health_changed.connect(_on_health_changed)
 	_health_component.connect("died", _die)
 	_hurtbox.hurt.connect(_apply_attack_effects)
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
@@ -64,6 +61,11 @@ func _on_velocity_computed(safe_velocity: Vector2):
 	move_and_slide()
 
 
+
+func apply_slow(slow_percentage: float, slow_duration: int) -> void:
+	_speed_component.apply_slow(slow_percentage, slow_duration)
+
+
 func _emit_hurt_effects():
 	if _hurt_effects:
 		$HurtEffects.restart()
@@ -77,15 +79,17 @@ func _apply_attack_effects(hitbox: HitBox) -> void:
 			effect.apply_knockback(self, hitbox.global_position)
 		else:
 			effect.apply(self)
-			
 
-func _on_death():
-	# Slime death effect
+
+func _die():
 	if _death_effect:
 		var _death_effect_instance: GPUParticles2D = _death_effect.instantiate()
 		_death_effect_instance.global_position = global_position
 		get_parent().add_child(_death_effect_instance)
 		_death_effect_instance.emitting = true
+		
+	queue_free()
+
 	
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:

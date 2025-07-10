@@ -104,6 +104,12 @@ sprite_frames = SubResource("SpriteFrames_1cymo")
 animation = &"bounce"
 autoplay = "bounce"
 
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+
+[node name="HurtBox" parent="." index="2"]
+visible = false
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CircleShape2D_b7js1")
 
@@ -111,16 +117,20 @@ shape = SubResource("CircleShape2D_b7js1")
 _max_health = 5
 
 [node name="BodyHitbox" parent="." index="4"]
+visible = false
 attack_effects = Array[ExtResource("4_fg4mt")]([SubResource("Resource_b7js1"), SubResource("Resource_6f406")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
-visible = false
 shape = SubResource("CircleShape2D_6f406")
 
 [node name="MobNavigation" parent="." index="6"]
 debug_enabled = true
 
+[node name="SpeedComponent" parent="." index="7"]
+visible = false
+
 [node name="HurtEffects" type="GPUParticles2D" parent="." index="8"]
+visible = false
 modulate = Color(0.34902, 0.756863, 0.207843, 1)
 show_behind_parent = true
 emitting = false

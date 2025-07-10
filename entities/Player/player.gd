@@ -54,8 +54,8 @@ func apply_damage(damage: int) -> void:
 	_health_component.apply_damage(damage)
 
 
-func apply_slow(speed_lost: int, slow_duration: int) -> void:
-	_speed_component.apply_slow(speed_lost, slow_duration)
+func apply_slow(slow_percentage: float, slow_duration: int) -> void:
+	_speed_component.apply_slow(slow_percentage, slow_duration)
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
@@ -67,9 +67,9 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 	_exit_state(State.KNOCKEDBACK)
 
 
-func on_death() -> void:
+func _die() -> void:
 	_add_state(State.DEAD)	
-
+	queue_free()
 
 func _walk_handler(direction: Vector2) -> void:
 	if direction: facing_direction = direction
