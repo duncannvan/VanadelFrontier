@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://df78ln1f24wy2"]
+
+[ext_resource type="Script" uid="uid://r83sr74eop47" path="res://Entities/Towers/tower.gd" id="1_lqjbc"]
+
+[node name="Tower" type="StaticBody2D"]
+script = ExtResource("1_lqjbc")
+metadata/_custom_type_script = "uid://r83sr74eop47"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="FireRateTimer" type="Timer" parent="."]
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+
+[node name="TowerBody" type="CollisionShape2D" parent="."]

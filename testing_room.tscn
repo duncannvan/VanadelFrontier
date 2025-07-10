@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_cbcji"]
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="2_jqyws"]
-[ext_resource type="PackedScene" uid="uid://kdpmxcdl0po8" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="3_b24ak"]
+[ext_resource type="PackedScene" uid="uid://bv6sb3ptrywyx" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="3_b24ak"]
 [ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="4_ml45l"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="5_b24ak"]
 [ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://World/base_health_bar.tscn" id="6_q52up"]
@@ -14,6 +14,8 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1, 0, 321, 1, 323, 182,
 
 [node name="TestingRoom" type="Node2D"]
 script = ExtResource("1_cbcji")
+
+[node name="Slime" parent="." instance=ExtResource("4_ml45l")]
 
 [node name="Base" parent="." instance=ExtResource("2_jqyws")]
 position = Vector2(247, 99)
@@ -40,8 +42,3 @@ navigation_polygon = SubResource("NavigationPolygon_q52up")
 [node name="ArcherTower" parent="." instance=ExtResource("3_b24ak")]
 position = Vector2(158, 86)
 _enabled = false
-
-[node name="Slime" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("4_ml45l")]
-position = Vector2(113, 76)
-_targeting_type = 1
-_target = NodePath("../Player")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://sxcrwq6qjmwq"]
+[gd_scene load_steps=19 format=3 uid="uid://sxcrwq6qjmwq"]
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
@@ -6,68 +6,7 @@
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="4_fg4mt"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="5_ha687"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="6_utbsb"]
-[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="7_ha687"]
-[ext_resource type="Material" uid="uid://btywae5n26jre" path="res://Entities/Enemies/Slime/slime_damaged_particles.tres" id="8_ha687"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ha687"]
-resource_local_to_scene = true
-shader = ExtResource("2_ha687")
-shader_parameter/flash = false
-shader_parameter/gray_scale = false
-shader_parameter/flash_color = Color(1, 1, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fg4mt"]
-atlas = ExtResource("1_371uh")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
-atlas = ExtResource("1_371uh")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_utbsb"]
-atlas = ExtResource("1_371uh")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7js1"]
-atlas = ExtResource("1_371uh")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6f406"]
-atlas = ExtResource("1_371uh")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y3an5"]
-atlas = ExtResource("1_371uh")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1cymo"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fg4mt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ha687")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_utbsb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_utbsb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b7js1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6f406")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y3an5")
-}],
-"loop": true,
-"name": &"bounce",
-"speed": 12.0
-}]
+[ext_resource type="Texture2D" uid="uid://da1khktpbupwo" path="res://Assets/Sprites/slime_shadow.png" id="9_utbsb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
 radius = 7.0
@@ -86,43 +25,135 @@ metadata/_custom_type_script = "uid://dx7savleyp0lc"
 [sub_resource type="CircleShape2D" id="CircleShape2D_6f406"]
 radius = 6.0
 
+[sub_resource type="Animation" id="Animation_b7js1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ShadowSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fg4mt"]
+resource_name = "bounce"
+length = 0.666675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ShadowSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ha687"]
+_data = {
+&"RESET": SubResource("Animation_b7js1"),
+&"bounce": SubResource("Animation_fg4mt")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_utbsb"]
+resource_local_to_scene = true
+shader = ExtResource("2_ha687")
+shader_parameter/flash = false
+shader_parameter/gray_scale = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_fg4mt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ha687"]
+curve = SubResource("Curve_fg4mt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fg4mt"]
+resource_local_to_scene = true
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 25.0
+initial_velocity_min = 180.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_ha687")
+
 [node name="Slime" instance=ExtResource("1_0lovs")]
 
-[node name="AnimatedSprite2D" parent="." index="0"]
-material = SubResource("ShaderMaterial_ha687")
-sprite_frames = SubResource("SpriteFrames_1cymo")
-animation = &"bounce"
-autoplay = "bounce"
-
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="0"]
 visible = false
 
-[node name="HurtBox" parent="." index="2"]
+[node name="HurtBox" parent="." index="1"]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CircleShape2D_b7js1")
 
-[node name="HealthComponent" parent="." index="3"]
+[node name="HealthComponent" parent="." index="2"]
 _max_health = 5
 
-[node name="BodyHitbox" parent="." index="4"]
+[node name="BodyHitbox" parent="." index="3"]
 visible = false
 attack_effects = Array[ExtResource("4_fg4mt")]([SubResource("Resource_b7js1"), SubResource("Resource_6f406")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_6f406")
 
-[node name="MobNavigation" parent="." index="7"]
+[node name="MobNavigation" parent="." index="6"]
 debug_enabled = true
 
-[node name="SpeedComponent" parent="." index="8"]
+[node name="SpeedComponent" parent="." index="7"]
 visible = false
 
-[node name="DamagedParticles" parent="." index="9"]
-modulate = Color(0.34902, 0.756863, 0.207843, 1)
-amount = 4
-texture = ExtResource("7_ha687")
-lifetime = 0.5
-explosiveness = 1.0
-process_material = ExtResource("8_ha687")
+[node name="MovementAnimation" parent="." index="8"]
+libraries = {
+&"": SubResource("AnimationLibrary_ha687")
+}
+autoplay = "bounce"
+
+[node name="MobSprite" parent="Sprites" index="0"]
+material = SubResource("ShaderMaterial_utbsb")
+texture = ExtResource("1_371uh")
+hframes = 7
+
+[node name="ShadowSprite" parent="Sprites" index="1"]
+texture = ExtResource("9_utbsb")
+hframes = 7
+
+[node name="DamagedParticles" parent="." index="10"]
+process_material = SubResource("ParticleProcessMaterial_fg4mt")

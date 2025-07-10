@@ -21,7 +21,6 @@ var _state: State
 @onready var _health_component: HealthComponent = $HealthComponent
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
 @onready var _damaged_animation: AnimationPlayer = $DamagedAnimation
-@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _speed_component: SpeedComponent = $SpeedComponent
 @onready var _damaged_particles: GPUParticles2D = $DamagedParticles
