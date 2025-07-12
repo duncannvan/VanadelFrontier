@@ -62,7 +62,6 @@ func _on_velocity_computed(safe_velocity: Vector2):
 	move_and_slide()
 
 
-
 func apply_slow(slow_percentage: float, slow_duration: int) -> void:
 	_slowed_animation.play("slowed_effects")
 	_speed_component.apply_slow(slow_percentage, slow_duration)
@@ -77,7 +76,7 @@ func _emit_damaged_effects(hitbox_position: Vector2):
 	if _damaged_particles:
 		_damaged_particles.rotation = hitbox_position.direction_to(self.global_position).angle()
 		
-	_damaged_animation.play("hitflash")
+	_damaged_animation.play("damaged_effects")
 
 
 func _apply_attack_effects(hitbox: HitBox) -> void:

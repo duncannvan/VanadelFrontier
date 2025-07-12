@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfkn1tevkmwyn"]
+[gd_scene load_steps=9 format=3 uid="uid://bfkn1tevkmwyn"]
 
 [ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="1_tjrlb"]
+[ext_resource type="AudioStream" uid="uid://decyujvydkixw" path="res://Assets/Audio/splat.mp3" id="2_4nmir"]
 
 [sub_resource type="Curve" id="Curve_s1j8t"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -37,6 +38,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_tjrlb"]
 resource_name = "death_animation"
 length = 2.0
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -63,6 +65,21 @@ tracks/1/keys = {
 "method": &"queue_free"
 }]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.519044,
+"start_offset": 0.0,
+"stream": ExtResource("2_4nmir")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ti2y3"]
 _data = {
@@ -86,3 +103,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_ti2y3")
 }
 autoplay = "death_animation"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+max_distance = 200.0

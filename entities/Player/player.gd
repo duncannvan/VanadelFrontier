@@ -23,6 +23,7 @@ var _state: State = State.IDLE
 @onready var _invincibility_effects_animation: AnimationPlayer = $InvincibilityEffectsAnimation
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _speed_component: SpeedComponent = $SpeedComponent
+@onready var _player_camera: Camera2D = $PlayerCamera
 
 
 func _init() -> void:
@@ -79,7 +80,7 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 
 
 func _die() -> void:
-	_add_state(State.DEAD)	
+	_add_state(State.DEAD)
 	queue_free()
 	Global.game_over.emit()
 

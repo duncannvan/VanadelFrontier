@@ -15,8 +15,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1, 0, 321, 1, 323, 182,
 [node name="TestingRoom" type="Node2D"]
 script = ExtResource("1_cbcji")
 
-[node name="Slime" parent="." instance=ExtResource("4_ml45l")]
-
 [node name="Base" parent="." instance=ExtResource("2_jqyws")]
 position = Vector2(247, 99)
 
@@ -42,3 +40,6 @@ navigation_polygon = SubResource("NavigationPolygon_q52up")
 [node name="ArcherTower" parent="." instance=ExtResource("3_b24ak")]
 position = Vector2(158, 86)
 _enabled = false
+
+[node name="Slime" parent="." instance=ExtResource("4_ml45l")]
+position = Vector2(60, 51)

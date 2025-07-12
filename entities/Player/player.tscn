@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=55 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://Entities/Player/player_shader.gdshader" id="2_r8fok"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://UI/hp_bar/heart.tscn" id="9_x1y6q"]
 [ext_resource type="AnimationLibrary" uid="uid://c0c2payaevb01" path="res://Entities/Player/player_damaged_effects_anim.tres" id="12_owvpp"]
 [ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Entities/Player/speed_component.gd" id="13_owvpp"]
+[ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Entities/Player/player_camera.gd" id="16_nhbkt"]
+[ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/shadow.png" id="17_vskfa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nhbkt"]
 shader = ExtResource("2_r8fok")
@@ -296,10 +298,12 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+position = Vector2(0, -11)
 collision_layer = 2
 script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_nhbkt")
 position = Vector2(3, 5)
 sprite_frames = SubResource("SpriteFrames_qhqgy")
@@ -349,6 +353,7 @@ offset_bottom = -27.0
 scale = Vector2(0.50114, 0.50114)
 _heart_scene = ExtResource("9_x1y6q")
 _health_component = NodePath("../HealthComponent")
+metadata/_edit_use_anchors_ = true
 
 [node name="DamagedEffectsAnimation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -368,3 +373,13 @@ speed = 100
 libraries = {
 &"": SubResource("AnimationLibrary_vskfa")
 }
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+script = ExtResource("16_nhbkt")
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 11)
+texture = ExtResource("17_vskfa")
