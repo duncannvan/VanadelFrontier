@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_r8fok"]
 [ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://UI/hp_bar/heart.tscn" id="9_x1y6q"]
 [ext_resource type="AnimationLibrary" uid="uid://c0c2payaevb01" path="res://Entities/Player/player_damaged_effects_anim.tres" id="12_owvpp"]
-[ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Entities/Player/speed_component.gd" id="13_owvpp"]
+[ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Components/speed_component.gd" id="13_owvpp"]
 [ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Entities/Player/player_camera.gd" id="16_nhbkt"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/shadow.png" id="17_vskfa"]
 

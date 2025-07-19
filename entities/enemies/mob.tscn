@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://b3lfikqvfwseg" path="res://Entities/Enemies/mob_shader.gdshader" id="3_a3mig"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="6_3682f"]
 [ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_22562"]
-[ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Entities/Player/speed_component.gd" id="8_a3mig"]
+[ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Components/speed_component.gd" id="8_a3mig"]
 [ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="8_av7bl"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_fo871"]
 [ext_resource type="Material" uid="uid://btywae5n26jre" path="res://Entities/Enemies/Slime/slime_damaged_particles.tres" id="9_ou542"]

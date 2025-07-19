@@ -29,7 +29,7 @@ var _state: State
 
 func _ready() -> void:
 	_health_component.died.connect(_die)
-	_hurtbox.hurt.connect(_apply_attack_effects)
+	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
 	_speed_component.slow_ended.connect(_remove_slow)
 

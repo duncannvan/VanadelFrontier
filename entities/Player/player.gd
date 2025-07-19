@@ -31,7 +31,7 @@ func _init() -> void:
 	
 
 func _ready() -> void:
-	_hurtbox.hurt.connect(_apply_attack_effects)
+	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_health_component.died.connect(_die)
 	
 
@@ -58,10 +58,10 @@ func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 
 
 func _give_invincibility() -> void:
-	_hurtbox.is_invincible = true
+	_hurtbox.set_invincible(true)
 	_invincibility_effects_animation.play("invincibility_effects")
 	await get_tree().create_timer(_invincibility_time).timeout
-	_hurtbox.is_invincible = false
+	_hurtbox.set_invincible(false)
 	_invincibility_effects_animation.seek(0.0) 
 	_invincibility_effects_animation.stop()
 
@@ -105,11 +105,11 @@ func _walk_handler(direction: Vector2) -> void:
 # TODO: Move into weapon/attack node
 func _attack_handler() -> void:
 	_add_state(State.ATTACKING)
-	_hitbox.on()
+	_hitbox.set_hitbox_enable(true)
 	_hitbox.get_node("HitEffects").visible = true 
 	await get_tree().create_timer(.1).timeout
 	_hitbox.get_node("HitEffects").visible = false
-	_hitbox.off()
+	_hitbox.set_hitbox_enable(false)
 	await get_tree().create_timer(.3).timeout # Scuffed attack cooldown
 	_exit_state(State.ATTACKING)
 
