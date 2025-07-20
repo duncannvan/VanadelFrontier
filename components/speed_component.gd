@@ -1,4 +1,4 @@
-class_name SpeedComponent extends Node2D
+class_name SpeedComponent extends Node
 
 signal slowed_ended
 
@@ -22,7 +22,7 @@ func apply_slow(slowed_factor: float, slow_duration: float) -> void:
 	
 	_slowed_timer.start(slow_duration)
 	
-	if(slowed_factor != _slowed_factor):
+	if(_slowed_factor != slowed_factor):
 		_slowed_factor = clamp(slowed_factor, MIN_SPEED_FACTOR, MAX_SPEED_FACTOR)
 
 

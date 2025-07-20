@@ -1,13 +1,11 @@
 class_name Player extends CombatUnit
 
-signal update_health_ui(health: int)
-
 enum State {
-	IDLE = 0x1, 
-	WALKING = 0x2, 
-	ATTACKING = 0x4, 
-	KNOCKEDBACK = 0x8, 
-	DEAD = 0x10
+	IDLE 		= 0x1 << 0, 
+	WALKING 	= 0x1 << 1, 
+	ATTACKING 	= 0x1 << 2, 
+	KNOCKEDBACK = 0x1 << 3, 
+	DEAD 		= 0x1 << 4,
 }
 
 const NUM_HEALTH_PER_HEART: int = 10
@@ -35,14 +33,13 @@ func _ready() -> void:
 	_health_component.died.connect(_die)
 	
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# Called when there is an input event
 func _input(event: InputEvent) -> void:
-	if _is_state(State.DEAD) or _is_state(State.KNOCKEDBACK): return
-	assert(_hitbox)
+	if _is_state(State.DEAD) or _is_state(State.KNOCKEDBACK): 
+		return
 	
 	var direction = Input.get_vector("left", "right", "up", "down")
 	_walk_handler(direction)
@@ -66,8 +63,8 @@ func _give_invincibility() -> void:
 	_invincibility_effects_animation.stop()
 
 
-func apply_slow(slow_percentage: float, slow_duration: int) -> void:
-	_speed_component.apply_slow(slow_percentage, slow_duration)
+func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
+	_speed_component.apply_slow(slowed_factor, slowed_duration)
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:

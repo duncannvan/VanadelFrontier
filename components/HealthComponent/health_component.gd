@@ -3,10 +3,10 @@ class_name HealthComponent extends Node
 signal health_changed()
 signal died()
 
-const MAX_HEALTH = 10
-const MIN_HEALTH = 1
+const MAX_HEALTH: int = 10
+const MIN_HEALTH: int = 1
 
-@export var _full_health: int = MIN_HEALTH
+@export_range(MIN_HEALTH, MAX_HEALTH) var _full_health: int = MIN_HEALTH
 
 var _health: int = _full_health 
 
