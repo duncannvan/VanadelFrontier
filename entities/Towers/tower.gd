@@ -43,6 +43,6 @@ func _spawn_projectile() -> void:
 	var p = projectile_scene.instantiate()
 	p.global_position = global_position
 	p.look_at(_current_target.position)
-	p.target = _current_target
+	p.set_target(_current_target)
 	get_parent().add_child(p)
 	

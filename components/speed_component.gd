@@ -1,32 +1,35 @@
 class_name SpeedComponent extends Node2D
 
-signal slow_ended
+signal slowed_ended
 
-@export var speed: int = 50
-@export var _slowed: bool = false
+const MAX_SPEED_FACTOR: int = 1
+const MIN_SPEED_FACTOR: int = 0
 
-var _slow_timer: Timer
-var temp_speed: int # Holds current speed value before applying slow 
+@export var normal_speed: float = 50
 
-func _ready():
-	_slow_timer = Timer.new()
-	add_child(_slow_timer)
-	
-	_slow_timer.timeout.connect(_on_slow_timer_timeout)
+var _slowed_timer: Timer = null
+var _slowed_factor: float = MAX_SPEED_FACTOR
+
+func _ready() -> void:
+	_slowed_timer = Timer.new()
+	add_child(_slowed_timer)
+	_slowed_timer.timeout.connect(_on_slowed_timer_timeout)
 
 
-func apply_slow(slow_percentage: float, slow_duration: float):
-	if _slowed: 
-		_slow_timer.start()
+func apply_slow(slowed_factor: float, slow_duration: float) -> void:
+	if not _slowed_timer || slow_duration <= 0:
 		return
-		
-	temp_speed = speed
-	_slowed = true
-	speed *= slow_percentage
-	_slow_timer.start()
+	
+	_slowed_timer.start(slow_duration)
+	
+	if(slowed_factor != _slowed_factor):
+		_slowed_factor = clamp(slowed_factor, MIN_SPEED_FACTOR, MAX_SPEED_FACTOR)
 
 
-func _on_slow_timer_timeout() -> void:
-	speed = temp_speed
-	slow_ended.emit()
-	_slowed = false
+func _on_slowed_timer_timeout() -> void:
+	slowed_ended.emit()
+	_slowed_factor = MAX_SPEED_FACTOR
+	
+	
+func get_current_speed() -> float:
+	return normal_speed * _slowed_factor

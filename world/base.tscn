@@ -24,5 +24,4 @@ shape = SubResource("CircleShape2D_ch56s")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_5mgm5")
-_max_health = 50
 metadata/_custom_type_script = "uid://beldcflw254u"

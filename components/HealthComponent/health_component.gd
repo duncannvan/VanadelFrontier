@@ -1,28 +1,33 @@
 class_name HealthComponent extends Node
 
-signal health_changed(old_health, new_health)
+signal health_changed()
 signal died()
 
-@export var _max_health: int = 1
+const MAX_HEALTH = 10
+const MIN_HEALTH = 1
 
-var _health: int
+@export var _full_health: int = MIN_HEALTH
+
+var _health: int = _full_health 
 
 
 func _ready() -> void:
-	_health = _max_health
+	_health = clampi(_full_health, MIN_HEALTH, MAX_HEALTH)
 
 
 func apply_damage(damage: int) -> void:
-	var old_health = _health
+	if damage < MIN_HEALTH:
+		return
+		
 	_health -= damage
 	emit_signal("health_changed")
 	
-	if _health <= 0:
+	if _health < MIN_HEALTH:
 		emit_signal("died")
 
 
-func get_max_health() -> int: 
-	return _max_health
+func get_full_health() -> int: 
+	return _full_health
 
 
 func get_health() -> int: 

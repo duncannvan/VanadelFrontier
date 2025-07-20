@@ -362,12 +362,11 @@ libraries = {
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_01a4e")
-_max_health = 3
+_full_health = 3
 metadata/_custom_type_script = "uid://beldcflw254u"
 
 [node name="SpeedComponent" type="Node2D" parent="."]
 script = ExtResource("13_owvpp")
-speed = 100
 
 [node name="InvincibilityEffectsAnimation" type="AnimationPlayer" parent="."]
 libraries = {

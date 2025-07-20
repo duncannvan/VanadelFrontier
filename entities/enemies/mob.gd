@@ -31,7 +31,7 @@ func _ready() -> void:
 	_health_component.died.connect(_die)
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
-	_speed_component.slow_ended.connect(_remove_slow)
+	_speed_component.slowed_ended.connect(_remove_slow)
 
 
 func _physics_process(delta: float) -> void:
@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var next_path_position: Vector2 = _nav_agent.get_next_path_position()
-	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * _speed_component.speed
+	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * _speed_component.get_current_speed()
 	if _nav_agent.avoidance_enabled:
 		_nav_agent.set_velocity(new_velocity)
 	else:

@@ -86,7 +86,7 @@ func _die() -> void:
 
 
 func _walk_handler(direction: Vector2) -> void:
-	velocity = direction * _speed_component.speed 
+	velocity = direction * _speed_component.get_current_speed() 
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) >= abs(direction.y):
