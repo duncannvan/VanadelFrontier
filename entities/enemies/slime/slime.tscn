@@ -132,7 +132,7 @@ visible = false
 shape = SubResource("CircleShape2D_b7js1")
 
 [node name="HealthComponent" parent="." index="2"]
-_max_health = 5
+_full_health = 3
 
 [node name="BodyHitbox" parent="." index="3"]
 visible = false
@@ -146,6 +146,7 @@ debug_enabled = true
 
 [node name="SpeedComponent" parent="." index="7"]
 visible = false
+normal_speed = 12
 
 [node name="DamagedParticles" parent="." index="8"]
 process_material = SubResource("ParticleProcessMaterial_fg4mt")

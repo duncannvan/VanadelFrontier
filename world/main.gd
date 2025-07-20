@@ -3,7 +3,7 @@ extends Node2D
 # temp
 @onready var base_health_component = $Base/HealthComponent
 @onready var mob_spawner = get_node_or_null("MobSpawner")
-@onready var base_health_ui: TextureProgressBar
+@onready var base_health_ui: TextureProgressBar = null
 @onready var base_health_bar = $UI/BaseHealthBar/%HealthBar
 
 func _ready() -> void: 	

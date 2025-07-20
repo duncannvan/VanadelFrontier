@@ -4,8 +4,10 @@ signal slowed_ended
 
 const MAX_SPEED_FACTOR: int = 1
 const MIN_SPEED_FACTOR: int = 0
+const MAX_SPEED: int = 200
+const MIN_SPEED: int = 1
 
-@export var normal_speed: float = 50
+@export_range(MIN_SPEED, MAX_SPEED) var normal_speed: int = MIN_SPEED
 
 var _slowed_timer: Timer = null
 var _slowed_factor: float = MAX_SPEED_FACTOR

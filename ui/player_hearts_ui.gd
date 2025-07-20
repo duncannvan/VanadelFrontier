@@ -1,7 +1,7 @@
 extends Control
 
-@export var _heart_scene: PackedScene
-@export var _health_component: HealthComponent
+@export var _heart_scene: PackedScene = null
+@export var _health_component: HealthComponent = null
 
 @onready var _heart_container: Container = %HeartContainer
 

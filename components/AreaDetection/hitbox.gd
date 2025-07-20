@@ -2,7 +2,7 @@ class_name HitBox extends Area2D
 
 signal hitbox_entered(hurtbox: HurtBox)
 
-@export var attack_effects: Array[AttackEffect]
+@export var attack_effects: Array[AttackEffect] = []
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 

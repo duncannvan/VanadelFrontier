@@ -12,9 +12,9 @@ enum TargetingType {
 
 const PLAYER_PATH: NodePath = "../Player"
 
-@export var _targeting_type: TargetingType
-@export var _death_effect: PackedScene
-@export var _target: Node2D
+@export var _targeting_type: TargetingType = TargetingType.BASE
+@export var _death_effect: PackedScene = null
+@export var _target: Node2D = null
 
 var _state: State 
 

@@ -1,6 +1,9 @@
 class_name Projectile extends HitBox
 
-@export var _speed: int = 100
+const MAX_SPEED: int = 200
+const MIN_SPEED: int = 1
+
+@export_range(MIN_SPEED, MAX_SPEED) var _speed: int = MIN_SPEED
 
 var _target: CombatUnit = null
 

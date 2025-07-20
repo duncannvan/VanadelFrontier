@@ -102,11 +102,17 @@ animations = [{
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CircleShape2D_ghef8")
 
+[node name="HealthComponent" parent="." index="2"]
+_full_health = 2
+
 [node name="BodyHitbox" parent="." index="3"]
 attack_effects = Array[ExtResource("7_k086u")]([SubResource("Resource_8pxe8")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_eoco3")
+
+[node name="SpeedComponent" parent="." index="7"]
+normal_speed = 15
 
 [node name="DamagedParticles" parent="." index="8"]
 process_material = SubResource("ParticleProcessMaterial_qr1m2")
