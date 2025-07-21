@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="EntityStats" load_steps=2 format=3 uid="uid://b0movho6k36bx"]
+[gd_resource type="Resource" script_class="StatsSheet" load_steps=2 format=3 uid="uid://b0movho6k36bx"]
 
-[ext_resource type="Script" uid="uid://788pniifmi5m" path="res://Entities/entity_stats.gd" id="1_wv0gl"]
+[ext_resource type="Script" uid="uid://d2qajhw3xoxc8" path="res://Resources/stats_sheet.gd" id="1_wv0gl"]
 
 [resource]
 script = ExtResource("1_wv0gl")
-max_health = 100
-speed = 100
+_speed = 100
+_full_health = 5
+metadata/_custom_type_script = "uid://d2qajhw3xoxc8"

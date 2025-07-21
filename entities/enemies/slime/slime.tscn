@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://sxcrwq6qjmwq"]
+[gd_scene load_steps=23 format=3 uid="uid://sxcrwq6qjmwq"]
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="4_fg4mt"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="5_ha687"]
+[ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://Entities/Enemies/Slime/slime_stats.tres" id="6_o85a5"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="6_utbsb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
@@ -131,31 +132,27 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CircleShape2D_b7js1")
 
-[node name="HealthComponent" parent="." index="2"]
-_full_health = 3
-
-[node name="BodyHitbox" parent="." index="3"]
+[node name="BodyHitbox" parent="." index="2"]
 visible = false
 attack_effects = Array[ExtResource("4_fg4mt")]([SubResource("Resource_b7js1"), SubResource("Resource_6f406")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_6f406")
 
-[node name="MobNavigation" parent="." index="6"]
+[node name="MobNavigation" parent="." index="5"]
 debug_enabled = true
 
-[node name="SpeedComponent" parent="." index="7"]
-visible = false
-normal_speed = 12
-
-[node name="DamagedParticles" parent="." index="8"]
+[node name="DamagedParticles" parent="." index="6"]
 process_material = SubResource("ParticleProcessMaterial_fg4mt")
 
-[node name="MobSprite" parent="." index="10"]
+[node name="MobSprite" parent="." index="8"]
 material = SubResource("ShaderMaterial_o85a5")
 sprite_frames = SubResource("SpriteFrames_y3an5")
 autoplay = "default"
 frame_progress = 0.887163
 
-[node name="ShadowSprite" parent="." index="11"]
+[node name="ShadowSprite" parent="." index="9"]
 position = Vector2(0, 3)
+
+[node name="StatsComponents" parent="." index="10"]
+_stats = ExtResource("6_o85a5")
