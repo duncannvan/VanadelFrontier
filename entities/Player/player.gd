@@ -30,6 +30,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
+	await _stats_component.stats_components_ready
 	_stats_component.get_component(COMPONENT_KEY.HEALTH).died.connect(_die)
 	
 

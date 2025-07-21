@@ -301,7 +301,6 @@ _data = {
 position = Vector2(0, -11)
 collision_layer = 2
 script = ExtResource("1_g2els")
-_invincibility_time = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
@@ -346,13 +345,14 @@ modulate = Color(1, 1, 1, 0.32549)
 show_behind_parent = true
 texture = ExtResource("3_qhqgy")
 
-[node name="PlayerHeartsUI" parent="." instance=ExtResource("8_lub02")]
+[node name="PlayerHeartsUI" parent="." node_paths=PackedStringArray("_stats_component") instance=ExtResource("8_lub02")]
 offset_left = -15.0
 offset_top = -27.0
 offset_right = -15.0
 offset_bottom = -27.0
 scale = Vector2(0.50114, 0.50114)
 _heart_scene = ExtResource("9_x1y6q")
+_stats_component = NodePath("../StatsComponents")
 metadata/_edit_use_anchors_ = true
 
 [node name="DamagedEffectsAnimation" type="AnimationPlayer" parent="."]

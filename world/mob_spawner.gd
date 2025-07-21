@@ -2,7 +2,7 @@ extends Node2D
 
 const SPAWN_TIMER: int = 2
 
-@export var _max_mobs: int = 2
+@export var _max_mobs: int = 1
 @export var _base: Node2D = null
 @export var _player: Player = null
 @export var _mob_scenes: Array[PackedScene] = []

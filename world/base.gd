@@ -6,6 +6,7 @@ extends Node2D
 
 func _ready() -> void:
 	mob_detector.connect("body_entered", _on_body_entered)
+	await _stats_component.stats_components_ready
 	_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("died", _on_died)
 	
 

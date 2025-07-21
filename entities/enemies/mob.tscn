@@ -165,7 +165,6 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 top_level = true
 collision_layer = 4
 script = ExtResource("1_vi1xe")
-_targeting_type = null
 _death_effect = ExtResource("2_a3mig")
 metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
 metadata/_edit_group_ = true

@@ -2,11 +2,13 @@ class_name StatsComponents extends Node
 
 enum ComponentKey{HEALTH, SPEED}
 
+# All modules that uses this class should await for stats_components_ready before accesing
+signal stats_components_ready 
+
 @export var _stats: StatsSheet = null
 var _speed_component: SpeedComponent = null
 var _health_component: HealthComponent = null
-var _components_lookup_table: Dictionary
-var _is_ready: bool = false
+var _components_lookup_table: Dictionary[ComponentKey, Node]
 
 func _ready() -> void:
 	assert(_stats, "Must assign a stats resouce to the stats component")
@@ -14,11 +16,10 @@ func _ready() -> void:
 	add_child(_speed_component)
 	_health_component = HealthComponent.new(_stats._full_health)
 	add_child(_health_component)
+	await [_health_component.ready, _speed_component.ready]
 	_components_lookup_table = {ComponentKey.HEALTH: _health_component, ComponentKey.SPEED: _speed_component}
-	_is_ready = true
+	emit_signal("stats_components_ready")
 
 func get_component(key: ComponentKey):
+	assert(_components_lookup_table[key], "Component is not ready yet. Must await for the compoenents to be ready")
 	return _components_lookup_table[key]
-
-func is_ready() -> bool:
-	return _is_ready

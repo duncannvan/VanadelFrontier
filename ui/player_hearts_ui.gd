@@ -7,7 +7,7 @@ extends Control
 
 
 func _ready() -> void:
-	#Assign this to an acual path
+	await _stats_component.stats_components_ready
 	_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("health_changed", _on_health_changed)
 
 

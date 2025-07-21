@@ -7,6 +7,7 @@ extends Node2D
 @onready var _base_health_bar = $UI/BaseHealthBar/%HealthBar
 
 func _ready() -> void: 	
+	await _base_stats_component.stats_components_ready
 	_base_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("died", _on_base_died)
 	_base_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("health_changed", _on_health_changed)
 
