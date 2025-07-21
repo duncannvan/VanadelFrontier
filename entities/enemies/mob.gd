@@ -16,7 +16,7 @@ const PLAYER_PATH: NodePath = "../Player"
 @export var _death_effect: PackedScene = null
 @export var _target: Node2D = null
 
-var _state: State 
+var _state: State = State.ATTACKING
 
 @onready var _health_component: HealthComponent = $HealthComponent
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
