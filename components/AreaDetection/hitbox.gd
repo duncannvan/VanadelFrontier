@@ -1,25 +1,22 @@
 class_name HitBox extends Area2D
 
-# Create a signal for when the hitbox hits a hurtbox
-signal hit_hurtbox(hurtbox)
+signal hitbox_entered(hurtbox: HurtBox)
 
-@export var attack_effects: Array[AttackEffect]
+@export var attack_effects: Array[AttackEffect] = []
+
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 
 func _ready() -> void:
 	connect("area_entered", _on_area_entered)
 
 
 func _on_area_entered(hurtbox: HurtBox) -> void:
-	if hurtbox.is_invincible: return
-	# Signal out that we hit a hurtbox (this is useful for destroying projectiles when they hit something)
-	hit_hurtbox.emit(hurtbox)
-	
-	hurtbox.hurt.emit(self)
+	if hurtbox.get_invincible(): 
+		return
+
+	hurtbox.hurtbox_entered.emit(self)
 
 
-func on() -> void:	
-	$CollisionShape2D.set_deferred("disabled", false)
-
-
-func off() -> void:
-	$CollisionShape2D.set_deferred("disabled", true)
+func set_hitbox_enable(state: bool) -> void:
+	collision_shape_2d.set_deferred("disabled", !state)

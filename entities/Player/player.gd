@@ -1,13 +1,11 @@
 class_name Player extends CombatUnit
 
-signal update_health_ui(health: int)
-
 enum State {
-	IDLE = 0x1, 
-	WALKING = 0x2, 
-	ATTACKING = 0x4, 
-	KNOCKEDBACK = 0x8, 
-	DEAD = 0x10
+	IDLE 		= 0x1 << 0, 
+	WALKING 	= 0x1 << 1, 
+	ATTACKING 	= 0x1 << 2, 
+	KNOCKEDBACK = 0x1 << 3, 
+	DEAD 		= 0x1 << 4,
 }
 
 const NUM_HEALTH_PER_HEART: int = 10
@@ -31,18 +29,17 @@ func _init() -> void:
 	
 
 func _ready() -> void:
-	_hurtbox.hurt.connect(_apply_attack_effects)
+	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_health_component.died.connect(_die)
 	
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# Called when there is an input event
 func _input(event: InputEvent) -> void:
-	if _is_state(State.DEAD) or _is_state(State.KNOCKEDBACK): return
-	assert(_hitbox)
+	if _is_state(State.DEAD) or _is_state(State.KNOCKEDBACK): 
+		return
 	
 	var direction = Input.get_vector("left", "right", "up", "down")
 	_walk_handler(direction)
@@ -58,16 +55,16 @@ func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 
 
 func _give_invincibility() -> void:
-	_hurtbox.is_invincible = true
+	_hurtbox.set_invincible(true)
 	_invincibility_effects_animation.play("invincibility_effects")
 	await get_tree().create_timer(_invincibility_time).timeout
-	_hurtbox.is_invincible = false
+	_hurtbox.set_invincible(false)
 	_invincibility_effects_animation.seek(0.0) 
 	_invincibility_effects_animation.stop()
 
 
-func apply_slow(slow_percentage: float, slow_duration: int) -> void:
-	_speed_component.apply_slow(slow_percentage, slow_duration)
+func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
+	_speed_component.apply_slow(slowed_factor, slowed_duration)
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
@@ -86,7 +83,7 @@ func _die() -> void:
 
 
 func _walk_handler(direction: Vector2) -> void:
-	velocity = direction * _speed_component.speed 
+	velocity = direction * _speed_component.get_current_speed() 
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) >= abs(direction.y):
@@ -105,11 +102,11 @@ func _walk_handler(direction: Vector2) -> void:
 # TODO: Move into weapon/attack node
 func _attack_handler() -> void:
 	_add_state(State.ATTACKING)
-	_hitbox.on()
+	_hitbox.set_hitbox_enable(true)
 	_hitbox.get_node("HitEffects").visible = true 
 	await get_tree().create_timer(.1).timeout
 	_hitbox.get_node("HitEffects").visible = false
-	_hitbox.off()
+	_hitbox.set_hitbox_enable(false)
 	await get_tree().create_timer(.3).timeout # Scuffed attack cooldown
 	_exit_state(State.ATTACKING)
 

@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @onready var mob_detector = $MobDetector
 @onready var health_component = $HealthComponent
 

@@ -1,24 +1,22 @@
 extends Node2D
 
-const SPAWN_TIMER = 2
-@export var max_mobs: int = 2
+const SPAWN_TIMER: int = 2
 
-@export var _base: Node2D
-@export var _player: Player
-@export var _mob_scenes: Array[PackedScene] 
-
-var _count: int = 0 
-var _enabled: bool
+@export var _max_mobs: int = 2
+@export var _base: Node2D = null
+@export var _player: Player = null
+@export var _mob_scenes: Array[PackedScene] = []
 
 @onready var mob_spawn_timer = $MobSpawnTimer
 
+var _count: int = 0 
 
 func _ready() -> void:
 	mob_spawn_timer.connect("timeout", _on_spawn_mobs_timer_timeout)
 	
 
 func _on_spawn_mobs_timer_timeout() -> void:
-	if _count >= max_mobs:
+	if _count >= _max_mobs:
 		return
 	
 	for mob_scene in _mob_scenes:

@@ -1,9 +1,9 @@
 extends Camera2D
 
-@export var _random_strength := 5.0
-@export var _shake_fade := 10.0
+@export var _random_strength: float = 5.0
+@export var _shake_fade: float = 10.0
 
-var _shake_strength := 0.0
+var _shake_strength: float = 0.0
 var rng = RandomNumberGenerator.new()
 
 func shake_camera() -> void:

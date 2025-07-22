@@ -1,10 +1,10 @@
 extends Control
 
-@export var _heart_scene: PackedScene
-
+@export var _heart_scene: PackedScene = null
+@export var _health_component: HealthComponent = null
 
 @onready var _heart_container: Container = %HeartContainer
-@export var _health_component: HealthComponent
+
 
 func _ready() -> void:
 	_health_component.connect("health_changed", _on_health_changed)

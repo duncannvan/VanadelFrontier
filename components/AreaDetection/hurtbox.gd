@@ -1,10 +1,19 @@
 class_name HurtBox extends Area2D
 
-signal hurt(hitbox)
+signal hurtbox_entered(hitbox)
 
-@export var is_invincible: bool = false :
-	set(value):
-		is_invincible = value
-		for child in get_children():
-			if child is not CollisionShape2D: continue
-			child.set_deferred("disabled", is_invincible)
+@export var _is_invincible: bool = false
+
+
+func get_invincible() -> bool:
+	return _is_invincible
+
+
+func set_invincible(state: bool) -> void:
+	if _is_invincible == state:
+		return
+		
+	_is_invincible = state
+	for child in get_children():
+		if child is CollisionShape2D || child is CollisionPolygon2D:
+			child.set_deferred("disabled", _is_invincible)
