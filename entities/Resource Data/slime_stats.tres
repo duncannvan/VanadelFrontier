@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_ncv4v")
-_speed = 10
-_full_health = 5
+speed = 10
+health = 3
 metadata/_custom_type_script = "uid://d2qajhw3xoxc8"

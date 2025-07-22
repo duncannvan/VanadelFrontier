@@ -8,8 +8,8 @@ extends Node2D
 
 func _ready() -> void: 	
 	#await _base_stats_component.stats_components_ready
-	_base_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("died", _on_base_died)
-	_base_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("health_changed", _on_health_changed)
+	_base_stats_component.connect("died", _on_base_died)
+	_base_stats_component.connect("health_changed", _on_health_changed)
 
 
 func _on_base_died() -> void:
@@ -18,4 +18,4 @@ func _on_base_died() -> void:
 
 
 func _on_health_changed() -> void:
-	_base_health_bar.update(_base_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).get_health())
+	_base_health_bar.update(_base_stats_component.get_health())

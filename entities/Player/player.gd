@@ -8,8 +8,6 @@ enum State {
 	DEAD 		= 0x1 << 4,
 }
 
-const COMPONENT_KEY :=  StatsComponents.ComponentKey
-
 @export var _invincibility_time: float = 1.0
 
 var _state: State = State.IDLE
@@ -29,7 +27,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
-	_stats_component._health_component.died.connect(_die)
+	_stats_component.died.connect(_die)
 	
 	
 func _physics_process(delta: float) -> void:
@@ -49,7 +47,7 @@ func _input(event: InputEvent) -> void:
 
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_damaged_effects_animation.play("damaged_effects")
-	_stats_component.get_component(COMPONENT_KEY.HEALTH).apply_damage(damage)
+	_stats_component.apply_damage(damage)
 	_give_invincibility()
 
 
@@ -63,7 +61,7 @@ func _give_invincibility() -> void:
 
 
 func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
-	_stats_component.get_component(COMPONENT_KEY.SPEED).apply_slow(slowed_factor, slowed_duration)
+	_stats_component.apply_slow(slowed_factor, slowed_duration)
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
@@ -82,7 +80,7 @@ func _die() -> void:
 
 
 func _walk_handler(direction: Vector2) -> void:
-	velocity = direction * _stats_component.get_component(COMPONENT_KEY.SPEED).get_current_speed() 
+	velocity = direction * _stats_component.get_current_speed() 
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) >= abs(direction.y):

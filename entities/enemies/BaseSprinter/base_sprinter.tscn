@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_6ihyg"]
 [ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/rolling_ball.png" id="5_6ihyg"]
-[ext_resource type="Resource" uid="uid://c1npae2imcfgp" path="res://Entities/Enemies/BaseSprinter/base_sprinter_stats.tres" id="5_8b7ej"]
+[ext_resource type="Resource" uid="uid://c1npae2imcfgp" path="res://Entities/Resource Data/base_sprinter_stats.tres" id="5_8b7ej"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="7_k086u"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_st3w1"]
 

@@ -6,12 +6,12 @@ extends Node2D
 
 func _ready() -> void:
 	mob_detector.connect("body_entered", _on_body_entered)
-	_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("died", _on_died)
+	_stats_component.connect("died", _on_died)
 	
 
 func _on_body_entered(body: Mob) -> void:
 	var remaining_health: int = body.get_health()
-	_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).apply_damage(remaining_health)
+	_stats_component.apply_damage(remaining_health)
 	
 	if body:
 		body.queue_free()

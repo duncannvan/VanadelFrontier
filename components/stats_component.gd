@@ -1,29 +1,50 @@
 class_name StatsComponents extends Node
 
-enum ComponentKey{HEALTH, SPEED}
+signal slowed_ended
+signal health_changed()
+signal died()
 
 @export var _stats: StatsSheet = null
-var _speed_component: SpeedComponent = null
-var _health_component: HealthComponent = null
-var _components_lookup_table: Dictionary[ComponentKey, Node]
+
+var _slowed_timer: Timer = null
+var _slowed_factor: float = SlowEffect.MAX_SLOWED_FACTOR
 
 
 func _ready() -> void:
-	assert(_stats, "Must assign a stats resouce to the stats component")
+	_slowed_timer = Timer.new()
+	add_child(_slowed_timer)
+	_slowed_timer.timeout.connect(_on_slowed_timer_timeout)
 	
-	_health_component = HealthComponent.new(_stats._full_health) if (_stats._full_health != StatsSheet.UNINITIALIZED) else null
-	_speed_component = SpeedComponent.new(_stats._speed) if (_stats._speed != StatsSheet.UNINITIALIZED) else null
 
-	_components_lookup_table = {ComponentKey.HEALTH: _health_component, ComponentKey.SPEED: _speed_component}
+func apply_slow(slowed_factor: float, slow_duration: float) -> void:
+	if not _slowed_timer || slow_duration <= 0:
+		return
 	
-	for key in _components_lookup_table:
-		add_child(_components_lookup_table[key])
-		await _components_lookup_table[key]
-		
-		
-func get_component(key: ComponentKey):
-	if !_components_lookup_table[key]:
-		push_error("Attempt to access null component")
+	_slowed_timer.start(slow_duration)
+	
+	if(_slowed_factor != slowed_factor):
+		_slowed_factor = clampf(slowed_factor, SlowEffect.MIN_SLOWED_FACTOR, SlowEffect.MAX_SLOWED_FACTOR)
+
+
+func _on_slowed_timer_timeout() -> void:
+	slowed_ended.emit()
+	_slowed_factor = SlowEffect.MAX_SLOWED_FACTOR
+	
+	
+func get_current_speed() -> float:
+	return _stats.speed * _slowed_factor
+
+
+func apply_damage(damage: int) -> void:
+	if damage < StatsSheet.MIN_HEALTH_CAP:
 		return
 		
-	return _components_lookup_table[key]
+	_stats.health -= damage
+	emit_signal("health_changed")
+	
+	if _stats.health < StatsSheet.MIN_HEALTH_CAP:
+		emit_signal("died")
+
+
+func get_health() -> int: 
+	return _stats.health
