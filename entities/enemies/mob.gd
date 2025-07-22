@@ -18,20 +18,19 @@ const PLAYER_PATH: NodePath = "../Player"
 
 var _state: State = State.ATTACKING
 
-@onready var _health_component: HealthComponent = $HealthComponent
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
 @onready var _damaged_animation: AnimationPlayer = $DamagedAnimation
 @onready var _hurtbox: HurtBox = $HurtBox
-@onready var _speed_component: SpeedComponent = $SpeedComponent
+@onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _damaged_particles: GPUParticles2D = $DamagedParticles
 @onready var _slowed_animation: AnimationPlayer = $SlowedAnimation
 
 
 func _ready() -> void:
-	_health_component.died.connect(_die)
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
-	_speed_component.slowed_ended.connect(_remove_slow)
+	_stats_component.died.connect(_die)
+	_stats_component.slowed_ended.connect(_remove_slow)
 
 
 func _physics_process(delta: float) -> void:
@@ -48,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var next_path_position: Vector2 = _nav_agent.get_next_path_position()
-	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * _speed_component.get_current_speed()
+	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * _stats_component.get_current_speed()
 	
 	if _nav_agent.avoidance_enabled:
 		_nav_agent.set_velocity(new_velocity)
@@ -68,7 +67,7 @@ func _on_velocity_computed(adjusted_velocity: Vector2):
 
 func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
 	_slowed_animation.play("slowed_effects")
-	_speed_component.apply_slow(slowed_factor, slowed_duration)
+	_stats_component.apply_slow(slowed_factor, slowed_duration)
 
 
 func _remove_slow() -> void:
@@ -107,11 +106,11 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
  
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 		_emit_damaged_effects(hitbox_position)
-		_health_component.apply_damage(damage)
+		_stats_component.apply_damage(damage)
 
 
 func get_health() -> int: 
-	return _health_component.get_health()
+	return _stats_component.get_health()
 
 
 func get_targeting_type() -> TargetingType:

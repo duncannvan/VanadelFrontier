@@ -11,6 +11,7 @@ const SPAWN_TIMER: int = 2
 
 var _count: int = 0 
 
+
 func _ready() -> void:
 	mob_spawn_timer.connect("timeout", _on_spawn_mobs_timer_timeout)
 	

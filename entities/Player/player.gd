@@ -8,19 +8,16 @@ enum State {
 	DEAD 		= 0x1 << 4,
 }
 
-const NUM_HEALTH_PER_HEART: int = 10
-
 @export var _invincibility_time: float = 1.0
 
 var _state: State = State.IDLE
 
 @onready var _hitbox: HitBox = $HitBox
-@onready var _health_component: HealthComponent = $HealthComponent
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _damaged_effects_animation: AnimationPlayer = $DamagedEffectsAnimation
 @onready var _invincibility_effects_animation: AnimationPlayer = $InvincibilityEffectsAnimation
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var _speed_component: SpeedComponent = $SpeedComponent
+@onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
 
 
@@ -30,9 +27,9 @@ func _init() -> void:
 
 func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
-	_health_component.died.connect(_die)
+	_stats_component.died.connect(_die)
 	
-
+	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
 
@@ -50,7 +47,7 @@ func _input(event: InputEvent) -> void:
 
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_damaged_effects_animation.play("damaged_effects")
-	_health_component.apply_damage(damage)
+	_stats_component.apply_damage(damage)
 	_give_invincibility()
 
 
@@ -64,7 +61,7 @@ func _give_invincibility() -> void:
 
 
 func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
-	_speed_component.apply_slow(slowed_factor, slowed_duration)
+	_stats_component.apply_slow(slowed_factor, slowed_duration)
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
@@ -83,7 +80,7 @@ func _die() -> void:
 
 
 func _walk_handler(direction: Vector2) -> void:
-	velocity = direction * _speed_component.get_current_speed() 
+	velocity = direction * _stats_component.get_current_speed() 
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) >= abs(direction.y):
@@ -126,8 +123,3 @@ func _is_state(state: State) -> bool:
 
 func _exit_state(state: State) -> void :
 	_state &= ~state
-	
-
-func get_max_health() -> int: 
-	return _health_component.get_max_health()
-	

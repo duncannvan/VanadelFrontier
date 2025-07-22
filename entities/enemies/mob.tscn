@@ -1,14 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://dhl6f1w6yd4xm"]
+[gd_scene load_steps=20 format=3 uid="uid://dhl6f1w6yd4xm"]
 
 [ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_vi1xe"]
 [ext_resource type="PackedScene" uid="uid://bfkn1tevkmwyn" path="res://Entities/Enemies/mob_death_effects.tscn" id="2_a3mig"]
 [ext_resource type="Shader" uid="uid://b3lfikqvfwseg" path="res://Entities/Enemies/mob_shader.gdshader" id="3_a3mig"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="6_3682f"]
-[ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="7_22562"]
-[ext_resource type="Script" uid="uid://colxr2kune7p5" path="res://Components/speed_component.gd" id="8_a3mig"]
 [ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="8_av7bl"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_fo871"]
 [ext_resource type="Material" uid="uid://btywae5n26jre" path="res://Entities/Enemies/Slime/slime_damaged_particles.tres" id="9_ou542"]
+[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="10_3msjq"]
 [ext_resource type="AudioStream" uid="uid://decyujvydkixw" path="res://Assets/Audio/splat.mp3" id="10_ou542"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/shadow.png" id="11_3msjq"]
 
@@ -179,10 +178,6 @@ collision_mask = 0
 script = ExtResource("6_3682f")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("7_22562")
-metadata/_custom_type_script = "uid://beldcflw254u"
-
 [node name="BodyHitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
@@ -203,10 +198,6 @@ libraries = {
 target_desired_distance = 0.1
 avoidance_enabled = true
 
-[node name="SpeedComponent" type="Node2D" parent="."]
-script = ExtResource("8_a3mig")
-metadata/_custom_type_script = "uid://colxr2kune7p5"
-
 [node name="DamagedParticles" type="GPUParticles2D" parent="."]
 emitting = false
 texture = ExtResource("8_av7bl")
@@ -224,3 +215,6 @@ material = SubResource("ShaderMaterial_ou542")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 texture = ExtResource("11_3msjq")
+
+[node name="StatsComponents" type="Node" parent="."]
+script = ExtResource("10_3msjq")
