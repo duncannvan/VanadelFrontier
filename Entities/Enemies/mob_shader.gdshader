@@ -5,7 +5,7 @@ uniform bool gray_scale = false;
 uniform vec4 flash_color: source_color = vec4(1.0, 1.0, 1.0, 1.0);
 void fragment() {
 	vec4 original_color = texture(TEXTURE, UV);
-	
+
 	if (flash) {
 		COLOR = vec4(flash_color.rgb, original_color.a);
 	}

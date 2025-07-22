@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cise8u0ooajis"]
+[gd_scene load_steps=19 format=3 uid="uid://cise8u0ooajis"]
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_6ihyg"]
 [ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/rolling_ball.png" id="5_6ihyg"]
+[ext_resource type="Resource" uid="uid://c1npae2imcfgp" path="res://Entities/Resource Data/base_sprinter_stats.tres" id="5_8b7ej"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="7_k086u"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_st3w1"]
 
@@ -102,26 +103,23 @@ animations = [{
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CircleShape2D_ghef8")
 
-[node name="HealthComponent" parent="." index="2"]
-_full_health = 2
-
-[node name="BodyHitbox" parent="." index="3"]
+[node name="BodyHitbox" parent="." index="2"]
 attack_effects = Array[ExtResource("7_k086u")]([SubResource("Resource_8pxe8")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_eoco3")
 
-[node name="SpeedComponent" parent="." index="7"]
-normal_speed = 15
-
-[node name="DamagedParticles" parent="." index="8"]
+[node name="DamagedParticles" parent="." index="6"]
 process_material = SubResource("ParticleProcessMaterial_qr1m2")
 
-[node name="MobSprite" parent="." index="10"]
+[node name="MobSprite" parent="." index="8"]
 material = SubResource("ShaderMaterial_6ihyg")
 sprite_frames = SubResource("SpriteFrames_8alqs")
 autoplay = "default"
 frame_progress = 0.905606
 
-[node name="ShadowSprite" parent="." index="11"]
+[node name="ShadowSprite" parent="." index="9"]
 position = Vector2(0, 3)
+
+[node name="StatsComponents" parent="." index="10"]
+_stats = ExtResource("5_8b7ej")
