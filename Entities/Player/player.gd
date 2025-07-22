@@ -1,0 +1,125 @@
+class_name Player extends CombatUnit
+
+enum State {
+	IDLE 		= 0x1 << 0, 
+	WALKING 	= 0x1 << 1, 
+	ATTACKING 	= 0x1 << 2, 
+	KNOCKEDBACK = 0x1 << 3, 
+	DEAD 		= 0x1 << 4,
+}
+
+@export var _invincibility_time: float = 1.0
+
+var _state: State = State.IDLE
+
+@onready var _hitbox: HitBox = $HitBox
+@onready var _hurtbox: HurtBox = $HurtBox
+@onready var _damaged_effects_animation: AnimationPlayer = $DamagedEffectsAnimation
+@onready var _invincibility_effects_animation: AnimationPlayer = $InvincibilityEffectsAnimation
+@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _stats_component: StatsComponents = $StatsComponents
+@onready var _player_camera: Camera2D = $PlayerCamera
+
+
+func _init() -> void:
+	set_collision_layer(2)
+	
+
+func _ready() -> void:
+	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
+	_stats_component.died.connect(_die)
+	
+	
+func _physics_process(delta: float) -> void:
+	move_and_slide()
+
+
+func _input(event: InputEvent) -> void:
+	if _is_state(State.DEAD) or _is_state(State.KNOCKEDBACK): 
+		return
+	
+	var direction = Input.get_vector("left", "right", "up", "down")
+	_walk_handler(direction)
+	
+	if event.is_action_pressed("attack") and not _is_state(State.ATTACKING):
+		_attack_handler()
+
+
+func apply_damage(damage: int, hitbox_position: Vector2) -> void:
+	_damaged_effects_animation.play("damaged_effects")
+	_stats_component.apply_damage(damage)
+	_give_invincibility()
+
+
+func _give_invincibility() -> void:
+	_hurtbox.set_invincible(true)
+	_invincibility_effects_animation.play("invincibility_effects")
+	await get_tree().create_timer(_invincibility_time).timeout
+	_hurtbox.set_invincible(false)
+	_invincibility_effects_animation.seek(0.0) 
+	_invincibility_effects_animation.stop()
+
+
+func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
+	_stats_component.apply_slow(slowed_factor, slowed_duration)
+
+
+func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
+	_sprite.stop()
+	_add_state(State.KNOCKEDBACK)
+	velocity = knockback_vector
+	await get_tree().create_timer(knockback_duration).timeout
+	velocity = Vector2.ZERO
+	_exit_state(State.KNOCKEDBACK)
+
+
+func _die() -> void:
+	_add_state(State.DEAD)
+	queue_free()
+	Global.game_over.emit()
+
+
+func _walk_handler(direction: Vector2) -> void:
+	velocity = direction * _stats_component.get_current_speed() 
+	
+	if direction != Vector2.ZERO:
+		if abs(direction.x) >= abs(direction.y):
+			_sprite.animation = "right" if direction.x > 0 else "left"
+		else:
+			_sprite.animation = "down" if direction.y > 0 else "up"
+		_sprite.play()
+		_add_state(State.WALKING)
+		_exit_state(State.IDLE)
+	else:
+		_sprite.stop()
+		_add_state(State.IDLE)
+		_exit_state(State.WALKING)
+
+
+# TODO: Move into weapon/attack node
+func _attack_handler() -> void:
+	_add_state(State.ATTACKING)
+	_hitbox.set_hitbox_enable(true)
+	_hitbox.get_node("HitEffects").visible = true 
+	await get_tree().create_timer(.1).timeout
+	_hitbox.get_node("HitEffects").visible = false
+	_hitbox.set_hitbox_enable(false)
+	await get_tree().create_timer(.3).timeout # Scuffed attack cooldown
+	_exit_state(State.ATTACKING)
+
+
+func _apply_attack_effects(hitbox: HitBox) -> void:
+	for effect in hitbox.attack_effects:
+			effect.apply(self, hitbox.global_position)
+	
+
+func _add_state(state: State) -> void:
+	_state |= state
+
+
+func _is_state(state: State) -> bool:
+	return _state & state 
+
+
+func _exit_state(state: State) -> void :
+	_state &= ~state

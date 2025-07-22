@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq6nhi1nd72ry"]
+
+[ext_resource type="Script" uid="uid://dhmj8tnt5gw1h" path="res://game_over.gd" id="1_40baj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4g1ep"]
+font_size = 20
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="GameOver" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_40baj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 85.5
+offset_top = 38.5
+offset_right = 194.5
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_4g1ep")
+
+[node name="RetryButton" type="Button" parent="GameOver/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retry"

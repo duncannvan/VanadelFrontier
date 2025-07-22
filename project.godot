@@ -10,9 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Prototype"
+config/name="Vanadel Frontier"
 run/main_scene="uid://336k7yfgtxkf"
 config/features=PackedStringArray("4.4", "Forward Plus")
+
+[autoload]
+
+Global="*res://global.gd"
 
 [display]
 
@@ -65,6 +69,7 @@ attack={
 2d_physics/layer_5="Player Hitbox"
 2d_physics/layer_6="Mob Hurtbox"
 2d_physics/layer_7="Mob Hitbox"
+2d_physics/layer_8="Player Bounds"
 
 [rendering]
 
