@@ -1,22 +1,20 @@
-[gd_scene load_steps=55 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=53 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://Entities/Player/player_shader.gdshader" id="2_r8fok"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="3_fkugw"]
-[ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/blockout_top_down.png" id="3_lub02"]
-[ext_resource type="Texture2D" uid="uid://ds6keo5tbk1v2" path="res://Assets/Sprites/hitbox.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/Player/blockout_top_down.png" id="3_lub02"]
+[ext_resource type="Texture2D" uid="uid://ds6keo5tbk1v2" path="res://Assets/Sprites/PlayerAttack/hitbox.png" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_8fjmc"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="5_iplt1"]
 [ext_resource type="Script" uid="uid://cej0ljjf57lre" path="res://Resources/slow_effect.gd" id="7_owvpp"]
-[ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/player_hearts_ui.tscn" id="8_lub02"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="9_nhbkt"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="9_r8fok"]
-[ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://UI/HpBar/heart.tscn" id="9_x1y6q"]
 [ext_resource type="AnimationLibrary" uid="uid://c0c2payaevb01" path="res://Entities/Player/player_damaged_effects_anim.tres" id="12_owvpp"]
 [ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Entities/Player/player_camera.gd" id="16_nhbkt"]
-[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="16_vskfa"]
+[ext_resource type="Script" path="res://Components/stats_component.gd" id="16_vskfa"]
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://Entities/Resource Data/player_stats.tres" id="17_pjcup"]
-[ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/shadow.png" id="17_vskfa"]
+[ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="17_vskfa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nhbkt"]
 shader = ExtResource("2_r8fok")
@@ -298,7 +296,6 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, -11)
 collision_layer = 2
 script = ExtResource("1_g2els")
 
@@ -344,16 +341,6 @@ visible = false
 modulate = Color(1, 1, 1, 0.32549)
 show_behind_parent = true
 texture = ExtResource("3_qhqgy")
-
-[node name="PlayerHeartsUI" parent="." node_paths=PackedStringArray("_stats_component") instance=ExtResource("8_lub02")]
-offset_left = -15.0
-offset_top = -27.0
-offset_right = -15.0
-offset_bottom = -27.0
-scale = Vector2(0.50114, 0.50114)
-_heart_scene = ExtResource("9_x1y6q")
-_stats_component = NodePath("../StatsComponents")
-metadata/_edit_use_anchors_ = true
 
 [node name="DamagedEffectsAnimation" type="AnimationPlayer" parent="."]
 libraries = {

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bv6sb3ptrywyx" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="3_b24ak"]
 [ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="4_ml45l"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="5_b24ak"]
-[ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://World/base_health_bar.tscn" id="6_q52up"]
+[ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://UI/BaseHealthBar/base_health_bar.tscn" id="6_q52up"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q52up"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -16,7 +16,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1, 0, 321, 1, 323, 182,
 script = ExtResource("1_cbcji")
 
 [node name="Base" parent="." instance=ExtResource("2_jqyws")]
-position = Vector2(247, 99)
+position = Vector2(63, 60)
 
 [node name="Player" parent="." instance=ExtResource("5_b24ak")]
 position = Vector2(196, 49)
