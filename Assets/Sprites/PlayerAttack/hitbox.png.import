@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coffnvwaytcas"
-path="res://.godot/imported/shadow.png-044fc7792181173599181dbc69ed7fcb.ctex"
+uid="uid://ds6keo5tbk1v2"
+path="res://.godot/imported/hitbox.png-857aa3bc30e25b62fda5f400456b61ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/shadow.png"
-dest_files=["res://.godot/imported/shadow.png-044fc7792181173599181dbc69ed7fcb.ctex"]
+source_file="res://Assets/Sprites/PlayerAttack/hitbox.png"
+dest_files=["res://.godot/imported/hitbox.png-857aa3bc30e25b62fda5f400456b61ac.ctex"]
 
 [params]
 

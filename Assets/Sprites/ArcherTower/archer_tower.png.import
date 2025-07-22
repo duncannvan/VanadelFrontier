@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3nedjv5ng4hd"
-path="res://.godot/imported/health_bar_under.png-6c2f739a66bcddf15fe85b1f27b89817.ctex"
+uid="uid://codrmtt2grqt1"
+path="res://.godot/imported/archer_tower.png-c3381ec2b7389dca91e4abf81bd90b7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/health_bar_under.png"
-dest_files=["res://.godot/imported/health_bar_under.png-6c2f739a66bcddf15fe85b1f27b89817.ctex"]
+source_file="res://Assets/Sprites/ArcherTower/archer_tower.png"
+dest_files=["res://.godot/imported/archer_tower.png-c3381ec2b7389dca91e4abf81bd90b7b.ctex"]
 
 [params]
 

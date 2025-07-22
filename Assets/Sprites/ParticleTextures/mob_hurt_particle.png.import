@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chrvqlqhdb2w2"
-path="res://.godot/imported/Iicon_32_01.png-f82c27dd9a46c3ac2cc37429c6d20456.ctex"
+uid="uid://disspdj154bow"
+path="res://.godot/imported/mob_hurt_particle.png-4efae3c81cf663d1a9af67b94359f736.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Iicon_32_01.png"
-dest_files=["res://.godot/imported/Iicon_32_01.png-f82c27dd9a46c3ac2cc37429c6d20456.ctex"]
+source_file="res://Assets/Sprites/ParticleTextures/mob_hurt_particle.png"
+dest_files=["res://.godot/imported/mob_hurt_particle.png-4efae3c81cf663d1a9af67b94359f736.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buwi2rby1fmxy"
-path="res://.godot/imported/TilesetFloor.png-b114383e8c52416ec6ada674ebc20c24.ctex"
+uid="uid://dnwp44300lc4w"
+path="res://.godot/imported/heart.png-f40457b072a5e5d55c70d1f801aaf559.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/TilesetFloor.png"
-dest_files=["res://.godot/imported/TilesetFloor.png-b114383e8c52416ec6ada674ebc20c24.ctex"]
+source_file="res://Assets/Sprites/Heart/heart.png"
+dest_files=["res://.godot/imported/heart.png-f40457b072a5e5d55c70d1f801aaf559.ctex"]
 
 [params]
 

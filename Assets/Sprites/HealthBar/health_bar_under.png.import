@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://54af4f2n8dcn"
-path="res://.godot/imported/slime_damaged_particle.png-12c4a0a3228e934f8074e7345e3d15e9.ctex"
+uid="uid://c3nedjv5ng4hd"
+path="res://.godot/imported/health_bar_under.png-3639c6e6023d372d9061124cf4d8eb73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/slime_damaged_particle.png"
-dest_files=["res://.godot/imported/slime_damaged_particle.png-12c4a0a3228e934f8074e7345e3d15e9.ctex"]
+source_file="res://Assets/Sprites/HealthBar/health_bar_under.png"
+dest_files=["res://.godot/imported/health_bar_under.png-3639c6e6023d372d9061124cf4d8eb73.ctex"]
 
 [params]
 

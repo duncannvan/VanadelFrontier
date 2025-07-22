@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbetiiavj1c80"
-path="res://.godot/imported/character.png-20554c7c8d12ae403e8f8d727451fef9.ctex"
+uid="uid://b0ocq0relo4oi"
+path="res://.godot/imported/blockout_top_down.png-82f0714402f9727f11a5119c4e498dba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/character.png"
-dest_files=["res://.godot/imported/character.png-20554c7c8d12ae403e8f8d727451fef9.ctex"]
+source_file="res://Assets/Sprites/Player/blockout_top_down.png"
+dest_files=["res://.godot/imported/blockout_top_down.png-82f0714402f9727f11a5119c4e498dba.ctex"]
 
 [params]
 
