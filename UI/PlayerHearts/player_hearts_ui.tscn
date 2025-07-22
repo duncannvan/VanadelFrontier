@@ -11,5 +11,3 @@ _heart_scene = ExtResource("2_cgy3t")
 
 [node name="HeartsContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 76.0
-offset_bottom = 16.0

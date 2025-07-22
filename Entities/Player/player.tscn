@@ -369,6 +369,6 @@ _stats = ExtResource("17_pjcup")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
 
 [node name="PlayerHeartsUI" parent="." node_paths=PackedStringArray("_stats_component") instance=ExtResource("2_nhbkt")]
-offset_top = -31.0
-offset_bottom = -31.0
+offset_top = -22.0
+offset_bottom = -22.0
 _stats_component = NodePath("../StatsComponents")
