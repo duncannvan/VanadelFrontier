@@ -9,7 +9,8 @@ extends Node2D
 func _ready() -> void: 	
 	_base_stats_component.connect("died", _on_base_died)
 	_base_stats_component.connect("health_changed", _on_health_changed)
-
+	
+	_base_health_bar.initialize(_base_stats_component.get_health())
 
 func _on_base_died() -> void:
 	if _mob_spawner:

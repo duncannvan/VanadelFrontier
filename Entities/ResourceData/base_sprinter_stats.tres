@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d2qajhw3xoxc8" path="res://Resources/stats_sheet.gd" id="1_77r4m"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_77r4m")
 speed = 30
 health = 3
