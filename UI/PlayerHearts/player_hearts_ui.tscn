@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl4k1gietd5kd"]
+[gd_scene load_steps=3 format=3 uid="uid://cl4k1gietd5kd"]
 
 [ext_resource type="Script" uid="uid://co8wvck2spd4t" path="res://UI/PlayerHearts/player_hearts_ui.gd" id="1_th8q0"]
+[ext_resource type="PackedScene" uid="uid://dv2rhkv1fgrys" path="res://UI/PlayerHearts/heart.tscn" id="2_cgy3t"]
 
 [node name="PlayerHeartsUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_th8q0")
+_heart_scene = ExtResource("2_cgy3t")
 
 [node name="HeartsContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
