@@ -1,1 +1,0 @@
-class_name CombatUnit extends CharacterBody2D
