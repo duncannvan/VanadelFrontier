@@ -14,7 +14,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://c0c2payaevb01" path="res://Entities/Player/player_damaged_effects_anim.tres" id="12_owvpp"]
 [ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Entities/Player/player_camera.gd" id="16_nhbkt"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="16_vskfa"]
-[ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://Entities/Resource Data/player_stats.tres" id="17_pjcup"]
+[ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://Entities/ResourceData/player_stats.tres" id="17_pjcup"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="17_vskfa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nhbkt"]

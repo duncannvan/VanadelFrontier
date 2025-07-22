@@ -1,10 +1,10 @@
 [gd_scene load_steps=23 format=3 uid="uid://sxcrwq6qjmwq"]
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
-[ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/slime.png" id="1_371uh"]
+[ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/Slime/slime.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/attack_effect.gd" id="4_fg4mt"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/damage_effect.gd" id="5_ha687"]
-[ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://Entities/Resource Data/slime_stats.tres" id="6_o85a5"]
+[ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://Entities/ResourceData/slime_stats.tres" id="6_o85a5"]
 [ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/knockback_effect.gd" id="6_utbsb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
