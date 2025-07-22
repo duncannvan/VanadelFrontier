@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8x35qdlv5x6e"]
 
-[ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/health_bar_under.png" id="1_regb8"]
-[ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/health_bar_progress.png" id="2_0lr3l"]
-[ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://World/health_bar.gd" id="3_v8qde"]
+[ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/HealthBar/health_bar_under.png" id="1_regb8"]
+[ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/HealthBar/health_bar_progress.png" id="2_0lr3l"]
+[ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://UI/BaseHealthBar/health_bar.gd" id="3_v8qde"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_td74h"]
 font_size = 64
@@ -10,6 +10,7 @@ font_size = 64
 [node name="BaseHealthBar" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("3_v8qde")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -24,7 +25,6 @@ horizontal_alignment = 1
 uppercase = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 offset_left = 3.0
 offset_top = 25.0
@@ -36,4 +36,3 @@ size_flags_vertical = 4
 value = 100.0
 texture_under = ExtResource("1_regb8")
 texture_progress = ExtResource("2_0lr3l")
-script = ExtResource("3_v8qde")

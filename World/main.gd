@@ -4,10 +4,9 @@ extends Node2D
 @onready var _base_stats_component = $Base/StatsComponents
 @onready var _mob_spawner = get_node_or_null("MobSpawner")
 @onready var _base_health_ui: TextureProgressBar = null
-@onready var _base_health_bar = $UI/BaseHealthBar/%HealthBar
+@onready var _base_health_bar = $UI/BaseHealthBar
 
 func _ready() -> void: 	
-	#await _base_stats_component.stats_components_ready
 	_base_stats_component.connect("died", _on_base_died)
 	_base_stats_component.connect("health_changed", _on_health_changed)
 

@@ -15,4 +15,3 @@ void fragment() {
 	}
 	//COLOR = output_color;
 }
-
