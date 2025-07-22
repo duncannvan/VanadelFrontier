@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvs46icsemkb1"]
+
+[ext_resource type="Texture2D" uid="uid://cw4sd6ho2yhky" path="res://Assets/Sprites/base.png" id="1_pvqg0"]
+[ext_resource type="Script" uid="uid://ixdci2fyk3ha" path="res://World/base.gd" id="1_rx2yr"]
+[ext_resource type="Script" uid="uid://beldcflw254u" path="res://Components/HealthComponent/health_component.gd" id="3_5mgm5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ch56s"]
+radius = 11.0
+
+[node name="Base" type="Node2D"]
+script = ExtResource("1_rx2yr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(5, 5)
+texture = ExtResource("1_pvqg0")
+
+[node name="MobDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MobDetector"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_ch56s")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_5mgm5")
+_full_health = 10
+metadata/_custom_type_script = "uid://beldcflw254u"

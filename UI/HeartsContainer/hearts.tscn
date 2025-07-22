@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dlw2lj8r425o5"]
+
+[node name="Hearts" type="HBoxContainer"]
+offset_right = 54.0
+offset_bottom = 3.0
