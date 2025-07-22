@@ -2,13 +2,12 @@ class_name Player extends CombatUnit
 
 enum State {
 	IDLE 		= 0x1 << 0, 
-	WALKING 	    = 0x1 << 1, 
+	WALKING 	= 0x1 << 1, 
 	ATTACKING 	= 0x1 << 2, 
 	KNOCKEDBACK = 0x1 << 3, 
 	DEAD 		= 0x1 << 4,
 }
 
-const NUM_HEALTH_PER_HEART: int = 10
 const COMPONENT_KEY :=  StatsComponents.ComponentKey
 
 @export var _invincibility_time: float = 1.0
@@ -30,10 +29,9 @@ func _init() -> void:
 
 func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
-	await _stats_component.stats_components_ready
-	_stats_component.get_component(COMPONENT_KEY.HEALTH).died.connect(_die)
+	_stats_component._health_component.died.connect(_die)
 	
-
+	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
 
@@ -127,8 +125,3 @@ func _is_state(state: State) -> bool:
 
 func _exit_state(state: State) -> void :
 	_state &= ~state
-	
-
-func get_max_health() -> int: 
-	return _stats_component.get_component(COMPONENT_KEY.HEALTH).get_max_health()
-	

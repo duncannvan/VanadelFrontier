@@ -30,7 +30,6 @@ var _state: State
 func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
-	await _stats_component.stats_components_ready
 	_stats_component.get_component(COMPONENT_KEY.HEALTH).died.connect(_die)
 	_stats_component.get_component(COMPONENT_KEY.SPEED).slowed_ended.connect(_remove_slow)
 

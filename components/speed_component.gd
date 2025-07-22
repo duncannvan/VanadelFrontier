@@ -4,10 +4,13 @@ signal slowed_ended
 
 const MAX_SPEED_FACTOR: int = 1
 const MIN_SPEED_FACTOR: int = 0
+const MAX_SPEED: int = 100
+const MIN_SPEED: int = 1
 
 var _slowed_timer: Timer = null
 var _slowed_factor: float = MAX_SPEED_FACTOR
 var _base_speed = 0
+
 
 func _ready() -> void:
 	_slowed_timer = Timer.new()
@@ -16,7 +19,7 @@ func _ready() -> void:
 
 
 func _init(speed: int) -> void: 
-	_base_speed = clampi(speed, StatsSheet.MIN_HEALTH, StatsSheet.MAX_SPEED)
+	_base_speed = clampi(speed, MIN_SPEED, MAX_SPEED)
 
 
 func apply_slow(slowed_factor: float, slow_duration: float) -> void:

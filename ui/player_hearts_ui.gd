@@ -7,7 +7,7 @@ extends Control
 
 
 func _ready() -> void:
-	await _stats_component.stats_components_ready
+	await _stats_component.ready
 	_stats_component.get_component(StatsComponents.ComponentKey.HEALTH).connect("health_changed", _on_health_changed)
 
 
