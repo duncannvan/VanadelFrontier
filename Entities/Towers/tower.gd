@@ -17,12 +17,12 @@ func _ready() -> void:
 
 
 func _on_body_exited(mob: Mob) -> void:
-	if not _enabled: return
 	_mobs_in_range.erase(mob)
 	_current_target = null
 
 
 func _on_body_entered(mob: Mob) -> void:
+	if not _enabled: return
 	_mobs_in_range.append(mob)
 	if not _current_target:
 		_current_target = mob

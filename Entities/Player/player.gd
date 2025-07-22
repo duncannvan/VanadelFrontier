@@ -1,11 +1,11 @@
 class_name Player extends CombatUnit
 
 enum State {
-	IDLE 		= 0x1 << 0, 
-	WALKING 	= 0x1 << 1, 
-	ATTACKING 	= 0x1 << 2, 
+	IDLE = 0x1 << 0, 
+	WALKING = 0x1 << 1, 
+	ATTACKING = 0x1 << 2, 
 	KNOCKEDBACK = 0x1 << 3, 
-	DEAD 		= 0x1 << 4,
+	DEAD = 0x1 << 4,
 }
 
 @export var _invincibility_time: float = 1.0
