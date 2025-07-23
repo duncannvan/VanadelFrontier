@@ -1,16 +1,17 @@
 class_name Player extends CombatUnit
 
 enum State {
-	IDLE 		= 0x1 << 0, 
-	WALKING 	= 0x1 << 1, 
-	ATTACKING 	= 0x1 << 2, 
+	IDLE = 0x1 << 0, 
+	WALKING = 0x1 << 1, 
+	ATTACKING = 0x1 << 2, 
 	KNOCKEDBACK = 0x1 << 3, 
-	DEAD 		= 0x1 << 4,
+	DEAD = 0x1 << 4,
 }
 
 @export var _invincibility_time: float = 1.0
 
 var _state: State = State.IDLE
+var _last_facing_direction: Vector2 = Vector2.DOWN
 
 @onready var _hitbox: HitBox = $HitBox
 @onready var _hurtbox: HurtBox = $HurtBox
@@ -19,6 +20,7 @@ var _state: State = State.IDLE
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
+@onready var _animation_tree: AnimationTree = $AnimationTree
 
 
 func _init() -> void:
@@ -31,18 +33,20 @@ func _ready() -> void:
 	
 	
 func _physics_process(delta: float) -> void:
-	move_and_slide()
-
-
-func _input(event: InputEvent) -> void:
 	if _is_state(State.DEAD) or _is_state(State.KNOCKEDBACK): 
 		return
 	
 	var direction = Input.get_vector("left", "right", "up", "down")
-	_walk_handler(direction)
 	
-	if event.is_action_pressed("attack") and not _is_state(State.ATTACKING):
+	if direction: 
+		_last_facing_direction = direction
+		_update_blend_positions(direction)
+	
+	if Input.is_action_pressed("attack") and not _is_state(State.ATTACKING):
 		_attack_handler()
+		
+	move_and_slide()
+
 
 
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
@@ -79,33 +83,49 @@ func _die() -> void:
 	Global.game_over.emit()
 
 
-func _walk_handler(direction: Vector2) -> void:
-	velocity = direction * _stats_component.get_current_speed() 
-	
-	if direction != Vector2.ZERO:
-		if abs(direction.x) >= abs(direction.y):
-			_sprite.animation = "right" if direction.x > 0 else "left"
-		else:
-			_sprite.animation = "down" if direction.y > 0 else "up"
-		_sprite.play()
-		_add_state(State.WALKING)
-		_exit_state(State.IDLE)
-	else:
-		_sprite.stop()
-		_add_state(State.IDLE)
-		_exit_state(State.WALKING)
+#func _walk_handler(direction: Vector2) -> void:
+	#velocity = direction * _stats_component.get_current_speed() 
+	#
+	#if direction != Vector2.ZERO:
+		#if abs(direction.x) >= abs(direction.y):
+			#_sprite.animation = "right" if direction.x > 0 else "left"
+		#else:
+			#_sprite.animation = "down" if direction.y > 0 else "up"
+		#_sprite.play()
+		#_add_state(State.WALKING)
+		#_exit_state(State.IDLE)
+	#else:
+		#_sprite.stop()
+		#_add_state(State.IDLE)
+		#_exit_state(State.WALKING)
 
 
 # TODO: Move into weapon/attack node
 func _attack_handler() -> void:
+	#match _last_facing_direction:
+		#Vector2.DOWN:
+			#_tool_animations.play("slash_down")
+		#Vector2.DOWN:
+			#_tool_animations.play("slash_down")
+		#Vector2.DOWN:
+			#_tool_animations.play("slash_down")
+		#Vector2.DOWN:
+			#_tool_animations.play("slash_down")
+	#
 	_add_state(State.ATTACKING)
-	_hitbox.set_hitbox_enable(true)
-	_hitbox.get_node("HitEffects").visible = true 
-	await get_tree().create_timer(.1).timeout
-	_hitbox.get_node("HitEffects").visible = false
-	_hitbox.set_hitbox_enable(false)
+	
+	#_hitbox.set_hitbox_enable(true)
+	#_hitbox.get_node("HitEffects").visible = true 
+	#await get_tree().create_timer(.1).timeout
+	#_hitbox.get_node("HitEffects").visible = false
+	#_hitbox.set_hitbox_enable(false)
 	await get_tree().create_timer(.3).timeout # Scuffed attack cooldown
 	_exit_state(State.ATTACKING)
+
+
+func _update_blend_positions(direction: Vector2) -> void:
+	_animation_tree.set("p	arameters/StateMachine/MoveState/RunState/blend_position", direction)
+	_animation_tree.set("parameters/StateMachine/MoveState/IdleState/blend_position", direction)
 
 
 func _apply_attack_effects(hitbox: HitBox) -> void:

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/HealthBar/health_bar_under.png" id="1_regb8"]
 [ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/HealthBar/health_bar_progress.png" id="2_0lr3l"]
-[ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://UI/BaseHealthBar/health_bar.gd" id="3_v8qde"]
+[ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://UI/BaseHealthBar/base_health_bar.gd" id="3_v8qde"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_td74h"]
 font_size = 64
