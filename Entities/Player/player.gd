@@ -22,6 +22,7 @@ var combo_step: int = 0 :
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
+@onready var _tool_bar: ToolBarComponent = $ToolBarComponent
 @onready var _animation_tree: AnimationTree = $AnimationTree
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
@@ -98,6 +99,24 @@ func _handle_running():
 		velocity = direction * _stats_component.get_current_speed()
 		move_and_slide()
 	
+	_walk_handler(direction)
+	
+	
+	if event.is_action_pressed("attack") and not _is_state(State.ATTACKING):
+		_attack_handler()
+	
+	if event.is_action_pressed("use_tool"):
+		_tool_bar.get_selected_tool().use_tool()
+		
+	if event.is_action_pressed("slot1"):
+		_tool_bar.set_selected_tool(1)
+		
+	if event.is_action_pressed("slot2"):
+		_tool_bar.set_selected_tool(2)
+		
+	if event.is_action_pressed("slot3"):
+		_tool_bar.set_selected_tool(3)
+
 
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_combat_effects.play("damaged_effects")

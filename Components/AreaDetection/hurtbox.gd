@@ -2,7 +2,8 @@ class_name HurtBox extends Area2D
 
 signal hurtbox_entered(hitbox)
 
-@export var _is_invincible: bool = false
+@export var _is_invincible: bool = false:
+	set = set_invincible
 
 
 func get_invincible() -> bool:
@@ -15,5 +16,5 @@ func set_invincible(state: bool) -> void:
 		
 	_is_invincible = state
 	for child in get_children():
-		if child is CollisionShape2D || child is CollisionPolygon2D:
+		if child is CollisionShape2D or child is CollisionPolygon2D:
 			child.set_deferred("disabled", _is_invincible)
