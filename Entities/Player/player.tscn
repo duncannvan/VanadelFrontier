@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://Components/tool_bar.gd" id="17_v7p16"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="17_vskfa"]
 [ext_resource type="Script" path="res://Resources/base_tool.gd" id="18_a8wow"]
-[ext_resource type="Resource" path="res://Entities/ResourceData/starter_harvest_tool.tres" id="19_avsg8"]
+[ext_resource type="Resource" uid="uid://e165u8qj0auw" path="res://Entities/ResourceData/starter_harvest_tool.tres" id="19_avsg8"]
 [ext_resource type="Resource" uid="uid://c51swhx5yf5e0" path="res://Entities/ResourceData/starter_melee_weapon.tres" id="20_dv6dp"]
 [ext_resource type="Resource" uid="uid://cj5j3ke4y0aap" path="res://Entities/ResourceData/starter_range_weapon.tres" id="21_01ng6"]
 
