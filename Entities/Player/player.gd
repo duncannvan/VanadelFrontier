@@ -19,7 +19,6 @@ var _state: State = State.IDLE
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
-@onready var _tool_bar: ToolBarComponent = $ToolBarComponent
 
 
 func _init() -> void:
@@ -42,21 +41,8 @@ func _input(event: InputEvent) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
 	_walk_handler(direction)
 	
-	
 	if event.is_action_pressed("attack") and not _is_state(State.ATTACKING):
 		_attack_handler()
-	
-	if event.is_action_pressed("use_tool"):
-		_tool_bar.get_selected_tool().use_tool()
-		
-	if event.is_action_pressed("slot1"):
-		_tool_bar.set_selected_tool(1)
-		
-	if event.is_action_pressed("slot2"):
-		_tool_bar.set_selected_tool(2)
-		
-	if event.is_action_pressed("slot3"):
-		_tool_bar.set_selected_tool(3)
 
 
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
