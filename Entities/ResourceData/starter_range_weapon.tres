@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=2 format=3 uid="uid://cj5j3ke4y0aap"]
+
+[ext_resource type="Script" path="res://Resources/ranged_weapon.gd" id="1_ojdqf"]
+
+[resource]
+script = ExtResource("1_ojdqf")
+_projectile_speed = 0.0
+_max_range = 0.0
+name = "Starter Ranged Weapon"
+cooldown = 1.0
+metadata/_custom_type_script = "uid://xxv51cvvh0d7"
