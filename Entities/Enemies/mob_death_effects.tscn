@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bfkn1tevkmwyn"]
 
-[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="1_tjrlb"]
+[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/ParticleTextures/mob_hurt_particle.png" id="1_tjrlb"]
 [ext_resource type="AudioStream" uid="uid://decyujvydkixw" path="res://Assets/Audio/splat.mp3" id="2_4nmir"]
 
 [sub_resource type="Curve" id="Curve_s1j8t"]

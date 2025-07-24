@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=2 format=3 uid="uid://dj6oncwse7efi"]
+
+[ext_resource type="Script" uid="uid://evt2uj0lfk8u" path="res://Resources/melee_weapon.gd" id="1_0mva2"]
+
+[resource]
+script = ExtResource("1_0mva2")
+name = "Starter Melee Weapon"
+cooldown = 0.2
+metadata/_custom_type_script = "uid://evt2uj0lfk8u"

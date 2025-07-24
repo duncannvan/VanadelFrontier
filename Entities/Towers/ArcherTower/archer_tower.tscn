@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bv6sb3ptrywyx"]
 
 [ext_resource type="PackedScene" uid="uid://df78ln1f24wy2" path="res://Entities/Towers/tower.tscn" id="1_cmcjc"]
-[ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/archer_tower.png" id="1_nvkco"]
+[ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="1_nvkco"]
 [ext_resource type="PackedScene" uid="uid://bbn3u2nduf6g3" path="res://Entities/Towers/ArcherTower/archer_projectile.tscn" id="2_kc3mf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cmcjc"]

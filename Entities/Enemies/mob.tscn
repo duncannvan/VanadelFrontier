@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://bfkn1tevkmwyn" path="res://Entities/Enemies/mob_death_effects.tscn" id="2_a3mig"]
 [ext_resource type="Shader" uid="uid://b3lfikqvfwseg" path="res://Entities/Enemies/mob_shader.gdshader" id="3_a3mig"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="6_3682f"]
-[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/mob_hurt_particle.png" id="8_av7bl"]
+[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/ParticleTextures/mob_hurt_particle.png" id="8_av7bl"]
 [ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_fo871"]
 [ext_resource type="Material" uid="uid://btywae5n26jre" path="res://Entities/Enemies/Slime/slime_damaged_particles.tres" id="9_ou542"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="10_3msjq"]
 [ext_resource type="AudioStream" uid="uid://decyujvydkixw" path="res://Assets/Audio/splat.mp3" id="10_ou542"]
-[ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/shadow.png" id="11_3msjq"]
+[ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="11_3msjq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnioy"]
 radius = 6.0
