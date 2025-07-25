@@ -5,7 +5,7 @@ class_name RangedWeaponResource extends WeaponResource
 @export var _max_range: float
 
 #Override
-func use_tool() -> void:
+func USING_TOOL() -> void:
 	#TODO:Implement
 	print("Using Ranged")
 	pass

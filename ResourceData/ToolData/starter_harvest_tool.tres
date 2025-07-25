@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="HarvestingToolResource" load_steps=3 format=3 uid="uid://e165u8qj0auw"]
+
+[ext_resource type="AnimationLibrary" uid="uid://cbi7o57v16eub" path="res://AnimationLibs/basic_melee_slash_1.res" id="1_gupbn"]
+[ext_resource type="Script" uid="uid://bme3v7sp50il6" path="res://Resources/ToolResources/harvesting_tool.gd" id="2_616mv"]
+
+[resource]
+script = ExtResource("2_616mv")
+_efficiency = 0.0
+name = "Starter Harvesting Tool"
+cooldown_sec = 0.0
+animation_libs = Array[AnimationLibrary]([ExtResource("1_gupbn")])
+metadata/_custom_type_script = "uid://bme3v7sp50il6"

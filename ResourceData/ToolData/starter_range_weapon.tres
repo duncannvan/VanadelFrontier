@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=3 format=3 uid="uid://cj5j3ke4y0aap"]
+
+[ext_resource type="AnimationLibrary" uid="uid://pn42cegjw8tv" path="res://AnimationLibs/basic_melee_slash3.res" id="1_fn3yx"]
+[ext_resource type="Script" uid="uid://xxv51cvvh0d7" path="res://Resources/ToolResources/ranged_weapon.gd" id="2_lpdat"]
+
+[resource]
+script = ExtResource("2_lpdat")
+_projectile_speed = 0.0
+_max_range = 0.0
+_damage = 0
+_knockback_mag = 0.0
+name = "Starter Ranged Weapon"
+cooldown_sec = 0.0
+animation_libs = Array[AnimationLibrary]([ExtResource("1_fn3yx")])
+metadata/_custom_type_script = "uid://xxv51cvvh0d7"

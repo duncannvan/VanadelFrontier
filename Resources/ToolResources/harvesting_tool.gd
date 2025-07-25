@@ -4,7 +4,7 @@ class_name HarvestingToolResource extends ToolResource
 @export var _efficiency: float
 
 #Override
-func use_tool() -> void:
+func USING_TOOL() -> void:
 	#TODO: Implement
 	print("Using Harvesting Tool")
 	pass

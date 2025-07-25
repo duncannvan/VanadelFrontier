@@ -3,7 +3,7 @@ class_name Player extends CombatUnit
 enum State {
 	IDLE, 
 	RUNNING, 
-	ATTACKING, 
+	USING_TOOL, 
 	KNOCKEDBACK, 
 	DEAD,
 }
@@ -13,7 +13,7 @@ const COMBO_WINDOW_TIME: float = 0.5
 
 var _state: State = State.IDLE
 var _last_facing_direction: Vector2 = Vector2.DOWN
-var attacking: bool = false
+var USING_TOOL: bool = false
 var combo_step: int = 0 :
 	set(value):
 		combo_step = wrapi(value, 1, COMBO_LIMIT)
@@ -34,6 +34,7 @@ func _ready() -> void:
 	_stats_component.died.connect(_die)
 	_update_blend_positions(_last_facing_direction)
 	_combo_timer.timeout.connect(_on_combo_timer_timeout)
+	_tool_manager.set_blend_point_idx_mapping(_animation_tree)
 	
 
 func _physics_process(delta: float) -> void:
@@ -42,7 +43,7 @@ func _physics_process(delta: float) -> void:
 			_handle_idle()
 		State.RUNNING:
 			_handle_running()
-		State.ATTACKING:
+		State.USING_TOOL:
 			pass
 		State.KNOCKEDBACK:
 			move_and_slide()
@@ -58,17 +59,18 @@ func _set_state(new_state: State) -> void:
 	
 	# Do something after transition to new state
 	match _state:
-		State.ATTACKING:
-			combo_step += 1
-			print(combo_step)
-			
+		State.USING_TOOL:
 			# We could diffentiate the type of tool like this but this be be use sparingly
 			# We don't want the player to know about MeleeWeaponResource
-			if _tool_manager.get_selected_tool() is MeleeWeaponResource:
+			if _tool_manager.is_tool_selected() and _tool_manager.get_selected_tool() is MeleeWeaponResource:
+				combo_step += 1
+				print(combo_step)
 				_tool_manager.set_tool_animation(_animation_tree, combo_step - 1)
+			else:
+				combo_step = 0
 				
 			var blend_space: AnimationNodeBlendSpace2D = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
-			var anim = blend_space.get_blend_point_node(0).animation
+			var anim = blend_space.get_blend_point_node(0).animation #Get random swing direction animation
 			_combo_timer.start(_animation_player.get_animation(anim).length + COMBO_WINDOW_TIME)
 
 
@@ -79,7 +81,7 @@ func end_attack():
 func _on_combo_timer_timeout() -> void:
 	combo_step = 0
 
-#func _handle_attacking() -> void:
+#func _handle_USING_TOOL() -> void:
 	#if Input.is_action_just_pressed("attack"):
 		#combo_step += 1
 		#print(combo_step)
@@ -89,8 +91,9 @@ func _handle_idle() -> void:
 	if Input.get_vector("left", "right", "up", "down"):
 		_set_state(State.RUNNING)
 	elif Input.is_action_just_pressed("use_tool"):
-		_set_state(State.ATTACKING)
-		_tool_manager.get_selected_tool().use_tool()
+		if _tool_manager.is_tool_selected():
+			_set_state(State.USING_TOOL)
+			_tool_manager.get_selected_tool().USING_TOOL()
 
 
 func _handle_running():
@@ -99,8 +102,9 @@ func _handle_running():
 	if direction == Vector2.ZERO:
 		_set_state(State.IDLE)
 	elif Input.is_action_just_pressed("use_tool"):
-		_set_state(State.ATTACKING)
-		_tool_manager.get_selected_tool().use_tool()
+		if _tool_manager.is_tool_selected():
+			_set_state(State.USING_TOOL)
+			_tool_manager.get_selected_tool().USING_TOOL()
 	else:
 		_last_facing_direction = direction
 		_update_blend_positions(_last_facing_direction)

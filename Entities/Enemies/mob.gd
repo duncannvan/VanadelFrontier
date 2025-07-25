@@ -1,7 +1,7 @@
 class_name Mob extends CombatUnit
 
 enum State {
-	ATTACKING,
+	USING_TOOL,
 	KNOCKEDBACK
 }
 
@@ -16,7 +16,7 @@ const PLAYER_PATH: NodePath = "../Player"
 @export var _death_effect: PackedScene = null
 @export var _target: Node2D = null
 
-var _state: State = State.ATTACKING
+var _state: State = State.USING_TOOL
 
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
 @onready var _damaged_animation: AnimationPlayer = $DamagedAnimation
@@ -101,7 +101,7 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 		_state = State.KNOCKEDBACK
 		velocity = knockback_vector
 		await get_tree().create_timer(knockback_duration).timeout
-		_state = State.ATTACKING
+		_state = State.USING_TOOL
 
  
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
