@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=56 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
@@ -16,15 +16,10 @@
 [ext_resource type="AnimationLibrary" uid="uid://677kd0hr2vfg" path="res://ani.res" id="17_l3oqu"]
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://ResourceData/EntityData/player_stats.tres" id="17_pjcup"]
 [ext_resource type="Texture2D" uid="uid://r36vvkjt4q7m" path="res://Assets/Sprites/Slash.png" id="17_ppdlg"]
-[ext_resource type="Script" uid="uid://bi7iivp8g41x2" path="res://Components/tool_manager.gd" id="17_v7p16"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="17_vskfa"]
 [ext_resource type="AnimationLibrary" uid="uid://pn42cegjw8tv" path="res://AnimationLibs/basic_melee_slash3.res" id="18_01ng6"]
-[ext_resource type="Script" uid="uid://e5s00sri0pud" path="res://Resources/ToolResources/tool.gd" id="18_a8wow"]
-[ext_resource type="Resource" uid="uid://e165u8qj0auw" path="res://ResourceData/ToolData/starter_harvest_tool.tres" id="19_avsg8"]
 [ext_resource type="AnimationLibrary" uid="uid://cbi7o57v16eub" path="res://AnimationLibs/basic_melee_slash_1.res" id="19_ui1ln"]
-[ext_resource type="Resource" uid="uid://c51swhx5yf5e0" path="res://ResourceData/ToolData/starter_melee_weapon.tres" id="20_dv6dp"]
 [ext_resource type="AnimationLibrary" uid="uid://bofb71d7p0gvn" path="res://AnimationLibs/basic_melee_slash_2.res" id="20_og23y"]
-[ext_resource type="Resource" uid="uid://cj5j3ke4y0aap" path="res://ResourceData/ToolData/starter_range_weapon.tres" id="21_01ng6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pjcup"]
 shader = ExtResource("2_r8fok")
@@ -86,9 +81,9 @@ blend_point_0/pos = Vector2(0, 1)
 blend_point_1/node = SubResource("AnimationNodeAnimation_ui1ln")
 blend_point_1/pos = Vector2(0, -1)
 blend_point_2/node = SubResource("AnimationNodeAnimation_og23y")
-blend_point_2/pos = Vector2(1, 0)
+blend_point_2/pos = Vector2(0.9, 0)
 blend_point_3/node = SubResource("AnimationNodeAnimation_u86q5")
-blend_point_3/pos = Vector2(-1, 0)
+blend_point_3/pos = Vector2(-0.9, 0)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_80ryp"]
@@ -107,9 +102,9 @@ animation = &"run_up"
 blend_point_0/node = SubResource("AnimationNodeAnimation_80ryp")
 blend_point_0/pos = Vector2(0, 1)
 blend_point_1/node = SubResource("AnimationNodeAnimation_v27kq")
-blend_point_1/pos = Vector2(-1, 0)
+blend_point_1/pos = Vector2(-0.9, 0)
 blend_point_2/node = SubResource("AnimationNodeAnimation_kx1i7")
-blend_point_2/pos = Vector2(1, 0)
+blend_point_2/pos = Vector2(0.9, 0)
 blend_point_3/node = SubResource("AnimationNodeAnimation_w51ui")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
@@ -128,9 +123,9 @@ animation = &"basic_melee_slash_1/slash_up_1"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_c0fwy"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_slvv8")
-blend_point_0/pos = Vector2(-1, 0)
+blend_point_0/pos = Vector2(-0.9, 0)
 blend_point_1/node = SubResource("AnimationNodeAnimation_l3oqu")
-blend_point_1/pos = Vector2(1, 0)
+blend_point_1/pos = Vector2(0.9, 0)
 blend_point_2/node = SubResource("AnimationNodeAnimation_53w1c")
 blend_point_2/pos = Vector2(0, 1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_siu7b")
@@ -172,7 +167,7 @@ states/UseTool/position = Vector2(674, 99.5898)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_01ng6"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ui1ln"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_og23y"), "Run", "UseTool", SubResource("AnimationNodeStateMachineTransition_u86q5"), "UseTool", "Idle", SubResource("AnimationNodeStateMachineTransition_80ryp"), "Idle", "UseTool", SubResource("AnimationNodeStateMachineTransition_v27kq")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-59.0948, -120.786)
+graph_offset = Vector2(-29.676, 47.2917)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -376,7 +371,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/StateMachine/Idle/blend_position = Vector2(-0.0101736, 0.792916)
 parameters/StateMachine/Run/blend_position = Vector2(-0.993417, 0.00817442)
-parameters/StateMachine/UseTool/blend_position = Vector2(0, 0)
+parameters/StateMachine/UseTool/blend_position = Vector2(0, 0.985267)
 
 [node name="CombatEffects" type="AnimationPlayer" parent="."]
 libraries = {
@@ -386,7 +381,3 @@ libraries = {
 [node name="ComboTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-
-[node name="ToolManager" type="Node" parent="."]
-script = ExtResource("17_v7p16")
-_tool_resources = Array[ExtResource("18_a8wow")]([ExtResource("19_avsg8"), ExtResource("20_dv6dp"), ExtResource("21_01ng6")])

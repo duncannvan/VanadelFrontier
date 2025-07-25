@@ -11,6 +11,8 @@ enum State {
 const COMBO_LIMIT: int = 4
 const COMBO_WINDOW_TIME: float = 0.5
 
+@export var _tool_manager: ToolManager
+
 var _state: State = State.IDLE
 var _last_facing_direction: Vector2 = Vector2.DOWN
 var USING_TOOL: bool = false
@@ -22,7 +24,6 @@ var combo_step: int = 0 :
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
-@onready var _tool_manager: ToolManager = $ToolManager
 @onready var _animation_tree: AnimationTree = $AnimationTree
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
@@ -66,12 +67,12 @@ func _set_state(new_state: State) -> void:
 				combo_step += 1
 				print(combo_step)
 				_tool_manager.set_tool_animation(_animation_tree, combo_step - 1)
+				var blend_space: AnimationNodeBlendSpace2D = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
+				var anim = blend_space.get_blend_point_node(0).animation #Get random swing direction animation
+				_combo_timer.start(_animation_player.get_animation(anim).length + COMBO_WINDOW_TIME)
 			else:
 				combo_step = 0
 				
-			var blend_space: AnimationNodeBlendSpace2D = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
-			var anim = blend_space.get_blend_point_node(0).animation #Get random swing direction animation
-			_combo_timer.start(_animation_player.get_animation(anim).length + COMBO_WINDOW_TIME)
 
 
 func end_attack():
@@ -93,7 +94,7 @@ func _handle_idle() -> void:
 	elif Input.is_action_just_pressed("use_tool"):
 		if _tool_manager.is_tool_selected():
 			_set_state(State.USING_TOOL)
-			_tool_manager.get_selected_tool().USING_TOOL()
+			_tool_manager.get_selected_tool().use_tool()
 
 
 func _handle_running():
@@ -104,7 +105,7 @@ func _handle_running():
 	elif Input.is_action_just_pressed("use_tool"):
 		if _tool_manager.is_tool_selected():
 			_set_state(State.USING_TOOL)
-			_tool_manager.get_selected_tool().USING_TOOL()
+			_tool_manager.get_selected_tool().use_tool()
 	else:
 		_last_facing_direction = direction
 		_update_blend_positions(_last_facing_direction)

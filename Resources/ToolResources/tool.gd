@@ -6,5 +6,5 @@ class_name ToolResource extends Resource
 @export var animation_libs: Array[AnimationLibrary]
 
 #Virtual
-func USING_TOOL() -> void:
+func use_tool() -> void:
 	push_error("virtual method, USING_TOOL, must be implemented")
