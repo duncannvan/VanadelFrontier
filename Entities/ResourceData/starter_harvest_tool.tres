@@ -7,6 +7,6 @@
 script = ExtResource("1_286bl")
 _efficiency = 0.0
 name = "Starter Harvesting Tool"
-cooldown = 0.5
+cooldown_sec = 0.0
 animation_libs = Array[AnimationLibrary]([ExtResource("1_tgned")])
 metadata/_custom_type_script = "uid://bme3v7sp50il6"

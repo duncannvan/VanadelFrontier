@@ -172,7 +172,6 @@ states/UseTool/position = Vector2(674, 99.5898)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_01ng6"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ui1ln"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_og23y"), "Run", "UseTool", SubResource("AnimationNodeStateMachineTransition_u86q5"), "UseTool", "Idle", SubResource("AnimationNodeStateMachineTransition_80ryp"), "Idle", "UseTool", SubResource("AnimationNodeStateMachineTransition_v27kq")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-813.503, -20.2394)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]

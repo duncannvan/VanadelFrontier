@@ -7,6 +7,6 @@ script = ExtResource("1_ojdqf")
 _projectile_speed = 0.0
 _max_range = 0.0
 name = "Starter Ranged Weapon"
-cooldown = 1.0
+cooldown_sec = 0.0
 animation_libs = Array[AnimationLibrary]([])
 metadata/_custom_type_script = "uid://xxv51cvvh0d7"

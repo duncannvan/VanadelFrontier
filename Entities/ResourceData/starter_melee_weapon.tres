@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=5 format=3 uid="uid://c51swhx5yf5e0"]
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=6 format=3 uid="uid://c51swhx5yf5e0"]
 
 [ext_resource type="Script" uid="uid://evt2uj0lfk8u" path="res://Resources/melee_weapon.gd" id="1_0mva2"]
 [ext_resource type="AnimationLibrary" uid="uid://cbi7o57v16eub" path="res://basic_melee_slash_1.res" id="1_6dom2"]
 [ext_resource type="AnimationLibrary" uid="uid://bofb71d7p0gvn" path="res://basic_melee_slash_2.res" id="2_qiyiv"]
 [ext_resource type="AnimationLibrary" uid="uid://pn42cegjw8tv" path="res://basic_melee_slash3.res" id="3_gokdd"]
+[ext_resource type="Animation" uid="uid://buyj6a7umssj1" path="res://slash_up_1.res" id="4_qiyiv"]
 
 [resource]
 script = ExtResource("1_0mva2")
 name = "Starter Melee Weapon"
-cooldown = 0.2
+cooldown_sec = 0.0
 animation_libs = Array[AnimationLibrary]([ExtResource("1_6dom2"), ExtResource("2_qiyiv"), ExtResource("3_gokdd")])
+dict = Dictionary[int, Animation]({
+0: ExtResource("4_qiyiv")
+})
 metadata/_custom_type_script = "uid://evt2uj0lfk8u"

@@ -61,7 +61,15 @@ func _set_state(new_state: State) -> void:
 		State.ATTACKING:
 			combo_step += 1
 			print(combo_step)
-			#_combo_timer.start(_animation_player.get_animation("slash_down_%d" % combo_step).length + COMBO_WINDOW_TIME)
+			
+			# We could diffentiate the type of tool like this but this be be use sparingly
+			# We don't want the player to know about MeleeWeaponResource
+			if _tool_bar.get_selected_tool() is MeleeWeaponResource:
+				_tool_bar.set_tool_animation(_animation_tree, combo_step - 1)
+				
+			var blend_space: AnimationNodeBlendSpace2D = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
+			var anim = blend_space.get_blend_point_node(0).animation
+			_combo_timer.start(_animation_player.get_animation(anim).length + COMBO_WINDOW_TIME)
 
 
 func end_attack():
@@ -103,8 +111,7 @@ func _handle_running():
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if(event.is_action_pressed("tool_slot_nums")):
-			var blend_space = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
-			_tool_bar.set_selected_tool(event.keycode - KEY_0, blend_space)
+			_tool_bar.set_selected_tool(event.keycode - KEY_0, _animation_tree)
 			
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_combat_effects.play("damaged_effects")
