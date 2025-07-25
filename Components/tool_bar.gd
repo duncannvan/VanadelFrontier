@@ -5,14 +5,27 @@ const NUM_TOOL_SLOTS: int = 5
 @export var _tool_resources: Array[BaseToolResource] = []
 
 var _selected_tool_idx: int = 0
+var count = 0;
 
-
-func set_selected_tool(slot_position: int) -> void:
+func set_selected_tool(slot_position: int, blend_space: AnimationNodeBlendSpace2D) -> void:
 	if(slot_position > _tool_resources.size()):
 		return
 		
 	_selected_tool_idx = slot_position - 1
 
+	for anim_name in get_selected_tool().animation_libs[count].get_animation_list():
+		var anim_node := AnimationNodeAnimation.new()
+		anim_node.animation = "basic_melee_slash_" +str(count + 1)+"/"+anim_name
+		print("basic_melee_slash_" +str(count)+"/"+anim_name)
+		if "left" in anim_name:			
+			blend_space.set_blend_point_node(0, anim_node)
+		elif "right" in anim_name:			
+			blend_space.set_blend_point_node(1, anim_node)
+		elif "down" in anim_name:			
+			blend_space.set_blend_point_node(2, anim_node)
+		elif "up" in anim_name:			
+			blend_space.set_blend_point_node(3, anim_node)
+	
 
 func get_selected_tool() -> BaseToolResource:
 	return _tool_resources[_selected_tool_idx]

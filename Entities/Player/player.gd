@@ -33,7 +33,6 @@ func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_stats_component.died.connect(_die)
 	_update_blend_positions(_last_facing_direction)
-	
 	_combo_timer.timeout.connect(_on_combo_timer_timeout)
 
 
@@ -62,7 +61,7 @@ func _set_state(new_state: State) -> void:
 		State.ATTACKING:
 			combo_step += 1
 			print(combo_step)
-			_combo_timer.start(_animation_player.get_animation("slash_down_%d" % combo_step).length + COMBO_WINDOW_TIME)
+			#_combo_timer.start(_animation_player.get_animation("slash_down_%d" % combo_step).length + COMBO_WINDOW_TIME)
 
 
 func end_attack():
@@ -81,8 +80,9 @@ func _on_combo_timer_timeout() -> void:
 func _handle_idle() -> void:
 	if Input.get_vector("left", "right", "up", "down"):
 		_set_state(State.RUNNING)
-	elif Input.is_action_just_pressed("attack"):
+	elif Input.is_action_just_pressed("use_tool"):
 		_set_state(State.ATTACKING)
+		_tool_bar.get_selected_tool().use_tool()
 
 
 func _handle_running():
@@ -90,8 +90,9 @@ func _handle_running():
 	
 	if direction == Vector2.ZERO:
 		_set_state(State.IDLE)
-	elif Input.is_action_just_pressed("attack"):
+	elif Input.is_action_just_pressed("use_tool"):
 		_set_state(State.ATTACKING)
+		_tool_bar.get_selected_tool().use_tool()
 	else:
 		_last_facing_direction = direction
 		_update_blend_positions(_last_facing_direction)
@@ -99,25 +100,12 @@ func _handle_running():
 		velocity = direction * _stats_component.get_current_speed()
 		move_and_slide()
 	
-	_walk_handler(direction)
-	
-	
-	if event.is_action_pressed("attack") and not _is_state(State.ATTACKING):
-		_attack_handler()
-	
-	if event.is_action_pressed("use_tool"):
-		_tool_bar.get_selected_tool().use_tool()
-		
-	if event.is_action_pressed("slot1"):
-		_tool_bar.set_selected_tool(1)
-		
-	if event.is_action_pressed("slot2"):
-		_tool_bar.set_selected_tool(2)
-		
-	if event.is_action_pressed("slot3"):
-		_tool_bar.set_selected_tool(3)
-
-
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if(event.is_action_pressed("tool_slot_nums")):
+			var blend_space = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
+			_tool_bar.set_selected_tool(event.keycode - KEY_0, blend_space)
+			
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_combat_effects.play("damaged_effects")
 	_stats_component.apply_damage(damage)
@@ -142,12 +130,9 @@ func _die() -> void:
 
 
 func _update_blend_positions(direction: Vector2) -> void:
-	_animation_tree.set("parameters/StateMachine/MoveState/RunState/blend_position", direction)
-	_animation_tree.set("parameters/StateMachine/MoveState/IdleState/blend_position", direction)
-	_animation_tree.set("parameters/StateMachine/AttackState/Slash1/blend_position", direction)
-	_animation_tree.set("parameters/StateMachine/AttackState/Slash2/blend_position", direction)
-	_animation_tree.set("parameters/StateMachine/AttackState/Slash3/blend_position", direction)
-
+	_animation_tree.set("parameters/StateMachine/Run/blend_position", direction)
+	_animation_tree.set("parameters/StateMachine/Idle/blend_position", direction)
+	_animation_tree.set("parameters/StateMachine/UseTool/blend_position", direction)
 
 func _apply_attack_effects(hitbox: HitBox) -> void:
 	for effect in hitbox.attack_effects:
