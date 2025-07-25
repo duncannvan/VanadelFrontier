@@ -9,4 +9,5 @@ _efficiency = 0.0
 name = "Starter Harvesting Tool"
 cooldown_sec = 0.0
 animation_libs = Array[AnimationLibrary]([ExtResource("1_tgned")])
+dict = Dictionary[int, Animation]({})
 metadata/_custom_type_script = "uid://bme3v7sp50il6"

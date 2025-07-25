@@ -1,4 +1,4 @@
-class_name MeleeWeaponResource extends BaseToolResource
+class_name MeleeWeaponResource extends WeaponResource
 
 #Override
 func use_tool() -> void:

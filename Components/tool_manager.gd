@@ -1,8 +1,8 @@
-class_name ToolBarComponent extends Node
+class_name ToolManager extends Node
 
 const NUM_TOOL_SLOTS: int = 5
 
-@export var _tool_resources: Array[BaseToolResource] = []
+@export var _tool_resources: Array[ToolResource] = []
 
 var _selected_tool_idx: int = 0
 var _blend_point_idx_map: Dictionary[String, int] = {"left": 0, "right": 0, "down": 0, "up": 0} 
@@ -16,43 +16,49 @@ func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 	set_tool_animation(anim_tree)
 	
 
-func get_selected_tool() -> BaseToolResource:
+func get_selected_tool() -> ToolResource:
 	return _tool_resources[_selected_tool_idx]
 
 	
-func get_all_tools() -> Array[BaseToolResource]:
+func get_all_tools() -> Array[ToolResource]:
 	return _tool_resources
 
 
-func add_new_tool(tool: BaseToolResource) -> bool:
+func add_new_tool(tool: ToolResource) -> bool:
 	if _tool_resources.size() >= NUM_TOOL_SLOTS:
 		return false
 		
 	_tool_resources.append(tool)
 	return true
-
+	
 
 func swap_tool_slots(tool_idx1: int, tool_idx2: int) -> void:
 	if(_tool_resources.size() < tool_idx1 and _tool_resources.size() < tool_idx2):	
-		var temp: BaseToolResource = _tool_resources[tool_idx1]
+		var temp: ToolResource = _tool_resources[tool_idx1]
 		_tool_resources[tool_idx1] = _tool_resources[tool_idx2]
 		_tool_resources[tool_idx2] = temp
 		
-func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
-	
+		
+func set_blend_point_idx_mapping(anim_tree: AnimationTree):
 	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
-	var tool_lib_name: String = ""
-	
-	if lib_idx > get_selected_tool().animation_libs.size() - 1:
-		push_warning("Must add library to the tool resource to use with the given idx")
-		return
-	
 	# The blend space points are mapped to a decimal index based on the order of creation in the animation tree
 	# Get the blend point position vector to determine the corresponding direction for the blend point
 	for blend_space_idx: int in blend_space.get_blend_point_count():
 		var blend_point_pos: Vector2 = blend_space.get_blend_point_position(blend_space_idx)
 		var dir_str: String = _vector_to_direction(blend_point_pos)
 		_blend_point_idx_map[dir_str] = blend_space_idx
+	
+func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
+	
+	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
+	var tool_lib_name: String = ""
+	
+	# We need to only do this once upon ready so there could be a better place to put this
+	set_blend_point_idx_mapping(anim_tree)
+	
+	if lib_idx > get_selected_tool().animation_libs.size() - 1:
+		push_warning("Must add library to the tool resource to use with the given idx")
+		return
 	
 	# Get local library name of the tool to reference it in the animation player
 	for lib_name: String in anim_tree.get_animation_library_list():

@@ -22,7 +22,7 @@ var combo_step: int = 0 :
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
-@onready var _tool_bar: ToolBarComponent = $ToolBarComponent
+@onready var _tool_manager: ToolManager = $ToolManager
 @onready var _animation_tree: AnimationTree = $AnimationTree
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
@@ -34,7 +34,7 @@ func _ready() -> void:
 	_stats_component.died.connect(_die)
 	_update_blend_positions(_last_facing_direction)
 	_combo_timer.timeout.connect(_on_combo_timer_timeout)
-
+	
 
 func _physics_process(delta: float) -> void:
 	match _state:
@@ -64,8 +64,8 @@ func _set_state(new_state: State) -> void:
 			
 			# We could diffentiate the type of tool like this but this be be use sparingly
 			# We don't want the player to know about MeleeWeaponResource
-			if _tool_bar.get_selected_tool() is MeleeWeaponResource:
-				_tool_bar.set_tool_animation(_animation_tree, combo_step - 1)
+			if _tool_manager.get_selected_tool() is MeleeWeaponResource:
+				_tool_manager.set_tool_animation(_animation_tree, combo_step - 1)
 				
 			var blend_space: AnimationNodeBlendSpace2D = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
 			var anim = blend_space.get_blend_point_node(0).animation
@@ -90,7 +90,7 @@ func _handle_idle() -> void:
 		_set_state(State.RUNNING)
 	elif Input.is_action_just_pressed("use_tool"):
 		_set_state(State.ATTACKING)
-		_tool_bar.get_selected_tool().use_tool()
+		_tool_manager.get_selected_tool().use_tool()
 
 
 func _handle_running():
@@ -100,7 +100,7 @@ func _handle_running():
 		_set_state(State.IDLE)
 	elif Input.is_action_just_pressed("use_tool"):
 		_set_state(State.ATTACKING)
-		_tool_bar.get_selected_tool().use_tool()
+		_tool_manager.get_selected_tool().use_tool()
 	else:
 		_last_facing_direction = direction
 		_update_blend_positions(_last_facing_direction)
@@ -111,7 +111,7 @@ func _handle_running():
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if(event.is_action_pressed("tool_slot_nums")):
-			_tool_bar.set_selected_tool(event.keycode - KEY_0, _animation_tree)
+			_tool_manager.set_selected_tool(event.keycode - KEY_0, _animation_tree)
 			
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_combat_effects.play("damaged_effects")

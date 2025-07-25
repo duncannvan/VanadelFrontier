@@ -1,4 +1,4 @@
-class_name HarvestingToolResource extends BaseToolResource
+class_name HarvestingToolResource extends ToolResource
 
 # Number of resources gathered per use
 @export var _efficiency: float
