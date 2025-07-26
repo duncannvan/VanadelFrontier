@@ -65,11 +65,10 @@ func _set_state(new_state: State) -> void:
 			# We don't want the player to know about MeleeWeaponResource
 			if _tool_manager.is_tool_selected() and _tool_manager.get_selected_tool() is MeleeWeaponResource:
 				combo_step += 1
-				print(combo_step)
 				_tool_manager.set_tool_animation(_animation_tree, combo_step - 1)
 				var blend_space: AnimationNodeBlendSpace2D = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
 				var anim = blend_space.get_blend_point_node(0).animation #Get random swing direction animation
-				_combo_timer.start(_animation_player.get_animation("basic_melee_slash_1/slash_down").length + COMBO_WINDOW_TIME)
+				_combo_timer.start(_animation_player.get_animation(anim).length + COMBO_WINDOW_TIME)
 			else:
 				combo_step = 0
 
