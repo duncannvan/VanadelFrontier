@@ -68,7 +68,7 @@ func set_blend_point_idx_mapping(anim_tree: AnimationTree) -> void:
 	for blend_space_idx: int in blend_space.get_blend_point_count():
 		var blend_point_pos: Vector2 = blend_space.get_blend_point_position(blend_space_idx)
 		var direction: String = _vector_to_direction(blend_point_pos)
-		_blend_point_idx_map[dir_str] = blend_space_idx
+		_blend_point_idx_map[direction] = blend_space_idx
 	
 	
 # Swaps the tool animation
