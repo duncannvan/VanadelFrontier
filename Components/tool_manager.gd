@@ -55,7 +55,7 @@ func swap_tool_slots(tool_idx1: int, tool_idx2: int) -> void:
 		_tool_resources[tool_idx2] = temp
 		
 
-func set_blend_point_idx_mapping(anim_tree: AnimationTree):
+func set_blend_point_idx_mapping(anim_tree: AnimationTree) -> void:
 	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
 	# The blend space points are mapped to a decimal index based on the order of creation in the animation tree
 	# Get the blend point position vector to determine the corresponding direction for the blend point
@@ -64,13 +64,14 @@ func set_blend_point_idx_mapping(anim_tree: AnimationTree):
 		var dir_str: String = _vector_to_direction(blend_point_pos)
 		_blend_point_idx_map[dir_str] = blend_space_idx
 	
+	
 func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
 	
 	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
 	var tool_lib_name: String = ""
 	
 	if lib_idx > get_selected_tool().animation_libs.size() - 1:
-		push_warning("Must add library to the tool resource to use with the given idx")
+		push_warning("Must add animation library to the tool resource to use with the given idx")
 		return
 	
 	# Get local library name of the tool to reference it in the animation player
@@ -80,7 +81,7 @@ func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
 			tool_lib_name = lib_name + "/"
 			break
 	
-	# Update the blend point animations for each directiona
+	# Update the blend point animations for each direction
 	for anim_name: String in get_selected_tool().animation_libs[lib_idx].get_animation_list():
 		var anim_node := AnimationNodeAnimation.new()
 		anim_node.animation = tool_lib_name + anim_name
@@ -88,6 +89,7 @@ func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
 		for key: String in _blend_point_idx_map.keys():
 			if key in anim_name:
 				blend_space.set_blend_point_node(_blend_point_idx_map[key], anim_node)
+		
 		
 func _vector_to_direction(vec: Vector2) -> String:
 	if abs(vec.x) > abs(vec.y):

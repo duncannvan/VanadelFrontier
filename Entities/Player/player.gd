@@ -61,13 +61,11 @@ func _set_state(new_state: State) -> void:
 	# Do something after transition to new state
 	match _state:
 		State.USING_TOOL:
-			# We could diffentiate the type of tool like this but this be be use sparingly
-			# We don't want the player to know about MeleeWeaponResource
 			if _tool_manager.is_tool_selected() and _tool_manager.get_selected_tool() is MeleeWeaponResource:
 				combo_step += 1
 				_tool_manager.set_tool_animation(_animation_tree, combo_step - 1)
 				var blend_space: AnimationNodeBlendSpace2D = _animation_tree.tree_root.get_node("StateMachine").get_node("UseTool")
-				var anim = blend_space.get_blend_point_node(0).animation #Get random swing direction animation
+				var anim = blend_space.get_blend_point_node(0).animation #Get random swing direction animation. Idx 0 is currently mapped to left
 				_combo_timer.start(_animation_player.get_animation(anim).length + COMBO_WINDOW_TIME)
 			else:
 				combo_step = 0
@@ -79,11 +77,6 @@ func end_attack():
 
 func _on_combo_timer_timeout() -> void:
 	combo_step = 0
-
-#func _handle_USING_TOOL() -> void:
-	#if Input.is_action_just_pressed("attack"):
-		#combo_step += 1
-		#print(combo_step)
 
 
 func _handle_idle() -> void:
@@ -111,10 +104,12 @@ func _handle_running():
 		velocity = direction * _stats_component.get_current_speed()
 		move_and_slide()
 	
+	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if(event.is_action_pressed("tool_slot_nums")):
 			_tool_manager.set_selected_tool(event.keycode - KEY_0, _animation_tree)
+			
 			
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_combat_effects.play("damaged_effects")
@@ -144,22 +139,7 @@ func _update_blend_positions(direction: Vector2) -> void:
 	_animation_tree.set("parameters/StateMachine/Idle/blend_position", direction)
 	_animation_tree.set("parameters/StateMachine/UseTool/blend_position", direction)
 
+
 func _apply_attack_effects(hitbox: HitBox) -> void:
 	for effect in hitbox.attack_effects:
 			effect.apply(self, hitbox.global_position)
-
-
-#func _add_state(state: State) -> void:
-	#_state |= state
-#
-#
-#func _is_state(state: State) -> bool:
-	#return _state & state 
-#
-#
-#func _exit_state(state: State) -> void :
-	#_state &= ~state
-
-
-#func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	#print(anim_name)
