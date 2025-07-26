@@ -12,7 +12,7 @@ var _blend_point_idx_map: Dictionary[String, int] = {"left": 0, "right": 0, "dow
 # Public Methods:
 # Param slot_postion: 0 indexed slot position for selecting a tool
 func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
-	if slot_position > _tool_resources.size():
+	if slot_position >= _tool_resources.size():
 		_selected_tool_idx = NO_TOOL_SELECTED
 		print("Unselected Tool")
 		return
@@ -78,6 +78,7 @@ func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
 	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
 	var tool_lib_name: String = ""
 	
+	assert(get_selected_tool(), "Tool doesn't not equipped")
 	assert(lib_idx < get_selected_tool().animation_libs.size(), "Must add animation library to the tool resource to use with the given idx")
 	
 	# Get local library name of the tool to reference it in the animation player
