@@ -74,21 +74,21 @@ func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
 		return
 	
 	# Get local library name of the tool to reference it in the animation player
-	for lib_name: String in anim_tree.get_animation_library_list():
+	for lib_name in anim_tree.get_animation_library_list() as Array[String]:
 		var lib = anim_tree.get_animation_library(lib_name)
 		if lib == get_selected_tool().animation_libs[lib_idx]:
 			tool_lib_name = lib_name + "/"
 			break
 	
 	# Update the blend point animations for each directiona
-	for anim_name: String in get_selected_tool().animation_libs[lib_idx].get_animation_list():
+	for anim_name in get_selected_tool().animation_libs[lib_idx].get_animation_list() as Array[String]:
 		var anim_node := AnimationNodeAnimation.new()
 		anim_node.animation = tool_lib_name + anim_name
 		# The local tool animations must include the direction strings
 		for key: String in _blend_point_idx_map.keys():
 			if key in anim_name:
 				blend_space.set_blend_point_node(_blend_point_idx_map[key], anim_node)
-
+		
 func _vector_to_direction(vec: Vector2) -> String:
 	if abs(vec.x) > abs(vec.y):
 		return "right" if vec.x > 0 else "left"
