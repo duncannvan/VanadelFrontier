@@ -59,7 +59,6 @@ func _physics_process(delta: float) -> void:
 		States.TOOL:
 			pass
 		States.KNOCKBACK:
-			print("knockback")
 			move_and_slide()
 			pass
 		States.DEAD:
