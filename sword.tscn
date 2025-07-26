@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpbwue78iepeh"]
+
+[ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="1_e4ynd"]
+[ext_resource type="Texture2D" uid="uid://c3tqw13sjbh02" path="res://Assets/Sprites/PlayerAttack/sword.png" id="2_r76a6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwvek"]
+size = Vector2(6, 10)
+
+[node name="Sword" type="Area2D"]
+script = ExtResource("1_e4ynd")
+metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("2_r76a6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_dwvek")
