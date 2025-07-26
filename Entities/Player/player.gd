@@ -108,7 +108,7 @@ func _handle_running():
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if(event.is_action_pressed("tool_slot_nums")):
-			_tool_manager.set_selected_tool(event.keycode - KEY_0, _animation_tree)
+			_tool_manager.set_selected_tool(event.keycode - KEY_1, _animation_tree)
 			
 			
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:

@@ -1,8 +1,12 @@
 class_name RangedWeaponResource extends WeaponResource
 
-@export var _projectile_scene: PackedScene
-@export var _projectile_speed: float
-@export var _max_range: float
+@export var projectile_scene: PackedScene = null:
+	get():
+		assert(projectile_scene, "Attempt to retrieve null")
+		return projectile_scene
+	
+@export var projectile_speed: float = 0.0
+@export var max_range: float = 0.0
 
 #Override
 func use_tool() -> void:

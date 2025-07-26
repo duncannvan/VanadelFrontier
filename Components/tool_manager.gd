@@ -9,26 +9,26 @@ var _selected_tool_idx: int = NO_TOOL_SELECTED
 var _blend_point_idx_map: Dictionary[String, int] = {"left": 0, "right": 0, "down": 0, "up": 0} 
 
 
+# Public Methods:
+# Param slot_postion: 0 indexed slot position for selecting a tool
 func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 	if slot_position > _tool_resources.size():
 		_selected_tool_idx = NO_TOOL_SELECTED
 		print("Unselected Tool")
 		return
 		
-	if slot_position == _selected_tool_idx + 1:
+	if slot_position == _selected_tool_idx:
 		_selected_tool_idx = NO_TOOL_SELECTED
 		print("Unselected Tool")
 		return
 	
-	_selected_tool_idx = slot_position - 1
+	_selected_tool_idx = slot_position
 	print("Selected " + get_selected_tool().name)
 	set_tool_animation(anim_tree)
 	
 
 func get_selected_tool() -> ToolResource:
-	if _selected_tool_idx == NO_TOOL_SELECTED:
-		return null
-		
+	assert(_selected_tool_idx != NO_TOOL_SELECTED,"No tool is selected. Use is_tool_selected() or do a null check in the client")
 	return _tool_resources[_selected_tool_idx]
 
 
@@ -38,6 +38,11 @@ func is_tool_selected() -> bool:
 	
 func get_all_tools() -> Array[ToolResource]:
 	return _tool_resources
+	
+
+func remove_tool(slot_position: int) -> void:
+	if _tool_resources[slot_position]:
+		_tool_resources[slot_position] = null
 
 
 func add_new_tool(tool: ToolResource) -> bool:
@@ -49,30 +54,31 @@ func add_new_tool(tool: ToolResource) -> bool:
 	
 
 func swap_tool_slots(tool_idx1: int, tool_idx2: int) -> void:
-	if(_tool_resources.size() < tool_idx1 and _tool_resources.size() < tool_idx2):	
+	if _tool_resources.size() > tool_idx1 and _tool_resources.size() > tool_idx2:	
 		var temp: ToolResource = _tool_resources[tool_idx1]
 		_tool_resources[tool_idx1] = _tool_resources[tool_idx2]
 		_tool_resources[tool_idx2] = temp
 		
 
+# The blend space points are mapped to a decimal index based on the order of creation in the animation tree
+# Get the blend point position vector to determine the corresponding direction for the blend point
+# This must be called once in the client's _ready() if they intend to use tool animations
 func set_blend_point_idx_mapping(anim_tree: AnimationTree) -> void:
 	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
-	# The blend space points are mapped to a decimal index based on the order of creation in the animation tree
-	# Get the blend point position vector to determine the corresponding direction for the blend point
 	for blend_space_idx: int in blend_space.get_blend_point_count():
 		var blend_point_pos: Vector2 = blend_space.get_blend_point_position(blend_space_idx)
 		var dir_str: String = _vector_to_direction(blend_point_pos)
 		_blend_point_idx_map[dir_str] = blend_space_idx
 	
 	
+# Swaps the tool animation
+# Param lib_idx: Tools can have multiple animation libraries. The idx is used to determined which library to use. 
+#                Defaulted to 0 since most tools will only have 1 library.
 func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
-	
 	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
 	var tool_lib_name: String = ""
 	
-	if lib_idx > get_selected_tool().animation_libs.size() - 1:
-		push_warning("Must add animation library to the tool resource to use with the given idx")
-		return
+	assert(lib_idx < get_selected_tool().animation_libs.size(), "Must add animation library to the tool resource to use with the given idx")
 	
 	# Get local library name of the tool to reference it in the animation player
 	for lib_name: String in anim_tree.get_animation_library_list():
@@ -91,6 +97,7 @@ func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
 				blend_space.set_blend_point_node(_blend_point_idx_map[key], anim_node)
 		
 		
+# Private Methods:
 func _vector_to_direction(vec: Vector2) -> String:
 	if abs(vec.x) > abs(vec.y):
 		return "right" if vec.x > 0 else "left"
