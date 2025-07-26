@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=75 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
@@ -61,6 +61,8 @@ metadata/_custom_type_script = "uid://c6nd4i5durrew"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0poeq"]
 size = Vector2(18, 46)
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0poeq"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_01ng6"]
 animation = &"idle_down"
@@ -159,26 +161,26 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ppdlg"]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_01ng6"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ui1ln"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_og23y"]
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w51ui"]
 states/End/position = Vector2(884.5, 100.829)
-states/KnockbackState/node = SubResource("AnimationNodeBlendSpace2D_01ng6")
-states/KnockbackState/position = Vector2(452, 231)
+states/KnockbackState/node = SubResource("AnimationNodeStateMachine_0poeq")
+states/KnockbackState/position = Vector2(469, 229)
 states/MoveState/node = SubResource("AnimationNodeStateMachine_slvv8")
-states/MoveState/position = Vector2(363, 100.829)
+states/MoveState/position = Vector2(363, 100.966)
 states/Start/position = Vector2(204.5, 99.4531)
 states/ToolState/node = SubResource("AnimationNodeBlendSpace2D_c0fwy")
 states/ToolState/position = Vector2(572, 101.966)
-transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTransition_v7p16"), "MoveState", "ToolState", SubResource("AnimationNodeStateMachineTransition_a8wow"), "ToolState", "MoveState", SubResource("AnimationNodeStateMachineTransition_w51ui"), "MoveState", "KnockbackState", SubResource("AnimationNodeStateMachineTransition_01ng6"), "KnockbackState", "MoveState", SubResource("AnimationNodeStateMachineTransition_ui1ln"), "ToolState", "KnockbackState", SubResource("AnimationNodeStateMachineTransition_og23y")]
+transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTransition_v7p16"), "MoveState", "ToolState", SubResource("AnimationNodeStateMachineTransition_a8wow"), "ToolState", "MoveState", SubResource("AnimationNodeStateMachineTransition_w51ui"), "MoveState", "KnockbackState", SubResource("AnimationNodeStateMachineTransition_ppdlg"), "ToolState", "KnockbackState", SubResource("AnimationNodeStateMachineTransition_01ng6"), "KnockbackState", "MoveState", SubResource("AnimationNodeStateMachineTransition_ui1ln")]
 graph_offset = Vector2(49, 47)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-197.535, -72.5637)
+graph_offset = Vector2(-623.111, 43.2577)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -413,10 +415,6 @@ tracks/0/keys = {
 "values": [7]
 }
 
-[sub_resource type="Animation" id="Animation_v7p16"]
-resource_name = "knockedback"
-loop_mode = 1
-
 [sub_resource type="Animation" id="Animation_0bw0x"]
 resource_name = "run_down"
 length = 0.7
@@ -496,6 +494,10 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_58aja"]
 
 [sub_resource type="Animation" id="Animation_mr25g"]
+
+[sub_resource type="Animation" id="Animation_v7p16"]
+resource_name = "knockedback"
+loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0poeq"]
 _data = {
@@ -605,7 +607,6 @@ disabled = true
 tree_root = SubResource("AnimationNodeBlendTree_og23y")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/StateMachine/KnockbackState/blend_position = Vector2(0.00339556, -0.0329671)
 parameters/StateMachine/MoveState/Idle/blend_position = 0.0
 parameters/StateMachine/MoveState/Running/blend_position = Vector2(0, 0)
 parameters/StateMachine/ToolState/blend_position = Vector2(0, 0.985267)
