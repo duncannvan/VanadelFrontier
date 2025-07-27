@@ -49,7 +49,6 @@ func use_selected_tool(_animation_tree: AnimationTree) -> void:
 	if _get_selected_tool().animation_libs.size() > 1:
 		set_tool_animation(_animation_tree, _get_selected_tool().get_lib_idx())
 		_combo_timer.start(cooldown_sec + COMBO_WINDOW_SEC)
-
 	emit_signal("tool_used", cooldown_sec, _selected_tool_idx)
 	_get_selected_tool().use_tool()
 	await get_tree().create_timer(cooldown_sec).timeout

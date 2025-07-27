@@ -1,0 +1,119 @@
+[gd_scene load_steps=20 format=3 uid="uid://c0g7qc61warsf"]
+
+[ext_resource type="Script" uid="uid://2t45f8apvw50" path="res://Components/AreaDetection/projectile.gd" id="1_porfw"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="2_j4fkg"]
+[ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/AttackEffectResources/damage_effect.gd" id="3_jw3i4"]
+[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/AttackEffectResources/knockback_effect.gd" id="4_amgn1"]
+[ext_resource type="Texture2D" uid="uid://dx6b0vvq4mntx" path="res://Assets/Sprites/Tools/Pixel_Magic_Effects_Animations.png" id="5_dqii7"]
+
+[sub_resource type="Resource" id="Resource_dqii7"]
+script = ExtResource("3_jw3i4")
+_damage = 1
+metadata/_custom_type_script = "uid://c6nd4i5durrew"
+
+[sub_resource type="Resource" id="Resource_j4fkg"]
+resource_local_to_scene = true
+script = ExtResource("4_amgn1")
+_knockback_force = 200
+_knockback_duration = 0.1
+metadata/_custom_type_script = "uid://dx7savleyp0lc"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqii7"]
+size = Vector2(17, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amgn1"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 576, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gqtu"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmkh0"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8hh3"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlsw8"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_koylq"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsuy5"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fa4fd"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e75cq"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hh6u"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4fkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amgn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gqtu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmkh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8hh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wlsw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_koylq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsuy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fa4fd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e75cq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hh6u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="MagicProjectile" type="Area2D"]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("1_porfw")
+attack_effects = Array[ExtResource("2_j4fkg")]([SubResource("Resource_dqii7"), SubResource("Resource_j4fkg")])
+metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.03125)
+shape = SubResource("RectangleShape2D_dqii7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4.48438, -0.484375)
+scale = Vector2(0.359863, 0.359863)
+sprite_frames = SubResource("SpriteFrames_j4fkg")
+autoplay = "default"
+frame = 9
+frame_progress = 1.0

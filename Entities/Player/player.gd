@@ -62,6 +62,13 @@ func _set_state(new_state: States) -> void:
 
 func _on_tool_used(cooldown: float, selected_tool_idx: int):
 	_set_state(States.TOOL)
+	if _tool_manager._get_selected_tool() is RangedWeaponResource:
+		var proj_scene: HitBox = _tool_manager._get_selected_tool().projectile_scene.instantiate()
+		var mouse_pos = get_viewport().get_camera_2d().get_global_mouse_position()
+		proj_scene.global_position = global_position
+		proj_scene.rotation = global_position.direction_to(mouse_pos).angle()
+		proj_scene._set_v( global_position.direction_to(mouse_pos))
+		get_parent().add_child(proj_scene)
 	
 	
 func _handle_movement():
