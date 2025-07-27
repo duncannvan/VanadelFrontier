@@ -37,7 +37,7 @@ func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 
 
 func use_selected_tool(_animation_tree: AnimationTree) -> void:
-	if _get_selected_tool().cooling_down:
+	if !is_tool_selected() and _get_selected_tool().cooling_down:
 		return
 	
 	# Save idx here to restore this tool's cool_down bool incase the selected tool idx changes
@@ -138,4 +138,5 @@ func _vector_to_direction(vec: Vector2) -> String:
 		return "down" if vec.y > 0 else "up"
 
 func _on_combo_timer_expire() -> void:
-	_get_selected_tool().reset_lib_idx()
+	if is_tool_selected():
+		_get_selected_tool().reset_lib_idx()
