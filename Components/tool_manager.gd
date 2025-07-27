@@ -15,7 +15,7 @@ var _blend_point_idx_map: Dictionary[String, int] = {"left": 0, "right": 0, "dow
 # Public Methods:
 # Param slot_postion: 0 indexed slot position for selecting a tool
 func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
-	if(slot_position < NUM_TOOL_SLOTS):
+	if slot_position < NUM_TOOL_SLOTS:
 		emit_signal("selected_slot_changed", slot_position)
 	
 	if slot_position >= _tool_resources.size() or slot_position == _selected_tool_idx or !_tool_resources[slot_position]:
