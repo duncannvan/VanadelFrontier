@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://capa5f1kinqc0"
-path="res://.godot/imported/selected_tool_slot.png-9dd8376376a21005449b3697b6fef9b7.ctex"
+uid="uid://rvc0ae2yfc0n"
+path="res://.godot/imported/selected_tool_slot-export.png-758aa50804a1260c17be5aa6efc2dfd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Tools/selected_tool_slot.png"
-dest_files=["res://.godot/imported/selected_tool_slot.png-9dd8376376a21005449b3697b6fef9b7.ctex"]
+source_file="res://Assets/Sprites/Tools/selected_tool_slot-export.png"
+dest_files=["res://.godot/imported/selected_tool_slot-export.png-758aa50804a1260c17be5aa6efc2dfd4.ctex"]
 
 [params]
 
