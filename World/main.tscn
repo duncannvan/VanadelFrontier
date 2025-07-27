@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=20 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://UI/BaseHealthBar/base_health_bar.tscn" id="5_1hcjw"]
+[ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="5_r6hqv"]
+[ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/slot.tscn" id="6_4pper"]
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="8_1hcjw"]
 [ext_resource type="PackedScene" uid="uid://bv6sb3ptrywyx" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="8_04q08"]
@@ -1078,6 +1080,53 @@ offset_top = 4.0
 offset_right = -108.0
 offset_bottom = 4.0
 grow_horizontal = 0
+
+[node name="ToolBar" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_r6hqv")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ToolBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -47.5
+offset_top = -15.0
+offset_right = 47.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="ToolSlotsContainer" type="HBoxContainer" parent="UI/ToolBar/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 0
+theme_override_constants/separation = 0
+
+[node name="Slot1" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot2" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot4" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot5" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+layout_mode = 2
 
 [node name="Base" parent="." instance=ExtResource("7_o6xl0")]
 position = Vector2(-1, 5)
