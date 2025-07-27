@@ -37,10 +37,10 @@ func _on_button_pressed(slot_idx: int) -> void:
 	tool_slot_clicked.emit(slot_idx)
 
 
-func start_cooldown(cooldown_sec, selected_tool_idx):
-	var tween = get_tree().create_tween()
+func start_cooldown(cooldown_sec: float, selected_tool_idx: int):
+	var tween: Tween = get_tree().create_tween()
 	
-	var slot = toolbar[selected_tool_idx]
-	var cooldown_ui = slot.get_node("%CooldownUI")
+	var slot: TextureButton = toolbar[selected_tool_idx]
+	var cooldown_ui: ColorRect = slot.get_node("%CooldownUI")
 	cooldown_ui.size.y = slot.size.y
 	tween.tween_property(cooldown_ui, "size:y", 0.0, cooldown_sec)
