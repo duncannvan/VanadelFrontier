@@ -125,7 +125,7 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 	const KNOCKEDBACK_TIMEOUT_SEC: float = 3.0
 	var elapsed_sec: float = 0.0
 	while _playback_states.get_current_node() != _get_state_string(States.KNOCKBACK):
-		if  elapsed_sec > KNOCKEDBACK_TIMEOUT_SEC:
+		if elapsed_sec > KNOCKEDBACK_TIMEOUT_SEC:
 			assert(false, "Knockback timer timedout")
 		elapsed_sec += get_process_delta_time()
 		await get_tree().process_frame
