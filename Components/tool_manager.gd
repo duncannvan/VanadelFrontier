@@ -40,7 +40,6 @@ func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 func use_selected_tool(_animation_tree: AnimationTree) -> void:
 	if is_tool_selected() and _get_selected_tool().cooling_down:
 		return
-	print( _get_selected_tool().cooling_down)
 	# Save idx here to restore this tool's cool_down bool incase the selected tool idx changes
 	var tool_idx: int = _selected_tool_idx
 	var cooldown_sec: float = _get_selected_tool().get_cooldown_sec()
