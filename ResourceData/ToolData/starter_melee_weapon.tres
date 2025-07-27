@@ -1,15 +1,18 @@
-[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=5 format=3 uid="uid://c51swhx5yf5e0"]
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=6 format=3 uid="uid://c51swhx5yf5e0"]
 
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="1_guv3t"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="2_rpfho"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="3_iiptc"]
 [ext_resource type="Script" uid="uid://evt2uj0lfk8u" path="res://Resources/ToolResources/melee_weapon.gd" id="4_w5xab"]
+[ext_resource type="Texture2D" uid="uid://vagbjlhglbg6" path="res://Assets/Sprites/Slime/1.png" id="5_rpfho"]
 
 [resource]
 script = ExtResource("4_w5xab")
 _damage = 0
 _knockback_mag = 0.0
 name = "Starter Melee Weapon"
+texture = ExtResource("5_rpfho")
+texture_positions_adj = Vector2(1.4, 1.456)
 cooldown_sec = 0.0
 animation_libs = Array[AnimationLibrary]([ExtResource("1_guv3t"), ExtResource("2_rpfho"), ExtResource("3_iiptc")])
 metadata/_custom_type_script = "uid://evt2uj0lfk8u"

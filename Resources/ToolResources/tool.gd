@@ -5,6 +5,7 @@ class_name ToolResource extends Resource
 	get():
 		assert(texture, "Attempt to retrieve null")
 		return texture
+@export var texture_positions_adj: Vector2 = Vector2.ZERO
 @export var cooldown_sec: float = 0 # Time between uses
 @export var animation_libs: Array[AnimationLibrary] = []
 
