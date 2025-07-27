@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_lpdat")
-_projectile_speed = 0.0
-_max_range = 0.0
+projectile_speed = 0.0
+max_range = 0.0
 _damage = 0
 _knockback_mag = 0.0
 name = "Starter Ranged Weapon"
