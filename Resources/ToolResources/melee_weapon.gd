@@ -12,7 +12,6 @@ func use_tool() -> void:
 	
 func get_cooldown_sec() -> float:
 	var first_idx_key = animation_libs[combo_step].get_animation_list()[0]
-	print(combo_step)
 	if combo_step >= animation_libs.size() - 1:
 		return animation_libs[combo_step].get_animation(first_idx_key).length + cooldown_sec
 		
