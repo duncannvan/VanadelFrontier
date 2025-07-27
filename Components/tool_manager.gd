@@ -64,7 +64,7 @@ func swap_tool_slots(tool_idx1: int, tool_idx2: int) -> void:
 # Get the blend point position vector to determine the corresponding direction for the blend point
 # This must be called once in the client's _ready() if they intend to use tool animations
 func set_blend_point_idx_mapping(anim_tree: AnimationTree) -> void:
-	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
+	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("ToolState")
 	for blend_space_idx: int in blend_space.get_blend_point_count():
 		var blend_point_pos: Vector2 = blend_space.get_blend_point_position(blend_space_idx)
 		var direction: String = _vector_to_direction(blend_point_pos)
@@ -75,7 +75,7 @@ func set_blend_point_idx_mapping(anim_tree: AnimationTree) -> void:
 # Param lib_idx: Tools can have multiple animation libraries. The idx is used to determined which library to use. 
 #                Defaulted to 0 since most tools will only have 1 library.
 func set_tool_animation(anim_tree: AnimationTree, lib_idx: int = 0) -> void:
-	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("UseTool")
+	var blend_space: AnimationNodeBlendSpace2D = anim_tree.tree_root.get_node("StateMachine").get_node("ToolState")
 	var tool_lib_name: String = ""
 	
 	assert(get_selected_tool(), "Tool doesn't not equipped")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=74 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
@@ -108,6 +108,25 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_w51ui")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_avsg8"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dv6dp"]
+advance_mode = 2
+advance_expression = "velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kx1i7"]
+advance_mode = 2
+advance_expression = "!velocity"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_slvv8"]
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_01ng6")
+states/Idle/position = Vector2(384, 100)
+states/Running/node = SubResource("AnimationNodeBlendSpace2D_slvv8")
+states/Running/position = Vector2(606, 100)
+states/Start/position = Vector2(202, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_avsg8"), "Idle", "Running", SubResource("AnimationNodeStateMachineTransition_dv6dp"), "Running", "Idle", SubResource("AnimationNodeStateMachineTransition_kx1i7")]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_slvv8"]
 animation = &"basic_melee_slash_1/slash_left_1"
 
@@ -131,41 +150,37 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_siu7b")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_01ng6"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v7p16"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ui1ln"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a8wow"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w51ui"]
+switch_mode = 2
 advance_mode = 2
-advance_expression = "_state == State.RUNNING"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_01ng6"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ui1ln"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_og23y"]
 advance_mode = 2
 advance_expression = "_state == State.IDLE"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u86q5"]
-advance_mode = 2
-advance_expression = "_state == State.USING_TOOL"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_80ryp"]
-advance_mode = 2
-advance_expression = "_state != State.USING_TOOL"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v27kq"]
-advance_mode = 2
-advance_expression = "_state == State.USING_TOOL"
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w51ui"]
 states/End/position = Vector2(884.5, 100.829)
-states/Idle/node = SubResource("AnimationNodeBlendSpace2D_01ng6")
-states/Idle/position = Vector2(363, 100.081)
-states/Run/node = SubResource("AnimationNodeBlendSpace2D_slvv8")
-states/Run/position = Vector2(506, 263.125)
+states/KnockbackState/node = SubResource("AnimationNodeBlendSpace2D_01ng6")
+states/KnockbackState/position = Vector2(452, 231)
+states/MoveState/node = SubResource("AnimationNodeStateMachine_slvv8")
+states/MoveState/position = Vector2(363, 100.829)
 states/Start/position = Vector2(204.5, 99.4531)
-states/UseTool/node = SubResource("AnimationNodeBlendSpace2D_c0fwy")
-states/UseTool/position = Vector2(674, 99.5898)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_01ng6"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ui1ln"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_og23y"), "Run", "UseTool", SubResource("AnimationNodeStateMachineTransition_u86q5"), "UseTool", "Idle", SubResource("AnimationNodeStateMachineTransition_80ryp"), "Idle", "UseTool", SubResource("AnimationNodeStateMachineTransition_v27kq")]
+states/ToolState/node = SubResource("AnimationNodeBlendSpace2D_c0fwy")
+states/ToolState/position = Vector2(572, 101.966)
+transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTransition_v7p16"), "MoveState", "ToolState", SubResource("AnimationNodeStateMachineTransition_a8wow"), "ToolState", "MoveState", SubResource("AnimationNodeStateMachineTransition_w51ui"), "MoveState", "KnockbackState", SubResource("AnimationNodeStateMachineTransition_01ng6"), "KnockbackState", "MoveState", SubResource("AnimationNodeStateMachineTransition_ui1ln"), "ToolState", "KnockbackState", SubResource("AnimationNodeStateMachineTransition_og23y")]
+graph_offset = Vector2(49, 47)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
+graph_offset = Vector2(-101.961, -19.3974)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -400,6 +415,10 @@ tracks/0/keys = {
 "values": [7]
 }
 
+[sub_resource type="Animation" id="Animation_v7p16"]
+resource_name = "knockedback"
+loop_mode = 1
+
 [sub_resource type="Animation" id="Animation_0bw0x"]
 resource_name = "run_down"
 length = 0.7
@@ -487,6 +506,7 @@ _data = {
 &"idle_left": SubResource("Animation_1ii4q"),
 &"idle_right": SubResource("Animation_520x1"),
 &"idle_up": SubResource("Animation_mycwr"),
+&"knockback": SubResource("Animation_v7p16"),
 &"run_down": SubResource("Animation_0bw0x"),
 &"run_left": SubResource("Animation_d17g3"),
 &"run_right": SubResource("Animation_23o0h"),
@@ -503,15 +523,17 @@ script = ExtResource("1_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_pjcup")
+position = Vector2(0, -8)
 texture = ExtResource("3_lub02")
 hframes = 7
 vframes = 4
 
 [node name="PlayerCollisionBody" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7.25)
+position = Vector2(0, -0.75)
 shape = SubResource("RectangleShape2D_d2wvv")
 
 [node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -8)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_8fjmc")
@@ -523,6 +545,7 @@ shape = SubResource("RectangleShape2D_d2wvv")
 
 [node name="HitBox" type="Area2D" parent="."]
 show_behind_parent = true
+position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("3_fkugw")
@@ -542,13 +565,15 @@ show_behind_parent = true
 texture = ExtResource("3_qhqgy")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
+position = Vector2(0, -8)
 current = true
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2(0, -8)
 script = ExtResource("16_nhbkt")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
-position = Vector2(0, 11)
+position = Vector2(0, 3)
 texture = ExtResource("17_vskfa")
 
 [node name="StatsComponents" type="Node" parent="."]
@@ -557,11 +582,12 @@ _stats = ExtResource("17_pjcup")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
 
 [node name="PlayerHeartsUI" parent="." node_paths=PackedStringArray("_stats_component") instance=ExtResource("2_nhbkt")]
-offset_top = -22.0
-offset_bottom = -22.0
+offset_top = -30.0
+offset_bottom = -30.0
 _stats_component = NodePath("../StatsComponents")
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
+position = Vector2(0, -8)
 rotation = 1.78729
 
 [node name="Slash" type="Sprite2D" parent="WeaponPivot"]
@@ -587,9 +613,10 @@ disabled = true
 tree_root = SubResource("AnimationNodeBlendTree_og23y")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/StateMachine/Idle/blend_position = Vector2(-0.0101736, 0.792916)
-parameters/StateMachine/Run/blend_position = Vector2(-0.993417, 0.00817442)
-parameters/StateMachine/UseTool/blend_position = Vector2(0, 0.985267)
+parameters/StateMachine/KnockbackState/blend_position = Vector2(0.00339556, -0.0329671)
+parameters/StateMachine/MoveState/Idle/blend_position = 0.0
+parameters/StateMachine/MoveState/Running/blend_position = Vector2(0, 0)
+parameters/StateMachine/ToolState/blend_position = Vector2(0, 0.985267)
 
 [node name="CombatEffects" type="AnimationPlayer" parent="."]
 libraries = {
