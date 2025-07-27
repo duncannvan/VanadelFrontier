@@ -161,7 +161,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_01ng6"]
 advance_mode = 2
-advance_expression = "advance_expression = \"_state == State.IDLE\""
+advance_expression = "_state == State.IDLE"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ui1ln"]
 advance_mode = 2
