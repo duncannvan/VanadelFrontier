@@ -14,11 +14,10 @@ func _ready() -> void:
 	_tool_manager.connect("selected_slot_changed", _on_selected_slot_changed)
 	_tool_manager.connect("toolbar_modified", _on_toolbar_modified)
 	_toolbar_ui.connect("tool_slot_clicked", _on_tool_slot_clicked)
-	
+	_tool_manager.connect("tool_used", _on_tool_used)
 	_base_health_bar.initialize(_base_stats_component.get_health())
-	
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
-
+	
 
 func _on_base_died() -> void:
 	if _mob_spawner:
@@ -39,3 +38,7 @@ func _on_tool_slot_clicked(slot_idx: int) -> void:
 
 func _on_toolbar_modified(tools: Array[ToolResource]) -> void:
 	_toolbar_ui.refresh_toolbar(tools)
+
+
+func _on_tool_used(cooldown_sec: float, selected_tool_idx: int):
+	_toolbar_ui.start_cooldown(cooldown_sec, selected_tool_idx)

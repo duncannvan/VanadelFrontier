@@ -2,7 +2,8 @@ class_name ToolManager extends Node
 
 signal selected_slot_changed(slot_idx: int)
 signal toolbar_modified(tools: Array[ToolResource])
-signal tool_used()
+signal tool_used(cooldown, selected_tool_idx)
+
 
 const NUM_TOOL_SLOTS: int = 5
 const NO_TOOL_SELECTED: int = -1
@@ -37,13 +38,11 @@ func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 
 
 func use_selected_tool(_animation_tree: AnimationTree) -> void:
-	if not is_tool_selected() and _get_selected_tool().cooling_down:
+	if is_tool_selected() and _get_selected_tool().cooling_down:
 		return
-	
 	# Save idx here to restore this tool's cool_down bool incase the selected tool idx changes
 	var tool_idx: int = _selected_tool_idx
 	var cooldown_sec: float = _get_selected_tool().get_cooldown_sec()
-	
 	_get_selected_tool().cooling_down = true
 	
 	# Only update animation if there multiple animation libs in the tool
@@ -51,7 +50,7 @@ func use_selected_tool(_animation_tree: AnimationTree) -> void:
 		set_tool_animation(_animation_tree, _get_selected_tool().get_lib_idx())
 		_combo_timer.start(cooldown_sec + COMBO_WINDOW_SEC)
 
-	emit_signal("tool_used")
+	emit_signal("tool_used", cooldown_sec, _selected_tool_idx)
 	_get_selected_tool().use_tool()
 	await get_tree().create_timer(cooldown_sec).timeout
 	_tool_resources[tool_idx].cooling_down = false
