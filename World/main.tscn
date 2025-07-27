@@ -1043,6 +1043,7 @@ terrain_set_0/terrain_1/color = Color(0, 0.462434, 0.190063, 1)
 sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 
 [node name="Main" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_tbgi4")
 metadata/_edit_lock_ = true
 
@@ -1062,8 +1063,7 @@ tile_set = SubResource("TileSet_jyhfs")
 
 [node name="Player" parent="." node_paths=PackedStringArray("_tool_manager") instance=ExtResource("1_o5qli")]
 unique_name_in_owner = true
-top_level = true
-position = Vector2(74, 7)
+position = Vector2(3, 139)
 collision_mask = 129
 _tool_manager = NodePath("../ToolManager")
 
