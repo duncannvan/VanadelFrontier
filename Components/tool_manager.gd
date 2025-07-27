@@ -18,8 +18,8 @@ func _ready() -> void:
 	_combo_timer = Timer.new()
 	add_child(_combo_timer)
 	_combo_timer.timeout.connect(_on_combo_timer_expire)
-	
-		
+
+
 # Public Methods:
 # Param slot_postion: 0 indexed slot position for selecting a tool
 func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
@@ -37,11 +37,11 @@ func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 
 
 func use_selected_tool(_animation_tree: AnimationTree) -> void:
-	if !is_tool_selected() and _get_selected_tool().cooling_down:
+	if not is_tool_selected() and _get_selected_tool().cooling_down:
 		return
 	
 	# Save idx here to restore this tool's cool_down bool incase the selected tool idx changes
-	var tool_idx = _selected_tool_idx
+	var tool_idx: int = _selected_tool_idx
 	var cooldown_sec: float = _get_selected_tool().get_cooldown_sec()
 	
 	_get_selected_tool().cooling_down = true
@@ -55,7 +55,7 @@ func use_selected_tool(_animation_tree: AnimationTree) -> void:
 	_get_selected_tool().use_tool()
 	await get_tree().create_timer(cooldown_sec).timeout
 	_tool_resources[tool_idx].cooling_down = false
-	
+ 
 	
 func is_tool_selected() -> bool:
 	return _selected_tool_idx != NO_TOOL_SELECTED
@@ -69,6 +69,7 @@ func remove_tool(slot_position: int) -> void:
 	if _tool_resources[slot_position]:
 		_tool_resources[slot_position] = null
 	emit_signal("toolbar_modified", get_all_tools())
+
 
 func add_new_tool(tool: ToolResource) -> bool:
 	if _tool_resources.size() >= NUM_TOOL_SLOTS:
@@ -136,6 +137,7 @@ func _vector_to_direction(vec: Vector2) -> String:
 		return "right" if vec.x > 0 else "left"
 	else:
 		return "down" if vec.y > 0 else "up"
+
 
 func _on_combo_timer_expire() -> void:
 	if is_tool_selected():
