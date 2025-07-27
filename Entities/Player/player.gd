@@ -140,10 +140,6 @@ func select_tool(slot_idx: int):
 	_tool_manager.set_selected_tool(slot_idx, _animation_tree)
 
 
-func select_tool(slot_idx: int):
-	_tool_manager.set_selected_tool(slot_idx, _animation_tree)
-
-
 func _die() -> void:
 	_set_state(States.DEAD)
 	queue_free()
