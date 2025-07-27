@@ -12,10 +12,6 @@ const COMBO_WINDOW_TIME: float = 0.5
 
 @export var _tool_manager: ToolManager
 
-#var _states: Dictionary[States, String] =  {
-	#States.MOVE: "MoveState",
-	#States.TOOL: "ToolState", 
-	#States.KNOCKBACK: "KnockbackState"}
 var _states: Dictionary[String, States] =  {
 	"MoveState": States.MOVE,
 	"ToolState": States.TOOL,
@@ -64,8 +60,8 @@ func _physics_process(delta: float) -> void:
 			pass
 
 func _set_state(new_state: States) -> void:
-	var state_string = _get_state_string(new_state)
-	if state_string ==  _playback_states.get_current_node():
+	var state_string: String = _get_state_string(new_state)
+	if state_string == _playback_states.get_current_node():
 		return
 		
 	_playback_states.travel(state_string)
@@ -100,7 +96,7 @@ func _handle_movement():
 			_tool_manager.get_selected_tool().use_tool()
 			
 	
-	if _playback_states.get_current_node() == "KnockbackState":
+	if _playback_states.get_current_node() == _get_state_string(States.KNOCKBACK):
 		return
 
 	velocity = direction * _stats_component.get_current_speed()
