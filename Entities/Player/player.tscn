@@ -521,15 +521,17 @@ script = ExtResource("1_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_pjcup")
+position = Vector2(0, -8)
 texture = ExtResource("3_lub02")
 hframes = 7
 vframes = 4
 
 [node name="PlayerCollisionBody" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7.25)
+position = Vector2(0, -0.75)
 shape = SubResource("RectangleShape2D_d2wvv")
 
 [node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -8)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_8fjmc")
@@ -541,6 +543,7 @@ shape = SubResource("RectangleShape2D_d2wvv")
 
 [node name="HitBox" type="Area2D" parent="."]
 show_behind_parent = true
+position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("3_fkugw")
@@ -560,13 +563,15 @@ show_behind_parent = true
 texture = ExtResource("3_qhqgy")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
+position = Vector2(0, -8)
 current = true
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2(0, -8)
 script = ExtResource("16_nhbkt")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
-position = Vector2(0, 11)
+position = Vector2(0, 3)
 texture = ExtResource("17_vskfa")
 
 [node name="StatsComponents" type="Node" parent="."]
@@ -575,11 +580,12 @@ _stats = ExtResource("17_pjcup")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
 
 [node name="PlayerHeartsUI" parent="." node_paths=PackedStringArray("_stats_component") instance=ExtResource("2_nhbkt")]
-offset_top = -22.0
-offset_bottom = -22.0
+offset_top = -30.0
+offset_bottom = -30.0
 _stats_component = NodePath("../StatsComponents")
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
+position = Vector2(0, -8)
 rotation = 1.78729
 
 [node name="Slash" type="Sprite2D" parent="WeaponPivot"]
