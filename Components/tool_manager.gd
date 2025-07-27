@@ -1,12 +1,12 @@
 class_name ToolManager extends Node
 
-signal tool_changed(slot_idx: int)
-signal toolbar_updated(tools: Array[ToolResource])
+signal selected_slot_changed(slot_idx: int)
+signal toolbar_modified(tools: Array[ToolResource])
 
 const NUM_TOOL_SLOTS: int = 5
 const NO_TOOL_SELECTED: int = -1
 
-@export var _tool_resources: Array[ToolResource] = [null]
+@export var _tool_resources: Array[ToolResource] = []
 
 var _selected_tool_idx: int = NO_TOOL_SELECTED
 var _blend_point_idx_map: Dictionary[String, int] = {"left": 0, "right": 0, "down": 0, "up": 0} 
@@ -16,20 +16,13 @@ var _blend_point_idx_map: Dictionary[String, int] = {"left": 0, "right": 0, "dow
 # Param slot_postion: 0 indexed slot position for selecting a tool
 func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 	if(slot_position < NUM_TOOL_SLOTS):
-		emit_signal("tool_changed", slot_position)
+		emit_signal("selected_slot_changed", slot_position)
 	
-	if slot_position >= _tool_resources.size():
+	if slot_position >= _tool_resources.size() or slot_position == _selected_tool_idx or !_tool_resources[slot_position]:
 		_selected_tool_idx = NO_TOOL_SELECTED
-		print("Unselected Tool")
-		return
-		
-	if slot_position == _selected_tool_idx:
-		_selected_tool_idx = NO_TOOL_SELECTED
-		print("Unselected Tool")
 		return
 		
 	_selected_tool_idx = slot_position
-	print("Selected " + get_selected_tool().name)
 	set_tool_animation(anim_tree)
 
 
@@ -49,14 +42,14 @@ func get_all_tools() -> Array[ToolResource]:
 func remove_tool(slot_position: int) -> void:
 	if _tool_resources[slot_position]:
 		_tool_resources[slot_position] = null
-	emit_signal("toolbar_updated", get_all_tools())
+	emit_signal("toolbar_modified", get_all_tools())
 
 func add_new_tool(tool: ToolResource) -> bool:
 	if _tool_resources.size() >= NUM_TOOL_SLOTS:
 		return false
 		
 	_tool_resources.append(tool)
-	emit_signal("toolbar_updated", get_all_tools())
+	emit_signal("toolbar_modified", get_all_tools())
 	return true
 	
 
@@ -65,7 +58,7 @@ func swap_tool_slots(tool_idx1: int, tool_idx2: int) -> void:
 		var temp: ToolResource = _tool_resources[tool_idx1]
 		_tool_resources[tool_idx1] = _tool_resources[tool_idx2]
 		_tool_resources[tool_idx2] = temp
-		emit_signal("toolbar_updated", get_all_tools())
+		emit_signal("toolbar_modified", get_all_tools())
 
 # The blend space points are mapped to a decimal index based on the order of creation in the animation tree
 # Get the blend point position vector to determine the corresponding direction for the blend point

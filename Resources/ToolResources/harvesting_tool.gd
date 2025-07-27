@@ -6,5 +6,4 @@ class_name HarvestingToolResource extends ToolResource
 #Override
 func use_tool() -> void:
 	#TODO: Implement
-	print("Using Harvesting Tool")
 	pass

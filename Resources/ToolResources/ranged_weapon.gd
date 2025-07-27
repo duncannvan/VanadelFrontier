@@ -11,6 +11,5 @@ class_name RangedWeaponResource extends WeaponResource
 #Override
 func use_tool() -> void:
 	#TODO:Implement
-	print("Using Ranged")
 	pass
 	

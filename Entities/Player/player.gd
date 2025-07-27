@@ -82,6 +82,7 @@ func _on_combo_timer_timeout() -> void:
 func _handle_idle() -> void:
 	if Input.get_vector("left", "right", "up", "down"):
 		_set_state(State.RUNNING)
+	# Prevent entering USING_TOOL state if mouse clicked on a gui
 	elif Input.is_action_just_pressed("use_tool") and !get_viewport().gui_get_hovered_control():
 		if _tool_manager.is_tool_selected():
 			_set_state(State.USING_TOOL)
@@ -93,6 +94,7 @@ func _handle_running():
 	
 	if direction == Vector2.ZERO:
 		_set_state(State.IDLE)
+	# Prevent entering USING_TOOL state if mouse clicked on a gui
 	elif Input.is_action_just_pressed("use_tool") and !get_viewport().gui_get_hovered_control():
 		if _tool_manager.is_tool_selected():
 			_set_state(State.USING_TOOL)
@@ -127,8 +129,10 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 	velocity = Vector2.ZERO
 	_set_state(State.IDLE)
 
+
 func select_tool(slot_idx: int):
 	_tool_manager.set_selected_tool(slot_idx, _animation_tree)
+
 
 func _die() -> void:
 	_set_state(State.DEAD)
