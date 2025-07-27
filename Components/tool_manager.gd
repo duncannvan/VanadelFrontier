@@ -31,7 +31,7 @@ func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 	if slot_position >= _tool_resources.size() or slot_position == _selected_tool_idx or !_tool_resources[slot_position]:
 		_selected_tool_idx = NO_TOOL_SELECTED
 		return
-	
+		
 	_selected_tool_idx = slot_position
 	set_tool_animation(anim_tree)
 
