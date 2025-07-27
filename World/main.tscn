@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=22 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://fsxym4q884cr" path="res://World/world.gd" id="2_r6hqv"]
 [ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://UI/BaseHealthBar/base_health_bar.tscn" id="5_1hcjw"]
 [ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="5_r6hqv"]
 [ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/slot.tscn" id="6_4pper"]
@@ -16,7 +17,7 @@
 [ext_resource type="Resource" uid="uid://e165u8qj0auw" path="res://ResourceData/ToolData/starter_harvest_tool.tres" id="12_4pper"]
 [ext_resource type="Resource" uid="uid://c51swhx5yf5e0" path="res://ResourceData/ToolData/starter_melee_weapon.tres" id="13_r6hqv"]
 [ext_resource type="Resource" uid="uid://cj5j3ke4y0aap" path="res://ResourceData/ToolData/starter_range_weapon.tres" id="14_lh7yw"]
-[ext_resource type="Script" uid="uid://dburpqmgddvo5" path="res://inventory_manager.gd" id="17_r6hqv"]
+[ext_resource type="Script" uid="uid://d1i1q4l66jksh" path="res://World/inventory_manager.gd" id="18_lh7yw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -1050,6 +1051,9 @@ y_sort_enabled = true
 script = ExtResource("1_tbgi4")
 metadata/_edit_lock_ = true
 
+[node name="World" type="Node2D" parent="."]
+script = ExtResource("2_r6hqv")
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
 position = Vector2(-285, -210)
@@ -1129,6 +1133,64 @@ layout_mode = 2
 [node name="Slot5" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
+[node name="Inventory" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/Inventory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -22.0
+offset_right = 24.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Row" type="HBoxContainer" parent="UI/Inventory/GridContainer"]
+layout_mode = 2
+
+[node name="Slot1" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot2" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot4" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot5" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="UI/Inventory/GridContainer"]
+layout_mode = 2
+
+[node name="Slot6" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot7" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot8" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot9" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
+[node name="Slot10" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+layout_mode = 2
+
 [node name="Base" parent="." instance=ExtResource("7_o6xl0")]
 position = Vector2(-1, 5)
 
@@ -1173,4 +1235,4 @@ script = ExtResource("10_sfxlf")
 _tool_resources = Array[ExtResource("11_ovush")]([ExtResource("12_4pper"), ExtResource("13_r6hqv"), ExtResource("14_lh7yw")])
 
 [node name="InventoryManager" type="Node" parent="."]
-script = ExtResource("17_r6hqv")
+script = ExtResource("18_lh7yw")

@@ -8,7 +8,8 @@ extends Node2D
 @onready var _toolbar_ui = $UI/ToolBar
 @onready var _player = $Player
 
-func _ready() -> void: 	
+
+func _ready() -> void:
 	_base_stats_component.connect("died", _on_base_died)
 	_base_stats_component.connect("health_changed", _on_health_changed)
 	_tool_manager.connect("selected_slot_changed", _on_selected_slot_changed)
@@ -17,7 +18,7 @@ func _ready() -> void:
 	_tool_manager.connect("tool_used", _on_tool_used)
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
-	
+
 
 func _on_base_died() -> void:
 	if _mob_spawner:
