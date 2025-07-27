@@ -5,7 +5,7 @@ signal tool_slot_clicked(slot_idx: int)
 var _slot_idx: int = ToolManager.NO_TOOL_SELECTED
 var toolbar: Array[TextureButton] = []
 
-@onready var toolbar_ui = $HBoxContainer
+@onready var toolbar_ui = %ToolSlotsContainer
 
 
 func _ready() -> void:
@@ -24,19 +24,11 @@ func update_selected_tool(slot_idx: int) -> void:
 
 
 func refresh_toolbar(tools: Array[ToolResource]) -> void:
-	# This may be moved to the individual tool resource if tool sizes varies significantly
-	# For now, chose a value that looks good on the screen
-	const TEXTURE_SCALE: float = 0.55
-	
 	for slot in toolbar:
 		if slot.get_index() < tools.size() and tools[slot.get_index()]:
-			var overlay: TextureRect = TextureRect.new()
-			overlay.texture = tools[slot.get_index()].texture
-			overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			overlay.stretch_mode = TextureRect.STRETCH_KEEP
-			overlay.scale = Vector2(TEXTURE_SCALE, TEXTURE_SCALE)
-			overlay.position = slot.position + tools[slot.get_index()].texture_positions_adj
-			add_child(overlay)
+
+			var slot_texture_rect = slot.get_node("%ItemTextureRect")
+			slot_texture_rect.texture = tools[slot.get_index()].texture
 
 
 func _on_button_pressed(slot_idx: int) -> void:

@@ -17,9 +17,6 @@ func _ready() -> void:
 	
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	
-	# Wait one frame to ensure that the ToolBar UI has been fully processed.
-	# Without this, values like `.position` may still be at their default state (Vector2(0, 0))
-	await get_tree().process_frame
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
 
 
