@@ -40,6 +40,6 @@ func refresh_toolbar(tools: Array[ToolResource]) -> void:
 
 
 func _on_button_pressed(slot_idx: int) -> void:
-	# Want software to handle updating button state so reverse state change via clicking
+	# Want software to handle updating button state so reverse state change done by clicking
 	toolbar[slot_idx].set_pressed_no_signal(!toolbar[slot_idx].is_pressed())
 	tool_slot_clicked.emit(slot_idx)

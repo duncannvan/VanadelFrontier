@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=22 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="8_1hcjw"]
 [ext_resource type="PackedScene" uid="uid://bv6sb3ptrywyx" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="8_04q08"]
+[ext_resource type="Texture2D" uid="uid://u30d1nchjs85" path="res://Assets/Sprites/Tools/hover_tool_slot.png" id="8_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="9_td74h"]
 [ext_resource type="PackedScene" uid="uid://cise8u0ooajis" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="10_6qnxk"]
 [ext_resource type="Script" uid="uid://bi7iivp8g41x2" path="res://Components/tool_manager.gd" id="10_sfxlf"]
@@ -1110,6 +1111,7 @@ toggle_mode = true
 action_mode = 0
 texture_normal = ExtResource("5_4pper")
 texture_pressed = ExtResource("6_r6hqv")
+texture_hover = ExtResource("8_lh7yw")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -1120,6 +1122,7 @@ toggle_mode = true
 action_mode = 0
 texture_normal = ExtResource("5_4pper")
 texture_pressed = ExtResource("6_r6hqv")
+texture_hover = ExtResource("8_lh7yw")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -1130,6 +1133,7 @@ toggle_mode = true
 action_mode = 0
 texture_normal = ExtResource("5_4pper")
 texture_pressed = ExtResource("6_r6hqv")
+texture_hover = ExtResource("8_lh7yw")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -1140,6 +1144,7 @@ toggle_mode = true
 action_mode = 0
 texture_normal = ExtResource("5_4pper")
 texture_pressed = ExtResource("6_r6hqv")
+texture_hover = ExtResource("8_lh7yw")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -1150,6 +1155,7 @@ toggle_mode = true
 action_mode = 0
 texture_normal = ExtResource("5_4pper")
 texture_pressed = ExtResource("6_r6hqv")
+texture_hover = ExtResource("8_lh7yw")
 ignore_texture_size = true
 stretch_mode = 4
 
