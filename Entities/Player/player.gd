@@ -20,9 +20,9 @@ var _states: Dictionary[String, States] =  {
 	}
 var _last_facing_direction: Vector2 = Vector2.DOWN
 var USING_TOOL: bool = false
-var combo_step: int = 0 :
+var combo_step: int = 1 :
 	set(value):
-		combo_step = wrapi(value, 1, COMBO_LIMIT)
+		combo_step = wrapi(value, 0, COMBO_LIMIT)
 
 @onready var _hitbox: HitBox = $HitBox
 @onready var _hurtbox: HurtBox = $HurtBox

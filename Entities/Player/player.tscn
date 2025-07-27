@@ -164,6 +164,8 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ui1ln"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_og23y"]
+advance_mode = 2
+advance_expression = "_state == State.IDLE"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w51ui"]
 states/End/position = Vector2(884.5, 100.829)
@@ -178,7 +180,7 @@ transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(49, 47)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-197.535, -72.5637)
+graph_offset = Vector2(-101.961, -19.3974)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
