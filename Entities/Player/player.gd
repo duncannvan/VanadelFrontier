@@ -60,7 +60,7 @@ func _set_state(new_state: States) -> void:
 	_playback_states.travel(state_string)
 
 
-func _on_tool_used():
+func _on_tool_used(cooldown: float, selected_tool_idx: int):
 	_set_state(States.TOOL)
 	
 	

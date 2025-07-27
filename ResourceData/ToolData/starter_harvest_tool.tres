@@ -9,7 +9,6 @@ script = ExtResource("2_616mv")
 _efficiency = 0.0
 name = "Starter Harvesting Tool"
 texture = ExtResource("3_616mv")
-texture_positions_adj = Vector2(1, 1)
 cooldown_sec = 0.0
 animation_libs = Array[AnimationLibrary]([ExtResource("1_gupbn")])
 metadata/_custom_type_script = "uid://bme3v7sp50il6"

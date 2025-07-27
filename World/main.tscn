@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=21 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://e165u8qj0auw" path="res://ResourceData/ToolData/starter_harvest_tool.tres" id="12_4pper"]
 [ext_resource type="Resource" uid="uid://c51swhx5yf5e0" path="res://ResourceData/ToolData/starter_melee_weapon.tres" id="13_r6hqv"]
 [ext_resource type="Resource" uid="uid://cj5j3ke4y0aap" path="res://ResourceData/ToolData/starter_range_weapon.tres" id="14_lh7yw"]
+[ext_resource type="Script" uid="uid://dburpqmgddvo5" path="res://inventory_manager.gd" id="17_r6hqv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -1170,3 +1171,6 @@ position = Vector2(1, 80)
 [node name="ToolManager" type="Node" parent="."]
 script = ExtResource("10_sfxlf")
 _tool_resources = Array[ExtResource("11_ovush")]([ExtResource("12_4pper"), ExtResource("13_r6hqv"), ExtResource("14_lh7yw")])
+
+[node name="InventoryManager" type="Node" parent="."]
+script = ExtResource("17_r6hqv")
