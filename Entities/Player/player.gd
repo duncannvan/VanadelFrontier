@@ -21,20 +21,19 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
-@onready var _animation_tree: AnimationTree = $AnimationTree
 @onready var _playback_states: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
+@onready var _animation_tree: AnimationTree = $AnimationTree
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
 
-
 func _ready() -> void:
+	add_to_group("player")
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_stats_component.died.connect(_die)
 	_update_blend_positions(_last_facing_direction)
 	_tool_manager.set_blend_point_idx_mapping(_animation_tree)
 	_tool_manager.tool_used.connect(_on_tool_used)
 	
-
 func _physics_process(delta: float) -> void:
 	var state_string: String = _playback_states.get_current_node()
 	if not _states.has(state_string): 
