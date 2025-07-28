@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bbn3u2nduf6g3"]
 
-[ext_resource type="Script" uid="uid://8wqdysh14oxj" path="res://Components/AreaDetection/old_projectile.gd" id="1_nkmf2"]
+[ext_resource type="Script" uid="uid://8wqdysh14oxj" path="res://Components/AreaDetection/tower_projectile.gd" id="1_nkmf2"]
 [ext_resource type="Texture2D" uid="uid://wx5dbofehrwp" path="res://Assets/Sprites/Arrow/arrow.png" id="2_3wm2j"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="2_woesh"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/AttackEffectResources/damage_effect.gd" id="3_y82ka"]
@@ -26,7 +26,7 @@ size = Vector2(11, 3)
 collision_layer = 16
 collision_mask = 32
 script = ExtResource("1_nkmf2")
-_speed = 100
+_speed = 100.0
 attack_effects = Array[ExtResource("2_woesh")]([SubResource("Resource_ysdnu"), SubResource("Resource_y82ka")])
 metadata/_custom_type_script = "uid://8wqdysh14oxj"
 

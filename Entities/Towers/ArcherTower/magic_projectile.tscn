@@ -96,13 +96,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 12.0
+"speed": 16.0
 }]
 
 [node name="MagicProjectile" type="Area2D"]
 collision_layer = 16
 collision_mask = 32
 script = ExtResource("1_porfw")
+_speed = 180.0
 attack_effects = Array[ExtResource("2_j4fkg")]([SubResource("Resource_dqii7"), SubResource("Resource_j4fkg")])
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
@@ -115,5 +116,4 @@ position = Vector2(-4.48438, -0.484375)
 scale = Vector2(0.359863, 0.359863)
 sprite_frames = SubResource("SpriteFrames_j4fkg")
 autoplay = "default"
-frame = 9
-frame_progress = 1.0
+frame_progress = 0.537973

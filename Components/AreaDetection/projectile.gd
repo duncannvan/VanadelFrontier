@@ -1,20 +1,18 @@
-extends HitBox
+class_name Projectile extends HitBox
 
-var speed: float = 180  # Pixels per second
-var velocity: Vector2 = Vector2.ZERO
-
-
-func _ready() -> void:
-	connect("area_entered", _on_area_entered)
+# TODO: Tower Component should take in a tower resource with speed data and pass it here
+@export var _speed: float = 0
+var _velocity: Vector2 = Vector2.ZERO
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	global_position += velocity * delta * speed
+	global_position += _velocity * delta * _speed
 
-func _set_v(v):
-	velocity = v  
 
-func _on_area_entered(hurtbox: HurtBox):
+func _on_area_entered(hurtbox: HurtBox) -> void:
 	super._on_area_entered(hurtbox)
 	queue_free()
+
+
+func set_velocity(velocity: Vector2)-> void:
+	_velocity = velocity

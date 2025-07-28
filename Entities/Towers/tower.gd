@@ -40,9 +40,9 @@ func _on_shoot_timer_timeout() -> void:
 	
 	
 func _spawn_projectile() -> void:
-	var proj_scene = projectile_scene.instantiate()
-	proj_scene.global_position = global_position
-	proj_scene.look_at(_current_target.position)
-	proj_scene.set_target(_current_target)
-	get_parent().add_child(proj_scene)
+	var projectile: TowerProjectile = projectile_scene.instantiate()
+	projectile.global_position = global_position
+	projectile.look_at(_current_target.position)
+	projectile.set_target(_current_target)
+	get_parent().add_child(projectile)
 	
