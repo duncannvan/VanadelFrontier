@@ -65,12 +65,8 @@ func _on_tool_used(cooldown: float, selected_tool_idx: int):
 	
 	# Temporarily keeping this here for now until we have global access to player data
 	if _tool_manager._get_selected_tool() is RangedWeaponResource:
-		var projectile: Projectile = _tool_manager._get_selected_tool().projectile_scene.instantiate()
 		var mouse_pos: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
-		var projectile_dir: Vector2 = global_position.direction_to(mouse_pos)
-		projectile.global_position = global_position
-		projectile.rotation = projectile_dir.angle()
-		projectile.set_velocity(projectile_dir)
+		var projectile: Projectile = _tool_manager._get_selected_tool().create_projectile(global_position, mouse_pos)
 		get_parent().add_child(projectile)
 	
 	
