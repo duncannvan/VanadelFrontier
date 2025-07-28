@@ -63,12 +63,6 @@ func _set_state(new_state: States) -> void:
 func _on_tool_used(cooldown: float, selected_tool_idx: int):
 	_set_state(States.TOOL)
 	
-	# Temporarily keeping this here for now until we have global access to player data
-	if _tool_manager._get_selected_tool() is RangedWeaponResource:
-		var mouse_pos: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
-		var projectile: Projectile = _tool_manager._get_selected_tool().create_projectile(global_position, mouse_pos)
-		get_parent().add_child(projectile)
-	
 	
 func _handle_movement():
 	var direction = Input.get_vector("left", "right", "up", "down")
@@ -79,7 +73,7 @@ func _handle_movement():
 		
 	if Input.is_action_just_pressed("use_tool") and !get_viewport().gui_get_hovered_control():
 		if _tool_manager.is_tool_selected():
-			_tool_manager.use_selected_tool(_animation_tree)
+			_tool_manager.use_selected_tool(self)
 			
 	velocity = direction * _stats_component.get_current_speed()
 	move_and_slide()
@@ -119,7 +113,7 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 
 
 func select_tool(slot_idx: int):
-	_tool_manager.set_selected_tool(slot_idx, _animation_tree)
+	_tool_manager.set_selected_tool(slot_idx, self)
 
 
 func _die() -> void:
