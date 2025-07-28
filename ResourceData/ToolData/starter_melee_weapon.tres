@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=6 format=3 uid="uid://c51swhx5yf5e0"]
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=7 format=3 uid="uid://c51swhx5yf5e0"]
 
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="1_guv3t"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="2_rpfho"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="3_iiptc"]
 [ext_resource type="Script" uid="uid://evt2uj0lfk8u" path="res://Resources/ToolResources/melee_weapon.gd" id="4_w5xab"]
 [ext_resource type="Texture2D" uid="uid://djxqyjq7mnkeu" path="res://Assets/Sprites/Tools/1.png" id="5_rpfho"]
+[ext_resource type="PackedScene" uid="uid://jqaf2i4y5ed4" path="res://ToolScene/weapon_pivot.tscn" id="6_iiptc"]
 
 [resource]
 script = ExtResource("4_w5xab")
+weapon_pivot = ExtResource("6_iiptc")
 _damage = 0
 _knockback_mag = 0.0
 name = "Starter Melee Weapon"
