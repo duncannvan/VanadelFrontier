@@ -93,9 +93,12 @@ func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
+	if _playback_states.get_current_node() == _get_state_string(States.KNOCKBACK):
+		return
+		
 	_set_state(States.KNOCKBACK)
 	
-	# Have to wait to travel before setting velocity else it would be overwritten by move function
+	 # Have to wait to travel before setting velocity else it would be overwritten by move function
 	const KNOCKEDBACK_TIMEOUT_SEC: float = 4.0
 	var elapsed_sec: float = 0.0
 	while _playback_states.get_current_node() != _get_state_string(States.KNOCKBACK) and elapsed_sec < KNOCKEDBACK_TIMEOUT_SEC:

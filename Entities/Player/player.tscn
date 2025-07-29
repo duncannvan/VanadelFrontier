@@ -1325,16 +1325,10 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_01ng6"]
-advance_mode = 2
-advance_expression = "_state == State.IDLE"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ui1ln"]
-advance_mode = 2
-advance_expression = "_state == State.RUNNING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_og23y"]
-advance_mode = 2
-advance_expression = "_state == State.IDLE"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w51ui"]
 states/BlendTree/node = SubResource("AnimationNodeBlendTree_0poeq")
@@ -1351,7 +1345,7 @@ transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(49, 47)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-252.733, 74.8957)
+graph_offset = Vector2(2.72726, 58)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -1637,6 +1631,17 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_v7p16"]
 resource_name = "knockedback"
 loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
 
 [sub_resource type="Animation" id="Animation_0bw0x"]
 resource_name = "run_down"
