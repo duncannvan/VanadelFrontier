@@ -35,7 +35,7 @@ func _on_spawn_mobs_timer_timeout() -> void:
 		_count += 1
 	
 		mob.tree_exited.connect(_on_slime_removed)
-
+		mob.loot_dropped.connect(_player._on_loot_dropped)
 
 func _on_slime_removed():
 	_count -= 1

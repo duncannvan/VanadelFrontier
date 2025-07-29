@@ -7,6 +7,8 @@ extends Node2D
 @onready var _tool_manager = $ToolManager
 @onready var _toolbar_ui = $UI/ToolBar
 @onready var _player = $Player
+@onready var _inventory_manager = $InventoryManager
+@onready var _inventory_ui = $UI/Inventory
 
 
 func _ready() -> void:
@@ -16,9 +18,9 @@ func _ready() -> void:
 	_tool_manager.connect("toolbar_modified", _on_toolbar_modified)
 	_toolbar_ui.connect("tool_slot_clicked", _on_tool_slot_clicked)
 	_tool_manager.connect("tool_used", _on_tool_used)
+	_inventory_manager.connect("refresh_inventory", _on_refresh_inventory)
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
-
 
 func _on_base_died() -> void:
 	if _mob_spawner:
@@ -41,5 +43,9 @@ func _on_toolbar_modified(tools: Array[ToolResource]) -> void:
 	_toolbar_ui.refresh_toolbar(tools)
 
 
-func _on_tool_used(cooldown_sec: float, selected_tool_idx: int):
+func _on_tool_used(cooldown_sec: float, selected_tool_idx: int) -> void:
 	_toolbar_ui.start_cooldown(cooldown_sec, selected_tool_idx)
+
+
+func _on_refresh_inventory() -> void:
+	_inventory_ui.refresh_inventory(_inventory_manager.get_inventory())

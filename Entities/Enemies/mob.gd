@@ -10,12 +10,14 @@ enum TargetingType {
 	PLAYER,
 }
 
+signal loot_dropped(item: Item)
+
 const PLAYER_PATH: NodePath = "../Player"
 
 @export var _targeting_type: TargetingType = TargetingType.BASE
 @export var _death_effect: PackedScene = null
 @export var _target: Node2D = null
-@export var loot_drop: LootableItem = null
+@export var _loot_drop: Item = null
 
 var _state: State = State.USING_TOOL
 
@@ -93,7 +95,8 @@ func _die() -> void:
 		var _death_effect_instance: Node2D = _death_effect.instantiate()
 		_death_effect_instance.global_position = global_position
 		get_tree().root.add_child(_death_effect_instance)
-	
+	if _loot_drop:
+		emit_signal("loot_dropped", _loot_drop)
 	queue_free()
 
 

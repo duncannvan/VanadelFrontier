@@ -7,7 +7,8 @@ enum States {
 	DEAD
 }
 
-@export var _tool_manager: ToolManager
+@export var _tool_manager: ToolManager = null
+@export var _inventory_manager: InventoryManger = null
 
 var _states: Dictionary[String, States] =  {
 	"MoveState": States.MOVE,
@@ -139,3 +140,6 @@ func _get_state_string(state: States) -> String:
 	assert("State enum not found in string mappings _states")
 	return ""
 	
+
+func _on_loot_dropped(item: Item):
+	_inventory_manager.add_item(item)
