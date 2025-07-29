@@ -55,11 +55,11 @@ func _on_refresh_inventory() -> void:
 	_inventory_ui.refresh_inventory(_inventory_manager.get_inventory())
 
 
-func _on_loot_dropped(item: Item):
+func _on_loot_dropped(item: Item) -> void:
 	_inventory_manager.add_item(item)
 
 
-func _on_mob_spawned(mob: Mob):
+func _on_mob_spawned(mob: Mob) -> void:
 	mob.loot_dropped.connect(_on_loot_dropped)
 
 	
