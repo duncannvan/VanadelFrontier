@@ -1129,6 +1129,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Inventory" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
