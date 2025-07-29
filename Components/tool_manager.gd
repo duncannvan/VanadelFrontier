@@ -23,7 +23,7 @@ func _ready() -> void:
 
 # Public Methods:
 # Param slot_postion: 0 indexed slot position for selecting a tool
-func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
+func set_selected_tool(slot_position: int, player: Player) -> void:
 	if slot_position < NUM_TOOL_SLOTS:
 		if is_tool_selected():
 			_get_selected_tool().reset_lib_idx()
@@ -32,12 +32,15 @@ func set_selected_tool(slot_position: int, anim_tree: AnimationTree) -> void:
 	if slot_position >= _tool_resources.size() or slot_position == _selected_tool_idx or !_tool_resources[slot_position]:
 		_selected_tool_idx = NO_TOOL_SELECTED
 		return
-		
+	
+	if is_tool_selected():
+		_get_selected_tool().on_switch_out(player)
 	_selected_tool_idx = slot_position
-	set_tool_animation(anim_tree)
+	_get_selected_tool().on_switch_in(player)
+	set_tool_animation(player._animation_tree)
 
 
-func use_selected_tool(_animation_tree: AnimationTree) -> void:
+func use_selected_tool(player: Player) -> void:
 	if is_tool_selected() and _get_selected_tool().cooling_down:
 		return
 	# Save idx here to restore this tool's cool_down bool incase the selected tool idx changes
@@ -47,11 +50,10 @@ func use_selected_tool(_animation_tree: AnimationTree) -> void:
 	
 	# Only update animation if there multiple animation libs in the tool
 	if _get_selected_tool().animation_libs.size() > 1:
-		set_tool_animation(_animation_tree, _get_selected_tool().get_lib_idx())
+		set_tool_animation(player._animation_tree, _get_selected_tool().get_lib_idx())
 		_combo_timer.start(cooldown_sec + COMBO_WINDOW_SEC)
-
 	emit_signal("tool_used", cooldown_sec, _selected_tool_idx)
-	_get_selected_tool().use_tool()
+	_get_selected_tool().use_tool(player)
 	await get_tree().create_timer(cooldown_sec).timeout
 	_tool_resources[tool_idx].cooling_down = false
  
