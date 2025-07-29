@@ -34,7 +34,8 @@ func _ready() -> void:
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
 	_stats_component.died.connect(_die)
 	_stats_component.slowed_ended.connect(_remove_slow)
-
+	
+	add_to_group("mobs")
 
 func _physics_process(delta: float) -> void:
 	if not _target or not _nav_agent: 

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="LootableItem" load_steps=3 format=3 uid="uid://ce0oe3o23q3re"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://ce0oe3o23q3re"]
 
 [ext_resource type="Script" uid="uid://slmssvclnigp" path="res://Resources/item.gd" id="1_u8fts"]
-[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/ParticleTextures/mob_hurt_particle.png" id="2_swypy"]
+[ext_resource type="Texture2D" uid="uid://ck12rpnqswagx" path="res://Assets/Sprites/Items/slime_loot.png" id="2_fuloc"]
 
 [resource]
 script = ExtResource("1_u8fts")
 name = "Slime Loot"
-texture = ExtResource("2_swypy")
+texture = ExtResource("2_fuloc")

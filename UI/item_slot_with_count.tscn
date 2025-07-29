@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://dalovudjxroi0"]
+
+[ext_resource type="Texture2D" uid="uid://3boh2jmo2ts2" path="res://Assets/Sprites/Tools/tool_slot.png" id="1_8ohaa"]
+[ext_resource type="Texture2D" uid="uid://rvc0ae2yfc0n" path="res://Assets/Sprites/Tools/selected_tool_slot-export.png" id="2_3qtpk"]
+[ext_resource type="Texture2D" uid="uid://u30d1nchjs85" path="res://Assets/Sprites/Tools/hover_tool_slot.png" id="3_1lhx5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gn2ek"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Slot" type="TextureButton"]
+custom_minimum_size = Vector2(12, 12)
+offset_right = 12.0
+offset_bottom = 12.0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("1_8ohaa")
+texture_pressed = ExtResource("2_3qtpk")
+texture_hover = ExtResource("3_1lhx5")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ItemTextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+
+[node name="CooldownUI" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.14159
+color = Color(1, 0.160784, 0.160784, 0.403922)
+
+[node name="Count" type="Label" parent="."]
+custom_minimum_size = Vector2(19, 23)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 6.0
+offset_right = 19.0
+offset_bottom = 29.0
+grow_horizontal = 2
+scale = Vector2(0.276997, 0.276997)
+label_settings = SubResource("LabelSettings_gn2ek")
+horizontal_alignment = 2
+vertical_alignment = 1

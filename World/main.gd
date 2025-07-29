@@ -21,6 +21,9 @@ func _ready() -> void:
 	_inventory_manager.connect("refresh_inventory", _on_refresh_inventory)
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
+	
+	for spawner in get_tree().get_nodes_in_group("spawners"):
+		spawner.mob_spawned.connect(_on_mob_spawned)
 
 func _on_base_died() -> void:
 	if _mob_spawner:
@@ -49,3 +52,13 @@ func _on_tool_used(cooldown_sec: float, selected_tool_idx: int) -> void:
 
 func _on_refresh_inventory() -> void:
 	_inventory_ui.refresh_inventory(_inventory_manager.get_inventory())
+
+
+func _on_loot_dropped(item: Item):
+	_inventory_manager.add_item(item)
+
+
+func _on_mob_spawned(mob: Mob):
+	mob.loot_dropped.connect(_on_loot_dropped)
+
+	

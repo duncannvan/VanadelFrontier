@@ -139,6 +139,3 @@ func _get_state_string(state: States) -> String:
 	assert("State enum not found in string mappings _states")
 	return ""
 	
-
-func _on_loot_dropped(item: Item):
-	_inventory_manager.add_item(item)
