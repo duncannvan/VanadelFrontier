@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_tbgi4"]
-[ext_resource type="Script" uid="uid://fsxym4q884cr" path="res://World/world.gd" id="2_r6hqv"]
+[ext_resource type="Script" path="res://World/world.gd" id="2_r6hqv"]
 [ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://UI/BaseHealthBar/base_health_bar.tscn" id="5_1hcjw"]
 [ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="5_r6hqv"]
 [ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/slot.tscn" id="6_4pper"]
@@ -1144,54 +1144,63 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_scvq1")
 
-[node name="GridContainer" type="GridContainer" parent="UI/Inventory"]
+[node name="ColorRect" type="ColorRect" parent="UI/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.105882, 0.105882, 0.352941)
+
+[node name="GridContainer" type="GridContainer" parent="UI/Inventory/ColorRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -52.0
-offset_top = -22.0
-offset_right = 24.0
-offset_bottom = 6.0
+offset_left = -38.0
+offset_top = -14.0
+offset_right = 38.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Row" type="HBoxContainer" parent="UI/Inventory/GridContainer"]
+[node name="Row" type="HBoxContainer" parent="UI/Inventory/ColorRect/GridContainer"]
 layout_mode = 2
 
-[node name="Slot1" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+[node name="Slot1" parent="UI/Inventory/ColorRect/GridContainer/Row" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot2" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+[node name="Slot2" parent="UI/Inventory/ColorRect/GridContainer/Row" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot3" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+[node name="Slot3" parent="UI/Inventory/ColorRect/GridContainer/Row" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot4" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+[node name="Slot4" parent="UI/Inventory/ColorRect/GridContainer/Row" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot5" parent="UI/Inventory/GridContainer/Row" instance=ExtResource("6_4pper")]
+[node name="Slot5" parent="UI/Inventory/ColorRect/GridContainer/Row" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Row2" type="HBoxContainer" parent="UI/Inventory/GridContainer"]
+[node name="Row2" type="HBoxContainer" parent="UI/Inventory/ColorRect/GridContainer"]
 layout_mode = 2
 
-[node name="Slot6" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+[node name="Slot6" parent="UI/Inventory/ColorRect/GridContainer/Row2" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot7" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+[node name="Slot7" parent="UI/Inventory/ColorRect/GridContainer/Row2" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot8" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+[node name="Slot8" parent="UI/Inventory/ColorRect/GridContainer/Row2" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot9" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+[node name="Slot9" parent="UI/Inventory/ColorRect/GridContainer/Row2" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot10" parent="UI/Inventory/GridContainer/Row2" instance=ExtResource("6_4pper")]
+[node name="Slot10" parent="UI/Inventory/ColorRect/GridContainer/Row2" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
 [node name="Base" parent="." instance=ExtResource("7_o6xl0")]
