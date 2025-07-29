@@ -63,12 +63,6 @@ func _set_state(new_state: States) -> void:
 func _on_tool_used(cooldown: float, selected_tool_idx: int):
 	_set_state(States.TOOL)
 	
-	# Temporarily keeping this here for now until we have global access to player data
-	if _tool_manager._get_selected_tool() is RangedWeaponResource:
-		var mouse_pos: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
-		var projectile: Projectile = _tool_manager._get_selected_tool().create_projectile(global_position, mouse_pos)
-		get_parent().add_child(projectile)
-	
 	
 func _handle_movement():
 	var direction = Input.get_vector("left", "right", "up", "down")
