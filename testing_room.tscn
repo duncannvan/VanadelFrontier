@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://62veysrt8ges"]
+[gd_scene load_steps=13 format=3 uid="uid://62veysrt8ges"]
 
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_cbcji"]
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="2_jqyws"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="5_b24ak"]
 [ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://UI/BaseHealthBar/base_health_bar.tscn" id="6_q52up"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="7_cbcji"]
+[ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="8_h5bih"]
+[ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/item_slot.tscn" id="9_urwao"]
+[ext_resource type="Script" uid="uid://cpv8ka1gnos17" path="res://World/inventory_ui.gd" id="10_d6e42"]
+[ext_resource type="PackedScene" uid="uid://dalovudjxroi0" path="res://UI/item_slot_with_count.tscn" id="11_1puqc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q52up"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -17,22 +21,10 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1, 0, 321, 1, 323, 182,
 script = ExtResource("1_cbcji")
 
 [node name="Base" parent="." instance=ExtResource("2_jqyws")]
-position = Vector2(65, 96)
+position = Vector2(271, 102)
 
 [node name="Player" parent="." instance=ExtResource("5_b24ak")]
 position = Vector2(196, 49)
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="BaseHealthBar" parent="UI" instance=ExtResource("6_q52up")]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -109.0
-offset_top = 4.0
-offset_right = -109.0
-offset_bottom = 4.0
-grow_horizontal = 0
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
@@ -48,3 +40,127 @@ position = Vector2(284, 59)
 position = Vector2(52, 90)
 _base = NodePath("../Base")
 _mob_scenes = Array[PackedScene]([ExtResource("4_ml45l")])
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="BaseHealthBar" parent="UI" instance=ExtResource("6_q52up")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -108.0
+offset_top = 4.0
+offset_right = -108.0
+offset_bottom = 4.0
+grow_horizontal = 0
+
+[node name="ToolBar" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("8_h5bih")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ToolBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -47.5
+offset_top = -15.0
+offset_right = 47.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="ToolSlotsContainer" type="HBoxContainer" parent="UI/ToolBar/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 0
+theme_override_constants/separation = 0
+
+[node name="Slot1" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("9_urwao")]
+layout_mode = 2
+
+[node name="Slot2" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("9_urwao")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("9_urwao")]
+layout_mode = 2
+
+[node name="Slot4" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("9_urwao")]
+layout_mode = 2
+
+[node name="Slot5" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("9_urwao")]
+layout_mode = 2
+
+[node name="Inventory" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_d6e42")
+
+[node name="ColorRect" type="ColorRect" parent="UI/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.105882, 0.105882, 0.352941)
+
+[node name="SlotContainer" type="GridContainer" parent="UI/Inventory/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -14.0
+offset_right = 38.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="Slot1" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot2" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot4" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot5" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot6" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot7" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot8" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot9" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2
+
+[node name="Slot10" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("11_1puqc")]
+layout_mode = 2

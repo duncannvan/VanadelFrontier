@@ -9,10 +9,9 @@ func _input(event: InputEvent) -> void:
 		visible = !visible
 
 
-func refresh_inventory(inventory: Dictionary[Item, int]) -> void:
-	var i := 0
-	for item in inventory:
-		var amount = inventory[item]
-		slots[i].get_node("ItemTextureRect").texture = item.texture
-		slots[i].get_node("Count").text = str(inventory[item])
+func refresh_inventory(inventory: Array[ItemStack]) -> void:
+	var i: int = 0
+	for stack in inventory:
+		slots[i].get_node("ItemTextureRect").texture = stack.item.texture
+		slots[i].get_node("Count").text = str(stack.count)
 		i += 1
