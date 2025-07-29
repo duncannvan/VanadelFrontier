@@ -184,7 +184,6 @@ transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(49, 47)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-63.5317, -62.0937)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
