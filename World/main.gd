@@ -25,6 +25,7 @@ func _ready() -> void:
 	for spawner in get_tree().get_nodes_in_group("spawners"):
 		spawner.mob_spawned.connect(_on_mob_spawned)
 
+
 func _on_base_died() -> void:
 	if _mob_spawner:
 		_mob_spawner.disable()
