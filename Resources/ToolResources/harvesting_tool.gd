@@ -4,6 +4,6 @@ class_name HarvestingToolResource extends ToolResource
 @export var _efficiency: float = 0.0
 
 #Override
-func use_tool(player: Player) -> void:
+func use_tool() -> void:
 	#TODO: Implement
 	pass
