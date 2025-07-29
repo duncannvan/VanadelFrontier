@@ -5,3 +5,4 @@ class_name LootableItem extends Resource
 	get():
 		assert(texture, "Attempt to retrieve null")
 		return texture
+ 
