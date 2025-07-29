@@ -1,31 +1,18 @@
 class_name Projectile extends HitBox
 
-const MAX_SPEED: int = 200
-const MIN_SPEED: int = 1
-
-@export_range(MIN_SPEED, MAX_SPEED) var _speed: int = MIN_SPEED
-
-var _target: CombatUnit = null
+# TODO: Tower Component should take in a tower resource with speed data and pass it here
+@export var _speed: float = 0
+var _velocity: Vector2 = Vector2.ZERO
 
 
-func _ready() -> void:
-	connect("area_entered", _on_area_entered)
+func _physics_process(delta: float) -> void:
+	global_position += _velocity * delta * _speed
 
 
-func _physics_process(delta: float):
-	if not _target: 
-		queue_free()
-		return
-
-	look_at(_target.global_position)
-	global_position += global_position.direction_to(_target.global_position) * _speed * delta
-
-
-func _on_area_entered(hurtbox: HurtBox):
+func _on_area_entered(hurtbox: HurtBox) -> void:
 	super._on_area_entered(hurtbox)
 	queue_free()
 
 
-func set_target(target: CombatUnit):
-	_target = target
-	
+func set_velocity(velocity: Vector2)-> void:
+	_velocity = velocity
