@@ -10,11 +10,14 @@ class_name RangedWeaponResource extends WeaponResource
 
 
 #Override
-func use_tool(player: Player) -> void:
-	var mouse_pos: Vector2 = player.get_viewport().get_camera_2d().get_global_mouse_position()
+func use_tool() -> void:
+	pass
+	
+
+func create_projectile(position: Vector2, mouse_pos: Vector2) -> HitBox:
+	var projectile_dir: Vector2 = position.direction_to(mouse_pos)
 	var projectile: Projectile = projectile_scene.instantiate()
-	var projectile_dir: Vector2 = player.global_position.direction_to(mouse_pos)
-	projectile.global_position = player.global_position
+	projectile.global_position = position
 	projectile.rotation = projectile_dir.angle()
 	projectile.set_velocity(projectile_dir)
-	player.get_parent().add_child(projectile)
+	return projectile
