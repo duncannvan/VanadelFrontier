@@ -9,6 +9,7 @@ class_name RangedWeaponResource extends WeaponResource
 @export var max_range: float = 0.0
 
 
+
 #Override
 func use_tool(player: Player) -> void:
 	var mouse_pos: Vector2 = player.get_viewport().get_camera_2d().get_global_mouse_position()

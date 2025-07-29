@@ -1,4 +1,5 @@
 [gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=5 format=3 uid="uid://cj5j3ke4y0aap"]
+[gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=5 format=3 uid="uid://cj5j3ke4y0aap"]
 
 [ext_resource type="AnimationLibrary" uid="uid://cmxv6rmtu8fkl" path="res://AnimationLibs/basic_magic_blast.res" id="1_lpdat"]
 [ext_resource type="Script" uid="uid://xxv51cvvh0d7" path="res://Resources/ToolResources/ranged_weapon.gd" id="2_lpdat"]
@@ -7,6 +8,11 @@
 
 [resource]
 script = ExtResource("2_lpdat")
+projectile_scene = ExtResource("2_yjfdu")
+projectile_speed = null
+max_range = null
+_damage = null
+_knockback_mag = null
 projectile_scene = ExtResource("2_yjfdu")
 projectile_speed = null
 max_range = null
