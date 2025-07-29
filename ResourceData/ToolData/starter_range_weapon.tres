@@ -2,16 +2,16 @@
 
 [ext_resource type="AnimationLibrary" uid="uid://cmxv6rmtu8fkl" path="res://AnimationLibs/basic_magic_blast.res" id="1_lpdat"]
 [ext_resource type="Script" uid="uid://xxv51cvvh0d7" path="res://Resources/ToolResources/ranged_weapon.gd" id="2_lpdat"]
-[ext_resource type="PackedScene" uid="uid://c0g7qc61warsf" path="res://ToolScene/magic_projectile.tscn" id="2_yjfdu"]
+[ext_resource type="PackedScene" uid="uid://c0g7qc61warsf" path="res://ProjectileScenes/magic_projectile.tscn" id="2_yjfdu"]
 [ext_resource type="Texture2D" uid="uid://dmgr6ty0gsqxd" path="res://Assets/Sprites/Tools/21.png" id="3_lpdat"]
 
 [resource]
 script = ExtResource("2_lpdat")
 projectile_scene = ExtResource("2_yjfdu")
-projectile_speed = null
-max_range = null
-_damage = null
-_knockback_mag = null
+projectile_speed = 0.0
+max_range = 0.0
+_damage = 0
+_knockback_mag = 0.0
 name = "Starter Ranged Weapon"
 texture = ExtResource("3_lpdat")
 cooldown_sec = 1.0

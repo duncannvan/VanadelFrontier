@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=75 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Entities/Player/player_camera.gd" id="16_nhbkt"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="16_vskfa"]
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://ResourceData/EntityData/player_stats.tres" id="17_pjcup"]
-[ext_resource type="Texture2D" uid="uid://r36vvkjt4q7m" path="res://Assets/Sprites/Slash.png" id="17_ppdlg"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="17_vskfa"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="18_01ng6"]
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="19_ui1ln"]
@@ -47,20 +46,6 @@ slowed_duration = 1.0
 metadata/_custom_type_script = "uid://cej0ljjf57lre"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_01a4e"]
-
-[sub_resource type="Resource" id="Resource_pjcup"]
-script = ExtResource("9_r8fok")
-_knockback_force = 200
-_knockback_duration = 0.1
-metadata/_custom_type_script = "uid://dx7savleyp0lc"
-
-[sub_resource type="Resource" id="Resource_0poeq"]
-script = ExtResource("9_nhbkt")
-_damage = 1
-metadata/_custom_type_script = "uid://c6nd4i5durrew"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0poeq"]
-size = Vector2(18, 46)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_01ng6"]
 animation = &"idle_down"
@@ -301,54 +286,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponPivot:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.78729]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponPivot/Slash:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("WeaponPivot/HitBox/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("WeaponPivot/Slash:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.996078, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_qv8uv"]
@@ -654,29 +591,6 @@ offset_top = -30.0
 offset_bottom = -30.0
 _stats_component = NodePath("../StatsComponents")
 metadata/_edit_use_anchors_ = true
-
-[node name="WeaponPivot" type="Marker2D" parent="."]
-position = Vector2(0, -8)
-rotation = 1.78729
-
-[node name="Slash" type="Sprite2D" parent="WeaponPivot"]
-modulate = Color(1, 0.996078, 1, 1)
-scale = Vector2(2.14234, 2.3327)
-texture = ExtResource("17_ppdlg")
-hframes = 4
-vframes = 5
-
-[node name="HitBox" type="Area2D" parent="WeaponPivot"]
-collision_layer = 0
-collision_mask = 32
-script = ExtResource("3_fkugw")
-attack_effects = Array[ExtResource("5_iplt1")]([SubResource("Resource_pjcup"), SubResource("Resource_0poeq")])
-metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/HitBox"]
-position = Vector2(-17, 1.90798e-07)
-shape = SubResource("RectangleShape2D_0poeq")
-disabled = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_og23y")

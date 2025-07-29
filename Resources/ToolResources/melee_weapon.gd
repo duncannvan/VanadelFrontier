@@ -1,7 +1,5 @@
 class_name MeleeWeaponResource extends WeaponResource
 
-@export var weapon_pivot: PackedScene = null
-
 const COMBO_LIMIT: int = 3
 var _pivot_node_path: NodePath = ""
 var _combo_step: int = 0:
@@ -27,14 +25,3 @@ func get_lib_idx() -> int:
 
 func reset_lib_idx() -> void:
 	_combo_step = 0
-
-
-func on_switch_in(player: Player) -> void:
-	var pivot: Marker2D = weapon_pivot.instantiate()
-	pivot.global_position = player.global_position
-	player.add_child(pivot)
-	_pivot_node_path = pivot.get_path()
-
-func on_switch_out(player: Player) -> void:
-	var pivot: Marker2D = player.get_node(_pivot_node_path)
-	pivot.queue_free()
