@@ -6,6 +6,7 @@ const MAX_INVENTORY_SIZE = 10
 
 var inventory: Dictionary[Item, int] = {}
 
+
 func add_item(item: Item) -> void:
 	if inventory.size() >= MAX_INVENTORY_SIZE:
 		return 
