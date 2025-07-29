@@ -100,7 +100,7 @@ func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float
 	var elapsed_sec: float = 0.0
 	while _playback_states.get_current_node() != _get_state_string(States.KNOCKBACK):
 		if elapsed_sec > KNOCKEDBACK_TIMEOUT_SEC:
-			assert(false, "Knockback timer timedout")
+			assert(false, "Knockback timer timed out")
 		elapsed_sec += get_process_delta_time()
 		await get_tree().process_frame
 	

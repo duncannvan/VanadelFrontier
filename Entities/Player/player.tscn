@@ -1499,6 +1499,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ToolPivot/HitBox:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 17)]
+}
 
 [sub_resource type="Animation" id="Animation_qv8uv"]
 resource_name = "idle_down"
@@ -1931,6 +1943,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(0, -4)
 
 [node name="HitBox" type="Area2D" parent="ToolPivot"]
+position = Vector2(0, 17)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("3_fkugw")
@@ -1938,7 +1951,6 @@ attack_effects = Array[ExtResource("5_iplt1")]([SubResource("Resource_pjcup"), S
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToolPivot/HitBox"]
-position = Vector2(-4.76837e-07, 16.7686)
 shape = SubResource("RectangleShape2D_pjcup")
 disabled = true
 
