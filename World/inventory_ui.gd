@@ -10,8 +10,12 @@ func _input(event: InputEvent) -> void:
 
 
 func refresh_inventory(inventory: Array[ItemStack]) -> void:
-	var i: int = 0
-	for stack in inventory:
-		slots[i].get_node("ItemTextureRect").texture = stack.item.texture
-		slots[i].get_node("Count").text = str(stack.count)
-		i += 1
+	for slot_idx: int in len(inventory):
+		slots[slot_idx].get_node("ItemTextureRect").texture = inventory[slot_idx].item.texture
+		slots[slot_idx].get_node("Count").text = str(inventory[slot_idx].count)
+#
+	#var i: int = 0
+	#for stack in inventory:
+		#slots[i].get_node("ItemTextureRect").texture = stack.item.texture
+		#slots[i].get_node("Count").text = str(stack.count)
+		#i += 1
