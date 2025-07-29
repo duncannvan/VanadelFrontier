@@ -7,9 +7,6 @@ enum States {
 	DEAD
 }
 
-@export var _tool_manager: ToolManager = null
-@export var _inventory_manager: InventoryManger = null
-
 var _states: Dictionary[String, States] =  {
 	"MoveState": States.MOVE,
 	"ToolState": States.TOOL,
@@ -25,6 +22,8 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 @onready var _playback_states: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
+@onready var _tool_manager: ToolManager = $ToolManager
+@onready var _inventory_manager: InventoryManger = $InventoryManager
 
 func _ready() -> void:
 	add_to_group("player")

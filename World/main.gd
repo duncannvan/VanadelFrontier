@@ -4,10 +4,10 @@ extends Node2D
 @onready var _mob_spawner = get_node_or_null("MobSpawner")
 @onready var _base_health_ui: TextureProgressBar = null
 @onready var _base_health_bar = $UI/BaseHealthBar
-@onready var _tool_manager = $ToolManager
+@onready var _tool_manager = $Player/ToolManager
 @onready var _toolbar_ui = $UI/ToolBar
 @onready var _player = $Player
-@onready var _inventory_manager = $InventoryManager
+@onready var _inventory_manager = $Player/InventoryManager
 @onready var _inventory_ui = $UI/Inventory
 
 
