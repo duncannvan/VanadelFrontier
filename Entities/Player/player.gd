@@ -17,12 +17,11 @@ var _states: Dictionary[String, States] =  {
 	}
 var _last_facing_direction: Vector2 = Vector2.DOWN
 
-@onready var _hitbox: HitBox = $HitBox
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
-@onready var _playback_states: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
 @onready var _animation_tree: AnimationTree = $AnimationTree
+@onready var _playback_states: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
 

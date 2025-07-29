@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/Slime/slime.png" id="1_371uh"]
-[ext_resource type="Script" uid="uid://slmssvclnigp" path="res://Resources/lootable_item.gd" id="2_fg4mt"]
+[ext_resource type="Script" path="res://Resources/lootable_item.gd" id="2_fg4mt"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="4_fg4mt"]
 [ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/AttackEffectResources/damage_effect.gd" id="5_ha687"]
 [ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://ResourceData/EntityData/slime_stats.tres" id="6_o85a5"]
