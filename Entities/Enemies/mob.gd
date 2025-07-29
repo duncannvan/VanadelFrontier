@@ -15,6 +15,7 @@ const PLAYER_PATH: NodePath = "../Player"
 @export var _targeting_type: TargetingType = TargetingType.BASE
 @export var _death_effect: PackedScene = null
 @export var _target: Node2D = null
+@export var loot_drop: LootableItem = null
 
 var _state: State = State.USING_TOOL
 
@@ -92,9 +93,8 @@ func _die() -> void:
 		var _death_effect_instance: Node2D = _death_effect.instantiate()
 		_death_effect_instance.global_position = global_position
 		get_tree().root.add_child(_death_effect_instance)
-		
+	
 	queue_free()
-
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
