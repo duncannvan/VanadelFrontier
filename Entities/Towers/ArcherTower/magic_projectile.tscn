@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c0g7qc61warsf"]
+[gd_scene load_steps=20 format=3 uid="uid://c7agehb18vowc"]
 
 [ext_resource type="Script" uid="uid://2t45f8apvw50" path="res://Components/AreaDetection/projectile.gd" id="1_porfw"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="2_j4fkg"]
