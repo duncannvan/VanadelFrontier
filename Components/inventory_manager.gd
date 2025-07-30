@@ -8,7 +8,7 @@ const MAX_STACKS = 99
 var inventory: Array[ItemStack] = [] 
 
 
-func add_item(item: ItemResouce) -> void:
+func add_item(item: ItemResource) -> void:
 	if inventory.size() >= MAX_INVENTORY_SIZE:
 		return 
 	

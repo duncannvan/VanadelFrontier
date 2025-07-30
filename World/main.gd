@@ -55,7 +55,7 @@ func _on_refresh_inventory() -> void:
 	_inventory_ui.refresh_inventory(_inventory_manager.get_inventory())
 
 
-func _on_loot_dropped(item: ItemResouce) -> void:
+func _on_loot_dropped(item: ItemResource) -> void:
 	_inventory_manager.add_item(item)
 
 
