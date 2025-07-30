@@ -13,12 +13,11 @@ func add_item(item: ItemResouce) -> void:
 		return 
 	
 	for stack: ItemStack in inventory:
-		if stack.item_resouce == item and stack.num_item_stack < MAX_STACKS:
-			stack.num_item_stack += 1
+		if stack.item_resouce == item and stack.item_stack_count < MAX_STACKS:
+			stack.item_stack_count += 1
 			emit_signal("refresh_inventory")
 			return
 		
-	
 	inventory.append(ItemStack.new(item, 1))
 	emit_signal("refresh_inventory")
 
