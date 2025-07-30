@@ -1,6 +1,6 @@
 class_name HurtBox extends Area2D
 
-signal hurtbox_entered(hitbox)
+signal hurtbox_entered(hitbox: HitBox)
 
 @export var _is_invincible: bool = false:
 	set = set_invincible

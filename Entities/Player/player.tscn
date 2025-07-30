@@ -1,4 +1,4 @@
-[gd_scene load_steps=240 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=241 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
@@ -1815,6 +1815,8 @@ _data = {
 &"use_tool_up": SubResource("Animation_mr25g")
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_avsg8"]
+
 [sub_resource type="Animation" id="Animation_a8wow"]
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -2012,6 +2014,7 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_0poeq"),
+&"basic_harvest": SubResource("AnimationLibrary_avsg8"),
 &"basic_magic_blast": SubResource("AnimationLibrary_ppdlg"),
 &"basic_melee_slash_1": ExtResource("19_ui1ln"),
 &"basic_melee_slash_2": ExtResource("20_og23y"),

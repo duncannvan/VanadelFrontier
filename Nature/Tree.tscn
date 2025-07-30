@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8wgn38g22fvs"]
+
+[ext_resource type="Script" uid="uid://d3cwxebcges7i" path="res://Components/AreaDetection/nature_object.gd" id="1_4mqxk"]
+[ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="2_4mqxk"]
+[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_c62yp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
+size = Vector2(18.5, 23.5)
+
+[node name="Tree" type="Area2D"]
+script = ExtResource("1_4mqxk")
+dropped_item = ExtResource("2_c62yp")
+metadata/_custom_type_script = "uid://d3cwxebcges7i"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4mqxk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, 15)
+shape = SubResource("RectangleShape2D_4mqxk")
