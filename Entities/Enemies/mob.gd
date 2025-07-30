@@ -9,14 +9,14 @@ enum TargetingType {
 	PLAYER,
 }
 
-signal loot_dropped(item: Item)
+signal loot_dropped(item: ItemResource)
 
 const PLAYER_PATH: NodePath = "../Player"
 
 @export var _targeting_type: TargetingType = TargetingType.BASE
 @export var _death_effect: PackedScene = null
 @export var _target: Node2D = null
-@export var _loot_drop: Item = null
+@export var _loot_drop: ItemResource = null
 
 var _state: State = State.USING_TOOL
 
