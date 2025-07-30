@@ -123,6 +123,7 @@ animations = [{
 }]
 
 [node name="Slime" instance=ExtResource("1_0lovs")]
+_targeting_type = null
 _loot_drop = ExtResource("2_fg4mt")
 
 [node name="CollisionShape2D" parent="." index="0"]

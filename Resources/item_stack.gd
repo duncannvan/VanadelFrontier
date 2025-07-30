@@ -1,9 +1,9 @@
 class_name ItemStack extends Resource
 
-var item: Item
-var count: int
+var item_resouce: ItemResouce
+var num_item_stack: int
 
 
-func _init(item: Item, count: int):
-        item = item
-	count = count
+func _init(item: ItemResouce, count: int):
+	item_resouce = item
+	num_item_stack = count

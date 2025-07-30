@@ -1,4 +1,4 @@
-class_name Item extends Resource
+class_name ItemResouce extends Resource
 
 @export var name: String = ""
 @export var texture: Texture2D = null:
