@@ -13,6 +13,8 @@ var _states: Dictionary[String, States] =  {
 	"KnockbackState": States.KNOCKBACK,
 	"DeadState": States.DEAD
 	}
+
+var knockback_velocity: Vector2 = Vector2.ZERO
 var _last_facing_direction: Vector2 = Vector2.DOWN
 
 @onready var _hurtbox: HurtBox = $HurtBox
@@ -26,7 +28,6 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 @onready var _inventory_manager: InventoryManger = $InventoryManager
 
 func _ready() -> void:
-	add_to_group("player")
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_stats_component.died.connect(_die)
 	_update_blend_positions(_last_facing_direction)
@@ -44,6 +45,7 @@ func _physics_process(delta: float) -> void:
 		States.TOOL:
 			pass
 		States.KNOCKBACK:
+			velocity = knockback_velocity
 			move_and_slide()
 			pass
 		States.DEAD:
@@ -56,7 +58,7 @@ func _set_state(new_state: States) -> void:
 		return
 		
 	_playback_states.travel(state_string)
-
+	
 
 func _on_tool_used(cooldown: float, selected_tool_idx: int):
 	_set_state(States.TOOL)
@@ -93,23 +95,9 @@ func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
-	if _playback_states.get_current_node() == _get_state_string(States.KNOCKBACK):
-		return
-		
 	_set_state(States.KNOCKBACK)
-	
-	 # Have to wait to travel before setting velocity else it would be overwritten by move function
-	const KNOCKEDBACK_TIMEOUT_SEC: float = 4.0
-	var elapsed_sec: float = 0.0
-	while _playback_states.get_current_node() != _get_state_string(States.KNOCKBACK) and elapsed_sec < KNOCKEDBACK_TIMEOUT_SEC:
-		await get_tree().process_frame
-		elapsed_sec += get_process_delta_time()
-	
-	assert(elapsed_sec < KNOCKEDBACK_TIMEOUT_SEC, "Knockback timer timedout")
-	
-	velocity = knockback_vector
+	knockback_velocity = knockback_vector
 	await get_tree().create_timer(knockback_duration).timeout
-	velocity = Vector2.ZERO
 	_set_state(States.MOVE)
 
 
