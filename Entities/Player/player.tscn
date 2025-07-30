@@ -1,4 +1,4 @@
-[gd_scene load_steps=241 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=236 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
@@ -7,9 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/Player/blockout_top_down.png" id="3_lub02"]
 [ext_resource type="Texture2D" uid="uid://chgkaybc5pxuh" path="res://Assets/Sprites/Player/sword_attacks.png" id="3_ppdlg"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_8fjmc"]
-[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="5_iplt1"]
-[ext_resource type="Script" uid="uid://c6nd4i5durrew" path="res://Resources/AttackEffectResources/damage_effect.gd" id="9_nhbkt"]
-[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/AttackEffectResources/knockback_effect.gd" id="9_r8fok"]
+[ext_resource type="AnimationLibrary" uid="uid://dwsy11utst63p" path="res://AnimationLibs/basic_harvest.res" id="15_dv6dp"]
 [ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Entities/Player/player_camera.gd" id="16_nhbkt"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="16_vskfa"]
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://ResourceData/EntityData/player_stats.tres" id="17_pjcup"]
@@ -1205,17 +1203,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
 size = Vector2(10, 9.5)
 
-[sub_resource type="Resource" id="Resource_pjcup"]
-script = ExtResource("9_r8fok")
-_knockback_force = 200
-_knockback_duration = 0.1
-metadata/_custom_type_script = "uid://dx7savleyp0lc"
-
-[sub_resource type="Resource" id="Resource_0poeq"]
-script = ExtResource("9_nhbkt")
-_damage = 1
-metadata/_custom_type_script = "uid://c6nd4i5durrew"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjcup"]
 size = Vector2(32, 26.4629)
 
@@ -1526,6 +1513,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(0, 17)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ToolPivot/HitBox:collision_mask")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [32]
+}
 
 [sub_resource type="Animation" id="Animation_qv8uv"]
 resource_name = "idle_down"
@@ -1815,8 +1814,6 @@ _data = {
 &"use_tool_up": SubResource("Animation_mr25g")
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_avsg8"]
-
 [sub_resource type="Animation" id="Animation_a8wow"]
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1986,7 +1983,6 @@ position = Vector2(0, 17)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("3_fkugw")
-attack_effects = Array[ExtResource("5_iplt1")]([SubResource("Resource_pjcup"), SubResource("Resource_0poeq")])
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToolPivot/HitBox"]
@@ -2014,7 +2010,7 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_0poeq"),
-&"basic_harvest": SubResource("AnimationLibrary_avsg8"),
+&"basic_harvest": ExtResource("15_dv6dp"),
 &"basic_magic_blast": SubResource("AnimationLibrary_ppdlg"),
 &"basic_melee_slash_1": ExtResource("19_ui1ln"),
 &"basic_melee_slash_2": ExtResource("20_og23y"),

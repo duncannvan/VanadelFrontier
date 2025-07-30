@@ -12,19 +12,21 @@ extends Node2D
 
 
 func _ready() -> void:
-	_base_stats_component.connect("died", _on_base_died)
-	_base_stats_component.connect("health_changed", _on_health_changed)
-	_tool_manager.connect("selected_slot_changed", _on_selected_slot_changed)
-	_tool_manager.connect("toolbar_modified", _on_toolbar_modified)
-	_toolbar_ui.connect("tool_slot_clicked", _on_tool_slot_clicked)
-	_tool_manager.connect("tool_used", _on_tool_used)
-	_inventory_manager.connect("refresh_inventory", _on_refresh_inventory)
+	_base_stats_component.died.connect(_on_base_died)
+	_base_stats_component.health_changed.connect(_on_health_changed)
+	_tool_manager.selected_slot_changed.connect(_on_selected_slot_changed)
+	_tool_manager.toolbar_modified.connect(_on_toolbar_modified)
+	_toolbar_ui.tool_slot_clicked.connect(_on_tool_slot_clicked)
+	_tool_manager.tool_used.connect(_on_tool_used)
+	_inventory_manager.refresh_inventory.connect(_on_refresh_inventory)
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
 	
 	for spawner in get_tree().get_nodes_in_group("spawners"):
 		spawner.mob_spawned.connect(_on_mob_spawned)
-
+	
+	for objects in get_tree().get_nodes_in_group("nature_objects"):
+		objects.item_dropped.connect(_on_loot_dropped)
 
 func _on_base_died() -> void:
 	if _mob_spawner:

@@ -1,20 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8wgn38g22fvs"]
+[gd_scene load_steps=7 format=3 uid="uid://b8wgn38g22fvs"]
 
-[ext_resource type="Script" uid="uid://d3cwxebcges7i" path="res://Components/AreaDetection/nature_object.gd" id="1_4mqxk"]
+[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_component.gd" id="1_c62yp"]
 [ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="2_4mqxk"]
 [ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_c62yp"]
+[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_c62yp"]
+[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="5_yalwb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
-size = Vector2(18.5, 23.5)
+size = Vector2(18.5, 13.8359)
 
-[node name="Tree" type="Area2D"]
-script = ExtResource("1_4mqxk")
-dropped_item = ExtResource("2_c62yp")
-metadata/_custom_type_script = "uid://d3cwxebcges7i"
+[node name="Tree" type="StaticBody2D"]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_c62yp")
+nature_item = ExtResource("2_c62yp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.5, -19)
 texture = ExtResource("2_4mqxk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.25, 15)
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0.5, -19)
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("3_c62yp")
+metadata/_custom_type_script = "uid://63sbpv1faiyx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0.5, 16.918)
 shape = SubResource("RectangleShape2D_4mqxk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -2)
+shape = SubResource("RectangleShape2D_4mqxk")
+
+[node name="StatsComponents" type="Node" parent="."]
+script = ExtResource("5_yalwb")
+metadata/_custom_type_script = "uid://disun15mfvhrx"

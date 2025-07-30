@@ -6,6 +6,14 @@ signal hurtbox_entered(hitbox: HitBox)
 	set = set_invincible
 
 
+func _ready() -> void:
+		area_entered.connect(_on_area_entered)
+
+
+func _on_area_entered(hitbox: HitBox) -> void:
+	emit_signal("hurtbox_entered", hitbox)
+
+
 func get_invincible() -> bool:
 	return _is_invincible
 
