@@ -25,6 +25,7 @@ horizontal_alignment = 1
 uppercase = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = 3.0
 offset_top = 25.0

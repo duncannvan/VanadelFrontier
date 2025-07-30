@@ -1,5 +1,7 @@
 extends Node2D
 
+signal mob_spawned(mob: Mob)
+
 const SPAWN_TIMER: int = 2
 
 @export var _max_mobs: int = 2
@@ -13,6 +15,7 @@ var _count: int = 0
 
 
 func _ready() -> void:
+	add_to_group("spawners")
 	mob_spawn_timer.connect("timeout", _on_spawn_mobs_timer_timeout)
 	
 
@@ -33,9 +36,9 @@ func _on_spawn_mobs_timer_timeout() -> void:
 		
 		owner.add_child(mob)
 		_count += 1
+		mob_spawned.emit(mob)	
 	
 		mob.tree_exited.connect(_on_slime_removed)
-
 
 func _on_slime_removed():
 	_count -= 1

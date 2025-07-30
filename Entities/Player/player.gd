@@ -7,8 +7,6 @@ enum States {
 	DEAD
 }
 
-@export var _tool_manager: ToolManager
-
 var _states: Dictionary[String, States] =  {
 	"MoveState": States.MOVE,
 	"ToolState": States.TOOL,
@@ -24,6 +22,8 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 @onready var _playback_states: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
+@onready var _tool_manager: ToolManager = $ToolManager
+@onready var _inventory_manager: InventoryManger = $InventoryManager
 
 func _ready() -> void:
 	add_to_group("player")
@@ -93,9 +93,12 @@ func apply_slow(slowed_factor: float, slowed_duration: int) -> void:
 
 
 func apply_knockback(knockback_vector := Vector2.ZERO, knockback_duration: float = 0.0) -> void:
+	if _playback_states.get_current_node() == _get_state_string(States.KNOCKBACK):
+		return
+		
 	_set_state(States.KNOCKBACK)
 	
-	# Have to wait to travel before setting velocity else it would be overwritten by move function
+	 # Have to wait to travel before setting velocity else it would be overwritten by move function
 	const KNOCKEDBACK_TIMEOUT_SEC: float = 4.0
 	var elapsed_sec: float = 0.0
 	while _playback_states.get_current_node() != _get_state_string(States.KNOCKBACK) and elapsed_sec < KNOCKEDBACK_TIMEOUT_SEC:

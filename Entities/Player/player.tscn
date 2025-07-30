@@ -1,4 +1,4 @@
-[gd_scene load_steps=228 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=234 format=3 uid="uid://bjrk5kxpv2mrq"]
 
 [ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Entities/Player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cl4k1gietd5kd" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
@@ -15,8 +15,14 @@
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://ResourceData/EntityData/player_stats.tres" id="17_pjcup"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="17_vskfa"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="18_01ng6"]
+[ext_resource type="Script" uid="uid://bi7iivp8g41x2" path="res://Components/tool_manager.gd" id="18_avsg8"]
+[ext_resource type="Script" uid="uid://e5s00sri0pud" path="res://Resources/ToolResources/tool.gd" id="19_dv6dp"]
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="19_ui1ln"]
+[ext_resource type="Resource" uid="uid://e165u8qj0auw" path="res://ResourceData/ToolData/starter_harvest_tool.tres" id="20_01ng6"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="20_og23y"]
+[ext_resource type="Resource" uid="uid://c51swhx5yf5e0" path="res://ResourceData/ToolData/starter_melee_weapon.tres" id="21_ui1ln"]
+[ext_resource type="Resource" uid="uid://cj5j3ke4y0aap" path="res://ResourceData/ToolData/starter_range_weapon.tres" id="22_og23y"]
+[ext_resource type="Script" uid="uid://d1i1q4l66jksh" path="res://Components/inventory_manager.gd" id="23_u86q5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vskfa"]
 shader = ExtResource("2_r8fok")
@@ -1319,16 +1325,10 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_01ng6"]
-advance_mode = 2
-advance_expression = "_state == State.IDLE"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ui1ln"]
-advance_mode = 2
-advance_expression = "_state == State.RUNNING"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_og23y"]
-advance_mode = 2
-advance_expression = "_state == State.IDLE"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w51ui"]
 states/BlendTree/node = SubResource("AnimationNodeBlendTree_0poeq")
@@ -1345,7 +1345,7 @@ transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(49, 47)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-252.733, 74.8957)
+graph_offset = Vector2(2.72726, 58)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -1631,6 +1631,17 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_v7p16"]
 resource_name = "knockedback"
 loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
 
 [sub_resource type="Animation" id="Animation_0bw0x"]
 resource_name = "run_down"
@@ -1981,3 +1992,10 @@ libraries = {
 &"basic_melee_slash_2": ExtResource("20_og23y"),
 &"basic_melee_slash_3": ExtResource("18_01ng6")
 }
+
+[node name="ToolManager" type="Node" parent="."]
+script = ExtResource("18_avsg8")
+_tool_resources = Array[ExtResource("19_dv6dp")]([ExtResource("20_01ng6"), ExtResource("21_ui1ln"), ExtResource("22_og23y")])
+
+[node name="InventoryManager" type="Node" parent="."]
+script = ExtResource("23_u86q5")
