@@ -7,17 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/Player/blockout_top_down.png" id="3_lub02"]
 [ext_resource type="Texture2D" uid="uid://chgkaybc5pxuh" path="res://Assets/Sprites/Player/sword_attacks.png" id="3_ppdlg"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_8fjmc"]
-[ext_resource type="AnimationLibrary" uid="uid://dwsy11utst63p" path="res://AnimationLibs/basic_harvest.res" id="15_dv6dp"]
+[ext_resource type="AnimationLibrary" uid="uid://dwsy11utst63p" path="res://AnimationLibs/basic_harvest.res" id="12_v7p16"]
+[ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="13_a8wow"]
+[ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="14_avsg8"]
+[ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="15_dv6dp"]
 [ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Entities/Player/player_camera.gd" id="16_nhbkt"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="16_vskfa"]
 [ext_resource type="Resource" uid="uid://b0movho6k36bx" path="res://ResourceData/EntityData/player_stats.tres" id="17_pjcup"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="17_vskfa"]
-[ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="18_01ng6"]
 [ext_resource type="Script" uid="uid://bi7iivp8g41x2" path="res://Components/tool_manager.gd" id="18_avsg8"]
 [ext_resource type="Script" uid="uid://e5s00sri0pud" path="res://Resources/ToolResources/tool.gd" id="19_dv6dp"]
-[ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="19_ui1ln"]
 [ext_resource type="Resource" uid="uid://e165u8qj0auw" path="res://ResourceData/ToolData/starter_harvest_tool.tres" id="20_01ng6"]
-[ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="20_og23y"]
 [ext_resource type="Resource" uid="uid://c51swhx5yf5e0" path="res://ResourceData/ToolData/starter_melee_weapon.tres" id="21_ui1ln"]
 [ext_resource type="Resource" uid="uid://cj5j3ke4y0aap" path="res://ResourceData/ToolData/starter_range_weapon.tres" id="22_og23y"]
 [ext_resource type="Script" uid="uid://d1i1q4l66jksh" path="res://Components/inventory_manager.gd" id="23_u86q5"]
@@ -1347,7 +1347,6 @@ transitions = ["Start", "MoveState", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(49, 47)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_og23y"]
-graph_offset = Vector2(-236.24, -106.588)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_w51ui")
 nodes/StateMachine/position = Vector2(10, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -1357,7 +1356,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HurtBox:_is_invincible")
+tracks/0/path = NodePath("Hurtbox:_is_invincible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1411,7 +1410,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HurtBox:_is_invincible")
+tracks/1/path = NodePath("Hurtbox:_is_invincible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1492,7 +1491,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ToolPivot/HitBox/CollisionShape2D:disabled")
+tracks/3/path = NodePath("ToolPivot/Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1504,7 +1503,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ToolPivot/HitBox:position")
+tracks/4/path = NodePath("ToolPivot/Hitbox:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1516,7 +1515,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ToolPivot/HitBox:collision_mask")
+tracks/5/path = NodePath("ToolPivot/Hitbox:collision_mask")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1940,14 +1939,14 @@ animation = &"idle_down"
 position = Vector2(0, -0.75)
 shape = SubResource("RectangleShape2D_d2wvv")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -8)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_8fjmc")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 7.25)
 shape = SubResource("RectangleShape2D_d2wvv")
 
@@ -1978,14 +1977,14 @@ metadata/_edit_use_anchors_ = true
 [node name="ToolPivot" type="Marker2D" parent="."]
 position = Vector2(0, -4)
 
-[node name="HitBox" type="Area2D" parent="ToolPivot"]
+[node name="Hitbox" type="Area2D" parent="ToolPivot"]
 position = Vector2(0, 17)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("3_fkugw")
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ToolPivot/HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToolPivot/Hitbox"]
 shape = SubResource("RectangleShape2D_pjcup")
 disabled = true
 
@@ -2010,11 +2009,11 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_0poeq"),
-&"basic_harvest": ExtResource("15_dv6dp"),
+&"basic_harvest": ExtResource("12_v7p16"),
 &"basic_magic_blast": SubResource("AnimationLibrary_ppdlg"),
-&"basic_melee_slash_1": ExtResource("19_ui1ln"),
-&"basic_melee_slash_2": ExtResource("20_og23y"),
-&"basic_melee_slash_3": ExtResource("18_01ng6")
+&"basic_melee_slash_1": ExtResource("13_a8wow"),
+&"basic_melee_slash_2": ExtResource("14_avsg8"),
+&"basic_melee_slash_3": ExtResource("15_dv6dp")
 }
 
 [node name="ToolManager" type="Node" parent="."]

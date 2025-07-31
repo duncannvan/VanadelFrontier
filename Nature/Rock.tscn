@@ -19,14 +19,14 @@ metadata/_custom_type_script = "uid://dnlrlv08dmu0l"
 position = Vector2(0, 6.5)
 texture = ExtResource("2_ypes6")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, 6.5)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("3_151ig")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_m0cn8")
 
