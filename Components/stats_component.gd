@@ -4,7 +4,11 @@ signal slowed_ended
 signal health_changed()
 signal died()
 
-@export var _stats: StatsSheet = null
+@export var _stats: StatsSheet = null:
+	get():
+		assert(_stats, "Attempt to retrieve null")
+		return _stats
+		
 
 var _slowed_timer: Timer = null
 var _slowed_factor: float = SlowEffect.MAX_SLOWED_FACTOR

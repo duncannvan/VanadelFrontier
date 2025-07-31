@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b8wgn38g22fvs"]
 
-[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_component.gd" id="1_c62yp"]
+[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_object.gd" id="1_c62yp"]
 [ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="2_4mqxk"]
 [ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_c62yp"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_c62yp"]

@@ -14,5 +14,5 @@ func use_tool(player: Player) -> void:
 	projectile.global_position = player.global_position
 	projectile.rotation = projectile_dir.angle()
 	projectile.set_velocity(projectile_dir)
-	projectile._set_attack_effects(_atk_effects)
+	projectile.set_attack_effects(_atk_effects)
 	player.get_parent().add_child(projectile)

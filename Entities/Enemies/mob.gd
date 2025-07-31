@@ -34,7 +34,7 @@ func _ready() -> void:
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
 	_stats_component.died.connect(_die)
 	_stats_component.slowed_ended.connect(_remove_slow)
-	_hitbox._set_attack_effects(_stats_component._stats.atk_effects)
+	_hitbox.set_attack_effects(_stats_component._stats.atk_effects)
 
 
 func _physics_process(delta: float) -> void:

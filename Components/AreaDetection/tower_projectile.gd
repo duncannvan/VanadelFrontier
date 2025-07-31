@@ -6,7 +6,7 @@ var _target: CombatUnit = null
 
 func _ready() -> void:
 	super._ready()
-	_set_attack_effects(_atk_effects)
+	set_attack_effects(_atk_effects)
 
 	
 func _physics_process(delta: float) -> void:

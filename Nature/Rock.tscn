@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bq8enjaug7mue"]
 
-[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_component.gd" id="1_xalek"]
+[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_object.gd" id="1_xalek"]
 [ext_resource type="Resource" uid="uid://c0bvadt1b5n4q" path="res://ResourceData/ItemData/rock.tres" id="2_151ig"]
 [ext_resource type="Texture2D" uid="uid://dxf3mqixtyysb" path="res://Assets/Sprites/Nature/large_rock-export.png" id="2_ypes6"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_151ig"]
