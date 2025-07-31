@@ -38,3 +38,5 @@ shape = SubResource("RectangleShape2D_m0cn8")
 script = ExtResource("4_ofjvm")
 _stats = ExtResource("5_io6rs")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
+
+[node name="DamagedEffects" type="AnimationPlayer" parent="."]

@@ -7,6 +7,7 @@ signal nature_object_died(obj: NatureObject)
 
 @onready var _hurtbox: HurtBox = $HurtBox
 @onready var _stats_component: StatsComponents = $StatsComponents
+@onready var _damaged_effects: AnimationPlayer = $DamagedEffects
 
 
 func _ready() -> void:
@@ -26,6 +27,9 @@ func _on_area_entered(hitbox: HitBox) -> void:
 		
 	if nature_item:
 		emit_signal("item_dropped", nature_item)
+	
+	if _damaged_effects:
+		_damaged_effects.play("damaged")
 
 
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
