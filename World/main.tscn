@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=22 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="15_4pper"]
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/Tree.tscn" id="15_ovush"]
 [ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/Rock.tscn" id="17_r6hqv"]
+[ext_resource type="Script" uid="uid://cupibelbjigbq" path="res://World/nature_spawner.gd" id="18_lh7yw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -1243,26 +1244,30 @@ visible = true
 position = Vector2(1, 80)
 _atk_effects = Array[ExtResource("15_4pper")]([])
 
-[node name="Tree" parent="." instance=ExtResource("15_ovush")]
+[node name="NatureSpawner" type="Node2D" parent="."]
+script = ExtResource("18_lh7yw")
+metadata/_custom_type_script = "uid://cupibelbjigbq"
+
+[node name="Tree" parent="NatureSpawner" instance=ExtResource("15_ovush")]
 position = Vector2(108, 92)
 collision_layer = 257
 collision_mask = 1
 
-[node name="Tree2" parent="." instance=ExtResource("15_ovush")]
+[node name="Tree2" parent="NatureSpawner" instance=ExtResource("15_ovush")]
 position = Vector2(108, -99)
 collision_layer = 257
 collision_mask = 1
 
-[node name="Tree3" parent="." instance=ExtResource("15_ovush")]
+[node name="Tree3" parent="NatureSpawner" instance=ExtResource("15_ovush")]
 position = Vector2(-122, 92)
 collision_layer = 257
 collision_mask = 1
 
-[node name="Rock" parent="." instance=ExtResource("17_r6hqv")]
+[node name="Rock" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(56, -25)
 
-[node name="Rock2" parent="." instance=ExtResource("17_r6hqv")]
+[node name="Rock2" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(-146, -135)
 
-[node name="Rock3" parent="." instance=ExtResource("17_r6hqv")]
+[node name="Rock3" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(27, 127)

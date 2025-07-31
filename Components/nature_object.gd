@@ -1,6 +1,7 @@
 class_name NatureObject extends StaticBody2D
 
 signal item_dropped(item: ItemResource)
+signal nature_object_died(obj: NatureObject)
 
 @export var nature_item: ItemResource = null
 
@@ -13,6 +14,12 @@ func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_on_area_entered)
 	_stats_component.died.connect(_die)
 
+
+func create_scene() -> NatureObject:
+	assert(false, "Must be implemented by children")
+	return null
+	
+	
 func _on_area_entered(hitbox: HitBox) -> void:
 	for effect in hitbox.attack_effects:
 		effect.apply(self, hitbox.global_position)
@@ -26,4 +33,4 @@ func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 
 
 func _die() -> void:
-	queue_free()
+	emit_signal("nature_object_died", self)

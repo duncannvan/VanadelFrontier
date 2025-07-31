@@ -9,7 +9,7 @@ extends Node2D
 @onready var _player = $Player
 @onready var _inventory_manager = $Player/InventoryManager
 @onready var _inventory_ui = $UI/Inventory
-
+@onready var _nature_spawner: NatureSpawner = $NatureSpawner
 
 func _ready() -> void:
 	_base_stats_component.died.connect(_on_base_died)
@@ -21,12 +21,14 @@ func _ready() -> void:
 	_inventory_manager.refresh_inventory.connect(_on_refresh_inventory)
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
+	_nature_spawner.child_entered_tree.connect(_on_nature_obj_respawned)
 	
-	for spawner in get_tree().get_nodes_in_group("spawners"):
+	for spawner: MobSpawner in get_tree().get_nodes_in_group("spawners"):
 		spawner.mob_spawned.connect(_on_mob_spawned)
 	
-	for objects in get_tree().get_nodes_in_group("nature_objects"):
+	for objects: NatureObject in get_tree().get_nodes_in_group("nature_objects"):
 		objects.item_dropped.connect(_on_loot_dropped)
+		
 
 func _on_base_died() -> void:
 	if _mob_spawner:
@@ -64,4 +66,7 @@ func _on_loot_dropped(item: ItemResource) -> void:
 func _on_mob_spawned(mob: Mob) -> void:
 	mob.loot_dropped.connect(_on_loot_dropped)
 
-	
+
+func _on_nature_obj_respawned(obj: NatureObject):
+	obj.nature_object_died.connect(_nature_spawner._handle_respawn)
+	obj.item_dropped.connect(_on_loot_dropped)

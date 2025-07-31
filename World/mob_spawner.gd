@@ -1,4 +1,4 @@
-extends Node2D
+class_name MobSpawner extends Node2D
 
 signal mob_spawned(mob: Mob)
 

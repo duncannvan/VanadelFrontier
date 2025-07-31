@@ -7,4 +7,3 @@ func apply(target: Node2D, hitbox_position: Vector2 = Vector2.ZERO):
 		target.apply_damage(_damage, hitbox_position)
 	else:
 		push_warning("Attempting to damage entity without stats component")
-	

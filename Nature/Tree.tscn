@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b8wgn38g22fvs"]
 
-[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_object.gd" id="1_c62yp"]
+[ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Components/tree_object.gd" id="1_yalwb"]
 [ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="2_4mqxk"]
 [ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_c62yp"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_c62yp"]
@@ -11,10 +11,10 @@
 size = Vector2(18.5, 13.8359)
 
 [node name="Tree" type="StaticBody2D"]
-collision_layer = 256
 collision_mask = 0
-script = ExtResource("1_c62yp")
+script = ExtResource("1_yalwb")
 nature_item = ExtResource("2_c62yp")
+metadata/_custom_type_script = "uid://2k5sdlxhm62h"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.5, -19)

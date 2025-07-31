@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bq8enjaug7mue"]
 
-[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_object.gd" id="1_xalek"]
+[ext_resource type="Script" uid="uid://dnlrlv08dmu0l" path="res://Components/rock_object.gd" id="1_151ig"]
 [ext_resource type="Resource" uid="uid://c0bvadt1b5n4q" path="res://ResourceData/ItemData/rock.tres" id="2_151ig"]
 [ext_resource type="Texture2D" uid="uid://dxf3mqixtyysb" path="res://Assets/Sprites/Nature/large_rock-export.png" id="2_ypes6"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_151ig"]
@@ -11,9 +11,9 @@
 size = Vector2(30.9062, 20.7474)
 
 [node name="Rock" type="StaticBody2D"]
-script = ExtResource("1_xalek")
+script = ExtResource("1_151ig")
 nature_item = ExtResource("2_151ig")
-metadata/_custom_type_script = "uid://csngdcbdxavvr"
+metadata/_custom_type_script = "uid://dnlrlv08dmu0l"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 6.5)
