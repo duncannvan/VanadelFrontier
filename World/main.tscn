@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=21 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cise8u0ooajis" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="10_6qnxk"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="15_4pper"]
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/Tree.tscn" id="15_ovush"]
+[ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/Rock.tscn" id="17_r6hqv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -1256,3 +1257,12 @@ collision_mask = 1
 position = Vector2(-122, 92)
 collision_layer = 257
 collision_mask = 1
+
+[node name="Rock" parent="." instance=ExtResource("17_r6hqv")]
+position = Vector2(56, -25)
+
+[node name="Rock2" parent="." instance=ExtResource("17_r6hqv")]
+position = Vector2(-146, -135)
+
+[node name="Rock3" parent="." instance=ExtResource("17_r6hqv")]
+position = Vector2(27, 127)

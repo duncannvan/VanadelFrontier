@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatsSheet" load_steps=3 format=3 uid="uid://kynsmlx1bjbh"]
+
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="1_5wr8x"]
+[ext_resource type="Script" uid="uid://d2qajhw3xoxc8" path="res://Resources/stats_sheet.gd" id="2_jsxqk"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_jsxqk")
+speed = -1
+health = 6
+atk_effects = Array[ExtResource("1_5wr8x")]([])
+metadata/_custom_type_script = "uid://d2qajhw3xoxc8"

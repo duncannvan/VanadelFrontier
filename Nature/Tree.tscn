@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_c62yp"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_c62yp"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="5_yalwb"]
-[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/tree_stats.tres" id="6_3opvk"]
+[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj.tres" id="6_3opvk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
 size = Vector2(18.5, 13.8359)
