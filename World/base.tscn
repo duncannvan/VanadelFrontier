@@ -12,7 +12,8 @@ radius = 11.0
 script = ExtResource("1_rx2yr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(5, 5)
+position = Vector2(0, -6)
+scale = Vector2(0.895833, 0.895833)
 texture = ExtResource("1_pvqg0")
 
 [node name="MobDetector" type="Area2D" parent="."]

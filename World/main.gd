@@ -10,6 +10,8 @@ extends Node2D
 @onready var _inventory_manager = $Player/InventoryManager
 @onready var _inventory_ui = $UI/Inventory
 @onready var _nature_spawner: NatureSpawner = $NatureSpawner
+@onready var _crafting_table: CraftingTable = $CraftingTable
+@onready var _crafting_ui = $UI/CraftingMenu
 
 func _ready() -> void:
 	_base_stats_component.died.connect(_on_base_died)
@@ -22,6 +24,7 @@ func _ready() -> void:
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
 	_nature_spawner.child_entered_tree.connect(_on_nature_obj_respawned)
+	_crafting_table.crafting_menu_update.connect(_on_crafting_menu_update)
 	
 	for spawner: MobSpawner in get_tree().get_nodes_in_group("spawners"):
 		spawner.mob_spawned.connect(_on_mob_spawned)
@@ -70,3 +73,7 @@ func _on_mob_spawned(mob: Mob) -> void:
 func _on_nature_obj_respawned(obj: NatureObject):
 	obj.nature_object_died.connect(_nature_spawner._handle_respawn)
 	obj.item_dropped.connect(_on_loot_dropped)
+
+
+func _on_crafting_menu_update(is_open: bool):
+	_crafting_ui.visible = is_open

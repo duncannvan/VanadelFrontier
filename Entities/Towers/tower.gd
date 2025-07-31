@@ -1,8 +1,7 @@
 class_name Tower extends StaticBody2D
 
-@export var projectile_scene: PackedScene
+@export var _tower_resource: TowerResource = null
 @export var _enabled: bool = true # Debug build only
-@export var _atk_effects: Array[AttackEffect] = [] #TODO: This should be a tower resource that contains the effects
 var _current_target: Mob = null
 var _mobs_in_range: Array[Mob] = []
 
@@ -40,9 +39,10 @@ func _on_shoot_timer_timeout() -> void:
 	
 	
 func _spawn_projectile() -> void:
-	var projectile: TowerProjectile = projectile_scene.instantiate()
+	var projectile: TowerProjectile = _tower_resource.projectile.instantiate()
 	projectile.global_position = global_position
 	projectile.look_at(_current_target.position)
+	projectile.set_attack_effects(_tower_resource.atk_effects)
 	projectile.set_target(_current_target)
 	get_parent().add_child(projectile)
 	

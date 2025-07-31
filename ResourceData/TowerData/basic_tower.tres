@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TowerResource" load_steps=5 format=3 uid="uid://cdrjighqw0c4c"]
+
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="1_1pq3r"]
+[ext_resource type="Script" uid="uid://otgfonbe136a" path="res://Resources/tower.gd" id="2_8wbr7"]
+[ext_resource type="Resource" uid="uid://cthmfugr248ae" path="res://ResourceData/AttackEffects/damage_effect.tres" id="2_m5fjv"]
+[ext_resource type="PackedScene" uid="uid://bbn3u2nduf6g3" path="res://Entities/Towers/ArcherTower/archer_projectile.tscn" id="4_3jbne"]
+
+[resource]
+script = ExtResource("2_8wbr7")
+projectile = ExtResource("4_3jbne")
+atk_effects = Array[ExtResource("1_1pq3r")]([ExtResource("2_m5fjv"), null])
+metadata/_custom_type_script = "uid://otgfonbe136a"
