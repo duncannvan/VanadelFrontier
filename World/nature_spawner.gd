@@ -1,4 +1,4 @@
-class_name NatureSpawner extends Node2D
+class_name NatureSpawner extends Node
 
 var position_queue: Array[Vector2] = []
 

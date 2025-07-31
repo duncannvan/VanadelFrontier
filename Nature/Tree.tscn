@@ -1,17 +1,17 @@
 [gd_scene load_steps=20 format=3 uid="uid://b8wgn38g22fvs"]
 
-[ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Components/tree_object.gd" id="1_yalwb"]
-[ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="2_4mqxk"]
-[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_c62yp"]
-[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_c62yp"]
-[ext_resource type="Shader" uid="uid://dtpa3cfioyt7e" path="res://Nature/tree_shader.gdshader" id="3_ot18c"]
-[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="5_yalwb"]
-[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj.tres" id="6_3opvk"]
-[ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="7_0f6uc"]
+[ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Nature/tree.gd" id="1_lmbf1"]
+[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_2uypa"]
+[ext_resource type="Shader" uid="uid://dtpa3cfioyt7e" path="res://Nature/tree_shader.gdshader" id="3_grldx"]
+[ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="4_kerrk"]
+[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_sup5y"]
+[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="6_iyu0o"]
+[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="7_8tj72"]
+[ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="8_mk07q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2gpob"]
 resource_local_to_scene = true
-shader = ExtResource("3_ot18c")
+shader = ExtResource("3_grldx")
 shader_parameter/shake = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
@@ -21,7 +21,7 @@ size = Vector2(18.5, 13.8359)
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.818565, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_2gpob"]
+[sub_resource type="CurveTexture" id="CurveTexture_lmbf1"]
 curve = SubResource("Curve_ot18c")
 
 [sub_resource type="Curve" id="Curve_b7p8j"]
@@ -29,10 +29,10 @@ _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.253165, 1), 0.0, 0.0, 0, 0, Vector2(0.49789, -0.977528), 0.0, 0.0, 0, 0, Vector2(0.751055, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
 point_count = 5
 
-[sub_resource type="CurveTexture" id="CurveTexture_vu80c"]
+[sub_resource type="CurveTexture" id="CurveTexture_2uypa"]
 curve = SubResource("Curve_b7p8j")
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_b7p8j"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_grldx"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ot18c"]
 lifetime_randomness = 0.3
@@ -46,16 +46,16 @@ initial_velocity_min = 110.0
 initial_velocity_max = 130.0
 angular_velocity_min = -15.0
 angular_velocity_max = 15.0
-angular_velocity_curve = SubResource("CurveTexture_vu80c")
+angular_velocity_curve = SubResource("CurveTexture_2uypa")
 directional_velocity_min = 1.0
 directional_velocity_max = 1.0
-directional_velocity_curve = SubResource("CurveXYZTexture_b7p8j")
+directional_velocity_curve = SubResource("CurveXYZTexture_grldx")
 gravity = Vector3(0, 50, 0)
 damping_min = 0.5
 damping_max = 0.5
 scale_min = 0.1
 scale_max = 0.2
-alpha_curve = SubResource("CurveTexture_2gpob")
+alpha_curve = SubResource("CurveTexture_lmbf1")
 hue_variation_min = -0.1
 hue_variation_max = -2.23517e-08
 turbulence_enabled = true
@@ -139,20 +139,20 @@ _data = {
 
 [node name="Tree" type="StaticBody2D"]
 collision_mask = 0
-script = ExtResource("1_yalwb")
-nature_item = ExtResource("2_c62yp")
+script = ExtResource("1_lmbf1")
+nature_item = ExtResource("2_2uypa")
 metadata/_custom_type_script = "uid://2k5sdlxhm62h"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_2gpob")
-position = Vector2(0.5, -19)
-texture = ExtResource("2_4mqxk")
+position = Vector2(-0.5, -19)
+texture = ExtResource("4_kerrk")
 
 [node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(0.5, -19)
+position = Vector2(-0.5, -19)
 collision_layer = 256
 collision_mask = 0
-script = ExtResource("3_c62yp")
+script = ExtResource("5_sup5y")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
@@ -160,20 +160,20 @@ position = Vector2(0.5, 16.918)
 shape = SubResource("RectangleShape2D_4mqxk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -2)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_4mqxk")
 
 [node name="StatsComponents" type="Node" parent="."]
-script = ExtResource("5_yalwb")
-_stats = ExtResource("6_3opvk")
+script = ExtResource("6_iyu0o")
+_stats = ExtResource("7_8tj72")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 modulate = Color(0.305882, 0.560784, 0.152941, 1)
-position = Vector2(0, -42)
+position = Vector2(-1, -42)
 emitting = false
 amount = 30
-texture = ExtResource("7_0f6uc")
+texture = ExtResource("8_mk07q")
 lifetime = 2.0
 one_shot = true
 explosiveness = 1.0

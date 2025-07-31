@@ -1,26 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq8enjaug7mue"]
+[gd_scene load_steps=10 format=3 uid="uid://bq8enjaug7mue"]
 
-[ext_resource type="Script" uid="uid://dnlrlv08dmu0l" path="res://Components/rock_object.gd" id="1_151ig"]
-[ext_resource type="Resource" uid="uid://c0bvadt1b5n4q" path="res://ResourceData/ItemData/rock.tres" id="2_151ig"]
-[ext_resource type="Texture2D" uid="uid://dxf3mqixtyysb" path="res://Assets/Sprites/Nature/large_rock-export.png" id="2_ypes6"]
+[ext_resource type="Script" uid="uid://dnlrlv08dmu0l" path="res://Nature/rock.gd" id="1_151ig"]
+[ext_resource type="Resource" uid="uid://c0bvadt1b5n4q" path="res://ResourceData/ItemData/rock.tres" id="2_bserw"]
+[ext_resource type="Texture2D" uid="uid://dxf3mqixtyysb" path="res://Assets/Sprites/Nature/large_rock-export.png" id="3_6e2mq"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_151ig"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="4_ofjvm"]
-[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj.tres" id="5_io6rs"]
+[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="6_t31ou"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0cn8"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qi6dm"]
 size = Vector2(30.9062, 20.7474)
+
+[sub_resource type="Animation" id="Animation_151ig"]
+resource_name = "damaged"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ofjvm"]
+_data = {
+&"damaged": SubResource("Animation_151ig")
+}
 
 [node name="Rock" type="StaticBody2D"]
 script = ExtResource("1_151ig")
-nature_item = ExtResource("2_151ig")
+nature_item = ExtResource("2_bserw")
 metadata/_custom_type_script = "uid://dnlrlv08dmu0l"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 6.5)
-texture = ExtResource("2_ypes6")
+position = Vector2(0, -3.5)
+texture = ExtResource("3_6e2mq")
 
 [node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(0, 6.5)
+position = Vector2(0, -3.5)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("3_151ig")
@@ -28,15 +36,18 @@ metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, 2.5)
-shape = SubResource("RectangleShape2D_m0cn8")
+shape = SubResource("RectangleShape2D_qi6dm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
-shape = SubResource("RectangleShape2D_m0cn8")
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_qi6dm")
 
 [node name="StatsComponents" type="Node" parent="."]
 script = ExtResource("4_ofjvm")
-_stats = ExtResource("5_io6rs")
+_stats = ExtResource("6_t31ou")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
 
 [node name="DamagedEffects" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ofjvm")
+}
