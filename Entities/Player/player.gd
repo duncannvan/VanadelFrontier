@@ -26,6 +26,8 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
 @onready var _tool_manager: ToolManager = $ToolManager
 @onready var _inventory_manager: InventoryManger = $InventoryManager
+@onready var hitbox: HitBox = $ToolPivot/HitBox
+
 
 func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
@@ -33,6 +35,7 @@ func _ready() -> void:
 	_update_blend_positions(_last_facing_direction)
 	_tool_manager.set_blend_point_idx_mapping(_animation_tree)
 	_tool_manager.tool_used.connect(_on_tool_used)
+	
 	
 func _physics_process(delta: float) -> void:
 	var state_string: String = _playback_states.get_current_node()

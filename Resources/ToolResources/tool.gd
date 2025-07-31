@@ -17,7 +17,7 @@ func use_tool(player: Player) -> void:
 	
 
 func on_switch_in(player: Player) -> void:
-	player._hitbox.set_attack_effects(_atk_effects)
+	player.hitbox.set_attack_effects(_atk_effects)
 	
 
 func on_switch_out(player: Player) -> void:
