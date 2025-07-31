@@ -26,6 +26,7 @@ var _state: State = State.USING_TOOL
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _damaged_particles: GPUParticles2D = $DamagedParticles
 @onready var _slowed_animation: AnimationPlayer = $SlowedAnimation
+@onready var _hitbox: HitBox = $BodyHitbox
 
 
 func _ready() -> void:
@@ -33,6 +34,7 @@ func _ready() -> void:
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
 	_stats_component.died.connect(_die)
 	_stats_component.slowed_ended.connect(_remove_slow)
+	_hitbox.set_attack_effects(_stats_component._stats.atk_effects)
 
 
 func _physics_process(delta: float) -> void:

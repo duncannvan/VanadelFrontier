@@ -7,7 +7,7 @@ class_name ToolResource extends Resource
 		return texture
 @export var cooldown_sec: float = 0 # Time between uses
 @export var animation_libs: Array[AnimationLibrary] = []
-
+@export var _atk_effects: Array[AttackEffect] = []
 
 var cooling_down: bool = false
 
@@ -17,7 +17,7 @@ func use_tool(player: Player) -> void:
 	
 
 func on_switch_in(player: Player) -> void:
-	pass
+	player._hitbox.set_attack_effects(_atk_effects)
 	
 
 func on_switch_out(player: Player) -> void:

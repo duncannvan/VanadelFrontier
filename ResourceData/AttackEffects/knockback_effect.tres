@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="KnockbackEffect" load_steps=2 format=3 uid="uid://dy6nkavykwekj"]
+
+[ext_resource type="Script" uid="uid://dx7savleyp0lc" path="res://Resources/AttackEffectResources/knockback_effect.gd" id="1_uxm2k"]
+
+[resource]
+script = ExtResource("1_uxm2k")
+_knockback_force = 200
+_knockback_duration = 0.1
+metadata/_custom_type_script = "uid://dx7savleyp0lc"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SlowEffect" load_steps=2 format=3 uid="uid://ctq3jg50oaued"]
+
+[ext_resource type="Script" uid="uid://cej0ljjf57lre" path="res://Resources/AttackEffectResources/slow_effect.gd" id="1_c51fi"]
+
+[resource]
+script = ExtResource("1_c51fi")
+slowed_factor = 0.5
+slowed_duration = 1.0
+metadata/_custom_type_script = "uid://cej0ljjf57lre"

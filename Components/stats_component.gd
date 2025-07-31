@@ -4,7 +4,11 @@ signal slowed_ended
 signal health_changed()
 signal died()
 
-@export var _stats: StatsSheet = null
+@export var _stats: StatsSheet = null:
+	get():
+		assert(_stats, "Attempt to retrieve null")
+		return _stats
+		
 
 var _slowed_timer: Timer = null
 var _slowed_factor: float = SlowEffect.MAX_SLOWED_FACTOR
@@ -38,10 +42,9 @@ func get_current_speed() -> float:
 func apply_damage(damage: int) -> void:
 	if damage < StatsSheet.MIN_HEALTH_CAP:
 		return
-		
+
 	_stats.health -= damage
 	emit_signal("health_changed")
-	
 	if _stats.health < StatsSheet.MIN_HEALTH_CAP:
 		emit_signal("died")
 

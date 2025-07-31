@@ -83,8 +83,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if(event.is_action_pressed("tool_slot_nums")):
 			select_tool(event.keycode - KEY_1)
-			
-			
+
+
 func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 	_combat_effects.play("damaged_effects")
 	_stats_component.apply_damage(damage)

@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="StatsSheet" load_steps=2 format=3 uid="uid://dc3f7o3eovhjl"]
+[gd_resource type="Resource" script_class="StatsSheet" load_steps=5 format=3 uid="uid://dc3f7o3eovhjl"]
 
 [ext_resource type="Script" uid="uid://d2qajhw3xoxc8" path="res://Resources/stats_sheet.gd" id="1_ncv4v"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="1_qpxr8"]
+[ext_resource type="Resource" uid="uid://cthmfugr248ae" path="res://ResourceData/AttackEffects/damage_effect.tres" id="2_bulcj"]
+[ext_resource type="Resource" uid="uid://dy6nkavykwekj" path="res://ResourceData/AttackEffects/knockback_effect.tres" id="3_1egf5"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_ncv4v")
 speed = 10
 health = 3
+atk_effects = Array[ExtResource("1_qpxr8")]([ExtResource("2_bulcj"), ExtResource("3_1egf5")])
 metadata/_custom_type_script = "uid://d2qajhw3xoxc8"

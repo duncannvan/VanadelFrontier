@@ -4,9 +4,6 @@ class_name RangedWeaponResource extends WeaponResource
 	get():
 		assert(projectile_scene, "Attempt to retrieve null")
 		return projectile_scene
-	
-@export var projectile_speed: float = 0.0
-@export var max_range: float = 0.0
 
 
 #Override
@@ -17,4 +14,5 @@ func use_tool(player: Player) -> void:
 	projectile.global_position = player.global_position
 	projectile.rotation = projectile_dir.angle()
 	projectile.set_velocity(projectile_dir)
+	projectile.set_attack_effects(_atk_effects)
 	player.get_parent().add_child(projectile)
