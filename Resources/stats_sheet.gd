@@ -8,3 +8,4 @@ const MIN_HEALTH_CAP: int = 1
 
 @export_range(INVALID, MAX_SPEED_CAP) var speed: int = INVALID
 @export_range(INVALID, MAX_HEALTH_CAP) var health: int = INVALID
+@export var atk_effects: Array[AttackEffect] = []

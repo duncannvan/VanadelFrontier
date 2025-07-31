@@ -2,7 +2,13 @@ class_name TowerProjectile extends Projectile
 
 var _target: CombatUnit = null
 
+@export var _atk_effects: Array[AttackEffect] = [] #TODO: This should be a tower resource that contains the effects
 
+func _ready() -> void:
+	super._ready()
+	_set_attack_effects(_atk_effects)
+
+	
 func _physics_process(delta: float) -> void:
 	if not _target: 
 		queue_free()

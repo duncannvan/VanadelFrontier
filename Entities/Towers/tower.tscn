@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://df78ln1f24wy2"]
+[gd_scene load_steps=6 format=3 uid="uid://df78ln1f24wy2"]
 
 [ext_resource type="Script" uid="uid://r83sr74eop47" path="res://Entities/Towers/tower.gd" id="1_lqjbc"]
+[ext_resource type="PackedScene" uid="uid://bbn3u2nduf6g3" path="res://Entities/Towers/ArcherTower/archer_projectile.tscn" id="2_mq5yu"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="2_w36c6"]
+[ext_resource type="Resource" uid="uid://cthmfugr248ae" path="res://ResourceData/AttackEffects/damage_effect.tres" id="3_s2tcc"]
+[ext_resource type="Resource" uid="uid://dy6nkavykwekj" path="res://ResourceData/AttackEffects/knockback_effect.tres" id="4_vrpxm"]
 
 [node name="Tower" type="StaticBody2D"]
+visible = false
 script = ExtResource("1_lqjbc")
+projectile_scene = ExtResource("2_mq5yu")
+_atk_effects = Array[ExtResource("2_w36c6")]([ExtResource("3_s2tcc"), ExtResource("4_vrpxm")])
 metadata/_custom_type_script = "uid://r83sr74eop47"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

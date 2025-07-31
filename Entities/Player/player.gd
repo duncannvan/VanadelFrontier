@@ -26,6 +26,7 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
 @onready var _tool_manager: ToolManager = $ToolManager
 @onready var _inventory_manager: InventoryManger = $InventoryManager
+@onready var _hitbox: HitBox = $ToolPivot/HitBox
 
 func _ready() -> void:
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)

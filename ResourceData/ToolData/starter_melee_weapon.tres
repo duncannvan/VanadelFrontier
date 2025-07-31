@@ -1,17 +1,20 @@
-[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=6 format=3 uid="uid://c51swhx5yf5e0"]
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=10 format=3 uid="uid://c51swhx5yf5e0"]
 
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="1_8vlmh"]
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="1_guv3t"]
+[ext_resource type="Resource" uid="uid://cthmfugr248ae" path="res://ResourceData/AttackEffects/damage_effect.tres" id="2_30oup"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="2_rpfho"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="3_iiptc"]
+[ext_resource type="Resource" uid="uid://dy6nkavykwekj" path="res://ResourceData/AttackEffects/knockback_effect.tres" id="3_knj0p"]
+[ext_resource type="Resource" uid="uid://ctq3jg50oaued" path="res://ResourceData/AttackEffects/slow_effect.tres" id="4_n3agp"]
 [ext_resource type="Script" uid="uid://evt2uj0lfk8u" path="res://Resources/ToolResources/melee_weapon.gd" id="4_w5xab"]
 [ext_resource type="Texture2D" uid="uid://djxqyjq7mnkeu" path="res://Assets/Sprites/Tools/1.png" id="5_rpfho"]
 
 [resource]
 script = ExtResource("4_w5xab")
-_damage = 0
-_knockback_mag = 0.0
 name = "Starter Melee Weapon"
 texture = ExtResource("5_rpfho")
 cooldown_sec = 0.3
 animation_libs = Array[AnimationLibrary]([ExtResource("1_guv3t"), ExtResource("2_rpfho"), ExtResource("3_iiptc")])
+_atk_effects = Array[ExtResource("1_8vlmh")]([ExtResource("2_30oup"), ExtResource("3_knj0p"), ExtResource("4_n3agp")])
 metadata/_custom_type_script = "uid://evt2uj0lfk8u"

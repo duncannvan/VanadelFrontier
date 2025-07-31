@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="HarvestingToolResource" load_steps=4 format=3 uid="uid://e165u8qj0auw"]
+[gd_resource type="Resource" script_class="HarvestingToolResource" load_steps=6 format=3 uid="uid://e165u8qj0auw"]
 
 [ext_resource type="AnimationLibrary" uid="uid://dwsy11utst63p" path="res://AnimationLibs/basic_harvest.res" id="1_616mv"]
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="1_hiytl"]
+[ext_resource type="Resource" uid="uid://cthmfugr248ae" path="res://ResourceData/AttackEffects/damage_effect.tres" id="2_5xgbt"]
 [ext_resource type="Script" uid="uid://bme3v7sp50il6" path="res://Resources/ToolResources/harvesting_tool.gd" id="2_616mv"]
 [ext_resource type="Texture2D" uid="uid://dqiutfq6x1spu" path="res://Assets/Sprites/Tools/31.png" id="3_616mv"]
 
 [resource]
 script = ExtResource("2_616mv")
-_efficiency = 0.0
 name = "Starter Harvesting Tool"
 texture = ExtResource("3_616mv")
 cooldown_sec = 1.0
 animation_libs = Array[AnimationLibrary]([ExtResource("1_616mv")])
+_atk_effects = Array[ExtResource("1_hiytl")]([ExtResource("2_5xgbt")])
 metadata/_custom_type_script = "uid://bme3v7sp50il6"

@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cufcnccpgosff"]
-
-[ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="1_2ptxn"]
-
-[node name="NatureObject" type="Area2D"]
-script = ExtResource("1_2ptxn")
-metadata/_custom_type_script = "uid://b3xkwxuf8a1a"

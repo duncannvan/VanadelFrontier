@@ -2,7 +2,7 @@ class_name Tower extends StaticBody2D
 
 @export var projectile_scene: PackedScene
 @export var _enabled: bool = true # Debug build only
-
+@export var _atk_effects: Array[AttackEffect] = [] #TODO: This should be a tower resource that contains the effects
 var _current_target: Mob = null
 var _mobs_in_range: Array[Mob] = []
 

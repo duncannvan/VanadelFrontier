@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8wgn38g22fvs"]
+[gd_scene load_steps=8 format=3 uid="uid://b8wgn38g22fvs"]
 
 [ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Components/nature_component.gd" id="1_c62yp"]
 [ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="2_4mqxk"]
 [ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_c62yp"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_c62yp"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="5_yalwb"]
+[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/tree_stats.tres" id="6_3opvk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
 size = Vector2(18.5, 13.8359)
@@ -36,4 +37,5 @@ shape = SubResource("RectangleShape2D_4mqxk")
 
 [node name="StatsComponents" type="Node" parent="."]
 script = ExtResource("5_yalwb")
+_stats = ExtResource("6_3opvk")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
