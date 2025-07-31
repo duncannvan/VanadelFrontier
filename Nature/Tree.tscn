@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8wgn38g22fvs"]
+[gd_scene load_steps=17 format=3 uid="uid://b8wgn38g22fvs"]
 
 [ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Components/tree_object.gd" id="1_yalwb"]
 [ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="2_4mqxk"]
@@ -6,11 +6,80 @@
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_c62yp"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="5_yalwb"]
 [ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj.tres" id="6_3opvk"]
+[ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="7_0f6uc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
 size = Vector2(18.5, 13.8359)
 
+[sub_resource type="Curve" id="Curve_0f6uc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.490902), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ot18c"]
+curve = SubResource("Curve_0f6uc")
+
+[sub_resource type="Gradient" id="Gradient_0f6uc"]
+colors = PackedColorArray(0.305882, 0.560784, 0.152941, 1, 0.305882, 0.560784, 0.152941, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ot18c"]
+gradient = SubResource("Gradient_0f6uc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ot18c"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+angle_min = 45.0
+angle_max = 90.0
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 300.0
+initial_velocity_max = 350.0
+angular_velocity_min = 256.49
+angular_velocity_max = 343.51
+angular_velocity_curve = SubResource("CurveTexture_ot18c")
+gravity = Vector3(0, 75, 0)
+scale_min = 0.3
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_ot18c")
+turbulence_enabled = true
+
+[sub_resource type="Animation" id="Animation_0f6uc"]
+resource_name = "damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ot18c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2gpob"]
+_data = {
+&"RESET": SubResource("Animation_ot18c"),
+&"damaged": SubResource("Animation_0f6uc")
+}
+
 [node name="Tree" type="StaticBody2D"]
+position = Vector2(0, -1)
 collision_mask = 0
 script = ExtResource("1_yalwb")
 nature_item = ExtResource("2_c62yp")
@@ -39,3 +108,19 @@ shape = SubResource("RectangleShape2D_4mqxk")
 script = ExtResource("5_yalwb")
 _stats = ExtResource("6_3opvk")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -36)
+scale = Vector2(0.569917, 0.645364)
+emitting = false
+amount = 12
+texture = ExtResource("7_0f6uc")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ot18c")
+
+[node name="DamagedEffects" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2gpob")
+}
