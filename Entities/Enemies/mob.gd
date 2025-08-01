@@ -22,11 +22,11 @@ var _state: State = State.USING_TOOL
 
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
 @onready var _damaged_animation: AnimationPlayer = $DamagedAnimation
-@onready var _hurtbox: HurtBox = $HurtBox
+@onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _damaged_particles: GPUParticles2D = $DamagedParticles
 @onready var _slowed_animation: AnimationPlayer = $SlowedAnimation
-@onready var _hitbox: HitBox = $BodyHitbox
+@onready var _hitbox: Hitbox = $BodyHitbox
 
 
 func _ready() -> void:
@@ -86,7 +86,7 @@ func _emit_damaged_effects(hitbox_position: Vector2):
 	_damaged_animation.play("damaged_effects")
 
 
-func _apply_attack_effects(hitbox: HitBox) -> void:
+func _apply_attack_effects(hitbox: Hitbox) -> void:
 	for effect in hitbox.attack_effects:
 		effect.apply(self, hitbox.global_position)
 

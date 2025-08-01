@@ -17,7 +17,7 @@ var _states: Dictionary[String, States] =  {
 var knockback_velocity: Vector2 = Vector2.ZERO
 var _last_facing_direction: Vector2 = Vector2.DOWN
 
-@onready var _hurtbox: HurtBox = $HurtBox
+@onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _player_camera: Camera2D = $PlayerCamera
 @onready var _animation_tree: AnimationTree = $AnimationTree
@@ -26,7 +26,7 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 @onready var _combat_effects: AnimationPlayer = $CombatEffects
 @onready var _tool_manager: ToolManager = $ToolManager
 @onready var _inventory_manager: InventoryManger = $InventoryManager
-@onready var hitbox: HitBox = $ToolPivot/HitBox
+@onready var hitbox: Hitbox = $ToolPivot/Hitbox
 
 
 func _ready() -> void:
@@ -121,7 +121,7 @@ func _update_blend_positions(direction: Vector2) -> void:
 	_animation_tree.set("parameters/StateMachine/KnockbackState/blend_position", direction)
 
 
-func _apply_attack_effects(hitbox: HitBox) -> void:
+func _apply_attack_effects(hitbox: Hitbox) -> void:
 	for effect in hitbox.attack_effects:
 			effect.apply(self, hitbox.global_position)
 			

@@ -114,10 +114,7 @@ _loot_drop = ExtResource("2_fg4mt")
 [node name="CollisionShape2D" parent="." index="0"]
 visible = false
 
-[node name="HurtBox" parent="." index="1"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_b7js1")
 
 [node name="BodyHitbox" parent="." index="2"]
