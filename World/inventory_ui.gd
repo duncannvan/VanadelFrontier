@@ -1,12 +1,13 @@
 extends Control
 
+signal inventory_ui_update(is_open: bool) # TODO: Remove once UI manager in place
 @onready var _slot_container: GridContainer = %SlotContainer
 @onready var slots: Array[Node] = _slot_container.get_children()
 
-
+# TODO: Move to ui manager
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("inventory"):
-		visible = !visible
+		emit_signal("inventory_ui_update", !visible)
 
 
 func refresh_inventory(inventory: Array[ItemStack]) -> void:

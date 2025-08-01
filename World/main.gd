@@ -25,6 +25,7 @@ func _ready() -> void:
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
 	_nature_spawner.child_entered_tree.connect(_on_nature_obj_respawned)
 	_crafting_table.crafting_menu_update.connect(_on_crafting_menu_update)
+	_inventory_ui.inventory_ui_update.connect(_on_inventory_menu_update)
 	
 	for spawner: MobSpawner in get_tree().get_nodes_in_group("spawners"):
 		spawner.mob_spawned.connect(_on_mob_spawned)
@@ -70,10 +71,16 @@ func _on_mob_spawned(mob: Mob) -> void:
 	mob.loot_dropped.connect(_on_loot_dropped)
 
 
-func _on_nature_obj_respawned(obj: NatureObject):
+func _on_nature_obj_respawned(obj: NatureObject) -> void:
 	obj.nature_object_died.connect(_nature_spawner._handle_respawn)
 	obj.item_dropped.connect(_on_loot_dropped)
 
 
-func _on_crafting_menu_update(is_open: bool):
-	_crafting_ui.visible = is_open
+func _on_crafting_menu_update(is_open: bool) -> void:
+	if not _inventory_ui.is_visible():
+		_crafting_ui.set_visible(is_open)
+
+
+func _on_inventory_menu_update(is_open: bool) -> void:
+	if not _crafting_ui.is_visible():
+		_inventory_ui.set_visible(is_open)
