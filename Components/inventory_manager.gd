@@ -2,8 +2,8 @@ class_name InventoryManger extends Node
 
 signal refresh_inventory()
 
-const MAX_INVENTORY_SIZE = 10
-const MAX_STACKS = 2
+const MAX_INVENTORY_SIZE: int = 10
+const MAX_STACKS: int = 99
 
 var inventory: Array[ItemStack] = [] 
 
@@ -44,7 +44,6 @@ func remove_item(item_stack: ItemStack) -> bool:
 				break;
 			else:
 				num_left_to_remove -= stack.item_stack_count
-				stack.item_stack_count = 0
 				stacks_to_remove.append(stack)
 	
 	# Remove item stacks
