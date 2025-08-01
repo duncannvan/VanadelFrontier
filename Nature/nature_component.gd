@@ -5,7 +5,7 @@ signal nature_object_died(obj: NatureObject)
 
 @export var nature_item: ItemResource = null
 
-@onready var _hurtbox: HurtBox = $HurtBox
+@onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _damaged_effects: AnimationPlayer = $DamagedEffects
 
@@ -21,7 +21,7 @@ func create_scene() -> NatureObject:
 	return null
 	
 	
-func _on_area_entered(hitbox: HitBox) -> void:
+func _on_area_entered(hitbox: Hitbox) -> void:
 	for effect in hitbox.attack_effects:
 		effect.apply(self, hitbox.global_position)
 		

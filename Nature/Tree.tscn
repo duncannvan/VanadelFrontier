@@ -155,7 +155,7 @@ collision_mask = 0
 script = ExtResource("5_sup5y")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0.5, 16.918)
 shape = SubResource("RectangleShape2D_4mqxk")
 
