@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://djcl4bl15gorw"]
+
+[ext_resource type="Script" uid="uid://csngdcbdxavvr" path="res://Nature/nature_component.gd" id="1_gl83f"]
+[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="1_p7jj3"]
+[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="2_snisg"]
+
+[node name="NatureObject" type="StaticBody2D"]
+script = ExtResource("1_gl83f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("1_p7jj3")
+metadata/_custom_type_script = "uid://63sbpv1faiyx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="StatsComponents" type="Node" parent="."]
+script = ExtResource("2_snisg")
+metadata/_custom_type_script = "uid://disun15mfvhrx"
+
+[node name="DamagedParticles" type="GPUParticles2D" parent="."]
+
+[node name="DamagedEffects" type="AnimationPlayer" parent="."]
