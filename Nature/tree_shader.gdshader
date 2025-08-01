@@ -7,10 +7,10 @@ uniform bool shake = false;
 
 void vertex() {
 	vec2 output = vec2(0.0);
-	
+
 	if (shake && VERTEX.y < 0.0) {
 		output.x = sin(TIME * shake_speed * VERTEX.y) * shake_strength;
 	}
-	
-	VERTEX.xy += output; 
+
+	VERTEX.xy += output;
 }

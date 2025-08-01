@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8wgn38g22fvs"]
+[gd_scene load_steps=21 format=3 uid="uid://b8wgn38g22fvs"]
 
 [ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Nature/tree.gd" id="1_lmbf1"]
 [ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_2uypa"]
@@ -15,7 +15,10 @@ shader = ExtResource("3_grldx")
 shader_parameter/shake = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
-size = Vector2(18.5, 13.8359)
+size = Vector2(17.25, 13.8359)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ot18c"]
+radius = 8.06226
 
 [sub_resource type="Curve" id="Curve_ot18c"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.818565, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -145,23 +148,23 @@ metadata/_custom_type_script = "uid://2k5sdlxhm62h"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_2gpob")
-position = Vector2(-0.5, -19)
+position = Vector2(-0.5, -15)
 texture = ExtResource("4_kerrk")
 
-[node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(-0.5, -19)
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(-0.5, -15)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("5_sup5y")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0.5, 16.918)
+position = Vector2(0, 17)
 shape = SubResource("RectangleShape2D_4mqxk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_4mqxk")
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_ot18c")
 
 [node name="StatsComponents" type="Node" parent="."]
 script = ExtResource("6_iyu0o")
@@ -170,7 +173,7 @@ metadata/_custom_type_script = "uid://disun15mfvhrx"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 modulate = Color(0.305882, 0.560784, 0.152941, 1)
-position = Vector2(-1, -42)
+position = Vector2(-1, -38)
 emitting = false
 amount = 30
 texture = ExtResource("8_mk07q")
@@ -185,4 +188,5 @@ libraries = {
 }
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 4)
 radius = 10.0

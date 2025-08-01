@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=24 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" uid="uid://cpv8ka1gnos17" path="res://World/inventory_ui.gd" id="8_scvq1"]
 [ext_resource type="PackedScene" uid="uid://dalovudjxroi0" path="res://UI/item_slot_with_count.tscn" id="9_sfxlf"]
 [ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="9_td74h"]
-[ext_resource type="PackedScene" uid="uid://cise8u0ooajis" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="10_6qnxk"]
 [ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="15_4pper"]
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/Tree.tscn" id="17_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/Rock.tscn" id="17_r6hqv"]
@@ -1214,8 +1213,8 @@ script = ExtResource("2_r6hqv")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
-position = Vector2(-285, -210)
-scale = Vector2(1.93601, 1.93601)
+position = Vector2(17, -488)
+scale = Vector2(2.01801, 2.42522)
 navigation_polygon = SubResource("NavigationPolygon_1hcjw")
 metadata/_edit_lock_ = true
 
@@ -1232,53 +1231,21 @@ position = Vector2(461, -168)
 collision_mask = 129
 
 [node name="Base" parent="." instance=ExtResource("7_o6xl0")]
-position = Vector2(345, -268)
+position = Vector2(474, -226)
 
 [node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
-position = Vector2(109, -272)
+position = Vector2(306, -237)
 _base = NodePath("../Base")
 _player = NodePath("../Player")
 _mob_scenes = Array[PackedScene]([ExtResource("9_td74h")])
-
-[node name="MobSpawner2" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
-position = Vector2(344, -432)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-_mob_scenes = Array[PackedScene]([ExtResource("10_6qnxk")])
-
-[node name="MobSpawner3" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
-position = Vector2(567, -271)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-_mob_scenes = Array[PackedScene]([ExtResource("9_td74h")])
-
-[node name="MobSpawner4" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
-position = Vector2(345, -121)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-_mob_scenes = Array[PackedScene]([ExtResource("10_6qnxk")])
 
 [node name="ArcherTower" parent="." instance=ExtResource("8_04q08")]
 visible = true
-position = Vector2(506, -277)
+position = Vector2(426, -283)
 _atk_effects = Array[ExtResource("15_4pper")]([])
 
-[node name="ArcherTower2" parent="." instance=ExtResource("8_04q08")]
-visible = true
-position = Vector2(347, -367)
-_atk_effects = Array[ExtResource("15_4pper")]([])
-
-[node name="ArcherTower3" parent="." instance=ExtResource("8_04q08")]
-visible = true
-position = Vector2(188, -279)
-_atk_effects = Array[ExtResource("15_4pper")]([])
-
-[node name="ArcherTower4" parent="." instance=ExtResource("8_04q08")]
-visible = true
-position = Vector2(347, -193)
-_atk_effects = Array[ExtResource("15_4pper")]([])
-
-[node name="NatureSpawner" type="Node" parent="."]
+[node name="NatureSpawner" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("18_lh7yw")
 
 [node name="Tree" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
