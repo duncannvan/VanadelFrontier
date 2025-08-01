@@ -51,3 +51,6 @@ metadata/_custom_type_script = "uid://disun15mfvhrx"
 libraries = {
 &"": SubResource("AnimationLibrary_ofjvm")
 }
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 15.0

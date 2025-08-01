@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7agehb18vowc"]
+[gd_scene load_steps=18 format=3 uid="uid://c7agehb18vowc"]
 
 [ext_resource type="Script" uid="uid://2t45f8apvw50" path="res://Components/AreaDetection/projectile.gd" id="1_porfw"]
 [ext_resource type="Texture2D" uid="uid://dx6b0vvq4mntx" path="res://Assets/Sprites/Tools/Pixel_Magic_Effects_Animations.png" id="5_dqii7"]
@@ -21,10 +21,6 @@ region = Rect2(0, 448, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_l8hh3"]
 atlas = ExtResource("5_dqii7")
 region = Rect2(0, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wlsw8"]
-atlas = ExtResource("5_dqii7")
-region = Rect2(0, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_koylq"]
 atlas = ExtResource("5_dqii7")
@@ -60,9 +56,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l8hh3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wlsw8")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_koylq")
@@ -119,7 +112,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_dqii7"]
 resource_name = "fireball_initial"
-step = 0.1
+length = 0.45
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -127,10 +121,10 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, -2, -2, -2, -2, -2, -2, -2, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+"values": [8, 1, 2, 3, 4, 5, 6, 7, 8]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -139,7 +133,7 @@ tracks/1/path = NodePath("AnimationPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.45),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"fireball", -1, 1.0, false],

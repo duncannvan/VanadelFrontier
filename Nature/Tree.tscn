@@ -183,3 +183,6 @@ process_material = SubResource("ParticleProcessMaterial_ot18c")
 libraries = {
 &"": SubResource("AnimationLibrary_2gpob")
 }
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 10.0
