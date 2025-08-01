@@ -78,7 +78,11 @@ func _on_nature_obj_respawned(obj: NatureObject) -> void:
 
 func _on_crafting_menu_update(is_open: bool) -> void:
 	if not _inventory_ui.is_visible():
-		_crafting_ui.set_visible(is_open)
+		#TODO: Fix this lazy fix: Ui closes when create tower but crafting compenet doesn't know
+		if is_open == _crafting_ui.is_visible():
+			_crafting_ui.set_visible(!is_open)
+		else:
+			_crafting_ui.set_visible(is_open)
 
 
 func _on_inventory_menu_update(is_open: bool) -> void:
