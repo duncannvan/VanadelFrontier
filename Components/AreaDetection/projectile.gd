@@ -1,4 +1,4 @@
-class_name Projectile extends HitBox
+class_name Projectile extends Hitbox
 
 # TODO: Tower Component should take in a tower resource with speed data and pass it here
 @export var _speed: float = 0
@@ -9,7 +9,7 @@ func _physics_process(delta: float) -> void:
 	global_position += _velocity * delta * _speed
 
 
-func _on_area_entered(hurtbox: HurtBox) -> void:
+func _on_area_entered(hurtbox: Hurtbox) -> void:
 	super._on_area_entered(hurtbox)
 	queue_free()
 

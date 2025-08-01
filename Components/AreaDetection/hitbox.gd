@@ -1,4 +1,4 @@
-class_name HitBox extends Area2D
+class_name Hitbox extends Area2D
 
 var attack_effects: Array[AttackEffect] = []
 
@@ -13,7 +13,7 @@ func set_attack_effects(effects: Array[AttackEffect]):
 	attack_effects = effects
 	
 	
-func _on_area_entered(hurtbox: HurtBox) -> void:
+func _on_area_entered(hurtbox: Hurtbox) -> void:
 	if hurtbox.get_invincible(): 
 		return
 
