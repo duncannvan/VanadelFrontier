@@ -1,40 +1,99 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq8enjaug7mue"]
+[gd_scene load_steps=15 format=3 uid="uid://bq8enjaug7mue"]
 
-[ext_resource type="Script" uid="uid://dnlrlv08dmu0l" path="res://Components/rock_object.gd" id="1_151ig"]
-[ext_resource type="Resource" uid="uid://c0bvadt1b5n4q" path="res://ResourceData/ItemData/rock.tres" id="2_151ig"]
-[ext_resource type="Texture2D" uid="uid://dxf3mqixtyysb" path="res://Assets/Sprites/Nature/large_rock-export.png" id="2_ypes6"]
+[ext_resource type="Script" uid="uid://dnlrlv08dmu0l" path="res://Nature/rock.gd" id="1_151ig"]
+[ext_resource type="Resource" uid="uid://c0bvadt1b5n4q" path="res://ResourceData/ItemData/rock.tres" id="2_bserw"]
+[ext_resource type="Texture2D" uid="uid://dxf3mqixtyysb" path="res://Assets/Sprites/Nature/large_rock-export.png" id="3_6e2mq"]
 [ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_151ig"]
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="4_ofjvm"]
-[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj.tres" id="5_io6rs"]
+[ext_resource type="Shader" uid="uid://b03kgs78lck3j" path="res://Nature/rock_shader.gdshader" id="5_ofjvm"]
+[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="6_t31ou"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0cn8"]
-size = Vector2(30.9062, 20.7474)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofjvm"]
+shader = ExtResource("5_ofjvm")
+shader_parameter/shake = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_io6rs"]
+shader = ExtResource("5_ofjvm")
+shader_parameter/shake = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ofjvm"]
+radius = 13.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_151ig"]
+radius = 13.0384
+
+[sub_resource type="Animation" id="Animation_151ig"]
+resource_name = "damaged"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ofjvm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ofjvm"]
+_data = {
+&"RESET": SubResource("Animation_ofjvm"),
+&"damaged": SubResource("Animation_151ig")
+}
 
 [node name="Rock" type="StaticBody2D"]
 script = ExtResource("1_151ig")
-nature_item = ExtResource("2_151ig")
+nature_item = ExtResource("2_bserw")
 metadata/_custom_type_script = "uid://dnlrlv08dmu0l"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 6.5)
-texture = ExtResource("2_ypes6")
+material = SubResource("ShaderMaterial_ofjvm")
+position = Vector2(0, -3.5)
+texture = ExtResource("3_6e2mq")
 
 [node name="Hurtbox" type="Area2D" parent="."]
-position = Vector2(0, 6.5)
+position = Vector2(0, -3.5)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("3_151ig")
 metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+material = SubResource("ShaderMaterial_io6rs")
 position = Vector2(0, 2.5)
-shape = SubResource("RectangleShape2D_m0cn8")
+shape = SubResource("CircleShape2D_ofjvm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
-shape = SubResource("RectangleShape2D_m0cn8")
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_151ig")
 
 [node name="StatsComponents" type="Node" parent="."]
 script = ExtResource("4_ofjvm")
-_stats = ExtResource("5_io6rs")
+_stats = ExtResource("6_t31ou")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
+
+[node name="DamagedEffects" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ofjvm")
+}
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 15.0

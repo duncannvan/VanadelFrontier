@@ -24,11 +24,9 @@ func _ready() -> void:
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
 	_nature_spawner.child_entered_tree.connect(_on_nature_obj_respawned)
+	_mob_spawner.mob_spawned.connect(_on_mob_spawned)
 	_crafting_table.crafting_menu_update.connect(_on_crafting_menu_update)
 	_inventory_ui.inventory_ui_update.connect(_on_inventory_menu_update)
-	
-	for spawner: MobSpawner in get_tree().get_nodes_in_group("spawners"):
-		spawner.mob_spawned.connect(_on_mob_spawned)
 	
 	for objects: NatureObject in get_tree().get_nodes_in_group("nature_objects"):
 		objects.item_dropped.connect(_on_loot_dropped)
