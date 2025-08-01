@@ -27,6 +27,7 @@ func _ready() -> void:
 	_mob_spawner.mob_spawned.connect(_on_mob_spawned)
 	_crafting_table.crafting_in_range.connect(_on_crafting_menu_update)
 	_inventory_ui.inventory_ui_update.connect(_on_inventory_menu_update)
+	_crafting_ui._craft_button.pressed.connect(_on_craft_button_pressed)
 	
 	for objects: NatureObject in get_tree().get_nodes_in_group("nature_objects"):
 		objects.item_dropped.connect(_on_loot_dropped)
@@ -59,7 +60,7 @@ func _on_tool_used(cooldown_sec: float, selected_tool_idx: int) -> void:
 
 func _on_refresh_inventory() -> void:
 	_inventory_ui.refresh_inventory(_inventory_manager.get_inventory())
-
+	_crafting_ui.update_craft_recipe_ui(_inventory_manager.get_count(_crafting_ui.tower_resource.craft_recipe.item_resource))
 
 func _on_loot_dropped(item: ItemResource) -> void:
 	_inventory_manager.add_item(item)
@@ -78,6 +79,7 @@ func _on_crafting_menu_update(in_range: bool) -> void:
 	if not _inventory_ui.is_visible():
 		if not in_range:
 			_crafting_ui.set_visible(false)
+			_crafting_ui.can_toggle_menu = false
 		else:
 			_crafting_ui.can_toggle_menu = in_range
 
@@ -86,3 +88,7 @@ func _on_inventory_menu_update(is_open: bool) -> void:
 	if not _crafting_ui.is_visible():
 		_crafting_ui.can_toggle_menu = !is_open
 		_inventory_ui.set_visible(is_open)
+
+
+func _on_craft_button_pressed():
+	_crafting_ui.handle_craft_button_press(_inventory_manager.remove_item(_crafting_ui.tower_resource.craft_recipe))

@@ -22,6 +22,23 @@ func add_item(item: ItemResource) -> void:
 	emit_signal("refresh_inventory")
 
 
+func remove_item(item_stack: ItemStack) -> bool:
+	for stack: ItemStack in inventory:
+		if stack.item_resource == item_stack.item_resource and stack.item_stack_count >= item_stack.item_stack_count:
+			stack.item_stack_count -= item_stack.item_stack_count
+			emit_signal("refresh_inventory")
+			return true
+	return false
+
+
+func get_count(item: ItemResource) -> int:
+	var count = 0
+	for stack: ItemStack in inventory:
+		if stack.item_resource == item:
+			count += stack.item_stack_count
+	
+	return count
+
 func get_inventory() -> Array[ItemStack]:
 	return inventory 
 	
