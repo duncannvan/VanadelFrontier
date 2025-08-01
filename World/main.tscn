@@ -1217,6 +1217,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="CraftingMenu" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1439,13 +1440,13 @@ y_sort_enabled = true
 script = ExtResource("18_lh7yw")
 
 [node name="Tree" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(488, -155)
+position = Vector2(518, -157)
 
 [node name="Tree2" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(205, -157)
+position = Vector2(454, -282)
 
 [node name="Tree3" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(222, -319)
+position = Vector2(406, -145)
 
 [node name="Rock" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(380, -288)

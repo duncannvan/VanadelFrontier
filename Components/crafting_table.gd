@@ -1,6 +1,6 @@
 class_name CraftingTable extends StaticBody2D
 
-signal crafting_in_range(open: bool)
+signal crafting_in_range(in_range: bool)
 
 @onready var area = $Area2D
 
