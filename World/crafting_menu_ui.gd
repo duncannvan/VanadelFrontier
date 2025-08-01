@@ -1,7 +1,7 @@
 extends Control
 
-@onready var _slot_container: GridContainer = $ColorRect/VBoxContainer/CraftablesContainer
-@onready var _craft_button: Button = $ColorRect/VBoxContainer/Button
+@onready var _slot_container: GridContainer = %CraftablesContainer
+@onready var _craft_button: Button = %Button
 @onready var slots: Array[Node] = _slot_container.get_children()
 var tower_scene: Resource = preload("res://Entities/Towers/ArcherTower/archer_tower.tscn")
 var tower_inst: Tower

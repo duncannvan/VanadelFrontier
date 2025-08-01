@@ -1,9 +1,9 @@
-[gd_scene load_steps=26 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=27 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_tbgi4"]
-[ext_resource type="Script" uid="uid://fsxym4q884cr" path="res://World/world.gd" id="2_r6hqv"]
+[ext_resource type="Script" path="res://World/world.gd" id="2_r6hqv"]
 [ext_resource type="PackedScene" uid="uid://b8x35qdlv5x6e" path="res://UI/BaseHealthBar/base_health_bar.tscn" id="5_1hcjw"]
 [ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="5_r6hqv"]
 [ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/item_slot.tscn" id="6_4pper"]
@@ -13,11 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://dalovudjxroi0" path="res://UI/item_slot_with_count.tscn" id="9_sfxlf"]
 [ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="9_td74h"]
 [ext_resource type="Script" uid="uid://doun5eoaxbkxa" path="res://World/crafting_menu_ui.gd" id="10_2sp6a"]
-[ext_resource type="PackedScene" uid="uid://cise8u0ooajis" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="10_6qnxk"]
 [ext_resource type="Texture2D" uid="uid://3boh2jmo2ts2" path="res://Assets/Sprites/Tools/tool_slot.png" id="10_rqan7"]
 [ext_resource type="Texture2D" uid="uid://rvc0ae2yfc0n" path="res://Assets/Sprites/Tools/selected_tool_slot-export.png" id="11_44n3w"]
 [ext_resource type="Texture2D" uid="uid://u30d1nchjs85" path="res://Assets/Sprites/Tools/hover_tool_slot.png" id="12_2sp6a"]
 [ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="13_44n3w"]
+[ext_resource type="Texture2D" uid="uid://crtslesd8836t" path="res://Assets/Sprites/Items/Log.png" id="15_44n3w"]
 [ext_resource type="PackedScene" uid="uid://gkma5es6o221" path="res://Craft/CraftingTable.tscn" id="15_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/Tree.tscn" id="15_ovush"]
 [ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/Rock.tscn" id="17_r6hqv"]
@@ -1050,6 +1050,9 @@ terrain_set_0/terrain_1/name = "Grass"
 terrain_set_0/terrain_1/color = Color(0, 0.462434, 0.190063, 1)
 sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 
+[sub_resource type="LabelSettings" id="LabelSettings_44n3w"]
+font_size = 8
+
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_tbgi4")
@@ -1202,7 +1205,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="CraftingMenu" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1213,23 +1215,38 @@ script = ExtResource("10_2sp6a")
 
 [node name="ColorRect" type="ColorRect" parent="UI/CraftingMenu"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.105882, 0.105882, 0.105882, 0.352941)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CraftingMenu/ColorRect"]
-layout_mode = 0
-offset_right = 76.0
-offset_bottom = 51.0
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CraftingMenu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -20.0
+offset_right = 86.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="CraftablesContainer" type="GridContainer" parent="UI/CraftingMenu/ColorRect/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CraftablesContainer" type="GridContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 5
 
-[node name="TextureButton" type="TextureButton" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer"]
+[node name="TextureButton" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -1237,7 +1254,7 @@ texture_normal = ExtResource("10_rqan7")
 texture_pressed = ExtResource("11_44n3w")
 texture_hover = ExtResource("12_2sp6a")
 
-[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer/TextureButton"]
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 1
@@ -1257,7 +1274,7 @@ texture = ExtResource("13_44n3w")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureButton2" type="TextureButton" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer"]
+[node name="TextureButton2" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -1265,7 +1282,7 @@ texture_normal = ExtResource("10_rqan7")
 texture_pressed = ExtResource("11_44n3w")
 texture_hover = ExtResource("12_2sp6a")
 
-[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer/TextureButton2"]
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton2"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 1
 anchors_preset = 8
@@ -1284,7 +1301,7 @@ texture = ExtResource("13_44n3w")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureButton3" type="TextureButton" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer"]
+[node name="TextureButton3" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -1292,7 +1309,7 @@ texture_normal = ExtResource("10_rqan7")
 texture_pressed = ExtResource("11_44n3w")
 texture_hover = ExtResource("12_2sp6a")
 
-[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer/TextureButton3"]
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton3"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 1
 anchors_preset = 8
@@ -1311,7 +1328,7 @@ texture = ExtResource("13_44n3w")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureButton4" type="TextureButton" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer"]
+[node name="TextureButton4" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -1319,7 +1336,7 @@ texture_normal = ExtResource("10_rqan7")
 texture_pressed = ExtResource("11_44n3w")
 texture_hover = ExtResource("12_2sp6a")
 
-[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/VBoxContainer/CraftablesContainer/TextureButton4"]
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton4"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 1
 anchors_preset = 8
@@ -1338,12 +1355,35 @@ texture = ExtResource("13_44n3w")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Button" type="Button" parent="UI/CraftingMenu/ColorRect/VBoxContainer"]
+[node name="Button" type="Button" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 8
 action_mode = 0
-text = "Craft"
+text = "CRAFT"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("15_44n3w")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "0 / 20"
+label_settings = SubResource("LabelSettings_44n3w")
 
 [node name="Base" parent="." instance=ExtResource("7_o6xl0")]
 position = Vector2(-1, 5)
@@ -1353,24 +1393,6 @@ position = Vector2(-237, 1)
 _base = NodePath("../Base")
 _player = NodePath("../Player")
 _mob_scenes = Array[PackedScene]([ExtResource("9_td74h")])
-
-[node name="MobSpawner2" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
-position = Vector2(-2, -159)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-_mob_scenes = Array[PackedScene]([ExtResource("10_6qnxk")])
-
-[node name="MobSpawner3" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
-position = Vector2(221, 2)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-_mob_scenes = Array[PackedScene]([ExtResource("9_td74h")])
-
-[node name="MobSpawner4" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
-position = Vector2(-1, 152)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-_mob_scenes = Array[PackedScene]([ExtResource("10_6qnxk")])
 
 [node name="CraftingTable" parent="." instance=ExtResource("15_lh7yw")]
 position = Vector2(46, 46)

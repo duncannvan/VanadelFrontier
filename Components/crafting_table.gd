@@ -1,22 +1,23 @@
 class_name CraftingTable extends StaticBody2D
 
 signal crafting_menu_update(open: bool)
+
 @onready var area = $Area2D
+
 var player_in_range: bool = false
 var is_menu_open = false
 
+
 func _ready() -> void:
-	area.area_entered.connect(_on_area_entered)
-	area.area_exited.connect(_on_area_exited)
+	area.body_entered.connect(_on_area_entered)
+	area.body_exited.connect(_on_area_exited)
 	
 	
-func _on_area_entered(body: Node) -> void: 
-	#TODO: Confirm body param is a Player
+func _on_area_entered(player: Player) -> void: 
 	player_in_range = true
 
 
-func _on_area_exited(body: Node) -> void:
-	#TODO: Confirm body param is a Player
+func _on_area_exited(player: Player) -> void:
 	player_in_range = false
 	is_menu_open = false
 	emit_signal("crafting_menu_update", is_menu_open)
