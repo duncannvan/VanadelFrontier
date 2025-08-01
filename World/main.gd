@@ -25,7 +25,7 @@ func _ready() -> void:
 	_toolbar_ui.refresh_toolbar(_tool_manager.get_all_tools())
 	_nature_spawner.child_entered_tree.connect(_on_nature_obj_respawned)
 	_mob_spawner.mob_spawned.connect(_on_mob_spawned)
-	_crafting_table.crafting_menu_update.connect(_on_crafting_menu_update)
+	_crafting_table.crafting_in_range.connect(_on_crafting_menu_update)
 	_inventory_ui.inventory_ui_update.connect(_on_inventory_menu_update)
 	
 	for objects: NatureObject in get_tree().get_nodes_in_group("nature_objects"):
@@ -74,12 +74,15 @@ func _on_nature_obj_respawned(obj: NatureObject) -> void:
 	obj.item_dropped.connect(_on_loot_dropped)
 
 
-func _on_crafting_menu_update(is_open: bool) -> void:
+func _on_crafting_menu_update(in_range: bool) -> void:
 	if not _inventory_ui.is_visible():
-		#TODO: Send UI visibility state the crafting component if unable to open or closed by the UI
-		_crafting_ui.set_visible(is_open)
+		if not in_range:
+			_crafting_ui.set_visible(false)
+		else:
+			_crafting_ui.can_toggle_menu = in_range
 
 
 func _on_inventory_menu_update(is_open: bool) -> void:
 	if not _crafting_ui.is_visible():
+		_crafting_ui.can_toggle_menu = !is_open
 		_inventory_ui.set_visible(is_open)

@@ -5,7 +5,7 @@ extends Control
 @onready var slots: Array[Node] = _slot_container.get_children()
 var tower_scene: Resource = preload("res://Entities/Towers/ArcherTower/archer_tower.tscn")
 var tower_inst: Tower
-
+var can_toggle_menu: bool = false
 var placing_tower: bool = false
 
 
@@ -43,3 +43,6 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("use_tool") and placing_tower:
 		placing_tower = false
 		tower_inst.get_node("TowerBody").disabled = false
+
+	elif  event.is_action_pressed("interact") and can_toggle_menu:
+		visible = !visible
