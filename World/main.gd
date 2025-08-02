@@ -2,7 +2,6 @@ extends Node2D
 
 @export var waves: Array[Wave]
 
-var elasped_time = 0
 var current_wave: int = 0
 
 @onready var _wave_countdown_timer: Timer = $WaveCountdownTimer

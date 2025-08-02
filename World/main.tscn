@@ -1489,5 +1489,5 @@ position = Vector2(178, -398)
 position = Vector2(351, -136)
 
 [node name="WaveCountdownTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 60.0
 one_shot = true
