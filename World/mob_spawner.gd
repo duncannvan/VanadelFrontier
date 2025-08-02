@@ -1,49 +1,26 @@
 class_name MobSpawner extends Node2D
 
-signal mob_spawned(mob: Mob)
+signal wave_cleared
 
-const SPAWN_TIMER: int = 2
+var mobs_in_wave: Array[PackedScene]
 
-@export var _max_mobs: int = 2
 @export var _base: Node2D = null
 @export var _player: Player = null
-@export var _mob_scenes: Array[PackedScene] = []
-
-@onready var mob_spawn_timer = $MobSpawnTimer
-
-var _count: int = 0 
 
 
-func _ready() -> void:
-	add_to_group("spawners")
-	mob_spawn_timer.connect("timeout", _on_spawn_mobs_timer_timeout)
-	
-
-func _on_spawn_mobs_timer_timeout() -> void:
-	if _count >= _max_mobs:
-		return
-	
-	for mob_scene in _mob_scenes:
-		var mob: Mob = mob_scene.instantiate()
-		if mob.get_targeting_type() == mob.TargetingType.BASE:
-			if _base:
-				mob.set_target(_base) 
-		elif mob.get_targeting_type() == mob.TargetingType.PLAYER:
-			if _player:
-				mob.set_target(_player)
-				
-		mob.global_position = global_position
+func start_wave(wave: Wave):
+	mobs_in_wave = wave.mobs
+	for i in len(mobs_in_wave):
+		var mob_instance = mobs_in_wave.pop_front().instantiate()
+		mob_instance.global_position = global_position
+		mob_instance.target = _base
+		mob_instance.tree_exited.connect(_on_mob_died)
 		
-		owner.add_child(mob)
-		_count += 1
-		mob_spawned.emit(mob)	
-	
-		mob.tree_exited.connect(_on_slime_removed)
-
-func _on_slime_removed():
-	_count -= 1
+		get_tree().root.add_child(mob_instance)
+		
+		await get_tree().create_timer(wave.spawn_interval).timeout
 
 
-func disable() -> void:
-	mob_spawn_timer.stop()
-	
+func _on_mob_died() -> void:
+	if get_tree().get_node_count_in_group("mobs") == 0 and mobs_in_wave.is_empty():
+		wave_cleared.emit()

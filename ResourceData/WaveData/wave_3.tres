@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=4 format=3 uid="uid://y0oa3pjimo8t"]
+
+[ext_resource type="Script" uid="uid://bxh8iuyqcv58a" path="res://Resources/wave.gd" id="1_tdrmo"]
+[ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="1_v4kn7"]
+[ext_resource type="PackedScene" uid="uid://cise8u0ooajis" path="res://Entities/Enemies/BaseSprinter/base_sprinter.tscn" id="2_b7gur"]
+
+[resource]
+script = ExtResource("1_tdrmo")
+spawn_interval = 1.0
+mobs = Array[PackedScene]([ExtResource("1_v4kn7"), ExtResource("2_b7gur"), ExtResource("1_v4kn7"), ExtResource("2_b7gur")])
