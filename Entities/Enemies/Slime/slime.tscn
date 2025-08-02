@@ -123,9 +123,6 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_6f406")
 
-[node name="MobNavigation" parent="." index="5"]
-debug_enabled = true
-
 [node name="DamagedParticles" parent="." index="6"]
 process_material = SubResource("ParticleProcessMaterial_fg4mt")
 
