@@ -2,25 +2,25 @@ class_name MobSpawner extends Node2D
 
 signal wave_cleared
 
-var mobs_in_wave: Array[PackedScene]
+var mobs_in_queue: Array[PackedScene]
 
 @export var _base: Node2D = null
 @export var _player: Player = null
 
 
 func start_wave(wave: Wave):
-	mobs_in_wave = wave.mobs
-	for i in len(mobs_in_wave):
-		var mob_instance = mobs_in_wave.pop_front().instantiate()
+	mobs_in_queue = wave.mobs
+	for i in len(mobs_in_queue):
+		var mob_instance = mobs_in_queue.pop_front().instantiate()
 		mob_instance.global_position = global_position
 		mob_instance.target = _base
-		mob_instance.tree_exited.connect(_on_mob_died)
-		
+		mob_instance.died.connect(_on_mob_died)
 		get_tree().root.add_child(mob_instance)
 		
 		await get_tree().create_timer(wave.spawn_interval).timeout
 
 
 func _on_mob_died() -> void:
-	if get_tree().get_node_count_in_group("mobs") == 0 and mobs_in_wave.is_empty():
+	# The ordering is _on_mob_died()-> mob.queue_free(), meaning 1 mob in group at function call == wave cleared
+	if get_tree().get_node_count_in_group("mobs") == 1 and mobs_in_queue.is_empty():
 		wave_cleared.emit()

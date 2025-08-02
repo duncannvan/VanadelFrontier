@@ -6,6 +6,7 @@ enum State {
 }
 
 signal loot_dropped(item: ItemResource)
+signal died()
 
 const PLAYER_PATH: NodePath = "../Player"
 
@@ -95,6 +96,8 @@ func _die() -> void:
 		get_tree().root.add_child(_death_effect_instance)
 	if _loot_drop:
 		emit_signal("loot_dropped", _loot_drop)
+	
+	died.emit()
 	queue_free()
 
 
