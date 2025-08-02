@@ -23,14 +23,9 @@ func add_item(item: ItemResource) -> void:
 
 
 func remove_item(item_stack: ItemStack) -> bool:
-	var total_item_count: int = 0
 	var num_left_to_remove: int = item_stack.item_stack_count
 	var stacks_to_remove: Array[ItemStack] = []
-	
-	# Get total counts of the item in inventory
-	for stack: ItemStack in inventory:
-		if stack.item_resource == item_stack.item_resource:
-			total_item_count += stack.item_stack_count
+	var total_item_count: int = get_count(item_stack.item_resource)
 	
 	# Not enough in inventory to remove
 	if item_stack.item_stack_count > total_item_count:
@@ -55,11 +50,10 @@ func remove_item(item_stack: ItemStack) -> bool:
 
 
 func get_count(item: ItemResource) -> int:
-	var count = 0
+	var count: int = 0
 	for stack: ItemStack in inventory:
 		if stack.item_resource == item:
 			count += stack.item_stack_count
-	
 	return count
 
 func get_inventory() -> Array[ItemStack]:

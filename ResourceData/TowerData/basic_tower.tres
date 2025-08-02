@@ -11,7 +11,7 @@
 [sub_resource type="Resource" id="Resource_3jbne"]
 script = ExtResource("4_7qc04")
 item_resource = ExtResource("4_yd1x5")
-item_stack_count = 10
+item_stack_count = 5
 metadata/_custom_type_script = "uid://cmvv0xeotkvh6"
 
 [resource]

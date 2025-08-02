@@ -7,7 +7,6 @@ var _mobs_in_range: Array[Mob] = []
 
 @onready var _fire_rate_timer: Timer = $FireRateTimer
 @onready var _atk_range: Area2D = $Range
-@onready var _sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
 	_atk_range.body_entered.connect(_on_body_entered)
