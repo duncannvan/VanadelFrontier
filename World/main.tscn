@@ -1,9 +1,9 @@
-[gd_scene load_steps=23 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=31 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dleudyb8ots0n" path="res://World/main.gd" id="1_tbgi4"]
-[ext_resource type="Script" path="res://World/world.gd" id="2_r6hqv"]
+[ext_resource type="Script" uid="uid://fsxym4q884cr" path="res://World/world.gd" id="2_r6hqv"]
 [ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://UI/BaseHealthBar/base_health_bar.gd" id="5_m0hhd"]
 [ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="5_r6hqv"]
 [ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/item_slot.tscn" id="6_4pper"]
@@ -11,15 +11,25 @@
 [ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/HealthBar/health_bar_progress.png" id="7_44n3w"]
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="8_1hcjw"]
-[ext_resource type="PackedScene" uid="uid://bv6sb3ptrywyx" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="8_04q08"]
 [ext_resource type="Script" uid="uid://cpv8ka1gnos17" path="res://World/inventory_ui.gd" id="8_scvq1"]
 [ext_resource type="PackedScene" uid="uid://dalovudjxroi0" path="res://UI/item_slot_with_count.tscn" id="9_sfxlf"]
 [ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="9_td74h"]
+[ext_resource type="Script" uid="uid://doun5eoaxbkxa" path="res://World/crafting_menu_ui.gd" id="10_2sp6a"]
+[ext_resource type="Resource" uid="uid://cdrjighqw0c4c" path="res://ResourceData/TowerData/basic_tower.tres" id="10_ixdso"]
+[ext_resource type="Texture2D" uid="uid://3boh2jmo2ts2" path="res://Assets/Sprites/Tools/tool_slot.png" id="10_rqan7"]
+[ext_resource type="Texture2D" uid="uid://rvc0ae2yfc0n" path="res://Assets/Sprites/Tools/selected_tool_slot-export.png" id="11_44n3w"]
+[ext_resource type="Texture2D" uid="uid://u30d1nchjs85" path="res://Assets/Sprites/Tools/hover_tool_slot.png" id="12_2sp6a"]
+[ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="13_44n3w"]
+[ext_resource type="Texture2D" uid="uid://crtslesd8836t" path="res://Assets/Sprites/Items/Log.png" id="15_44n3w"]
+[ext_resource type="PackedScene" uid="uid://gkma5es6o221" path="res://Craft/CraftingTable.tscn" id="15_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/Tree.tscn" id="17_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/Rock.tscn" id="17_r6hqv"]
 [ext_resource type="Script" uid="uid://cupibelbjigbq" path="res://World/nature_spawner.gd" id="18_lh7yw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_td74h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_44n3w"]
+font_size = 8
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -1206,6 +1216,190 @@ layout_mode = 2
 [node name="Slot10" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
 layout_mode = 2
 
+[node name="CraftingMenu" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_2sp6a")
+tower_resource = ExtResource("10_ixdso")
+
+[node name="ColorRect" type="ColorRect" parent="UI/CraftingMenu"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.105882, 0.105882, 0.352941)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CraftingMenu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -20.0
+offset_right = 86.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CraftablesContainer" type="GridContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 5
+
+[node name="TextureButton" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("10_rqan7")
+texture_pressed = ExtResource("11_44n3w")
+texture_hover = ExtResource("12_2sp6a")
+
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_44n3w")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureButton2" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("10_rqan7")
+texture_pressed = ExtResource("11_44n3w")
+texture_hover = ExtResource("12_2sp6a")
+
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton2"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_44n3w")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureButton3" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("10_rqan7")
+texture_pressed = ExtResource("11_44n3w")
+texture_hover = ExtResource("12_2sp6a")
+
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton3"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_44n3w")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureButton4" type="TextureButton" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer"]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("10_rqan7")
+texture_pressed = ExtResource("11_44n3w")
+texture_hover = ExtResource("12_2sp6a")
+
+[node name="ItemTextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer/CraftablesContainer/TextureButton4"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_44n3w")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Button" type="Button" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 8
+action_mode = 0
+text = "CRAFT"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("15_44n3w")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="UI/CraftingMenu/ColorRect/HBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0 / 20"
+label_settings = SubResource("LabelSettings_44n3w")
+
 [node name="World" type="Node2D" parent="."]
 position = Vector2(346, -273)
 script = ExtResource("2_r6hqv")
@@ -1238,22 +1432,21 @@ _base = NodePath("../Base")
 _player = NodePath("../Player")
 _mob_scenes = Array[PackedScene]([ExtResource("9_td74h")])
 
-[node name="ArcherTower" parent="." instance=ExtResource("8_04q08")]
-visible = true
-position = Vector2(426, -283)
+[node name="CraftingTable" parent="." instance=ExtResource("15_lh7yw")]
+position = Vector2(531, -242)
 
 [node name="NatureSpawner" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("18_lh7yw")
 
 [node name="Tree" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(488, -155)
+position = Vector2(518, -157)
 
 [node name="Tree2" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(205, -157)
+position = Vector2(454, -282)
 
 [node name="Tree3" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(222, -319)
+position = Vector2(406, -145)
 
 [node name="Rock" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(380, -288)

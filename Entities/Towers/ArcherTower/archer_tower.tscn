@@ -9,6 +9,7 @@
 size = Vector2(24, 14)
 
 [node name="ArcherTower" instance=ExtResource("1_cmcjc")]
+visible = true
 y_sort_enabled = true
 
 [node name="Sprite2D" parent="." index="0"]
