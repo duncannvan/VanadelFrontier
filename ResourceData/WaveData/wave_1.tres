@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=3 format=3 uid="uid://bwbt0nk7owr3d"]
+
+[ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Entities/Enemies/Slime/slime.tscn" id="1_lr2bg"]
+[ext_resource type="Script" uid="uid://bxh8iuyqcv58a" path="res://Resources/wave.gd" id="1_ww78u"]
+
+[resource]
+script = ExtResource("1_ww78u")
+spawn_interval = 1.0
+mobs = Array[PackedScene]([ExtResource("1_lr2bg"), ExtResource("1_lr2bg")])

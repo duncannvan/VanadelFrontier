@@ -147,11 +147,12 @@ nature_item = ExtResource("2_ot18c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ot18c")
-position = Vector2(0.5, -19)
+position = Vector2(-26, -6)
 texture = ExtResource("4_kerrk")
+offset = Vector2(25.5, -13)
 
 [node name="Hurtbox" type="Area2D" parent="."]
-position = Vector2(0.5, -19)
+position = Vector2(-0.5, -19)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("5_sup5y")
@@ -162,7 +163,7 @@ position = Vector2(0.5, 16.918)
 shape = SubResource("RectangleShape2D_4mqxk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -2)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_4mqxk")
 
 [node name="StatsComponents" type="Node" parent="."]
@@ -171,7 +172,7 @@ _stats = ExtResource("7_8tj72")
 metadata/_custom_type_script = "uid://disun15mfvhrx"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(0, -36)
+position = Vector2(-1, -36)
 scale = Vector2(0.569917, 0.645364)
 emitting = false
 amount = 12
