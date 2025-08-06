@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b8wgn38g22fvs"]
+[gd_scene load_steps=24 format=3 uid="uid://b8wgn38g22fvs"]
 
 [ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Nature/tree.gd" id="1_3opvk"]
 [ext_resource type="Shader" uid="uid://dtpa3cfioyt7e" path="res://Nature/tree_shader.gdshader" id="2_0f6uc"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="6_iyu0o"]
 [ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="7_0f6uc"]
 [ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="7_8tj72"]
+[ext_resource type="AudioStream" uid="uid://cxngwnqrr3p8c" path="res://Assets/Audio/tree.mp3" id="9_2gpob"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ot18c"]
 resource_local_to_scene = true
@@ -16,6 +17,9 @@ shader_parameter/shake = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
 size = Vector2(17.25, 13.8359)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2gpob"]
+radius = 7.0
 
 [sub_resource type="Curve" id="Curve_ot18c"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.818565, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -91,6 +95,11 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2gpob"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("9_2gpob")
+
 [sub_resource type="Animation" id="Animation_0f6uc"]
 resource_name = "damaged"
 length = 0.3
@@ -132,6 +141,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamagedSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": SubResource("AudioStreamRandomizer_2gpob")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2gpob"]
 _data = {
@@ -163,8 +187,8 @@ position = Vector2(0.5, 16.918)
 shape = SubResource("RectangleShape2D_4mqxk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_4mqxk")
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_2gpob")
 
 [node name="StatsComponents" type="Node" parent="."]
 script = ExtResource("6_iyu0o")
@@ -189,3 +213,5 @@ libraries = {
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 radius = 10.0
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]

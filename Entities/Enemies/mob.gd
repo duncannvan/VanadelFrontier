@@ -17,7 +17,7 @@ const PLAYER_PATH: NodePath = "../Player"
 var _state: State = State.USING_TOOL
 
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
-@onready var _damaged_animation: AnimationPlayer = $DamagedAnimation
+@onready var _damaged_effects: AnimationPlayer = $DamagedEffects
 @onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _damaged_particles: GPUParticles2D = $DamagedParticles
@@ -81,7 +81,7 @@ func _emit_damaged_effects(hitbox_position: Vector2):
 	if _damaged_particles:
 		_damaged_particles.rotation = hitbox_position.direction_to(global_position).angle()
 
-	_damaged_animation.play("damaged_effects")
+	_damaged_effects.play("damaged_effects")
 
 
 func _apply_attack_effects(hitbox: Hitbox) -> void:
