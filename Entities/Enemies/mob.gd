@@ -4,44 +4,42 @@ enum State {
 	USING_TOOL,
 	KNOCKEDBACK
 }
-enum TargetingType {
-	BASE, 
-	PLAYER,
-}
 
 signal loot_dropped(item: ItemResource)
+signal died()
 
 const PLAYER_PATH: NodePath = "../Player"
 
-@export var _targeting_type: TargetingType = TargetingType.BASE
 @export var _death_effect: PackedScene = null
-@export var _target: Node2D = null
+@export var target: Node2D = null
 @export var _loot_drop: ItemResource = null
 
 var _state: State = State.USING_TOOL
 
 @onready var _nav_agent: NavigationAgent2D = $MobNavigation
-@onready var _damaged_animation: AnimationPlayer = $DamagedAnimation
+@onready var _damaged_effects: AnimationPlayer = $DamagedEffects
 @onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _stats_component: StatsComponents = $StatsComponents
 @onready var _damaged_particles: GPUParticles2D = $DamagedParticles
 @onready var _slowed_animation: AnimationPlayer = $SlowedAnimation
-@onready var _hitbox: Hitbox = $BodyHitbox
+@onready var _body_hitbox: Hitbox = $BodyHitbox
 
 
 func _ready() -> void:
+	add_to_group("mobs")
+	
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_nav_agent.velocity_computed.connect(_on_velocity_computed)
 	_stats_component.died.connect(_die)
 	_stats_component.slowed_ended.connect(_remove_slow)
-	_hitbox.set_attack_effects(_stats_component._stats.atk_effects)
+	_body_hitbox.set_attack_effects(_stats_component._stats.atk_effects)
 
 
 func _physics_process(delta: float) -> void:
-	if not _target or not _nav_agent: 
+	if not target or not _nav_agent: 
 		return
 	
-	_nav_agent.set_target_position(_target.global_position)
+	_nav_agent.set_target_position(target.global_position)
 
 	# Exit early if the navigation map hasn't been initialized or updated yet
 	if NavigationServer2D.map_get_iteration_id(_nav_agent.get_navigation_map()) == 0:
@@ -60,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	
 
 func _on_velocity_computed(adjusted_velocity: Vector2):
-	if not _target: 
+	if not target: 
 		velocity = Vector2.ZERO
 	
 	if _state != State.KNOCKEDBACK: 
@@ -83,7 +81,7 @@ func _emit_damaged_effects(hitbox_position: Vector2):
 	if _damaged_particles:
 		_damaged_particles.rotation = hitbox_position.direction_to(global_position).angle()
 
-	_damaged_animation.play("damaged_effects")
+	_damaged_effects.play("damaged_effects")
 
 
 func _apply_attack_effects(hitbox: Hitbox) -> void:
@@ -98,6 +96,8 @@ func _die() -> void:
 		get_tree().root.add_child(_death_effect_instance)
 	if _loot_drop:
 		emit_signal("loot_dropped", _loot_drop)
+	
+	died.emit()
 	queue_free()
 
 
@@ -115,11 +115,3 @@ func apply_damage(damage: int, hitbox_position: Vector2) -> void:
 
 func get_health() -> int: 
 	return _stats_component.get_health()
-
-
-func get_targeting_type() -> TargetingType:
-	return _targeting_type
-
-
-func set_target(target: Node2D) -> void:
-	_target = target

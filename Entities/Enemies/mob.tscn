@@ -77,37 +77,33 @@ tracks/1/keys = {
 "method": &"restart"
 }]
 }
-tracks/2/type = "audio"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/path = NodePath("MobSprite:material:shader_parameter/flash")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"clips": [{
-"end_offset": 0.939326,
-"start_offset": 0.316441,
-"stream": ExtResource("10_ou542")
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": SubResource("AudioStreamRandomizer_ou542")
-}],
-"times": PackedFloat32Array(0, 0.0001)
-}
-tracks/2/use_blend = true
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MobSprite:material:shader_parameter/flash")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamagedSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": SubResource("AudioStreamRandomizer_ou542")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2tktv"]
 _data = {
@@ -184,7 +180,7 @@ collision_mask = 8
 script = ExtResource("8_fo871")
 metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
-[node name="DamagedAnimation" type="AnimationPlayer" parent="."]
+[node name="DamagedEffects" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_2tktv")
 }
@@ -206,7 +202,7 @@ one_shot = true
 explosiveness = 1.0
 process_material = ExtResource("9_ou542")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
 max_distance = 200.0
 
 [node name="MobSprite" type="AnimatedSprite2D" parent="."]

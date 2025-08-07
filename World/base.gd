@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 
 @onready var mob_detector = $MobDetector
 @onready var _stats_component = $StatsComponents
