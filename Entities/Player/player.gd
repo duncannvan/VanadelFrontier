@@ -30,6 +30,7 @@ var _last_facing_direction: Vector2 = Vector2.DOWN
 
 
 func _ready() -> void:
+	add_to_group("players")
 	_hurtbox.hurtbox_entered.connect(_apply_attack_effects)
 	_stats_component.died.connect(_die)
 	_update_blend_positions(_last_facing_direction)
