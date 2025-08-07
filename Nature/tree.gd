@@ -1,6 +1,6 @@
 class_name TreeObject extends NatureObject
 
-const TREE_UID: String = "uid://b8wgn38g22fvs"
+const TREE_UID: String = "uid://beih0jnnpi4kh"
 
 @export var respawn_time_s: int = 10
 
