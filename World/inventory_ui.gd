@@ -6,7 +6,7 @@ signal inventory_ui_update(is_open: bool) # TODO: Remove once UI manager in plac
 
 # TODO: Move to ui manager
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("inventory"):
+	if event.is_action_pressed("inventory"):
 		emit_signal("inventory_ui_update", !visible)
 
 

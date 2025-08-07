@@ -27,11 +27,12 @@ func _process(_delta: float) -> void:
 		
 		
 # TODO: Move to menu mangager
-func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("use_tool") and placing_tower:
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("use_tool") and placing_tower:
 		placing_tower = false
 		tower_inst.get_node("TowerBody").disabled = false
-
+		get_viewport().set_input_as_handled()
+		
 	elif event.is_action_pressed("interact") and all_menus_closed and is_player_in_range:
 		visible = !visible
 

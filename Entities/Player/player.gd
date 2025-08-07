@@ -36,6 +36,18 @@ func _ready() -> void:
 	_update_blend_positions(_last_facing_direction)
 	_tool_manager.set_blend_point_idx_mapping(_animation_tree)
 	_tool_manager.tool_used.connect(_on_tool_used)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	var state_string: String = _playback_states.get_current_node()
+	if not _states.has(state_string): 
+		return
+	
+	match _states[state_string]:
+		States.MOVE:
+			if event.is_action_pressed("use_tool") and !get_viewport().gui_get_hovered_control():
+				if _tool_manager.is_tool_selected():
+					_tool_manager.use_selected_tool(self)
 	
 	
 func _physics_process(delta: float) -> void:
@@ -74,10 +86,6 @@ func _handle_movement():
 	if direction != Vector2.ZERO:
 		_last_facing_direction = direction
 		_update_blend_positions(_last_facing_direction)
-		
-	if Input.is_action_just_pressed("use_tool") and !get_viewport().gui_get_hovered_control():
-		if _tool_manager.is_tool_selected():
-			_tool_manager.use_selected_tool(self)
 			
 	velocity = direction * _stats_component.get_current_speed()
 	move_and_slide()
