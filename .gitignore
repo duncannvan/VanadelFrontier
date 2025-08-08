@@ -4,3 +4,5 @@
 *.translation
 *.tmp
 /Testing/
+.DS_Store
+.vscode/
