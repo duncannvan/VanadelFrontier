@@ -25,10 +25,10 @@
 [ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="13_44n3w"]
 [ext_resource type="Texture2D" uid="uid://crtslesd8836t" path="res://Assets/Sprites/Items/Log.png" id="15_44n3w"]
 [ext_resource type="PackedScene" uid="uid://gkma5es6o221" path="res://Craft/CraftingTable.tscn" id="15_lh7yw"]
-[ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/Tree.tscn" id="17_lh7yw"]
-[ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/Rock.tscn" id="17_r6hqv"]
 [ext_resource type="Script" uid="uid://cupibelbjigbq" path="res://World/nature_spawner.gd" id="18_lh7yw"]
 [ext_resource type="Script" uid="uid://bns0nfda5caof" path="res://World/wave_timer.gd" id="20_40rxn"]
+[ext_resource type="PackedScene" uid="uid://beih0jnnpi4kh" path="res://Nature/tree.tscn" id="28_40rxn"]
+[ext_resource type="PackedScene" uid="uid://qr4o0q7u40xm" path="res://Nature/rock.tscn" id="29_40rxn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_td74h"]
 
@@ -1470,23 +1470,23 @@ position = Vector2(531, -242)
 y_sort_enabled = true
 script = ExtResource("18_lh7yw")
 
-[node name="Tree" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(518, -157)
+[node name="Tree" parent="NatureSpawner" instance=ExtResource("28_40rxn")]
+position = Vector2(554, -193)
 
-[node name="Tree2" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(454, -282)
+[node name="Tree2" parent="NatureSpawner" instance=ExtResource("28_40rxn")]
+position = Vector2(440, -235)
 
-[node name="Tree3" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
-position = Vector2(406, -145)
+[node name="Tree3" parent="NatureSpawner" instance=ExtResource("28_40rxn")]
+position = Vector2(343, -158)
 
-[node name="Rock" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
-position = Vector2(380, -288)
+[node name="Rock" parent="NatureSpawner" instance=ExtResource("29_40rxn")]
+position = Vector2(261, -195)
 
-[node name="Rock2" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
-position = Vector2(178, -398)
+[node name="Rock2" parent="NatureSpawner" instance=ExtResource("29_40rxn")]
+position = Vector2(298, -137)
 
-[node name="Rock3" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
-position = Vector2(351, -136)
+[node name="Rock3" parent="NatureSpawner" instance=ExtResource("29_40rxn")]
+position = Vector2(396, -221)
 
 [node name="WaveCountdownTimer" type="Timer" parent="."]
 wait_time = 60.0

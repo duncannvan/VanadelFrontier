@@ -1,12 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://bq8enjaug7mue"]
+[gd_scene load_steps=18 format=3 uid="uid://qr4o0q7u40xm"]
 
 [ext_resource type="Script" uid="uid://dnlrlv08dmu0l" path="res://Nature/rock.gd" id="1_151ig"]
+[ext_resource type="PackedScene" uid="uid://decp3lgwi255x" path="res://Nature/NatureObject.tscn" id="1_o0qsl"]
 [ext_resource type="Resource" uid="uid://c0bvadt1b5n4q" path="res://ResourceData/ItemData/rock.tres" id="2_ofjvm"]
 [ext_resource type="Texture2D" uid="uid://dxf3mqixtyysb" path="res://Assets/Sprites/Nature/large_rock-export.png" id="3_6e2mq"]
-[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="3_151ig"]
-[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="4_ofjvm"]
 [ext_resource type="Shader" uid="uid://b03kgs78lck3j" path="res://Nature/rock_shader.gdshader" id="5_ofjvm"]
 [ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="6_t31ou"]
+[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/ParticleTextures/mob_hurt_particle.png" id="7_sfwxr"]
 [ext_resource type="AudioStream" uid="uid://c1x15ud624ali" path="res://Assets/Audio/rock.mp3" id="8_io6rs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ofjvm"]
@@ -24,8 +24,17 @@ radius = 13.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_151ig"]
 radius = 13.0384
 
-[sub_resource type="Animation" id="Animation_ofjvm"]
-length = 0.001
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ds2gk"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 10.0
+initial_velocity_min = 235.0
+initial_velocity_max = 265.0
+gravity = Vector3(0, 600, 0)
+
+[sub_resource type="Animation" id="Animation_sfwxr"]
+resource_name = "RESET"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -38,6 +47,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamagedParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_m0cn8"]
 playback_mode = 1
@@ -45,9 +66,8 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/stream = ExtResource("8_io6rs")
 
-[sub_resource type="Animation" id="Animation_151ig"]
+[sub_resource type="Animation" id="Animation_ostf1"]
 resource_name = "damaged"
-length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -75,49 +95,88 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/1/use_blend = true
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ofjvm"]
-_data = {
-&"RESET": SubResource("Animation_ofjvm"),
-&"damaged": SubResource("Animation_151ig")
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamagedParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamagedParticles")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"restart"
+}]
 }
 
-[node name="Rock" type="StaticBody2D"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ds2gk"]
+_data = {
+&"RESET": SubResource("Animation_sfwxr"),
+&"damaged": SubResource("Animation_ostf1")
+}
+
+[node name="Rock" instance=ExtResource("1_o0qsl")]
 script = ExtResource("1_151ig")
 nature_item = ExtResource("2_ofjvm")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" parent="." index="0"]
 material = SubResource("ShaderMaterial_ofjvm")
 position = Vector2(0, -3.5)
 texture = ExtResource("3_6e2mq")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" parent="." index="1"]
+visible = false
 position = Vector2(0, -3.5)
 collision_layer = 256
 collision_mask = 0
-script = ExtResource("3_151ig")
-metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 material = SubResource("ShaderMaterial_io6rs")
 position = Vector2(0, 2.5)
 shape = SubResource("CircleShape2D_ofjvm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_151ig")
 
-[node name="StatsComponents" type="Node" parent="."]
-script = ExtResource("4_ofjvm")
+[node name="StatsComponents" parent="." index="3"]
 _stats = ExtResource("6_t31ou")
-metadata/_custom_type_script = "uid://disun15mfvhrx"
 
-[node name="DamagedEffects" type="AnimationPlayer" parent="."]
+[node name="DamagedParticles" parent="." index="4"]
+modulate = Color(0.898039, 0.898039, 0.807843, 1)
+show_behind_parent = true
+position = Vector2(-4, 4)
+emitting = false
+amount = 3
+texture = ExtResource("7_sfwxr")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ds2gk")
+
+[node name="DamagedEffects" parent="." index="5"]
 libraries = {
-&"": SubResource("AnimationLibrary_ofjvm")
+&"": SubResource("AnimationLibrary_ds2gk")
 }
+movie_quit_on_finish = true
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+[node name="NavigationObstacle2D" parent="." index="6"]
+visible = false
 radius = 15.0
 
-[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+[node name="DamagedSound" parent="." index="7"]
+visible = false

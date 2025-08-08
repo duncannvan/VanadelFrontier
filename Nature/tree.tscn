@@ -1,18 +1,17 @@
-[gd_scene load_steps=24 format=3 uid="uid://b8wgn38g22fvs"]
+[gd_scene load_steps=23 format=3 uid="uid://beih0jnnpi4kh"]
 
-[ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Nature/tree.gd" id="1_3opvk"]
-[ext_resource type="Shader" uid="uid://dtpa3cfioyt7e" path="res://Nature/tree_shader.gdshader" id="2_0f6uc"]
-[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_ot18c"]
-[ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="4_kerrk"]
-[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_sup5y"]
-[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="6_iyu0o"]
-[ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="7_0f6uc"]
-[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="7_8tj72"]
-[ext_resource type="AudioStream" uid="uid://cxngwnqrr3p8c" path="res://Assets/Audio/tree.mp3" id="9_2gpob"]
+[ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Nature/tree.gd" id="1_2uypa"]
+[ext_resource type="PackedScene" uid="uid://decp3lgwi255x" path="res://Nature/NatureObject.tscn" id="1_o2208"]
+[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_grldx"]
+[ext_resource type="Shader" uid="uid://dtpa3cfioyt7e" path="res://Nature/tree_shader.gdshader" id="3_kerrk"]
+[ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="4_sup5y"]
+[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="7_mk07q"]
+[ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="8_4onfn"]
+[ext_resource type="AudioStream" uid="uid://cxngwnqrr3p8c" path="res://Assets/Audio/tree.mp3" id="9_7i8uv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ot18c"]
 resource_local_to_scene = true
-shader = ExtResource("2_0f6uc")
+shader = ExtResource("3_kerrk")
 shader_parameter/shake = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
@@ -68,12 +67,12 @@ turbulence_enabled = true
 turbulence_influence_min = 0.07
 turbulence_influence_max = 0.07
 
-[sub_resource type="Animation" id="Animation_ot18c"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_yao6w"]
+resource_name = "RESET"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/path = NodePath("DamagedParticles:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -98,15 +97,15 @@ tracks/1/keys = {
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2gpob"]
 random_pitch = 1.2
 streams_count = 1
-stream_0/stream = ExtResource("9_2gpob")
+stream_0/stream = ExtResource("9_7i8uv")
 
-[sub_resource type="Animation" id="Animation_0f6uc"]
+[sub_resource type="Animation" id="Animation_4r0of"]
 resource_name = "damaged"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/path = NodePath("DamagedParticles:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -115,39 +114,25 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles2D")
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/shake")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [false],
-"method": &"restart"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:material:shader_parameter/shake")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/3/type = "audio"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("DamagedSound")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamagedSound")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -155,63 +140,69 @@ tracks/3/keys = {
 }],
 "times": PackedFloat32Array(0)
 }
-tracks/3/use_blend = true
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2gpob"]
-_data = {
-&"RESET": SubResource("Animation_ot18c"),
-&"damaged": SubResource("Animation_0f6uc")
+tracks/2/use_blend = true
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamagedParticles")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"restart"
+}]
 }
 
-[node name="Tree" type="StaticBody2D"]
-position = Vector2(0, -1)
-collision_mask = 0
-script = ExtResource("1_3opvk")
-nature_item = ExtResource("2_ot18c")
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yao6w"]
+_data = {
+&"RESET": SubResource("Animation_yao6w"),
+&"damaged": SubResource("Animation_4r0of")
+}
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Tree" instance=ExtResource("1_o2208")]
+script = ExtResource("1_2uypa")
+nature_item = ExtResource("2_grldx")
+
+[node name="Sprite2D" parent="." index="0"]
 material = SubResource("ShaderMaterial_ot18c")
 position = Vector2(-26, -6)
-texture = ExtResource("4_kerrk")
+texture = ExtResource("4_sup5y")
 offset = Vector2(25.5, -13)
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" parent="." index="1"]
 position = Vector2(-0.5, -19)
 collision_layer = 256
 collision_mask = 0
-script = ExtResource("5_sup5y")
-metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0.5, 16.918)
 shape = SubResource("RectangleShape2D_4mqxk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_2gpob")
 
-[node name="StatsComponents" type="Node" parent="."]
-script = ExtResource("6_iyu0o")
-_stats = ExtResource("7_8tj72")
-metadata/_custom_type_script = "uid://disun15mfvhrx"
+[node name="StatsComponents" parent="." index="3"]
+_stats = ExtResource("7_mk07q")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="DamagedParticles" parent="." index="4"]
 position = Vector2(-1, -36)
 scale = Vector2(0.569917, 0.645364)
 emitting = false
 amount = 12
-texture = ExtResource("7_0f6uc")
+texture = ExtResource("8_4onfn")
 lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ot18c")
 
-[node name="DamagedEffects" type="AnimationPlayer" parent="."]
+[node name="DamagedEffects" parent="." index="5"]
 libraries = {
-&"": SubResource("AnimationLibrary_2gpob")
+&"": SubResource("AnimationLibrary_yao6w")
 }
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+[node name="NavigationObstacle2D" parent="." index="6"]
 radius = 10.0
-
-[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
