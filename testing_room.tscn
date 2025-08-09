@@ -8,10 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="7_cbcji"]
 [ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://UI/BaseHealthBar/base_health_bar.gd" id="7_d6e42"]
 [ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/HealthBar/health_bar_under.png" id="8_1puqc"]
-[ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="8_h5bih"]
+[ext_resource type="Script" uid="uid://iott08k23u4a" path="res://UI/tool_bar_ui.gd" id="8_h5bih"]
 [ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/HealthBar/health_bar_progress.png" id="9_d0n00"]
 [ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/item_slot.tscn" id="9_urwao"]
-[ext_resource type="Script" uid="uid://cpv8ka1gnos17" path="res://World/inventory_ui.gd" id="10_d6e42"]
+[ext_resource type="Script" uid="uid://cpv8ka1gnos17" path="res://UI/inventory_ui.gd" id="10_d6e42"]
 [ext_resource type="PackedScene" uid="uid://dalovudjxroi0" path="res://UI/item_slot_with_count.tscn" id="11_1puqc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q52up"]

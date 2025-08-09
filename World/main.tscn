@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=35 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bjrk5kxpv2mrq" path="res://Entities/Player/player.tscn" id="1_o5qli"]
@@ -8,28 +8,26 @@
 [ext_resource type="Resource" uid="uid://bwbt0nk7owr3d" path="res://ResourceData/WaveData/wave_1.tres" id="3_40rxn"]
 [ext_resource type="Resource" uid="uid://bw11dvtaejr4" path="res://ResourceData/WaveData/wave_2.tres" id="4_5k5ia"]
 [ext_resource type="Script" uid="uid://xhychvyuofjg" path="res://UI/BaseHealthBar/base_health_bar.gd" id="5_m0hhd"]
-[ext_resource type="Script" uid="uid://iott08k23u4a" path="res://World/tool_bar_ui.gd" id="5_r6hqv"]
+[ext_resource type="Script" uid="uid://iott08k23u4a" path="res://UI/ToolBar/tool_bar_ui.gd" id="5_r6hqv"]
 [ext_resource type="Resource" uid="uid://y0oa3pjimo8t" path="res://ResourceData/WaveData/wave_3.tres" id="5_v0hog"]
 [ext_resource type="PackedScene" uid="uid://b350p5on3d5dd" path="res://UI/ToolBar/item_slot.tscn" id="6_4pper"]
 [ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/HealthBar/health_bar_under.png" id="6_rqan7"]
 [ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/HealthBar/health_bar_progress.png" id="7_44n3w"]
 [ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://World/base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://World/mob_spawner.tscn" id="8_1hcjw"]
-[ext_resource type="Script" uid="uid://cpv8ka1gnos17" path="res://World/inventory_ui.gd" id="8_scvq1"]
-[ext_resource type="PackedScene" uid="uid://dalovudjxroi0" path="res://UI/item_slot_with_count.tscn" id="9_sfxlf"]
-[ext_resource type="Script" uid="uid://doun5eoaxbkxa" path="res://World/crafting_menu_ui.gd" id="10_2sp6a"]
-[ext_resource type="Resource" uid="uid://cdrjighqw0c4c" path="res://ResourceData/TowerData/basic_tower.tres" id="10_ixdso"]
-[ext_resource type="Texture2D" uid="uid://3boh2jmo2ts2" path="res://Assets/Sprites/Tools/tool_slot.png" id="10_rqan7"]
-[ext_resource type="Texture2D" uid="uid://rvc0ae2yfc0n" path="res://Assets/Sprites/Tools/selected_tool_slot-export.png" id="11_44n3w"]
-[ext_resource type="Texture2D" uid="uid://u30d1nchjs85" path="res://Assets/Sprites/Tools/hover_tool_slot.png" id="12_2sp6a"]
-[ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="13_44n3w"]
-[ext_resource type="Texture2D" uid="uid://crtslesd8836t" path="res://Assets/Sprites/Items/Log.png" id="15_44n3w"]
+[ext_resource type="Script" uid="uid://cpv8ka1gnos17" path="res://UI/Inventory/inventory_ui.gd" id="8_scvq1"]
+[ext_resource type="PackedScene" uid="uid://dalovudjxroi0" path="res://UI/Inventory/item_slot_with_count.tscn" id="9_sfxlf"]
+[ext_resource type="Script" uid="uid://doun5eoaxbkxa" path="res://UI/CraftingMenu/crafting_menu_ui.gd" id="10_2sp6a"]
+[ext_resource type="Resource" uid="uid://cdrjighqw0c4c" path="res://ResourceData/TowerData/archer_tower.tres" id="10_ixdso"]
 [ext_resource type="PackedScene" uid="uid://gkma5es6o221" path="res://Craft/CraftingTable.tscn" id="15_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/tree.tscn" id="17_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/rock.tscn" id="17_r6hqv"]
 [ext_resource type="Script" uid="uid://cupibelbjigbq" path="res://World/nature_spawner.gd" id="18_lh7yw"]
-[ext_resource type="Script" uid="uid://bns0nfda5caof" path="res://World/wave_timer.gd" id="20_40rxn"]
-[ext_resource type="Script" uid="uid://hq5su4ngdenn" path="res://World/popup_manager.gd" id="21_5k5ia"]
+[ext_resource type="Script" uid="uid://bns0nfda5caof" path="res://UI/wave_timer.gd" id="20_40rxn"]
+[ext_resource type="Script" uid="uid://hq5su4ngdenn" path="res://UI/popup_manager.gd" id="21_5k5ia"]
+[ext_resource type="PackedScene" uid="uid://bisrakbw15l81" path="res://UI/CraftingMenu/tower_slot.tscn" id="26_flgxl"]
+[ext_resource type="PackedScene" uid="uid://bv6sb3ptrywyx" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="27_bs7a0"]
+[ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="28_bs7a0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1hcjw"]
 vertices = PackedVector2Array(311.102, 10.9609, 312.883, 171.93, 10.0469, 170.063, 10.9375, 10.0313)
@@ -1107,6 +1105,10 @@ _player = NodePath("../Player")
 position = Vector2(531, -242)
 _crafting_menu = NodePath("../UI/PopupManager/CraftingMenu")
 
+[node name="CraftingTable2" parent="." node_paths=PackedStringArray("_crafting_menu") instance=ExtResource("15_lh7yw")]
+position = Vector2(532, -296)
+_crafting_menu = NodePath("../UI/PopupManager/CraftingMenu")
+
 [node name="NatureSpawner" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("18_lh7yw")
@@ -1205,19 +1207,19 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="Slot1" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+[node name="ItemSlot1" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot2" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+[node name="ItemSlot2" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot3" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+[node name="ItemSlot3" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot4" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+[node name="ItemSlot4" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
-[node name="Slot5" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
+[node name="ItemSlot5" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
 layout_mode = 2
 
 [node name="WaveCountdownTimer" type="Control" parent="UI"]
@@ -1369,114 +1371,15 @@ unique_name_in_owner = true
 layout_mode = 2
 columns = 5
 
-[node name="TextureButton" type="TextureButton" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer"]
+[node name="TowerSlot" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer" instance=ExtResource("26_flgxl")]
 layout_mode = 2
-toggle_mode = true
-action_mode = 0
-texture_normal = ExtResource("10_rqan7")
-texture_pressed = ExtResource("11_44n3w")
-texture_hover = ExtResource("12_2sp6a")
+tower_scene = ExtResource("27_bs7a0")
+tower_slot_texture = ExtResource("28_bs7a0")
 
-[node name="ItemTextureRect" type="TextureRect" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer/TextureButton"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(8, 8)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("13_44n3w")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="TextureButton2" type="TextureButton" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer"]
+[node name="TowerSlot2" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer" instance=ExtResource("26_flgxl")]
 layout_mode = 2
-toggle_mode = true
-action_mode = 0
-texture_normal = ExtResource("10_rqan7")
-texture_pressed = ExtResource("11_44n3w")
-texture_hover = ExtResource("12_2sp6a")
-
-[node name="ItemTextureRect" type="TextureRect" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer/TextureButton2"]
-custom_minimum_size = Vector2(8, 8)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("13_44n3w")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="TextureButton3" type="TextureButton" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer"]
-layout_mode = 2
-toggle_mode = true
-action_mode = 0
-texture_normal = ExtResource("10_rqan7")
-texture_pressed = ExtResource("11_44n3w")
-texture_hover = ExtResource("12_2sp6a")
-
-[node name="ItemTextureRect" type="TextureRect" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer/TextureButton3"]
-custom_minimum_size = Vector2(8, 8)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("13_44n3w")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="TextureButton4" type="TextureButton" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer"]
-layout_mode = 2
-toggle_mode = true
-action_mode = 0
-texture_normal = ExtResource("10_rqan7")
-texture_pressed = ExtResource("11_44n3w")
-texture_hover = ExtResource("12_2sp6a")
-
-[node name="ItemTextureRect" type="TextureRect" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers/CraftablesContainer/TextureButton4"]
-custom_minimum_size = Vector2(8, 8)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("13_44n3w")
-expand_mode = 1
-stretch_mode = 4
+tower_scene = ExtResource("27_bs7a0")
+tower_slot_texture = ExtResource("28_bs7a0")
 
 [node name="CraftButton" type="Button" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Towers"]
 unique_name_in_owner = true
@@ -1498,13 +1401,12 @@ layout_mode = 2
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Recipe/HBoxContainer/AspectRatioContainer"]
-layout_mode = 2
-texture = ExtResource("15_44n3w")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Recipe/HBoxContainer"]
+[node name="RecipeItemTexture" type="TextureRect" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Recipe/HBoxContainer/AspectRatioContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0 / 20"
+expand_mode = 1
+
+[node name="RecipeLabel" type="Label" parent="UI/PopupManager/CraftingMenu/ColorRect/HBoxContainer/Recipe/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 label_settings = SubResource("LabelSettings_44n3w")

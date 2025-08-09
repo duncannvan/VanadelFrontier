@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://rvc0ae2yfc0n" path="res://Assets/Sprites/Tools/selected_tool_slot-export.png" id="2_timfj"]
 [ext_resource type="Texture2D" uid="uid://u30d1nchjs85" path="res://Assets/Sprites/Tools/hover_tool_slot.png" id="3_i5qrk"]
 
-[node name="Slot" type="TextureButton"]
+[node name="ItemSlot" type="TextureButton"]
 custom_minimum_size = Vector2(12, 12)
 offset_right = 12.0
 offset_bottom = 12.0

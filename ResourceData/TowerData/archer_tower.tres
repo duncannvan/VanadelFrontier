@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="TowerResource" load_steps=9 format=3 uid="uid://cdrjighqw0c4c"]
+
+[ext_resource type="Script" uid="uid://bnrcirklk1nl7" path="res://Resources/AttackEffectResources/attack_effect.gd" id="1_h2hkj"]
+[ext_resource type="Resource" uid="uid://cthmfugr248ae" path="res://ResourceData/AttackEffects/damage_effect.tres" id="2_1doeo"]
+[ext_resource type="Resource" uid="uid://dy6nkavykwekj" path="res://ResourceData/AttackEffects/knockback_effect.tres" id="3_mr7ii"]
+[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="4_elx21"]
+[ext_resource type="Script" uid="uid://cmvv0xeotkvh6" path="res://Resources/item_stack.gd" id="5_ujp5c"]
+[ext_resource type="PackedScene" uid="uid://bbn3u2nduf6g3" path="res://Entities/Towers/ArcherTower/archer_projectile.tscn" id="6_atxgl"]
+[ext_resource type="Script" uid="uid://otgfonbe136a" path="res://Resources/tower.gd" id="7_6r0hr"]
+
+[sub_resource type="Resource" id="Resource_3jbne"]
+script = ExtResource("5_ujp5c")
+item_resource = ExtResource("4_elx21")
+item_stack_count = 5
+metadata/_custom_type_script = "uid://cmvv0xeotkvh6"
+
+[resource]
+script = ExtResource("7_6r0hr")
+projectile = ExtResource("6_atxgl")
+atk_effects = Array[ExtResource("1_h2hkj")]([ExtResource("2_1doeo"), ExtResource("3_mr7ii")])
+craft_recipe = SubResource("Resource_3jbne")
+metadata/_custom_type_script = "uid://otgfonbe136a"

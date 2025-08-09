@@ -1,24 +1,14 @@
 class_name CraftingTable extends StaticBody2D
-@onready var _crafting_range = $Area2D
 
-@export var _crafting_menu: Control # TODO: Better way to access UI or UI Functions
+
+@export var _crafting_menu: Control 
+
+@onready var interactable_area: InteractableArea = $InteractableArea
 
 func _ready() -> void:
-	_crafting_range.body_entered.connect(_on_area_entered)
-	_crafting_range.body_exited.connect(_on_area_exited)
-	
-	
-func _on_area_entered(player: Player) -> void: 
-	player.interactable_item = self
+	interactable_area.interact = _on_interact
 
-
-func _on_area_exited(player: Player) -> void:
-	player.interactable_item = null
-	if _crafting_menu.visible:
-		_crafting_menu.popup_visibility_toggled.emit()
-
-
-# TODO: Needs abstract base class Interactable with interact function
-func interact():
+# TODO: Needs base class Interactable with abstract interact function to inherit from
+func _on_interact():
 	_crafting_menu.popup_visibility_toggled.emit()
 	
