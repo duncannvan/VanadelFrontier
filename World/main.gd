@@ -12,22 +12,16 @@ var current_wave: int = 0
 @onready var _base_health_bar = $UI/BaseHealthBar
 @onready var _player = $Player
 @onready var _inventory_manager = $Player/InventoryManager
-@onready var _inventory_ui = $UI/Inventory
 @onready var _nature_spawner: NatureSpawner = $NatureSpawner
-@onready var _crafting_table: CraftingTable = $CraftingTable
-@onready var _crafting_ui = $UI/CraftingMenu
+
 
 func _ready() -> void:
 	_wave_countdown_timer.timeout.connect(_start_wave)
 	_mob_spawner.wave_cleared.connect(_start_wave_countdown)
 	_base_stats_component.died.connect(_on_base_died)
 	_base_stats_component.health_changed.connect(_on_health_changed)
-	_inventory_manager.refresh_inventory.connect(_on_refresh_inventory)
 	_base_health_bar.initialize(_base_stats_component.get_health())
 	_nature_spawner.child_entered_tree.connect(_on_nature_obj_respawned)
-	_crafting_table.crafting_range_status.connect(_on_crafting_menu_update)
-	_inventory_ui.inventory_ui_update.connect(_on_inventory_menu_update)
-	_crafting_ui.craft_button.pressed.connect(_on_craft_button_pressed)
 	
 	for objects: NatureObject in get_tree().get_nodes_in_group("nature_objects"):
 		objects.item_dropped.connect(_on_loot_dropped)
@@ -54,13 +48,6 @@ func _on_base_died() -> void:
 
 func _on_health_changed() -> void:
 	_base_health_bar.update(_base_stats_component.get_health())
-	
-
-func _on_refresh_inventory() -> void:
-	_inventory_ui.refresh_inventory(_inventory_manager.get_inventory())
-	
-	var craft_recipe_item: ItemResource = _crafting_ui.tower_resource.craft_recipe.item_resource
-	_crafting_ui.update_craft_recipe_ui(_inventory_manager.get_count(craft_recipe_item))
 
 
 func _on_loot_dropped(item: ItemResource) -> void:
@@ -74,23 +61,3 @@ func _on_mob_spawned(mob: Mob) -> void:
 func _on_nature_obj_respawned(obj: NatureObject) -> void:
 	obj.nature_object_died.connect(_nature_spawner._handle_respawn)
 	obj.item_dropped.connect(_on_loot_dropped)
-
-# TODO: Menu manager to open on menu at a time
-func _on_crafting_menu_update(in_range: bool) -> void:
-	if not _inventory_ui.is_visible():
-		if not in_range:
-			_crafting_ui.set_visible(false)
-			_crafting_ui.is_player_in_range = false
-		else:
-			_crafting_ui.is_player_in_range = in_range
-
-
-func _on_inventory_menu_update(is_open: bool) -> void:
-	if not _crafting_ui.is_visible():
-		_crafting_ui.all_menus_closed = !_crafting_ui.all_menus_closed 
-		_inventory_ui.set_visible(is_open)
-
-
-func _on_craft_button_pressed():
-	var craft_recipe_item: ItemStack = _crafting_ui.tower_resource.craft_recipe
-	_crafting_ui.handle_craft_button_press(_inventory_manager.remove_item(craft_recipe_item))

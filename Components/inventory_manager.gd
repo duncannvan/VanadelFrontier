@@ -1,6 +1,6 @@
 class_name InventoryManger extends Node
 
-signal refresh_inventory()
+signal refresh_inventory(inventory: Array[ItemStack])
 
 const MAX_INVENTORY_SIZE: int = 10
 const MAX_STACKS: int = 99
@@ -15,11 +15,11 @@ func add_item(item: ItemResource) -> void:
 	for stack: ItemStack in inventory:
 		if stack.item_resource == item and stack.item_stack_count < MAX_STACKS:
 			stack.item_stack_count += 1
-			emit_signal("refresh_inventory")
+			emit_signal("refresh_inventory", get_inventory())
 			return
 		
 	inventory.append(ItemStack.new(item, 1))
-	emit_signal("refresh_inventory")
+	emit_signal("refresh_inventory", get_inventory())
 
 
 func remove_item(item_stack: ItemStack) -> bool:
@@ -45,7 +45,7 @@ func remove_item(item_stack: ItemStack) -> bool:
 	for i in len(stacks_to_remove):
 		inventory.erase(stacks_to_remove[i])
 			
-	emit_signal("refresh_inventory")
+	emit_signal("refresh_inventory", get_inventory())
 	return true
 
 

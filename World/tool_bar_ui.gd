@@ -7,7 +7,8 @@ var toolbar: Array[TextureButton] = []
 
 @onready var toolbar_ui = %ToolSlotsContainer
 @onready var _player: Player = get_tree().get_first_node_in_group("players") # Player node has to be rendered before UI in the scene tree
-@onready var _tool_manager = _player.get_node("ToolManager") 
+@onready var _tool_manager: ToolManager = _player.get_node("ToolManager") 
+
 
 func _ready() -> void:
 	for slot in toolbar_ui.get_children():

@@ -13,9 +13,9 @@ var _states: Dictionary[String, States] =  {
 	"KnockbackState": States.KNOCKBACK,
 	"DeadState": States.DEAD
 	}
-
 var knockback_velocity: Vector2 = Vector2.ZERO
 var _last_facing_direction: Vector2 = Vector2.DOWN
+var interactable_item: StaticBody2D = null # Gets set whenever player enters range for interactable itme
 
 @onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _stats_component: StatsComponents = $StatsComponents
@@ -36,26 +36,26 @@ func _ready() -> void:
 	_update_blend_positions(_last_facing_direction)
 	_tool_manager.set_blend_point_idx_mapping(_animation_tree)
 	_tool_manager.tool_used.connect(_on_tool_used)
+	
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	var state_string: String = _playback_states.get_current_node()
-	if not _states.has(state_string): 
-		return
+	var current_state: States = _get_state_enum(_playback_states.get_current_node())
 	
-	match _states[state_string]:
+	match current_state:
 		States.MOVE:
-			if event.is_action_pressed("use_tool") and !get_viewport().gui_get_hovered_control():
+			if event.is_action_pressed("use_tool"):
 				if _tool_manager.is_tool_selected():
 					_tool_manager.use_selected_tool(self)
 	
-	
+	if event.is_action_pressed("interact") and interactable_item:
+		interactable_item.interact()
+		
+		
 func _physics_process(delta: float) -> void:
-	var state_string: String = _playback_states.get_current_node()
-	if not _states.has(state_string): 
-		return
-	
-	match _states[state_string]:
+	var current_state: States = _get_state_enum(_playback_states.get_current_node())
+
+	match current_state:
 		States.MOVE:
 			_handle_movement()
 		States.TOOL:
@@ -142,3 +142,12 @@ func _get_state_string(state: States) -> String:
 	assert("State enum not found in string mappings _states")
 	return ""
 	
+
+func _get_state_enum(state: String) -> States:
+	if not state: # For when physics process calls function before anim tree is initialized
+		return States.MOVE
+		
+	if not _states.has(state): 
+		assert("State enum not found in string mappings _states")
+
+	return _states[state]

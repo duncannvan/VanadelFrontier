@@ -94,6 +94,7 @@ interact={
 2d_physics/layer_7="Mob Hitbox"
 2d_physics/layer_8="Player Bounds"
 2d_physics/layer_9="NatureObjectHurtBox"
+2d_physics/layer_13="Interactable"
 
 [rendering]
 
