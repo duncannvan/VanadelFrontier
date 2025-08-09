@@ -28,6 +28,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 
+[dotnet]
+
+project/assembly_name="Vanadel Frontier"
+
 [input]
 
 left={

@@ -25,8 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="13_44n3w"]
 [ext_resource type="Texture2D" uid="uid://crtslesd8836t" path="res://Assets/Sprites/Items/Log.png" id="15_44n3w"]
 [ext_resource type="PackedScene" uid="uid://gkma5es6o221" path="res://Craft/CraftingTable.tscn" id="15_lh7yw"]
-[ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/Tree.tscn" id="17_lh7yw"]
-[ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/Rock.tscn" id="17_r6hqv"]
+[ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Nature/tree.tscn" id="17_lh7yw"]
+[ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Nature/rock.tscn" id="17_r6hqv"]
 [ext_resource type="Script" uid="uid://cupibelbjigbq" path="res://World/nature_spawner.gd" id="18_lh7yw"]
 [ext_resource type="Script" uid="uid://bns0nfda5caof" path="res://World/wave_timer.gd" id="20_40rxn"]
 

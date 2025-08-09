@@ -4,3 +4,4 @@
 *.translation
 *.tmp
 /Testing/
+.vscode/
