@@ -6,6 +6,9 @@ public sealed partial class StatsComponent : Node
     [Signal]
     public delegate void DiedEventHandler();
 
+    [Signal]
+    public delegate void HealthChangedEventHandler(float newHealth);
+
     [Export]
     private StatsSheet _statsSheet = null;
     
@@ -31,6 +34,8 @@ public sealed partial class StatsComponent : Node
 
         _statsSheet.Health -= damage;
 
+        EmitSignal(nameof(HealthChangedEventHandler), _statsSheet.Health);
+
         if (target.EffectsPlayer.HasAnimation("damage_effect"))
         {
             target.EffectsPlayer.Play("damage_effect");
@@ -40,7 +45,6 @@ public sealed partial class StatsComponent : Node
         {
             EmitSignal(nameof(DiedEventHandler));
         }
-
     }
 
     public float GetHealth()
@@ -53,10 +57,12 @@ public sealed partial class StatsComponent : Node
         if (duration <= 0 || !_knockbackTimer.IsStopped()) { return; }
 
         target.SetState(IHittable.States.KNOCKEDBACK);
+
         if (target.EffectsPlayer.HasAnimation("knockback_effect"))
         {
             target.EffectsPlayer.Play("knockback_effect");
         }
+
         _knockbackVector = vector;
         _knockbackTimer.Timeout += () => target.SetState(IHittable.States.MOVE);
         _knockbackTimer.Start(duration);
@@ -69,7 +75,7 @@ public sealed partial class StatsComponent : Node
 
     public void ApplySlow(IHittable target, float factor, float duration)
     {
-        if (_slowedTimer == null || duration <= 0) { return; }
+        if (duration <= 0) { return; }
 
         if (_slowedFactor != factor)
         {

@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public sealed partial class DamageEffect : ToolEffect
+public sealed partial class DamageEffect : HitEffect
 {
     [Export]
     private byte _damage = 1;

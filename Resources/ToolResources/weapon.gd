@@ -1,1 +1,0 @@
-class_name WeaponResource extends ToolResource

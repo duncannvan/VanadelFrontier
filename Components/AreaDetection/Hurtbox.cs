@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class Hurtbox : Area2D
 {
     [Signal]
@@ -7,7 +8,7 @@ public partial class Hurtbox : Area2D
 
     [Export]
     private bool _isInvincible = false;
-    
+
     public bool IsInvincible
     {
         get => _isInvincible;
@@ -15,7 +16,7 @@ public partial class Hurtbox : Area2D
         {
             if (_isInvincible == value) { return; }
             _isInvincible = value;
-            
+
             foreach (var child in GetChildren())
             {
                 if (child is CollisionShape2D || child is CollisionPolygon2D)
@@ -25,5 +26,5 @@ public partial class Hurtbox : Area2D
             }
         }
     }
-    
+
 }

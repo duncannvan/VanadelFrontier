@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public sealed partial class KnockbackEffect : ToolEffect
+public sealed partial class KnockbackEffect : HitEffect
 {
     [Export]
     private byte _knockbackForce = 200;

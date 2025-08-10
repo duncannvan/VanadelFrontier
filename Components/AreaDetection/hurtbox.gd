@@ -18,4 +18,3 @@ func set_invincible(state: bool) -> void:
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
 			child.set_deferred("disabled", _is_invincible)
-i

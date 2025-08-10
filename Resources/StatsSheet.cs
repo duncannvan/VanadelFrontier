@@ -4,8 +4,8 @@ using Godot;
 public sealed partial class StatsSheet : Resource
 {
     [Export]
-    public int Health { get; set; } = 3;
+    public byte Health { get; set; } = 3;
 
     [Export]
-    public int Speed { get; private set; } = 20;
+    public byte Speed { get; private set; } = 20;
 }

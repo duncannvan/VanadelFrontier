@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public sealed partial class SlowedEffect : ToolEffect
+public sealed partial class SlowedEffect : HitEffect
 {
     public const float MaxSlowedFactor = 1.0f;
 
