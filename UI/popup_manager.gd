@@ -2,7 +2,7 @@ extends Control
 
 var _current_popup: Control = null
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	for popup in get_children():
 		popup.popup_visibility_toggled.connect(_on_popup_visibility_toggled.bind(popup))

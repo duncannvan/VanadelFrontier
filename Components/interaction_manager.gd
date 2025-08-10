@@ -23,8 +23,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if len(active_areas) < 1: 
 		return
 	if event.is_action_pressed("interact"):
-		active_areas[0].interact.call()
-		
+		can_interact = false
+		label.hide()
+		await active_areas[0].interact.call()
+		can_interact = true
 		
 func _sort_distance_to_player(area1: InteractableArea, area2: InteractableArea) -> bool:
 	var area1_to_player: float = area1.global_position.distance_to(_player.global_position)

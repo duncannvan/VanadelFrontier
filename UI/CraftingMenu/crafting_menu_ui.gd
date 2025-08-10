@@ -1,6 +1,7 @@
 extends Control
 
 signal popup_visibility_toggled()
+signal closed()
 
 const CRAFT_BUTTON_DELAY: float = 0.1 # Prevents placing down the tower by clicking on the crafting button
 
@@ -22,8 +23,8 @@ var placing_tower: bool = false
 func _ready() -> void:
 	for slot: TowerSlot in _slots:
 		slot.pressed.connect(_on_craftable_pressed.bind(slot))
-	#_inventory_manager.refresh_inventory.connect(_on_refresh_inventory)
 	_craft_button.pressed.connect(_on_craft_button_pressed)
+	visibility_changed.connect(func(): if not visible: closed.emit())
 
 	
 func _process(_delta: float) -> void:
