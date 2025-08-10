@@ -18,3 +18,8 @@ func _on_popup_visibility_toggled(popup: Control):
 		_current_popup = popup
 	else:
 		_current_popup = null
+
+
+func close_popups() -> void:
+	for popup in get_children():
+		popup.visbile = false

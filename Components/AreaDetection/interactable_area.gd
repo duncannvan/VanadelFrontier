@@ -15,8 +15,7 @@ func _on_area_entered(player: Player) -> void:
 
 func _on_area_exited(player: Player) -> void:
 	player.get_node("InteractionManager").unregister_area(self)
-	#if _crafting_menu.visible:
-		#_crafting_menu.popup_visibility_toggled.emit()
+
 
 
 var interact = func interact() -> void:

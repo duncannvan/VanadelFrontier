@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0crxevlllgh6"]
+
+[ext_resource type="Script" uid="uid://doun5eoaxbkxa" path="res://UI/CraftingMenu/crafting_menu_ui.gd" id="1_t8l8s"]
+[ext_resource type="Resource" uid="uid://cdrjighqw0c4c" path="res://ResourceData/TowerData/archer_tower.tres" id="2_kip1j"]
+[ext_resource type="PackedScene" uid="uid://bisrakbw15l81" path="res://UI/CraftingMenu/tower_slot.tscn" id="3_7asn7"]
+[ext_resource type="PackedScene" uid="uid://bv6sb3ptrywyx" path="res://Entities/Towers/ArcherTower/archer_tower.tscn" id="4_1l6mi"]
+[ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/ArcherTower/archer_tower.png" id="5_jjxa7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_44n3w"]
+font_size = 8
+
+[node name="CraftingMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t8l8s")
+tower_resource = ExtResource("2_kip1j")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.105882, 0.105882, 0.352941)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -20.0
+offset_right = 86.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Towers" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CraftablesContainer" type="GridContainer" parent="ColorRect/HBoxContainer/Towers"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 5
+
+[node name="TowerSlot" parent="ColorRect/HBoxContainer/Towers/CraftablesContainer" instance=ExtResource("3_7asn7")]
+layout_mode = 2
+tower_scene = ExtResource("4_1l6mi")
+tower_slot_texture = ExtResource("5_jjxa7")
+
+[node name="TowerSlot2" parent="ColorRect/HBoxContainer/Towers/CraftablesContainer" instance=ExtResource("3_7asn7")]
+layout_mode = 2
+tower_scene = ExtResource("4_1l6mi")
+tower_slot_texture = ExtResource("5_jjxa7")
+
+[node name="CraftButton" type="Button" parent="ColorRect/HBoxContainer/Towers"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 8
+action_mode = 0
+text = "CRAFT"
+
+[node name="Recipe" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/Recipe"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="ColorRect/HBoxContainer/Recipe/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="RecipeItemTexture" type="TextureRect" parent="ColorRect/HBoxContainer/Recipe/HBoxContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+
+[node name="RecipeLabel" type="Label" parent="ColorRect/HBoxContainer/Recipe/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_44n3w")
