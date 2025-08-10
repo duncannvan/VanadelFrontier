@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Hittable
+public interface IHittable
 {
     public enum States : byte
     {
@@ -10,11 +10,10 @@ namespace Hittable
         DEAD
     }
 
-    public interface IHittable
-    {
-        public StatsComponent StatsComponent { get; }
-        public Hurtbox Hurtbox { get; }
-        public AnimationPlayer EffectsPlayer { get; }
-        public States State { get; set; }
-    }
+    public StatsComponent StatsComponent { get; }
+    public Hurtbox Hurtbox { get; }
+    public Hitbox Hitbox { get; }
+    public AnimationPlayer EffectsPlayer { get; }
+
+    public void SetState(IHittable.States newState);
 }

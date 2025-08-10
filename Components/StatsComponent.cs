@@ -1,5 +1,4 @@
 using Godot;
-using Hittable;
 
 [GlobalClass]
 public sealed partial class StatsComponent : Node
@@ -12,8 +11,8 @@ public sealed partial class StatsComponent : Node
     
     private Timer _slowedTimer = null;
     private Timer _knockbackTimer = null;
-    private float _slowedFactor = SlowedEffect.MaxSlowedFactor;
     private Vector2 _knockbackVector = Vector2.Zero;
+    private float _slowedFactor = SlowedEffect.MaxSlowedFactor;
 
     public override void _Ready()
     {
@@ -53,13 +52,13 @@ public sealed partial class StatsComponent : Node
     {
         if (duration <= 0 || !_knockbackTimer.IsStopped()) { return; }
 
-        target.State = States.KNOCKEDBACK;
+        target.SetState(IHittable.States.KNOCKEDBACK);
         if (target.EffectsPlayer.HasAnimation("knockback_effect"))
         {
             target.EffectsPlayer.Play("knockback_effect");
         }
         _knockbackVector = vector;
-        _knockbackTimer.Timeout += () => target.State = States.MOVE;
+        _knockbackTimer.Timeout += () => target.SetState(IHittable.States.MOVE);
         _knockbackTimer.Start(duration);
     }
 

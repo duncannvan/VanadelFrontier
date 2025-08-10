@@ -1,5 +1,4 @@
 using Godot;
-using Hittable;
 
 [GlobalClass]
 public sealed partial class DamageEffect : ToolEffect
