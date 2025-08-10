@@ -18,7 +18,7 @@ public partial class ToolData : Resource
     [Export]
     protected HitEffect[] HitEffects { get; private set; } = System.Array.Empty<HitEffect>();
 
-    public bool IsCooldownActive { get; private set; } = false;
+    public bool IsCooldownActive { get; set; } = false;
     public byte AnimationLibrariesIdx { get; private set; } = 0;
 
     public virtual void UseTool(Player player)

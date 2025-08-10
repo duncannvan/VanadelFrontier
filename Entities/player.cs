@@ -20,7 +20,7 @@ public partial class Player : CharacterBody2D, IHittable
     public AnimationPlayer EffectsPlayer { get; private set; }
 
     private Camera2D _playerCamera;
-    private AnimationTree _animationTree;
+    public AnimationTree AnimationTree { get; private set; }
     private AnimationNodeStateMachinePlayback _animationStateMachine;
     private Script _toolManager;
     private Script _inventoryManager;
@@ -33,14 +33,14 @@ public partial class Player : CharacterBody2D, IHittable
         EffectsPlayer = GetNode<AnimationPlayer>("EffectsPlayer");
 
         _playerCamera = GetNode<Camera2D>("Camera2D");
-        _animationTree = GetNode<AnimationTree>("AnimationTree");
-        _animationStateMachine = _animationTree.Get("parameters/StateMachine/playback").As<AnimationNodeStateMachinePlayback>();
+        AnimationTree = GetNode<AnimationTree>("AnimationTree");
+        _animationStateMachine = AnimationTree.Get("parameters/StateMachine/playback").As<AnimationNodeStateMachinePlayback>();
         _toolManager = GetNode<Script>("ToolManager");
         _inventoryManager = GetNode<Script>("InventoryManager");
 
         Hurtbox.HurtboxEntered += OnHurtboxEntered;
         StatsComponent.Died += OnDied;
-        _toolManager.Call("set_blend_point_idx_mapping", _animationTree);
+        _toolManager.Call("set_blend_point_idx_mapping", AnimationTree);
         _toolManager.Connect("tool_used", Callable.From<float, byte>(OnToolUsed));
     }
     
@@ -109,10 +109,10 @@ public partial class Player : CharacterBody2D, IHittable
 
     private void UpdateBlendPositions(Vector2 direction)
     {
-        _animationTree.Set("parameters/StateMachine/MoveState/Idle/blend_position", direction);
-        _animationTree.Set("parameters/StateMachine/MoveState/Running/blend_position", direction);
-        _animationTree.Set("parameters/StateMachine/ToolState/blend_position", direction);
-        _animationTree.Set("parameters/StateMachine/KnockbackState/blend_position", direction);
+        AnimationTree.Set("parameters/StateMachine/MoveState/Idle/blend_position", direction);
+        AnimationTree.Set("parameters/StateMachine/MoveState/Running/blend_position", direction);
+        AnimationTree.Set("parameters/StateMachine/ToolState/blend_position", direction);
+        AnimationTree.Set("parameters/StateMachine/KnockbackState/blend_position", direction);
     }
 
     private string GetStateName(IHittable.States stateKey)
