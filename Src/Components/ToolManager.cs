@@ -107,9 +107,10 @@ public partial class ToolManager : Node
 
     public void SetBlendPointIdxMapping(AnimationTree animationTree)
     {
-        AnimationNodeStateMachine stateMachine = animationTree.TreeRoot as AnimationNodeStateMachine;
+        AnimationNodeBlendTree root = animationTree.TreeRoot as AnimationNodeBlendTree ;
+        AnimationNodeStateMachine stateMachine = root.GetNode("StateMachine") as AnimationNodeStateMachine;
         AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
-        
+
         int blendPointCount = blendSpace.GetBlendPointCount();
         for (int blendSpaceIdx = 0; blendSpaceIdx < blendPointCount; blendSpaceIdx++)
         {
@@ -121,7 +122,8 @@ public partial class ToolManager : Node
     
     public void SetToolAnimation(AnimationTree animationTree, byte libIdx = 0)
     {
-        AnimationNodeStateMachine stateMachine = animationTree.TreeRoot as AnimationNodeStateMachine;
+        AnimationNodeBlendTree root = animationTree.TreeRoot as AnimationNodeBlendTree ;
+        AnimationNodeStateMachine stateMachine = root.GetNode("StateMachine") as AnimationNodeStateMachine;
         AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
 
         var selectedTool = GetSelectedTool();

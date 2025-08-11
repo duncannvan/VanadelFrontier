@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="KnockbackEffect" load_steps=2 format=3 uid="uid://blifgrxg1wr30"]
+
+[ext_resource type="Script" uid="uid://cg531t6w4330x" path="res://Src/Resources/ToolEffects/KnockbackEffect.cs" id="1_tpf07"]
+
+[resource]
+script = ExtResource("1_tpf07")
+_knockbackForce = 200
+_knockbackDuration = 0.1
+metadata/_custom_type_script = "uid://cg531t6w4330x"

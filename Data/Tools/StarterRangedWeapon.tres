@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://b470b3fnqvugm"]
+
+[ext_resource type="Script" uid="uid://hd5386ynn4yg" path="res://Src/Resources/ToolData/RangedWeaponData.cs" id="1_6oabu"]
+[ext_resource type="AnimationLibrary" uid="uid://cmxv6rmtu8fkl" path="res://AnimationLibs/basic_magic_blast.res" id="1_86gak"]
+[ext_resource type="Resource" uid="uid://ciw6akipt11bi" path="res://Data/HitEffects/DamageEffect.tres" id="2_1j1gq"]
+[ext_resource type="Resource" uid="uid://blifgrxg1wr30" path="res://Data/HitEffects/KnockbackEffect.tres" id="3_mcdfk"]
+[ext_resource type="Texture2D" uid="uid://dmgr6ty0gsqxd" path="res://Assets/Sprites/Tools/21.png" id="4_2sdsq"]
+
+[resource]
+script = ExtResource("1_6oabu")
+_projectileSpeed = 200
+ToolName = ""
+ToolTexture = ExtResource("4_2sdsq")
+ToolCooldownSec = 1.0
+AnimationLibraries = [ExtResource("1_86gak")]
+HitEffects = [ExtResource("2_1j1gq"), ExtResource("3_mcdfk")]
+metadata/_custom_type_script = "uid://hd5386ynn4yg"

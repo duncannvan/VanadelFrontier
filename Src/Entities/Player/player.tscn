@@ -1,26 +1,23 @@
-[gd_scene load_steps=237 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=234 format=3 uid="uid://bjrk5kxpv2mrq"]
 
-[ext_resource type="Script" uid="uid://br55lwbg3itro" path="res://Src/Entities/Player/player.gd" id="1_g2els"]
-[ext_resource type="PackedScene" path="res://UI/PlayerHearts/player_hearts_ui.tscn" id="2_nhbkt"]
+[ext_resource type="Script" uid="uid://b0iqfbafgk52j" path="res://Src/Entities/Player/Player.cs" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://Src/Entities/Player/player_shader.gdshader" id="2_r8fok"]
-[ext_resource type="Script" path="res://Components/AreaDetection/hitbox.gd" id="3_fkugw"]
+[ext_resource type="Script" uid="uid://banl3ijb4ru26" path="res://Src/Components/AreaDetection/Hitbox.cs" id="3_fkugw"]
 [ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/Player/blockout_top_down.png" id="3_lub02"]
 [ext_resource type="Texture2D" uid="uid://chgkaybc5pxuh" path="res://Assets/Sprites/Player/sword_attacks.png" id="3_ppdlg"]
-[ext_resource type="Script" path="res://Components/AreaDetection/hurtbox.gd" id="5_8fjmc"]
+[ext_resource type="Script" uid="uid://fy7sw6t3gnh3" path="res://Src/Components/AreaDetection/Hurtbox.cs" id="5_8fjmc"]
 [ext_resource type="AnimationLibrary" uid="uid://dwsy11utst63p" path="res://AnimationLibs/basic_harvest.res" id="12_v7p16"]
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="13_a8wow"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="14_avsg8"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="15_dv6dp"]
 [ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Src/Entities/Player/player_camera.gd" id="16_nhbkt"]
-[ext_resource type="Script" path="res://Components/stats_component.gd" id="16_vskfa"]
-[ext_resource type="Resource" path="res://ResourceData/EntityData/player_stats.tres" id="17_pjcup"]
+[ext_resource type="Script" uid="uid://d01r8ajylwrex" path="res://Src/Components/StatsComponent.cs" id="16_vskfa"]
+[ext_resource type="Resource" uid="uid://dh05xban5shyo" path="res://Data/Stats/PlayerStats.tres" id="17_pjcup"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Player/shadow.png" id="17_vskfa"]
-[ext_resource type="Script" path="res://Components/tool_manager.gd" id="18_avsg8"]
-[ext_resource type="Script" path="res://Resources/ToolResources/tool.gd" id="19_dv6dp"]
-[ext_resource type="Resource" path="res://ResourceData/ToolData/starter_harvest_tool.tres" id="20_01ng6"]
-[ext_resource type="Resource" path="res://ResourceData/ToolData/starter_melee_weapon.tres" id="21_ui1ln"]
-[ext_resource type="Resource" path="res://ResourceData/ToolData/starter_range_weapon.tres" id="22_og23y"]
-[ext_resource type="Script" path="res://Components/inventory_manager.gd" id="23_u86q5"]
+[ext_resource type="Script" uid="uid://bn42hk83tr7cq" path="res://Src/Components/ToolManager.cs" id="18_avsg8"]
+[ext_resource type="Resource" uid="uid://de86ofxtv8nsv" path="res://Data/Tools/StarterHarvestTool.tres" id="20_01ng6"]
+[ext_resource type="Resource" uid="uid://b470b3fnqvugm" path="res://Data/Tools/StarterRangedWeapon.tres" id="22_og23y"]
+[ext_resource type="Script" uid="uid://hmqprrt6k4l" path="res://Src/Components/InventoryManager.cs" id="23_u86q5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vskfa"]
 shader = ExtResource("2_r8fok")
@@ -1947,7 +1944,8 @@ position = Vector2(0, -7)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_8fjmc")
-metadata/_custom_type_script = "uid://63sbpv1faiyx"
+_isInvincible = null
+_is_invincible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 7.25)
@@ -1966,16 +1964,9 @@ show_behind_parent = true
 position = Vector2(0, 4)
 texture = ExtResource("17_vskfa")
 
-[node name="StatsComponents" type="Node" parent="."]
+[node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("16_vskfa")
-_stats = ExtResource("17_pjcup")
-metadata/_custom_type_script = "uid://disun15mfvhrx"
-
-[node name="PlayerHeartsUI" parent="." node_paths=PackedStringArray("_stats_component") instance=ExtResource("2_nhbkt")]
-offset_top = -29.0
-offset_bottom = -29.0
-_stats_component = NodePath("../StatsComponents")
-metadata/_edit_use_anchors_ = true
+_statsSheet = ExtResource("17_pjcup")
 
 [node name="ToolPivot" type="Marker2D" parent="."]
 position = Vector2(0, -3)
@@ -1985,7 +1976,6 @@ position = Vector2(0, 17)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("3_fkugw")
-metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToolPivot/Hitbox"]
 shape = SubResource("RectangleShape2D_pjcup")
@@ -2000,7 +1990,7 @@ parameters/StateMachine/MoveState/Idle/blend_position = 0.0
 parameters/StateMachine/MoveState/Running/blend_position = Vector2(-0.60829, 0.0461538)
 parameters/StateMachine/ToolState/blend_position = Vector2(0, 0.985267)
 
-[node name="CombatEffects" type="AnimationPlayer" parent="."]
+[node name="EffectsPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_w51ui")
 }
@@ -2021,7 +2011,7 @@ libraries = {
 
 [node name="ToolManager" type="Node" parent="."]
 script = ExtResource("18_avsg8")
-_tool_resources = Array[ExtResource("19_dv6dp")]([ExtResource("20_01ng6"), ExtResource("21_ui1ln"), ExtResource("22_og23y")])
+_toolData = [ExtResource("20_01ng6"), ExtResource("22_og23y"), ExtResource("22_og23y")]
 
 [node name="InventoryManager" type="Node" parent="."]
 script = ExtResource("23_u86q5")

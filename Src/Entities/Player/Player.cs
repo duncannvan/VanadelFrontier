@@ -28,7 +28,7 @@ public partial class Player : CharacterBody2D, IHittable
     public override void _Ready()
     {
         Hurtbox = GetNode<Hurtbox>("Hurtbox");
-        Hitbox = GetNode<Hitbox>("Hitbox");
+        Hitbox = GetNode<Hitbox>("ToolPivot/Hitbox");
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
         EffectsPlayer = GetNode<AnimationPlayer>("EffectsPlayer");
 

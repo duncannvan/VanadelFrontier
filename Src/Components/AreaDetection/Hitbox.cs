@@ -5,11 +5,11 @@ using Godot;
 public partial class Hitbox : Area2D
 {
     public HitEffect[] HitEffects { get; set; } = System.Array.Empty<HitEffect>();
-    private CollisionObject2D _collisionObject = null;
+    private CollisionShape2D _collisionObject = null;
 
     public override void _Ready()
     {
-        _collisionObject = GetNode<CollisionObject2D>("CollisionObject2D");
+        _collisionObject = GetNode<CollisionShape2D>("CollisionShape2D");
         Debug.Assert(_collisionObject is not null, "Hitbox's collision object is null");
         AreaEntered += OnAreaEntered;
     }
