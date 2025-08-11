@@ -39,9 +39,9 @@ public sealed partial class StatsComponent : Node
 
         EmitSignal(nameof(HealthChangedEventHandler), _statsSheet.Health);
 
-        if (target.EffectsPlayer.HasAnimation("damage_effect"))
+        if (target.EffectAnimations.HasAnimation("damage_effect"))
         {
-            target.EffectsPlayer.Play("damage_effect");
+            target.EffectAnimations.Play("damage_effect");
         }
 
         if (_statsSheet.Health <= 0)
@@ -50,7 +50,7 @@ public sealed partial class StatsComponent : Node
         }
     }
 
-    public float GetHealth()
+    public byte GetHealth()
     {
         return _statsSheet.Health;
     }
@@ -61,9 +61,9 @@ public sealed partial class StatsComponent : Node
 
         target.SetState(IHittable.States.KNOCKEDBACK);
 
-        if (target.EffectsPlayer.HasAnimation("knockback_effect"))
+        if (target.EffectAnimations.HasAnimation("knockback_effect"))
         {
-            target.EffectsPlayer.Play("knockback_effect");
+            target.EffectAnimations.Play("knockback_effect");
         }
 
         _knockbackVector = vector;
@@ -88,9 +88,9 @@ public sealed partial class StatsComponent : Node
         _slowedTimer.Timeout += () => OnSlowedTimeout(target);
         _slowedTimer.Start(duration);
 
-        if (target.EffectsPlayer.HasAnimation("slowed_effect"))
+        if (target.EffectAnimations.HasAnimation("slowed_effect"))
         {
-            target.EffectsPlayer.Play("slowed_effect");
+            target.EffectAnimations.Play("slowed_effect");
         }
     }
 
@@ -102,10 +102,10 @@ public sealed partial class StatsComponent : Node
     private void OnSlowedTimeout(IHittable target)
     {
         _slowedFactor = SlowedEffect.MaxSlowedFactor;
-        if (target.EffectsPlayer.IsPlaying())
+        if (target.EffectAnimations.IsPlaying())
         {
-            target.EffectsPlayer.Seek(0, false);
-            target.EffectsPlayer.Stop();
+            target.EffectAnimations.Seek(0, false);
+            target.EffectAnimations.Stop();
         }
     }
 }

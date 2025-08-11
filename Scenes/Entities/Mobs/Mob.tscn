@@ -1,0 +1,216 @@
+[gd_scene load_steps=20 format=3 uid="uid://dhl6f1w6yd4xm"]
+
+[ext_resource type="Script" uid="uid://ct7wbmeh2qicd" path="res://Entities/Enemies/mob.gd" id="1_vi1xe"]
+[ext_resource type="PackedScene" uid="uid://bfkn1tevkmwyn" path="res://Entities/Enemies/mob_death_effects.tscn" id="2_a3mig"]
+[ext_resource type="Shader" uid="uid://b3lfikqvfwseg" path="res://Entities/Enemies/mob_shader.gdshader" id="3_a3mig"]
+[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="6_3682f"]
+[ext_resource type="Texture2D" uid="uid://disspdj154bow" path="res://Assets/Sprites/ParticleTextures/mob_hurt_particle.png" id="8_av7bl"]
+[ext_resource type="Script" uid="uid://b3xkwxuf8a1a" path="res://Components/AreaDetection/hitbox.gd" id="8_fo871"]
+[ext_resource type="Material" uid="uid://btywae5n26jre" path="res://Entities/Enemies/Slime/slime_damaged_particles.tres" id="9_ou542"]
+[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="10_3msjq"]
+[ext_resource type="AudioStream" uid="uid://decyujvydkixw" path="res://Assets/Audio/splat.mp3" id="10_ou542"]
+[ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Shadow/shadow.png" id="11_3msjq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vnioy"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_owvpp"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamagedParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MobSprite:material:shader_parameter/flash")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ou542"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("10_ou542")
+
+[sub_resource type="Animation" id="Animation_iplt1"]
+resource_name = "damaged_effects"
+length = 0.30001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamagedParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamagedParticles")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"restart"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MobSprite:material:shader_parameter/flash")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamagedSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": SubResource("AudioStreamRandomizer_ou542")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2tktv"]
+_data = {
+&"RESET": SubResource("Animation_owvpp"),
+&"damaged_effects": SubResource("Animation_iplt1")
+}
+
+[sub_resource type="Animation" id="Animation_a3mig"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MobSprite:material:shader_parameter/gray_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2tktv"]
+resource_name = "slowed_effects"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MobSprite:material:shader_parameter/gray_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3mig"]
+_data = {
+&"RESET": SubResource("Animation_a3mig"),
+&"slowed_effects": SubResource("Animation_2tktv")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ou542"]
+resource_local_to_scene = true
+shader = ExtResource("3_a3mig")
+shader_parameter/flash = false
+shader_parameter/gray_scale = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[node name="Mob" type="CharacterBody2D"]
+top_level = true
+collision_layer = 4
+script = ExtResource("1_vi1xe")
+_death_effect = ExtResource("2_a3mig")
+metadata/_custom_type_script = "uid://ct7wbmeh2qicd"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vnioy")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("6_3682f")
+metadata/_custom_type_script = "uid://63sbpv1faiyx"
+
+[node name="BodyHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("8_fo871")
+metadata/_custom_type_script = "uid://b3xkwxuf8a1a"
+
+[node name="DamagedEffects" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2tktv")
+}
+
+[node name="SlowedAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a3mig")
+}
+
+[node name="MobNavigation" type="NavigationAgent2D" parent="."]
+target_desired_distance = 0.1
+avoidance_enabled = true
+
+[node name="DamagedParticles" type="GPUParticles2D" parent="."]
+emitting = false
+texture = ExtResource("8_av7bl")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("9_ou542")
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+max_distance = 200.0
+
+[node name="MobSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_ou542")
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+texture = ExtResource("11_3msjq")
+
+[node name="StatsComponents" type="Node" parent="."]
+script = ExtResource("10_3msjq")

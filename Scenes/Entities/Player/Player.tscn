@@ -1,7 +1,7 @@
-[gd_scene load_steps=234 format=3 uid="uid://bjrk5kxpv2mrq"]
+[gd_scene load_steps=234 format=3 uid="uid://brbvn765ayawe"]
 
-[ext_resource type="Script" uid="uid://b0iqfbafgk52j" path="res://Src/Entities/Player/Player.cs" id="1_g2els"]
-[ext_resource type="Shader" uid="uid://c1ejlcnxqs3m0" path="res://Src/Entities/Player/player_shader.gdshader" id="2_r8fok"]
+[ext_resource type="Script" uid="uid://dhnm0y7x6cs0b" path="res://Src/Components/Player.cs" id="1_g2els"]
+[ext_resource type="Shader" uid="uid://dwchh8ht60aqq" path="res://Scenes/Entities/Player/player_shader.gdshader" id="2_r8fok"]
 [ext_resource type="Script" uid="uid://banl3ijb4ru26" path="res://Src/Components/AreaDetection/Hitbox.cs" id="3_fkugw"]
 [ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/Player/blockout_top_down.png" id="3_lub02"]
 [ext_resource type="Texture2D" uid="uid://chgkaybc5pxuh" path="res://Assets/Sprites/Player/sword_attacks.png" id="3_ppdlg"]
@@ -10,7 +10,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="13_a8wow"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="14_avsg8"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="15_dv6dp"]
-[ext_resource type="Script" uid="uid://dbbq22bwjwilb" path="res://Src/Entities/Player/player_camera.gd" id="16_nhbkt"]
+[ext_resource type="Script" uid="uid://b0mjj7i5vnwi1" path="res://Src/Components/PlayerCamera.cs" id="16_nhbkt"]
 [ext_resource type="Script" uid="uid://d01r8ajylwrex" path="res://Src/Components/StatsComponent.cs" id="16_vskfa"]
 [ext_resource type="Resource" uid="uid://dh05xban5shyo" path="res://Data/Stats/PlayerStats.tres" id="17_pjcup"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Player/shadow.png" id="17_vskfa"]
@@ -1944,8 +1944,6 @@ position = Vector2(0, -7)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_8fjmc")
-_isInvincible = null
-_is_invincible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 7.25)

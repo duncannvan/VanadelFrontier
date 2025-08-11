@@ -1,0 +1,256 @@
+[gd_scene load_steps=26 format=3 uid="uid://c7agehb18vowc"]
+
+[ext_resource type="Script" uid="uid://1fbo3ex33nmu" path="res://Src/Components/AreaDetection/Projectile.cs" id="1_porfw"]
+[ext_resource type="Texture2D" uid="uid://dsicoes8yh2pm" path="res://Assets/Sprites/ParticleTextures/fire.png" id="3_c6vcj"]
+[ext_resource type="Texture2D" uid="uid://dx6b0vvq4mntx" path="res://Assets/Sprites/Tools/Pixel_Magic_Effects_Animations.png" id="5_dqii7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqii7"]
+size = Vector2(17, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amgn1"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 576, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gqtu"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmkh0"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8hh3"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_koylq"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsuy5"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fa4fd"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e75cq"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hh6u"]
+atlas = ExtResource("5_dqii7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4fkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amgn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gqtu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmkh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8hh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_koylq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsuy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fa4fd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e75cq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hh6u")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="Animation" id="Animation_j4fkg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jw3i4"]
+resource_name = "fireball"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dqii7"]
+resource_name = "fireball_initial"
+length = 0.45
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, -2, -2, -2, -2, -2, -2, -2, 1),
+"update": 1,
+"values": [8, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.45),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"fireball", -1, 1.0, false],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_amgn1"]
+_data = {
+&"RESET": SubResource("Animation_j4fkg"),
+&"fireball": SubResource("Animation_jw3i4"),
+&"fireball_initial": SubResource("Animation_dqii7")
+}
+
+[sub_resource type="Curve" id="Curve_of1tk"]
+_data = [Vector2(0.50211, 1), 0.0, -2.46567, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dqii7"]
+curve = SubResource("Curve_of1tk")
+
+[sub_resource type="Gradient" id="Gradient_j4fkg"]
+offsets = PackedFloat32Array(0, 0.526066, 1)
+colors = PackedColorArray(0.984314, 0.419608, 0.113725, 1, 0.960784, 0.2, 0.321569, 1, 0.976471, 0.372549, 0.156863, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jw3i4"]
+gradient = SubResource("Gradient_j4fkg")
+
+[sub_resource type="Curve" id="Curve_c6vcj"]
+_data = [Vector2(0, 1), 0.0, 1.4, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_of1tk"]
+curve = SubResource("Curve_c6vcj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_amgn1"]
+particle_flag_disable_z = true
+angle_min = -30.0
+angle_max = 30.0
+direction = Vector3(-1, 0, 0)
+flatness = 1.0
+initial_velocity_min = 215.45
+initial_velocity_max = 235.45
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
+scale_min = 0.1
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_of1tk")
+color_ramp = SubResource("GradientTexture1D_jw3i4")
+alpha_curve = SubResource("CurveTexture_dqii7")
+hue_variation_min = -0.05
+hue_variation_max = 0.05
+turbulence_enabled = true
+turbulence_influence_min = 0.12
+turbulence_influence_max = 0.12
+
+[node name="MagicProjectile" type="Area2D"]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("1_porfw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.03125)
+shape = SubResource("RectangleShape2D_dqii7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4.48438, -0.484375)
+scale = Vector2(0.359863, 0.359863)
+sprite_frames = SubResource("SpriteFrames_j4fkg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_amgn1")
+}
+autoplay = "fireball_initial"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-7, 0)
+emitting = false
+texture = ExtResource("3_c6vcj")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_amgn1")

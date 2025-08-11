@@ -8,4 +8,7 @@ public sealed partial class StatsSheet : Resource
 
     [Export]
     public byte Speed { get; private set; } = 20;
+
+    [Export]
+    public ItemData ItemDrop { get; private set; } = null;
 }

@@ -11,9 +11,8 @@ public interface IHittable
     }
 
     public StatsComponent StatsComponent { get; }
-    public Hurtbox Hurtbox { get; }
     public Hitbox Hitbox { get; }
-    public AnimationPlayer EffectsPlayer { get; }
+    public AnimationPlayer EffectAnimations { get; }
 
     public void SetState(States newState);
 }

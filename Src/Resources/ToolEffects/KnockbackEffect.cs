@@ -11,7 +11,8 @@ public sealed partial class KnockbackEffect : HitEffect
 
     public override void ApplyEffect(IHittable target, Vector2 hitboxPosition)
     {
-        Vector2 knockbackVector = hitboxPosition.DirectionTo(target.Hurtbox.GlobalPosition) * _knockbackForce;
+        CollisionObject2D targetBody = (CollisionObject2D)target;
+        Vector2 knockbackVector = hitboxPosition.DirectionTo(targetBody.GlobalPosition) * _knockbackForce;
         target.StatsComponent.ApplyKnockback(target, knockbackVector, _knockbackDuration);
     }
 }

@@ -15,9 +15,8 @@ public partial class Player : CharacterBody2D, IHittable
     private Vector2 _lastFacingDirection = Vector2.Down;
 
     public StatsComponent StatsComponent { get; private set; }
-    public Hurtbox Hurtbox { get; private set; }
     public Hitbox Hitbox { get; private set; }
-    public AnimationPlayer EffectsPlayer { get; private set; }
+    public AnimationPlayer EffectAnimations { get; private set; }
     public ToolManager ToolManager { get; private set; }
     public InventoryManager InventoryManager { get; private set; }
     public AnimationTree AnimationTree { get; private set; }
@@ -27,10 +26,9 @@ public partial class Player : CharacterBody2D, IHittable
 
     public override void _Ready()
     {
-        Hurtbox = GetNode<Hurtbox>("Hurtbox");
         Hitbox = GetNode<Hitbox>("ToolPivot/Hitbox");
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
-        EffectsPlayer = GetNode<AnimationPlayer>("EffectsPlayer");
+        EffectAnimations = GetNode<AnimationPlayer>("EffectsPlayer");
 
         //_playerCamera = GetNode<Camera2D>("Camera2D");
         AnimationTree = GetNode<AnimationTree>("AnimationTree");
@@ -38,7 +36,6 @@ public partial class Player : CharacterBody2D, IHittable
         ToolManager = GetNode<ToolManager>("ToolManager");
         InventoryManager = GetNode<InventoryManager>("InventoryManager");
 
-        Hurtbox.HurtboxEntered += OnHurtboxEntered;
         StatsComponent.Died += OnDied;
         ToolManager.SetBlendPointIdxMapping(AnimationTree);
     }
@@ -87,14 +84,6 @@ public partial class Player : CharacterBody2D, IHittable
             {
                 ToolManager.UseSelectedTool(this);
             }
-        }
-    }
-
-    private void OnHurtboxEntered(Hitbox hitbox)
-    {
-        foreach (HitEffect effect in hitbox.HitEffects)
-        {
-            effect.ApplyEffect(this, hitbox.GlobalPosition);
         }
     }
 

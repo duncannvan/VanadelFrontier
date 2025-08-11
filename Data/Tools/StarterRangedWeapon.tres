@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://b470b3fnqvugm"]
+[gd_resource type="Resource" script_class="RangedWeaponData" load_steps=6 format=3 uid="uid://b470b3fnqvugm"]
 
 [ext_resource type="Script" uid="uid://hd5386ynn4yg" path="res://Src/Resources/ToolData/RangedWeaponData.cs" id="1_6oabu"]
 [ext_resource type="AnimationLibrary" uid="uid://cmxv6rmtu8fkl" path="res://AnimationLibs/basic_magic_blast.res" id="1_86gak"]

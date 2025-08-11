@@ -16,9 +16,17 @@ public partial class Hitbox : Area2D
 
     protected virtual void OnAreaEntered(Area2D area)
     {
-        if (area as Hurtbox is Hurtbox hb && !hb.IsInvincible)
+        if (area as Hurtbox is not Hurtbox hb || hb.IsInvincible) { return; }
+        
+        for (Node node = area.GetParent(); node != null; node = node.GetParent())
         {
-            hb.EmitSignal(nameof(Hurtbox.HurtboxEntered), this);
+            if (node is IHittable target)
+            {
+                foreach (HitEffect effect in HitEffects)
+                {
+                    effect.ApplyEffect(target, GlobalPosition);
+                }
+            }
         }
     }
 

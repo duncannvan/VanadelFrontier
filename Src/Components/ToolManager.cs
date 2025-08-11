@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public partial class ToolManager : Node
+[GlobalClass]
+public sealed partial class ToolManager : Node
 {
     [Signal]
     public delegate void ToolChangedEventHandler(byte slotIdx);
@@ -107,7 +108,7 @@ public partial class ToolManager : Node
 
     public void SetBlendPointIdxMapping(AnimationTree animationTree)
     {
-        AnimationNodeBlendTree root = animationTree.TreeRoot as AnimationNodeBlendTree ;
+        AnimationNodeBlendTree root = animationTree.TreeRoot as AnimationNodeBlendTree;
         AnimationNodeStateMachine stateMachine = root.GetNode("StateMachine") as AnimationNodeStateMachine;
         AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
 
@@ -119,10 +120,10 @@ public partial class ToolManager : Node
             _blendPointIdxMap[direction] = (byte)blendSpaceIdx;
         }
     }
-    
+
     public void SetToolAnimation(AnimationTree animationTree, byte libIdx = 0)
     {
-        AnimationNodeBlendTree root = animationTree.TreeRoot as AnimationNodeBlendTree ;
+        AnimationNodeBlendTree root = animationTree.TreeRoot as AnimationNodeBlendTree;
         AnimationNodeStateMachine stateMachine = root.GetNode("StateMachine") as AnimationNodeStateMachine;
         AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
 

@@ -1,0 +1,139 @@
+[gd_scene load_steps=19 format=3 uid="uid://sxcrwq6qjmwq"]
+
+[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
+[ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/Slime/slime.png" id="1_371uh"]
+[ext_resource type="Resource" uid="uid://ce0oe3o23q3re" path="res://ResourceData/ItemData/slime_loot.tres" id="2_fg4mt"]
+[ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://ResourceData/EntityData/slime_stats.tres" id="6_o85a5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6f406"]
+radius = 6.0
+
+[sub_resource type="Curve" id="Curve_fg4mt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ha687"]
+curve = SubResource("Curve_fg4mt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fg4mt"]
+resource_local_to_scene = true
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 25.0
+initial_velocity_min = 180.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_ha687")
+
+[sub_resource type="Shader" id="Shader_it1cl"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform bool flash = false;
+uniform bool gray_scale = false;
+uniform vec4 flash_color: source_color = vec4(1.0, 1.0, 1.0, 1.0);
+void fragment() {
+	vec4 original_color = texture(TEXTURE, UV);
+	
+	if (flash) {
+		COLOR = vec4(flash_color.rgb, original_color.a);
+	}
+	if (gray_scale && !flash) {
+		float grayscale = (original_color.r + original_color.g + original_color.b) / 3.0;
+		COLOR.rgb = vec3(grayscale);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o85a5"]
+resource_local_to_scene = true
+shader = SubResource("Shader_it1cl")
+shader_parameter/flash = false
+shader_parameter/gray_scale = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o85a5"]
+atlas = ExtResource("1_371uh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fg4mt"]
+atlas = ExtResource("1_371uh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
+atlas = ExtResource("1_371uh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utbsb"]
+atlas = ExtResource("1_371uh")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7js1"]
+atlas = ExtResource("1_371uh")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f406"]
+atlas = ExtResource("1_371uh")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3an5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o85a5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fg4mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha687")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha687")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utbsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7js1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f406")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Slime" instance=ExtResource("1_0lovs")]
+_loot_drop = ExtResource("2_fg4mt")
+
+[node name="CollisionShape2D" parent="." index="0"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_b7js1")
+
+[node name="BodyHitbox" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
+shape = SubResource("CircleShape2D_6f406")
+
+[node name="DamagedParticles" parent="." index="6"]
+process_material = SubResource("ParticleProcessMaterial_fg4mt")
+
+[node name="MobSprite" parent="." index="8"]
+material = SubResource("ShaderMaterial_o85a5")
+sprite_frames = SubResource("SpriteFrames_y3an5")
+autoplay = "default"
+frame_progress = 0.887163
+
+[node name="ShadowSprite" parent="." index="9"]
+position = Vector2(0, 3)
+
+[node name="StatsComponents" parent="." index="10"]
+_stats = ExtResource("6_o85a5")
