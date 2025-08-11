@@ -98,7 +98,7 @@ public partial class Player : CharacterBody2D, IHittable
 
     private void OnHurtboxEntered(Hitbox hitbox)
     {
-        foreach (var effect in hitbox.HitEffects)
+        foreach (HitEffect effect in hitbox.HitEffects)
         {
             effect.ApplyEffect(this, hitbox.GlobalPosition);
         }

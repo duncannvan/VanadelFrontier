@@ -107,53 +107,54 @@ public partial class ToolManager : Node
 
     public void setBlendPointIdxMapping(AnimationTree animationTree)
     {
-        // var stateMachine = animationTree.TreeRoot as AnimationNodeStateMachine;
-        // var blendSpace = stateMachine.GetNode<AnimationNodeBlendSpace2D>("ToolState");
-        // int blendPointCount = blendSpace.GetBlendPointCount();
-        // for (int blendSpaceIdx = 0; blendSpaceIdx < blendPointCount; blendSpaceIdx++)
-        // {
-        //     Vector2 blendPointPos = blendSpace.GetBlendPointPosition(blendSpaceIdx);
-        //     string direction = VectorToDirection(blendPointPos);
-        //     _blendPointIdxMap[direction] = (byte)blendSpaceIdx;
-        // }
+        AnimationNodeStateMachine stateMachine = animationTree.TreeRoot as AnimationNodeStateMachine;
+        AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
+        
+        int blendPointCount = blendSpace.GetBlendPointCount();
+        for (int blendSpaceIdx = 0; blendSpaceIdx < blendPointCount; blendSpaceIdx++)
+        {
+            Vector2 blendPointPos = blendSpace.GetBlendPointPosition(blendSpaceIdx);
+            string direction = VectorToDirection(blendPointPos);
+            _blendPointIdxMap[direction] = (byte)blendSpaceIdx;
+        }
     }
     
     public void SetToolAnimation(AnimationTree animationTree, byte libIdx = 0)
     {
-        // var stateMachine = animationTree.TreeRoot.GetNode("StateMachine");
-        // var blendSpace = stateMachine.GetNode<AnimationNodeBlendSpace2D>("ToolState");
+        AnimationNodeStateMachine stateMachine = animationTree.TreeRoot as AnimationNodeStateMachine;
+        AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
 
-        // var selectedTool = GetSelectedTool();
-        // if (selectedTool == null)
-        //     throw new System.Exception("Tool not equipped");
-        // if (libIdx >= selectedTool.AnimationLibraries.Length)
-        //     throw new System.Exception("Invalid animation library index");
+        var selectedTool = GetSelectedTool();
+        if (selectedTool == null)
+            throw new System.Exception("Tool not equipped");
+        if (libIdx >= selectedTool.AnimationLibraries.Length)
+            throw new System.Exception("Invalid animation library index");
 
-        // // Find the local library name
-        // string toolLibName = "";
-        // foreach (var libName in animationTree.GetAnimationLibraryList())
-        // {
-        //     var lib = animationTree.GetAnimationLibrary(libName);
-        //     if (lib == selectedTool.AnimationLibraries[libIdx])
-        //     {
-        //         toolLibName = libName + "/";
-        //         break;
-        //     }
-        // }
+        // Find the local library name
+        string toolLibName = "";
+        foreach (string libName in animationTree.GetAnimationLibraryList())
+        {
+            var lib = animationTree.GetAnimationLibrary(libName);
+            if (lib == selectedTool.AnimationLibraries[libIdx])
+            {
+                toolLibName = libName + "/";
+                break;
+            }
+        }
 
-        // // Update the blend point animations for each direction
-        // foreach (var animName in selectedTool.AnimationLibraries[libIdx].GetAnimationList())
-        // {
-        //     var animNode = new AnimationNodeAnimation();
-        //     animNode.Animation = toolLibName + animName;
-        //     foreach (var key in _blendPointIdxMap.Keys)
-        //     {
-        //         if (animName.Contains(key))
-        //         {
-        //             blendSpace.SetBlendPointNode(_blendPointIdxMap[key], animNode);
-        //         }
-        //     }
-        // }
+        // Update the blend point animations for each direction
+        foreach (string animName in selectedTool.AnimationLibraries[libIdx].GetAnimationList())
+        {
+            var animNode = new AnimationNodeAnimation();
+            animNode.Animation = toolLibName + animName;
+            foreach (string key in _blendPointIdxMap.Keys)
+            {
+                if (animName.Contains(key))
+                {
+                    blendSpace.SetBlendPointNode(_blendPointIdxMap[key], animNode);
+                }
+            }
+        }
     }
 
     private ToolData GetSelectedTool() { return _toolData[_currentToolIdx]; }
