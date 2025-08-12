@@ -25,6 +25,8 @@ public partial class Mob : CharacterBody2D, IHittable
         _navAgent = GetNode<NavigationAgent2D>("MobNavigation");
     }
 
+    public void Init(IHittable target) => _target = target;
+    
     public override void _PhysicsProcess(double delta)
     {
         if (_target is null || _navAgent is null) { return; }

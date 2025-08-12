@@ -1,0 +1,217 @@
+[gd_scene load_steps=24 format=3 uid="uid://b8wgn38g22fvs"]
+
+[ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Nature/tree.gd" id="1_3opvk"]
+[ext_resource type="Shader" uid="uid://dtpa3cfioyt7e" path="res://Nature/tree_shader.gdshader" id="2_0f6uc"]
+[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_ot18c"]
+[ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="4_kerrk"]
+[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_sup5y"]
+[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="6_iyu0o"]
+[ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="7_0f6uc"]
+[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="7_8tj72"]
+[ext_resource type="AudioStream" uid="uid://cxngwnqrr3p8c" path="res://Assets/Audio/tree.mp3" id="9_2gpob"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ot18c"]
+resource_local_to_scene = true
+shader = ExtResource("2_0f6uc")
+shader_parameter/shake = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqxk"]
+size = Vector2(17.25, 13.8359)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2gpob"]
+radius = 7.0
+
+[sub_resource type="Curve" id="Curve_ot18c"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.818565, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lmbf1"]
+curve = SubResource("Curve_ot18c")
+
+[sub_resource type="Curve" id="Curve_b7p8j"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.253165, 1), 0.0, 0.0, 0, 0, Vector2(0.49789, -0.977528), 0.0, 0.0, 0, 0, Vector2(0.751055, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_2uypa"]
+curve = SubResource("Curve_b7p8j")
+
+[sub_resource type="Gradient" id="Gradient_0f6uc"]
+colors = PackedColorArray(0.305882, 0.560784, 0.152941, 1, 0.305882, 0.560784, 0.152941, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ot18c"]
+gradient = SubResource("Gradient_0f6uc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ot18c"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, -1, 0)
+spread = 120.0
+initial_velocity_min = 210.0
+initial_velocity_max = 230.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+angular_velocity_curve = SubResource("CurveTexture_2uypa")
+gravity = Vector3(0, 50, 0)
+damping_min = 0.5
+damping_max = 0.5
+scale_min = 0.1
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_ot18c")
+alpha_curve = SubResource("CurveTexture_lmbf1")
+hue_variation_min = -0.1
+hue_variation_max = -2.23517e-08
+turbulence_enabled = true
+turbulence_influence_min = 0.07
+turbulence_influence_max = 0.07
+
+[sub_resource type="Animation" id="Animation_ot18c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/shake")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2gpob"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("9_2gpob")
+
+[sub_resource type="Animation" id="Animation_0f6uc"]
+resource_name = "damaged"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"restart"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/shake")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamagedSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": SubResource("AudioStreamRandomizer_2gpob")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2gpob"]
+_data = {
+&"RESET": SubResource("Animation_ot18c"),
+&"damaged": SubResource("Animation_0f6uc")
+}
+
+[node name="Tree" type="StaticBody2D"]
+position = Vector2(0, -1)
+collision_mask = 0
+script = ExtResource("1_3opvk")
+nature_item = ExtResource("2_ot18c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ot18c")
+position = Vector2(-26, -6)
+texture = ExtResource("4_kerrk")
+offset = Vector2(25.5, -13)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(-0.5, -19)
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("5_sup5y")
+metadata/_custom_type_script = "uid://63sbpv1faiyx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.5, 16.918)
+shape = SubResource("RectangleShape2D_4mqxk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_2gpob")
+
+[node name="StatsComponents" type="Node" parent="."]
+script = ExtResource("6_iyu0o")
+_stats = ExtResource("7_8tj72")
+metadata/_custom_type_script = "uid://disun15mfvhrx"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-1, -36)
+scale = Vector2(0.569917, 0.645364)
+emitting = false
+amount = 12
+texture = ExtResource("7_0f6uc")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ot18c")
+
+[node name="DamagedEffects" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2gpob")
+}
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 10.0
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
