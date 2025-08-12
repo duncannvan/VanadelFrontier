@@ -1,19 +1,31 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using Godot;
 
 [GlobalClass]
 public partial class Player : CharacterBody2D, IHittable
 {
-    private readonly Dictionary<string, IHittable.States> _states = new Dictionary<string, IHittable.States>
+    /*
+        Static Fields
+    */
+    private static readonly ImmutableDictionary<string, IHittable.States> _states = ImmutableDictionary.CreateRange(new[]
     {
-        { "MoveState", IHittable.States.MOVE },
-        { "ToolState", IHittable.States.TOOL },
-        { "KnockbackState", IHittable.States.KNOCKEDBACK },
-        { "DeadState", IHittable.States.DEAD },
-    };
+        new KeyValuePair<string, IHittable.States>("MoveState", IHittable.States.MOVE),
+        new KeyValuePair<string, IHittable.States>("ToolState", IHittable.States.TOOL),
+        new KeyValuePair<string, IHittable.States>("KnockbackState", IHittable.States.KNOCKBACK),
+        new KeyValuePair<string, IHittable.States>("DeadState", IHittable.States.DEAD),
+    });
 
+    /*
+        Instance Fields
+    */
     private Vector2 _lastFacingDirection = Vector2.Down;
+    private AnimationNodeStateMachinePlayback _animationStateMachine;
 
+    /*
+        Properties
+    */
     public StatsComponent StatsComponent { get; private set; }
     public Hitbox Hitbox { get; private set; }
     public AnimationPlayer EffectAnimations { get; private set; }
@@ -21,45 +33,34 @@ public partial class Player : CharacterBody2D, IHittable
     public InventoryManager InventoryManager { get; private set; }
     public AnimationTree AnimationTree { get; private set; }
 
-//    // private Camera2D _playerCamera;
-    private AnimationNodeStateMachinePlayback _animationStateMachine;
-
+    /*
+        Internal Godot Methods
+    */
     public override void _Ready()
     {
-        Hitbox = GetNode<Hitbox>("ToolPivot/Hitbox");
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
+        Hitbox = GetNode<Hitbox>("ToolPivot/Hitbox");
         EffectAnimations = GetNode<AnimationPlayer>("EffectsPlayer");
-
-        //_playerCamera = GetNode<Camera2D>("Camera2D");
-        AnimationTree = GetNode<AnimationTree>("AnimationTree");
-        _animationStateMachine = AnimationTree.Get("parameters/StateMachine/playback").As<AnimationNodeStateMachinePlayback>();
         ToolManager = GetNode<ToolManager>("ToolManager");
         InventoryManager = GetNode<InventoryManager>("InventoryManager");
+        AnimationTree = GetNode<AnimationTree>("AnimationTree");
+
+        _animationStateMachine = AnimationTree.Get("parameters/StateMachine/playback").As<AnimationNodeStateMachinePlayback>();
 
         StatsComponent.Died += OnDied;
         ToolManager.SetBlendPointIdxMapping(AnimationTree);
     }
     
-    public void SetState(IHittable.States newState)
-    {
-        if (GetStateName(newState) != _animationStateMachine.GetCurrentNode())
-        {
-            _animationStateMachine.Travel(GetStateName(newState));
-        }
-    }
-    
-    private void physicsProcessMovement(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         string currentStateStr = _animationStateMachine.GetCurrentNode();
-
-        if (!_states.ContainsKey(currentStateStr)) { return; }
 
         switch (_states[currentStateStr])
         {
             case IHittable.States.MOVE:
                 HandleMovement();
                 break;
-            case IHittable.States.KNOCKEDBACK:
+            case IHittable.States.KNOCKBACK:
                 Velocity = StatsComponent.GetKnockbackVector();
                 MoveAndSlide();
                 break;
@@ -68,44 +69,63 @@ public partial class Player : CharacterBody2D, IHittable
         }
     }
 
-    private void HandleMovement()
+    /*
+        Public Methods
+    */
+    public void SetState(IHittable.States newState)
     {
-        Vector2 inputVector = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-
-        if (inputVector != Vector2.Zero)
+        if (GetStateName(newState) != _animationStateMachine.GetCurrentNode())
         {
-            _lastFacingDirection = inputVector;
-            UpdateBlendPositions(inputVector);
-        }
-
-        if (Input.IsActionJustPressed("use_tool"))
-        {
-            if (ToolManager.IsToolSelected())
-            {
-                ToolManager.UseSelectedTool(this);
-            }
+            _animationStateMachine.Travel(GetStateName(newState));
         }
     }
+    
 
-    private void OnDied(){ }
+    /*
+        Private Methods
+    */
+    private void HandleMovement()
+    {
+        Vector2 moveDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+
+        if (moveDirection != Vector2.Zero)
+        {
+            _lastFacingDirection = moveDirection;
+            UpdateBlendPositions(moveDirection);
+        }
+
+        if (Input.IsActionJustPressed("use_tool") && ToolManager.IsToolSelected())
+        {
+            ToolManager.UseSelectedTool(this);
+        }
+
+        Velocity = moveDirection * StatsComponent.GetCurrentSpeed();
+        MoveAndSlide();
+    }
+
+    private void OnDied()
+    {
+        SetState(IHittable.States.DEAD);
+        QueueFree();
+    }
 
     private void UpdateBlendPositions(Vector2 direction)
     {
-        AnimationTree.Set("parameters/StateMachine/MoveState/Idle/blend_position", direction);
-        AnimationTree.Set("parameters/StateMachine/MoveState/Running/blend_position", direction);
-        AnimationTree.Set("parameters/StateMachine/ToolState/blend_position", direction);
-        AnimationTree.Set("parameters/StateMachine/KnockbackState/blend_position", direction);
+        string[] paths = [
+            "parameters/StateMachine/MoveState/Idle/blend_position",
+            "parameters/StateMachine/MoveState/Running/blend_position",
+            "parameters/StateMachine/ToolState/blend_position",
+            "parameters/StateMachine/KnockbackState/blend_position"
+        ];
+
+        for (byte pathsIdx = 0; pathsIdx < paths.Length; pathsIdx++)
+        {
+            _animationStateMachine.Set(paths[pathsIdx], direction);
+        }
     }
 
     private string GetStateName(IHittable.States stateKey)
     {
-        foreach (var state in _states)
-        {
-            if (state.Value == stateKey)
-            {
-                return state.Key;
-            }
-        }
-        return null;
+        return _states.FirstOrDefault(keyValuePair => keyValuePair.Value == stateKey).Key;
     }
 }

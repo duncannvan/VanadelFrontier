@@ -4,9 +4,10 @@ public interface IHittable
 {
     public enum States : byte
     {
+        IDLE,
         MOVE,
         TOOL,
-        KNOCKEDBACK,
+        KNOCKBACK,
         DEAD
     }
 

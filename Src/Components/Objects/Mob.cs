@@ -62,7 +62,7 @@ public partial class Mob : CharacterBody2D, IHittable
 
     private void OnVelocityComputed(Vector2 adjustedVelocity)
     {
-        if (_state != IHittable.States.KNOCKEDBACK)
+        if (_state != IHittable.States.KNOCKBACK)
         {
             Velocity = adjustedVelocity;
         }

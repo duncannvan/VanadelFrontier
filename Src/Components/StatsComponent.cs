@@ -59,7 +59,7 @@ public sealed partial class StatsComponent : Node
     {
         if (duration <= 0 || !_knockbackTimer.IsStopped()) { return; }
 
-        target.SetState(IHittable.States.KNOCKEDBACK);
+        target.SetState(IHittable.States.KNOCKBACK);
 
         if (target.EffectAnimations.HasAnimation("knockback_effect"))
         {
