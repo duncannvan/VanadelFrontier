@@ -12,7 +12,6 @@ public partial class Mob : CharacterBody2D, IHittable
     private IHittable.States _state = IHittable.States.MOVE;
     private NavigationAgent2D _navAgent = null;
 
-    public Hitbox Hitbox { get; private set; } = null;
     public StatsComponent StatsComponent { get; private set; } = null;
     public AnimationPlayer EffectAnimations { get; private set; } = null;
 
@@ -20,7 +19,6 @@ public partial class Mob : CharacterBody2D, IHittable
     {
         AddToGroup("mobs");
 
-        Hitbox = GetNode<Hitbox>("Hitbox");
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
         EffectAnimations = GetNode<AnimationPlayer>("EffectAnimations");
 
