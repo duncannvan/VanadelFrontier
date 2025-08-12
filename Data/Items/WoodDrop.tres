@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dnpp51gckpqk1"]
+
+[ext_resource type="Script" uid="uid://dt3ofp6y1woa7" path="res://Src/Resources/InventoryData/ItemData.cs" id="1_dyi04"]
+[ext_resource type="Texture2D" uid="uid://crtslesd8836t" path="res://Assets/Sprites/ParticleTextures/Items/Log.png" id="1_e0mps"]
+
+[resource]
+script = ExtResource("1_dyi04")
+Name = ""
+Texture = ExtResource("1_e0mps")
+metadata/_custom_type_script = "uid://dt3ofp6y1woa7"

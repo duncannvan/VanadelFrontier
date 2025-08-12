@@ -1,34 +1,24 @@
-[gd_scene load_steps=36 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=26 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://brbvn765ayawe" path="res://Scenes/Entities/Player/Player.tscn" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://d2vgqy8witel6" path="res://Src/main.cs" id="1_tbgi4"]
-[ext_resource type="Script" uid="uid://c5i664igrylu5" path="res://Src/Resources/WaveData.cs" id="2_bs7a0"]
-[ext_resource type="Script" path="res://World/world.gd" id="2_r6hqv"]
-[ext_resource type="Resource" path="res://ResourceData/WaveData/wave_1.tres" id="3_40rxn"]
-[ext_resource type="Resource" path="res://ResourceData/WaveData/wave_2.tres" id="4_5k5ia"]
-[ext_resource type="Script" path="res://UI/BaseHealthBar/base_health_bar.gd" id="5_m0hhd"]
-[ext_resource type="Script" path="res://World/tool_bar_ui.gd" id="5_r6hqv"]
-[ext_resource type="Resource" path="res://ResourceData/WaveData/wave_3.tres" id="5_v0hog"]
-[ext_resource type="PackedScene" path="res://UI/ToolBar/item_slot.tscn" id="6_4pper"]
+[ext_resource type="Script" uid="uid://d2vgqy8witel6" path="res://Src/Main.cs" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://bt6g4jgrw32l" path="res://Src/World.cs" id="2_r6hqv"]
+[ext_resource type="Script" uid="uid://b8at0kl3vnptu" path="res://Src/UI/BaseHealth.cs" id="5_m0hhd"]
+[ext_resource type="Script" uid="uid://bnbr1vj6fsk7u" path="res://Src/UI/ToolBar.cs" id="5_r6hqv"]
 [ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/GUIs/health_bar_under.png" id="6_rqan7"]
 [ext_resource type="Texture2D" uid="uid://di02psb3e6ex0" path="res://Assets/Sprites/GUIs/health_bar_progress.png" id="7_44n3w"]
-[ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://Scenes/base.tscn" id="7_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://Scenes/Game/mob_spawner.tscn" id="8_1hcjw"]
-[ext_resource type="Script" path="res://World/inventory_ui.gd" id="8_scvq1"]
-[ext_resource type="PackedScene" path="res://UI/item_slot_with_count.tscn" id="9_sfxlf"]
-[ext_resource type="Script" path="res://World/crafting_menu_ui.gd" id="10_2sp6a"]
-[ext_resource type="Resource" path="res://ResourceData/TowerData/basic_tower.tres" id="10_ixdso"]
+[ext_resource type="PackedScene" uid="uid://dvs46icsemkb1" path="res://Scenes/Base.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dpkxmbnft76va" path="res://Scenes/Game/MobSpawner.tscn" id="8_1hcjw"]
 [ext_resource type="Texture2D" uid="uid://3boh2jmo2ts2" path="res://Assets/Sprites/GUIs/tool_slot.png" id="10_rqan7"]
 [ext_resource type="Texture2D" uid="uid://rvc0ae2yfc0n" path="res://Assets/Sprites/GUIs/selected_tool_slot-export.png" id="11_44n3w"]
 [ext_resource type="Texture2D" uid="uid://u30d1nchjs85" path="res://Assets/Sprites/GUIs/hover_tool_slot.png" id="12_2sp6a"]
 [ext_resource type="Texture2D" uid="uid://codrmtt2grqt1" path="res://Assets/Sprites/Buildings/archer_tower.png" id="13_44n3w"]
 [ext_resource type="Texture2D" uid="uid://crtslesd8836t" path="res://Assets/Sprites/ParticleTextures/Items/Log.png" id="15_44n3w"]
-[ext_resource type="PackedScene" path="res://Craft/CraftingTable.tscn" id="15_lh7yw"]
+[ext_resource type="Script" uid="uid://c2ceiup84y4il" path="res://Src/UI/WaveTimer.cs" id="15_ney17"]
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Scenes/Harvestables/Tree.tscn" id="17_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Scenes/Harvestables/Rock.tscn" id="17_r6hqv"]
-[ext_resource type="Script" path="res://World/nature_spawner.gd" id="18_lh7yw"]
-[ext_resource type="Script" path="res://World/wave_timer.gd" id="20_40rxn"]
+[ext_resource type="Script" uid="uid://dr8ml5mgrtkvx" path="res://Src/NatureSpawner.cs" id="18_lh7yw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_td74h"]
 
@@ -1068,7 +1058,6 @@ sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_tbgi4")
-waves = Array[ExtResource("2_bs7a0")]([ExtResource("3_40rxn"), ExtResource("4_5k5ia"), ExtResource("5_v0hog")])
 metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -1143,21 +1132,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="Slot1" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
-layout_mode = 2
-
-[node name="Slot2" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
-layout_mode = 2
-
-[node name="Slot3" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
-layout_mode = 2
-
-[node name="Slot4" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
-layout_mode = 2
-
-[node name="Slot5" parent="UI/ToolBar/MarginContainer/ToolSlotsContainer" instance=ExtResource("6_4pper")]
-layout_mode = 2
-
 [node name="Inventory" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
@@ -1166,7 +1140,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("8_scvq1")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="UI/Inventory"]
@@ -1194,36 +1167,6 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 5
 
-[node name="Slot1" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot2" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot3" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot4" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot5" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot6" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot7" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot8" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot9" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
-[node name="Slot10" parent="UI/Inventory/ColorRect/SlotContainer" instance=ExtResource("9_sfxlf")]
-layout_mode = 2
-
 [node name="CraftingMenu" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
@@ -1232,8 +1175,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("10_2sp6a")
-tower_resource = ExtResource("10_ixdso")
 
 [node name="ColorRect" type="ColorRect" parent="UI/CraftingMenu"]
 layout_mode = 1
@@ -1408,12 +1349,14 @@ layout_mode = 2
 text = "0 / 20"
 label_settings = SubResource("LabelSettings_44n3w")
 
-[node name="WaveCountdownTimer" type="Control" parent="UI"]
+[node name="WaveCountdownTimer" type="Control" parent="UI" node_paths=PackedStringArray("_label", "_nextWaveButton")]
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
-script = ExtResource("20_40rxn")
+script = ExtResource("15_ney17")
+_label = NodePath("VBoxContainer/WaveCountdownTimeLabel")
+_nextWaveButton = NodePath("VBoxContainer/NextWaveButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/WaveCountdownTimer"]
 layout_mode = 0
@@ -1457,14 +1400,11 @@ collision_mask = 129
 
 [node name="Base" parent="." instance=ExtResource("7_o6xl0")]
 position = Vector2(474, -226)
+script = null
 
-[node name="MobSpawner" parent="." node_paths=PackedStringArray("_base", "_player") instance=ExtResource("8_1hcjw")]
+[node name="MobSpawner" parent="." instance=ExtResource("8_1hcjw")]
 position = Vector2(306, -237)
-_base = NodePath("../Base")
-_player = NodePath("../Player")
-
-[node name="CraftingTable" parent="." instance=ExtResource("15_lh7yw")]
-position = Vector2(531, -242)
+script = null
 
 [node name="NatureSpawner" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -1472,21 +1412,27 @@ script = ExtResource("18_lh7yw")
 
 [node name="Tree" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
 position = Vector2(518, -157)
+script = null
 
 [node name="Tree2" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
 position = Vector2(454, -282)
+script = null
 
 [node name="Tree3" parent="NatureSpawner" instance=ExtResource("17_lh7yw")]
 position = Vector2(406, -145)
+script = null
 
 [node name="Rock" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(380, -288)
+script = null
 
 [node name="Rock2" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(178, -398)
+script = null
 
 [node name="Rock3" parent="NatureSpawner" instance=ExtResource("17_r6hqv")]
 position = Vector2(351, -136)
+script = null
 
 [node name="WaveCountdownTimer" type="Timer" parent="."]
 wait_time = 60.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=0 format=3 uid="uid://cq7jwutfgsiv3"]
+[gd_scene format=3 uid="uid://cq7jwutfgsiv3"]
 
 [node name="MobNavigation" type="NavigationAgent2D"]
 avoidance_enabled = true

@@ -14,14 +14,14 @@ public sealed partial class ToolManager : Node
     [Signal]
     public delegate void ToolUsedEventHandler(byte cooldown, byte SlotIdx);
 
-    private const sbyte NoToolIdx = -1;
+    public const sbyte NoToolSelected = -1;
     private const int MaxToolSlots = 5;
     private const float ResetCooldownTimeSec = 0.5f;
 
     [Export]
     private ToolData[] _toolData = System.Array.Empty<ToolData>();
 
-    sbyte _currentToolIdx = NoToolIdx;
+    sbyte _currentToolIdx = NoToolSelected;
     Dictionary<string, byte> _blendPointIdxMap = new Dictionary<string, byte>() { { "left", 0 }, { "right", 0 }, { "up", 0 }, { "down", 0 } };
     Timer _resetCooldownTimer = null;
 
@@ -47,7 +47,7 @@ public sealed partial class ToolManager : Node
 
         if (slotIdx >= _toolData.Length || slotIdx == _currentToolIdx || _toolData[slotIdx] is null)
         {
-            _currentToolIdx = NoToolIdx;
+            _currentToolIdx = NoToolSelected;
             return;
         }
 
@@ -78,7 +78,7 @@ public sealed partial class ToolManager : Node
         GetTree().CreateTimer(cooldownSec).Timeout += () => _toolData[toolIdx].IsCooldownActive = false;
     }
 
-    public bool IsToolSelected() { return _currentToolIdx != NoToolIdx; }
+    public bool IsToolSelected() { return _currentToolIdx != NoToolSelected; }
 
     public void RemoveTool(byte slotIdx)
     {

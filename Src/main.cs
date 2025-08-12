@@ -18,8 +18,8 @@ public partial class Main : Node2D
 	[Export]
 	private MobSpawner _mobSpawner;
 
-	// [Export]
-	// private TextureProgressBar _baseHealthBar;
+	[Export]
+	private TextureProgressBar _baseHealthBar;
 
 	[Export]
 	private Player _player;
@@ -81,10 +81,10 @@ public partial class Main : Node2D
 			_mobSpawner.Call("disable");
 	}
 
-	// private void OnHealthChanged(float newHealth)
-	// {
-	// 	_baseHealthBar.Call("update", _baseStatsComponent.Call("get_health"));
-	// }
+	private void OnHealthChanged(float newHealth)
+	{
+		_baseHealthBar.Call("update", _baseStatsComponent.Call("get_health"));
+	}
 
 	private void OnLootDropped(GodotObject item)
 	{

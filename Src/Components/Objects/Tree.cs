@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Tree : Harvestable
+public partial class Tree: Harvestable
 {
     public const string TREE_UID = "uid://b8wgn38g22fvs";
 
@@ -9,3 +9,4 @@ public partial class Tree : Harvestable
         return GD.Load<PackedScene>(TREE_UID).Instantiate<Harvestable>();
     }
 }
+ 

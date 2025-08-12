@@ -1,9 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://sxcrwq6qjmwq"]
+[gd_scene load_steps=17 format=3 uid="uid://sxcrwq6qjmwq"]
 
-[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_0lovs"]
-[ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/Slime/slime.png" id="1_371uh"]
-[ext_resource type="Resource" uid="uid://ce0oe3o23q3re" path="res://ResourceData/ItemData/slime_loot.tres" id="2_fg4mt"]
-[ext_resource type="Resource" uid="uid://dc3f7o3eovhjl" path="res://ResourceData/EntityData/slime_stats.tres" id="6_o85a5"]
+[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_0lovs"]
+[ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/Mobs/slime.png" id="1_371uh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
 radius = 7.0
@@ -109,16 +107,20 @@ animations = [{
 }]
 
 [node name="Slime" instance=ExtResource("1_0lovs")]
-_loot_drop = ExtResource("2_fg4mt")
+script = null
 
 [node name="CollisionShape2D" parent="." index="0"]
 visible = false
+
+[node name="Hurtbox" parent="." index="1"]
+script = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_b7js1")
 
 [node name="BodyHitbox" parent="." index="2"]
 visible = false
+script = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_6f406")
@@ -136,4 +138,4 @@ frame_progress = 0.887163
 position = Vector2(0, 3)
 
 [node name="StatsComponents" parent="." index="10"]
-_stats = ExtResource("6_o85a5")
+script = null

@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://df78ln1f24wy2"]
+[gd_scene load_steps=2 format=3 uid="uid://df78ln1f24wy2"]
 
-[ext_resource type="Script" uid="uid://r83sr74eop47" path="res://Entities/Towers/tower.gd" id="1_lqjbc"]
-[ext_resource type="Resource" uid="uid://cdrjighqw0c4c" path="res://ResourceData/TowerData/basic_tower.tres" id="2_mq5yu"]
+[ext_resource type="Script" uid="uid://cph3koch1lk7t" path="res://Src/Components/Objects/Tower.cs" id="1_lqjbc"]
 
 [node name="Tower" type="StaticBody2D"]
 visible = false
 script = ExtResource("1_lqjbc")
-_tower_resource = ExtResource("2_mq5yu")
 metadata/_custom_type_script = "uid://r83sr74eop47"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

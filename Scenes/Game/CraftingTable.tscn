@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://gkma5es6o221"]
+
+[ext_resource type="Texture2D" uid="uid://vl3cmt3uhm1h" path="res://Assets/crafting_table.png" id="1_7fjpv"]
+[ext_resource type="Script" uid="uid://d4lhu45s8mjh2" path="res://Components/crafting_table.gd" id="1_yjftv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fjpv"]
+size = Vector2(24, 19)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7fjpv"]
+radius = 32.0
+
+[node name="CraftingTable" type="StaticBody2D"]
+script = ExtResource("1_yjftv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_7fjpv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_7fjpv")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -6)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_7fjpv")

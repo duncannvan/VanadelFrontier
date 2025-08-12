@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://0r87vtyba3ns"]
+
+[ext_resource type="Script" uid="uid://dt3ofp6y1woa7" path="res://Src/Resources/InventoryData/ItemData.cs" id="1_fqc4y"]
+[ext_resource type="Texture2D" uid="uid://ck12rpnqswagx" path="res://Assets/Sprites/ParticleTextures/Items/slime_loot.png" id="1_gvmsx"]
+
+[resource]
+script = ExtResource("1_fqc4y")
+Name = ""
+Texture = ExtResource("1_gvmsx")
+metadata/_custom_type_script = "uid://dt3ofp6y1woa7"

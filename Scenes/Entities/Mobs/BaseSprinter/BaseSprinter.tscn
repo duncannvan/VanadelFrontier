@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://cise8u0ooajis"]
 
-[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Entities/Enemies/mob.tscn" id="1_6ihyg"]
-[ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/RollingBall/rolling_ball.png" id="5_6ihyg"]
-[ext_resource type="Resource" uid="uid://c1npae2imcfgp" path="res://ResourceData/EntityData/base_sprinter_stats.tres" id="5_8b7ej"]
+[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_6ihyg"]
+[ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/Mobs/rolling_ball.png" id="5_6ihyg"]
+[ext_resource type="Resource" uid="uid://i5xfh1g3uyck" path="res://Data/Stats/BaseSprinterStats.tres" id="5_8b7ej"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghef8"]
 radius = 6.0

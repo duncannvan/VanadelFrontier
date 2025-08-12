@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class RockObject : Harvestable
+public partial class Rock : Harvestable
 {
     public const string ROCK_UID = "uid://bq8enjaug7mue";
 

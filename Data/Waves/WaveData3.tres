@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WaveData" load_steps=4 format=3 uid="uid://ckete5umgdb1f"]
+
+[ext_resource type="Script" uid="uid://c5i664igrylu5" path="res://Src/Resources/WaveData.cs" id="1_cy7s3"]
+[ext_resource type="PackedScene" uid="uid://cise8u0ooajis" path="res://Scenes/Entities/Mobs/BaseSprinter/BaseSprinter.tscn" id="1_ytawl"]
+[ext_resource type="PackedScene" uid="uid://sxcrwq6qjmwq" path="res://Scenes/Entities/Mobs/Slime/Slime.tscn" id="2_tm0t7"]
+
+[resource]
+script = ExtResource("1_cy7s3")
+SpawnInterval = 1.0
+Mobs = [ExtResource("1_ytawl"), ExtResource("2_tm0t7"), ExtResource("2_tm0t7")]
+metadata/_custom_type_script = "uid://c5i664igrylu5"

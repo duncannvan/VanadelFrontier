@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://5kip18djlky0"]
+
+[ext_resource type="Script" uid="uid://dt3ofp6y1woa7" path="res://Src/Resources/InventoryData/ItemData.cs" id="1_u36bh"]
+[ext_resource type="Texture2D" uid="uid://gsq0fmxir01n" path="res://Assets/Sprites/ParticleTextures/Items/rock_item.png" id="1_vj3mq"]
+
+[resource]
+script = ExtResource("1_u36bh")
+Name = ""
+Texture = ExtResource("1_vj3mq")
+metadata/_custom_type_script = "uid://dt3ofp6y1woa7"

@@ -1,13 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://b8wgn38g22fvs"]
+[gd_scene load_steps=23 format=3 uid="uid://b8wgn38g22fvs"]
 
-[ext_resource type="Script" uid="uid://2k5sdlxhm62h" path="res://Nature/tree.gd" id="1_3opvk"]
-[ext_resource type="Shader" uid="uid://dtpa3cfioyt7e" path="res://Nature/tree_shader.gdshader" id="2_0f6uc"]
-[ext_resource type="Resource" uid="uid://c6bxqi2vljgw4" path="res://ResourceData/ItemData/wood.tres" id="2_ot18c"]
+[ext_resource type="Script" uid="uid://cgbv2mdxon82q" path="res://Src/Components/Objects/Tree.cs" id="1_3opvk"]
+[ext_resource type="Shader" uid="uid://hi35djro57nl" path="res://Scenes/Harvestables/tree_shader.gdshader" id="2_0f6uc"]
 [ext_resource type="Texture2D" uid="uid://c013j4ugx5ge4" path="res://Assets/Sprites/Nature/Tree.png" id="4_kerrk"]
-[ext_resource type="Script" uid="uid://63sbpv1faiyx" path="res://Components/AreaDetection/hurtbox.gd" id="5_sup5y"]
-[ext_resource type="Script" uid="uid://disun15mfvhrx" path="res://Components/stats_component.gd" id="6_iyu0o"]
+[ext_resource type="Script" uid="uid://fy7sw6t3gnh3" path="res://Src/Components/AreaDetection/Hurtbox.cs" id="5_sup5y"]
+[ext_resource type="Script" uid="uid://d01r8ajylwrex" path="res://Src/Components/StatsComponent.cs" id="6_iyu0o"]
 [ext_resource type="Texture2D" uid="uid://mxlpd7m56hp" path="res://Assets/Sprites/ParticleTextures/leaf.png" id="7_0f6uc"]
-[ext_resource type="Resource" uid="uid://kynsmlx1bjbh" path="res://ResourceData/nature_obj_stats.tres" id="7_8tj72"]
+[ext_resource type="Resource" uid="uid://d2oyehvak0kgk" path="res://Data/Stats/HarvestableStats.tres" id="7_8tj72"]
 [ext_resource type="AudioStream" uid="uid://cxngwnqrr3p8c" path="res://Assets/Audio/tree.mp3" id="9_2gpob"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ot18c"]
@@ -167,7 +166,6 @@ _data = {
 position = Vector2(0, -1)
 collision_mask = 0
 script = ExtResource("1_3opvk")
-nature_item = ExtResource("2_ot18c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ot18c")
@@ -180,7 +178,6 @@ position = Vector2(-0.5, -19)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("5_sup5y")
-metadata/_custom_type_script = "uid://63sbpv1faiyx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0.5, 16.918)
@@ -192,8 +189,7 @@ shape = SubResource("CircleShape2D_2gpob")
 
 [node name="StatsComponents" type="Node" parent="."]
 script = ExtResource("6_iyu0o")
-_stats = ExtResource("7_8tj72")
-metadata/_custom_type_script = "uid://disun15mfvhrx"
+_statsSheet = ExtResource("7_8tj72")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-1, -36)
