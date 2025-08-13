@@ -136,7 +136,7 @@ public sealed partial class Player : CharacterBody2D, IHittable
 
         for (byte pathsIdx = 0; pathsIdx < paths.Length; pathsIdx++)
         {
-            _animationStateMachine.Set(paths[pathsIdx], direction);
+            AnimationTree.Set(paths[pathsIdx], direction);
         }
     }
 
