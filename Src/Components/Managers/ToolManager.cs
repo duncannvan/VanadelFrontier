@@ -12,21 +12,35 @@ public sealed partial class ToolManager : Node
     public delegate void ToolBarModifiedEventHandler(Godot.Collections.Dictionary toolData);
 
     [Signal]
-    public delegate void ToolUsedEventHandler(byte cooldown, byte SlotIdx);
+    public delegate void ToolUsedEventHandler(byte cooldown, byte slotIdx);
 
     public const byte NoToolSelected = 0;
     private const byte MaxToolSlots = 5;
-    private const float CooldownResetTimeSec = 0.5f;
+    private const float CooldownResetTimeSec = 0.3f;
 
-    private Dictionary<byte, ToolData> _toolData = new Dictionary<byte, ToolData>();
     private byte _currentToolIdx = NoToolSelected;
+    private Dictionary<byte, ToolData> _toolData = new Dictionary<byte, ToolData>();
     private readonly Dictionary<string, byte> _blendPointIdxMap = new Dictionary<string, byte>() { { "left", 0 }, { "right", 0 }, { "up", 0 }, { "down", 0 } };
+    private Timer _resetAnimationTimer;
+
+    public override void _Ready()
+    {
+        _resetAnimationTimer = new Timer();
+        _resetAnimationTimer.OneShot = true;
+        _resetAnimationTimer.Timeout += () => { GetSelectedTool().ResetAnimationLibrariesIdx(); };
+        AddChild(_resetAnimationTimer);
+        
+        _toolData.Add(1, (ToolData)GD.Load("res://Data/Tools/StarterHarvestTool.tres"));
+        _toolData.Add(2, (ToolData)GD.Load("res://Data/Tools/StarterMeleeWeapon.tres"));
+        _toolData.Add(3, (ToolData)GD.Load("res://Data/Tools/StarterRangedWeapon.tres"));
+    }
 
     public void SetSelectedTool(Player player, byte slotIdx)
     {
         if (slotIdx >= MaxToolSlots) { return; }
 
         if (IsToolSelected()) { GetSelectedTool().ResetAnimationLibrariesIdx(); }
+        if (!_resetAnimationTimer.IsStopped()) { _resetAnimationTimer.Stop(); };
         EmitSignal(nameof(ToolSelectionChanged), slotIdx);
 
         if (!_toolData.ContainsKey(slotIdx) || slotIdx == _currentToolIdx)
@@ -55,7 +69,7 @@ public sealed partial class ToolManager : Node
         if (GetSelectedTool().AnimationLibraries.Length > 1)
         {
             SetToolAnimation(player.AnimationTree, GetSelectedTool().AnimationLibrariesIdx);
-            GetTree().CreateTimer(cooldownSec + CooldownResetTimeSec).Timeout += () => { GetSelectedTool().ResetAnimationLibrariesIdx(); };
+            _resetAnimationTimer.Start(cooldownSec + CooldownResetTimeSec);
         }
 
         EmitSignal(nameof(ToolUsed), cooldownSec, _currentToolIdx);
@@ -70,8 +84,8 @@ public sealed partial class ToolManager : Node
         if (_toolData.ContainsKey(slotIdx))
         {
             _toolData.Remove(slotIdx);
+            EmitSignal(nameof(ToolBarModified), GetToolsGodotDict());
         }
-        EmitSignal(nameof(ToolBarModified), GetToolsGodotDict());
     }
 
     public bool AddTool(ToolData toolData)
@@ -167,6 +181,7 @@ public sealed partial class ToolManager : Node
             return vec.Y > 0 ? "down" : "up";
     }
 
+    // Godot signals do not support C# dictionary as a param so manually convert C# dict to Godot dict
     private Godot.Collections.Dictionary GetToolsGodotDict()
     {
         var gdDict = new Godot.Collections.Dictionary();

@@ -13,7 +13,7 @@
 script = ExtResource("1_tk6dl")
 ToolName = ""
 ToolTexture = ExtResource("7_i01w0")
-ToolCooldownSec = 0.3
+ToolCooldownSec = 0.5
 AnimationLibraries = [ExtResource("1_5rcse"), ExtResource("2_pc444"), ExtResource("3_2efdm")]
 HitEffects = [ExtResource("4_vhaq1"), ExtResource("5_4taqw"), ExtResource("6_ulu4o")]
 metadata/_custom_type_script = "uid://g2nvcygmj8sd"

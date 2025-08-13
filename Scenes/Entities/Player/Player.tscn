@@ -1,4 +1,4 @@
-[gd_scene load_steps=234 format=3 uid="uid://brbvn765ayawe"]
+[gd_scene load_steps=232 format=3 uid="uid://brbvn765ayawe"]
 
 [ext_resource type="Script" uid="uid://c852l2gmjvd0g" path="res://Src/Components/Objects/Player.cs" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://dwchh8ht60aqq" path="res://Scenes/Entities/Player/PlayerShader.gdshader" id="2_r8fok"]
@@ -15,8 +15,6 @@
 [ext_resource type="Resource" uid="uid://dh05xban5shyo" path="res://Data/Stats/PlayerStats.tres" id="17_pjcup"]
 [ext_resource type="Texture2D" uid="uid://coffnvwaytcas" path="res://Assets/Sprites/Player/shadow.png" id="17_vskfa"]
 [ext_resource type="Script" uid="uid://b6yhstbgsqkrx" path="res://Src/Components/Managers/ToolManager.cs" id="18_avsg8"]
-[ext_resource type="Resource" uid="uid://de86ofxtv8nsv" path="res://Data/Tools/StarterHarvestTool.tres" id="20_01ng6"]
-[ext_resource type="Resource" uid="uid://b470b3fnqvugm" path="res://Data/Tools/StarterRangedWeapon.tres" id="22_og23y"]
 [ext_resource type="Script" uid="uid://bmu18ki5kijx8" path="res://Src/Components/Managers/InventoryManager.cs" id="23_u86q5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vskfa"]
@@ -2009,7 +2007,6 @@ libraries = {
 
 [node name="ToolManager" type="Node" parent="."]
 script = ExtResource("18_avsg8")
-_toolData = [ExtResource("20_01ng6"), ExtResource("22_og23y"), ExtResource("22_og23y")]
 
 [node name="InventoryManager" type="Node" parent="."]
 script = ExtResource("23_u86q5")
