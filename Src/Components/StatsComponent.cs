@@ -11,7 +11,7 @@ public sealed partial class StatsComponent : Node
     public delegate void HealthChangedEventHandler(float newHealth);
 
     [Signal]
-    public delegate void LootDroppedEventHandler(ItemData item, byte count);
+    public delegate void LootDroppedEventHandler(ItemStack item);
 
     private Timer _slowedTimer;
     private Timer _knockbackTimer;
@@ -124,7 +124,7 @@ public sealed partial class StatsComponent : Node
 
         if (target.StatsComponent.GetItemDrop() is not null)
         {
-            EmitSignal(nameof(LootDropped), target.StatsComponent.GetItemDrop(), target.StatsComponent.GetNumItemDropped());
+            EmitSignal(nameof(LootDropped), target.StatsComponent.GetItemDrop());
         }
 
         EmitSignal(nameof(Died));
@@ -135,13 +135,8 @@ public sealed partial class StatsComponent : Node
         }
     }
 
-    public ItemData GetItemDrop()
+    public ItemStack GetItemDrop()
     {
-        return _statsSheet.ItemDrop;
-    }
-
-    public byte GetNumItemDropped()
-    {
-        return _statsSheet.NumItemDropped;
+        return _statsSheet.ItemDropped;
     } 
 }

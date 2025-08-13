@@ -10,8 +10,5 @@ public sealed partial class StatsSheet : Resource
     public byte Speed { get; private set; } = 20;
 
     [Export]
-    public ItemData ItemDrop { get; private set; }
-
-    [Export]
-    public byte NumItemDropped { get; private set; }
+    public ItemStack ItemDropped { get; private set; }
 }

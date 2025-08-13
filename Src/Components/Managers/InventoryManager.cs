@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 [GlobalClass]
 public sealed partial class InventoryManager : Node
