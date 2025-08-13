@@ -25,21 +25,24 @@ public sealed partial class ToolManager : Node
     public override void _Ready()
     {
         _resetAnimationTimer = new Timer();
-        _resetAnimationTimer.OneShot = true;
+        _resetAnimationTimer.SetOneShot(true);
         _resetAnimationTimer.Timeout += () => { GetSelectedTool().ResetAnimationLibrariesIdx(); };
         AddChild(_resetAnimationTimer);
-        
-        _toolData.Add(1, (ToolData)GD.Load("res://Data/Tools/StarterHarvestTool.tres"));
-        _toolData.Add(2, (ToolData)GD.Load("res://Data/Tools/StarterMeleeWeapon.tres"));
-        _toolData.Add(3, (ToolData)GD.Load("res://Data/Tools/StarterRangedWeapon.tres"));
+
+        // Temporary load tools for now. Player will probably spawn with nothing in the future
+        byte slotIdx = 1;
+        _toolData.Add(slotIdx++, (ToolData)GD.Load("res://Data/Tools/StarterHarvestTool.tres"));
+        _toolData.Add(slotIdx++, (ToolData)GD.Load("res://Data/Tools/StarterMeleeWeapon.tres"));
+        _toolData.Add(slotIdx++, (ToolData)GD.Load("res://Data/Tools/StarterRangedWeapon.tres"));
     }
 
     public void SetSelectedTool(Player player, byte slotIdx)
     {
-        if (slotIdx >= MaxToolSlots) { return; }
+        if (slotIdx > MaxToolSlots) { return; }
 
         if (IsToolSelected()) { GetSelectedTool().ResetAnimationLibrariesIdx(); }
-        if (!_resetAnimationTimer.IsStopped()) { _resetAnimationTimer.Stop(); };
+        if (!_resetAnimationTimer.IsStopped()) { _resetAnimationTimer.Stop(); }
+        ;
         EmitSignal(nameof(ToolSelectionChanged), slotIdx);
 
         if (!_toolData.ContainsKey(slotIdx) || slotIdx == _currentToolIdx)
@@ -89,9 +92,9 @@ public sealed partial class ToolManager : Node
 
     public bool AddTool(ToolData toolData)
     {
-        if (_toolData.Count >= MaxToolSlots) { return false; }
+        if (_toolData.Count > MaxToolSlots) { return false; }
 
-        for (byte slotPos = 1; slotPos < MaxToolSlots; slotPos++)
+        for (byte slotPos = 1; slotPos <= MaxToolSlots; slotPos++)
         {
             if (!_toolData.ContainsKey(slotPos))
             {
@@ -108,7 +111,6 @@ public sealed partial class ToolManager : Node
         if (_toolData.Count > slotIdx1 && _toolData.Count > slotIdx2)
         {
             (_toolData[slotIdx1], _toolData[slotIdx2]) = (_toolData[slotIdx2], _toolData[slotIdx1]);
-
             EmitSignal(nameof(ToolBarModified), GetToolsGodotDict());
         }
     }
@@ -172,14 +174,6 @@ public sealed partial class ToolManager : Node
         return default;
     }
 
-    private static string VectorToDirection(Vector2 vec)
-    {
-        if (Mathf.Abs(vec.X) > Mathf.Abs(vec.Y))
-            return vec.X > 0 ? "right" : "left";
-        else
-            return vec.Y > 0 ? "down" : "up";
-    }
-
     // Godot signals do not support C# dictionary as a param so manually convert C# dict to Godot dict
     private Godot.Collections.Dictionary GetToolsGodotDict()
     {
@@ -187,6 +181,14 @@ public sealed partial class ToolManager : Node
         foreach (var kvp in _toolData)
             gdDict[kvp.Key] = kvp.Value;
         return gdDict;
+    }
+    
+    private static string VectorToDirection(Vector2 vec)
+    {
+        if (Mathf.Abs(vec.X) > Mathf.Abs(vec.Y))
+            return vec.X > 0 ? "right" : "left";
+        else
+            return vec.Y > 0 ? "down" : "up";
     }
 }
 

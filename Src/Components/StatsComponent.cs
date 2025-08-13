@@ -10,13 +10,16 @@ public sealed partial class StatsComponent : Node
     [Signal]
     public delegate void HealthChangedEventHandler(float newHealth);
 
-    [Export]
-    private StatsSheet _statsSheet = null;
-    
-    private Timer _slowedTimer = null;
-    private Timer _knockbackTimer = null;
-    private Vector2 _knockbackVector = Vector2.Zero;
+    [Signal]
+    public delegate void LootDroppedEventHandler(ItemData item, byte count);
+
+    private Timer _slowedTimer;
+    private Timer _knockbackTimer;
+    private Vector2 _knockbackVector;
     private float _slowedFactor = SlowedEffect.MaxSlowedFactor;
+
+    [Export]
+    private StatsSheet _statsSheet;
 
     public override void _Ready()
     {
@@ -47,6 +50,7 @@ public sealed partial class StatsComponent : Node
         if (_statsSheet.Health <= 0)
         {
             EmitSignal(nameof(DiedEventHandler));
+            ApplyDied(target);
         }
     }
 
@@ -108,4 +112,36 @@ public sealed partial class StatsComponent : Node
             target.EffectAnimations.Stop();
         }
     }
+
+    private void ApplyDied(IHittable target)
+    {
+        target.SetState(IHittable.States.DEAD);
+
+        if (target.EffectAnimations.HasAnimation("death_effect"))
+        {
+            target.EffectAnimations.Play("death_effect");
+        }
+
+        if (target.StatsComponent.GetItemDrop() is not null)
+        {
+            EmitSignal(nameof(LootDropped), target.StatsComponent.GetItemDrop(), target.StatsComponent.GetNumItemDropped());
+        }
+
+        EmitSignal(nameof(Died));
+
+        if (target is Node node)
+        {
+            node.QueueFree();
+        }
+    }
+
+    public ItemData GetItemDrop()
+    {
+        return _statsSheet.ItemDrop;
+    }
+
+    public byte GetNumItemDropped()
+    {
+        return _statsSheet.NumItemDropped;
+    } 
 }

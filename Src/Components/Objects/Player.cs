@@ -47,7 +47,6 @@ public sealed partial class Player : CharacterBody2D, IHittable
 
         _animationStateMachine = AnimationTree.Get("parameters/StateMachine/playback").As<AnimationNodeStateMachinePlayback>();
 
-        StatsComponent.Died += OnDied;
         ToolManager.SetBlendPointIdxMapping(AnimationTree);
     }
     
@@ -83,7 +82,6 @@ public sealed partial class Player : CharacterBody2D, IHittable
         }
     }
 
-
     /*
         Public Methods
     */
@@ -95,11 +93,9 @@ public sealed partial class Player : CharacterBody2D, IHittable
         }
     }
 
-
     /*
         Private Methods
     */
-    
     private void HandleMovement()
     {
         Vector2 moveDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
@@ -117,12 +113,6 @@ public sealed partial class Player : CharacterBody2D, IHittable
 
         Velocity = moveDirection * StatsComponent.GetCurrentSpeed();
         MoveAndSlide();
-    }
-
-    private void OnDied()
-    {
-        SetState(IHittable.States.DEAD);
-        QueueFree();
     }
 
     private void UpdateBlendPositions(Vector2 direction)

@@ -2,18 +2,12 @@ using Godot;
 
 public partial class Mob : CharacterBody2D, IHittable
 {
-    [Signal]
-    public delegate void LootDroppedEventHandler(ItemData item);
-
-    [Signal]
-    public delegate void MobDiedEventHandler();
-
-    private IHittable _target = null;
+    private IHittable _target;
     private IHittable.States _state = IHittable.States.MOVE;
-    private NavigationAgent2D _navAgent = null;
+    private NavigationAgent2D _navAgent;
 
-    public StatsComponent StatsComponent { get; private set; } = null;
-    public AnimationPlayer EffectAnimations { get; private set; } = null;
+    public StatsComponent StatsComponent { get; private set; }
+    public AnimationPlayer EffectAnimations { get; private set; }
 
     public override void _Ready()
     {
@@ -50,11 +44,6 @@ public partial class Mob : CharacterBody2D, IHittable
         }
     }
 
-    public byte GetHealth()
-    {
-        return StatsComponent.GetHealth();
-    }
-
     public void SetState(IHittable.States newState)
     {
         _state = newState;
@@ -72,14 +61,5 @@ public partial class Mob : CharacterBody2D, IHittable
         }
 
         MoveAndSlide();
-    }
-
-    private void OnDied()
-    {
-        if (GetNodeOrNull<ItemData>("LootDrop") is ItemData lootDrop)
-            EmitSignal("LootDropped", lootDrop);
-
-        EmitSignal("MobDied");
-        QueueFree();
     }
 }

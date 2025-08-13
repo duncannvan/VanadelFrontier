@@ -49,11 +49,11 @@ public partial class Main : Node2D
 
 		//_natureSpawner.Connect("child_entered_tree", new Callable(this, nameof(OnNatureObjRespawned)));
 
-		foreach (Harvestable obj in GetTree().GetNodesInGroup("nature_objects"))
-		{
+		// foreach (Harvestable obj in GetTree().GetNodesInGroup("nature_objects"))
+		// {
 
-			obj.ItemDropped += OnLootDropped;
-		}
+		// 	obj.ItemDropped += OnLootDropped;
+		// }
 
 		StartWaveCountdown();
 	}
@@ -86,7 +86,7 @@ public partial class Main : Node2D
 		_baseHealthBar.Call("update", _baseStatsComponent.Call("get_health"));
 	}
 
-	private void OnLootDropped(GodotObject item)
+	private void OnLootDropped(GodotObject item, byte count)
 	{
 		_inventoryManager.Call("add_item", item);
 	}
@@ -99,6 +99,6 @@ public partial class Main : Node2D
 	private void OnNatureObjRespawned(Harvestable harvestable)
 	{
 		harvestable.Died += _natureSpawner.HandleRespawn;
-		harvestable.ItemDropped += OnLootDropped;
+		harvestable.StatsComponent.LootDropped += OnLootDropped;
 	}
 }

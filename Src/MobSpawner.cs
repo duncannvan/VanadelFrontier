@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public sealed partial class MobSpawner : Node2D
@@ -20,7 +19,7 @@ public sealed partial class MobSpawner : Node2D
 			Mob mobInstance = _mobQueue.Dequeue().Instantiate<Mob>();
 			mobInstance.GlobalPosition = GlobalPosition;
 			mobInstance.Init(_base);
-			mobInstance.MobDied += OnMobDied;
+			mobInstance.StatsComponent.Died += OnMobDied;
 			GetTree().Root.AddChild(mobInstance);
 
 			await ToSignal(GetTree().CreateTimer(wave.SpawnInterval), "timeout");
