@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 
 [GlobalClass]
-public partial class Player : CharacterBody2D, IHittable
+public sealed partial class Player : CharacterBody2D, IHittable
 {
     /*
         Static Fields
@@ -54,7 +54,8 @@ public partial class Player : CharacterBody2D, IHittable
     public override void _PhysicsProcess(double delta)
     {
         string currentStateStr = _animationStateMachine.GetCurrentNode();
-
+        if(!_states.ContainsKey(currentStateStr)) { return; };
+        
         switch (_states[currentStateStr])
         {
             case IHittable.States.MOVE:
@@ -69,6 +70,20 @@ public partial class Player : CharacterBody2D, IHittable
         }
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey eventKey && eventKey.Pressed)
+        {
+            // Check if the key pressed is between KEY_1 and KEY_9
+            if (eventKey.Keycode >= Key.Key1 && eventKey.Keycode <= Key.Key9)
+            {
+                var slotIndex = eventKey.Keycode - Key.Key1;
+                ToolManager.SetSelectedTool(this, (byte)slotIndex);
+            }
+        }
+    }
+
+
     /*
         Public Methods
     */
@@ -79,11 +94,12 @@ public partial class Player : CharacterBody2D, IHittable
             _animationStateMachine.Travel(GetStateName(newState));
         }
     }
-    
+
 
     /*
         Private Methods
     */
+    
     private void HandleMovement()
     {
         Vector2 moveDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
@@ -124,7 +140,7 @@ public partial class Player : CharacterBody2D, IHittable
         }
     }
 
-    private string GetStateName(IHittable.States stateKey)
+    private static string GetStateName(IHittable.States stateKey)
     {
         return _states.FirstOrDefault(keyValuePair => keyValuePair.Value == stateKey).Key;
     }

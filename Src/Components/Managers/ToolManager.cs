@@ -6,7 +6,7 @@ using Godot;
 public sealed partial class ToolManager : Node
 {
     [Signal]
-    public delegate void ToolChangedEventHandler(byte slotIdx);
+    public delegate void ToolChangedEventHandler(byte newSlotIdx);
 
     [Signal]
     public delegate void ToolBarModifiedEventHandler(ToolData[] toolData);
@@ -15,67 +15,54 @@ public sealed partial class ToolManager : Node
     public delegate void ToolUsedEventHandler(byte cooldown, byte SlotIdx);
 
     public const sbyte NoToolSelected = -1;
-    private const int MaxToolSlots = 5;
-    private const float ResetCooldownTimeSec = 0.5f;
+    private const byte MaxToolSlots = 5;
+    private const float CooldownResetTimeSec = 0.5f;
 
     [Export]
     private ToolData[] _toolData = System.Array.Empty<ToolData>();
 
-    sbyte _currentToolIdx = NoToolSelected;
-    Dictionary<string, byte> _blendPointIdxMap = new Dictionary<string, byte>() { { "left", 0 }, { "right", 0 }, { "up", 0 }, { "down", 0 } };
-    Timer _resetCooldownTimer = null;
+    private sbyte _currentToolIdx = NoToolSelected;
+    private readonly Dictionary<string, byte> _blendPointIdxMap = new Dictionary<string, byte>() { { "left", 0 }, { "right", 0 }, { "up", 0 }, { "down", 0 } };
 
-    public override void _Ready()
-    {
-        _resetCooldownTimer = new Timer();
-        _resetCooldownTimer.WaitTime = ResetCooldownTimeSec;
-        _resetCooldownTimer.OneShot = true;
-        _resetCooldownTimer.Timeout += OnResetCooldownTimeout;
-        AddChild(_resetCooldownTimer);
-    }
-
-    public void SetSelectedTool(byte slotIdx, Player player)
+    public void SetSelectedTool(Player player, byte slotIdx)
     {
         if (slotIdx < MaxToolSlots)
         {
-            if (IsToolSelected())
-            {
-                GetSelectedTool().ResetAnimationLibrariesIdx();
-            }
+            if (IsToolSelected()) { GetSelectedTool().ResetAnimationLibrariesIdx(); }
             EmitSignal(nameof(ToolChanged), slotIdx);
         }
 
         if (slotIdx >= _toolData.Length || slotIdx == _currentToolIdx || _toolData[slotIdx] is null)
         {
             _currentToolIdx = NoToolSelected;
-            return;
         }
-
-        if (IsToolSelected())
+        else
         {
-            GetSelectedTool().OnSwitchIn(player);
+            if (IsToolSelected()) { GetSelectedTool().OnSwitchIn(player); }
+            _currentToolIdx = (sbyte)slotIdx;
+            GetSelectedTool().OnSwitchOut(player);
+            SetToolAnimation(player.AnimationTree);
         }
-        _currentToolIdx = (sbyte)slotIdx;
-        GetSelectedTool().OnSwitchOut(player);
-        SetToolAnimation(player.AnimationTree);
     }
 
     public void UseSelectedTool(Player player)
     {
         if (IsToolSelected() && GetSelectedTool().IsCooldownActive) { return; }
 
-        sbyte toolIdx = _currentToolIdx;
+        sbyte usedToolIdx = _currentToolIdx;
         float cooldownSec = GetSelectedTool().ToolCooldownSec;
         GetSelectedTool().IsCooldownActive = true;
 
+        // Iterate to next animation if tool has more an 1 animations
         if (GetSelectedTool().AnimationLibraries.Length > 1)
         {
             SetToolAnimation(player.AnimationTree, GetSelectedTool().AnimationLibrariesIdx);
-            _resetCooldownTimer.Start(cooldownSec + ResetCooldownTimeSec);
+            GetTree().CreateTimer(cooldownSec + CooldownResetTimeSec).Timeout += () => { if (IsToolSelected()) { GetSelectedTool().ResetAnimationLibrariesIdx(); } };
         }
+
         EmitSignal(nameof(ToolUsed), cooldownSec, _currentToolIdx);
         GetSelectedTool().UseTool(player);
-        GetTree().CreateTimer(cooldownSec).Timeout += () => _toolData[toolIdx].IsCooldownActive = false;
+        GetTree().CreateTimer(cooldownSec).Timeout += () => { _toolData[usedToolIdx].IsCooldownActive = false; };
     }
 
     public bool IsToolSelected() { return _currentToolIdx != NoToolSelected; }
@@ -112,32 +99,28 @@ public sealed partial class ToolManager : Node
         AnimationNodeStateMachine stateMachine = root.GetNode("StateMachine") as AnimationNodeStateMachine;
         AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
 
-        int blendPointCount = blendSpace.GetBlendPointCount();
-        for (int blendSpaceIdx = 0; blendSpaceIdx < blendPointCount; blendSpaceIdx++)
+        for (byte blendSpaceIdx = 0; blendSpaceIdx < blendSpace.GetBlendPointCount(); blendSpaceIdx++)
         {
             Vector2 blendPointPos = blendSpace.GetBlendPointPosition(blendSpaceIdx);
             string direction = VectorToDirection(blendPointPos);
-            _blendPointIdxMap[direction] = (byte)blendSpaceIdx;
+            _blendPointIdxMap[direction] = blendSpaceIdx;
         }
     }
 
-    public void SetToolAnimation(AnimationTree animationTree, byte libIdx = 0)
+    private void SetToolAnimation(AnimationTree animationTree, byte libIdx = 0)
     {
         AnimationNodeBlendTree root = animationTree.TreeRoot as AnimationNodeBlendTree;
         AnimationNodeStateMachine stateMachine = root.GetNode("StateMachine") as AnimationNodeStateMachine;
         AnimationNodeBlendSpace2D blendSpace = stateMachine.GetNode("ToolState") as AnimationNodeBlendSpace2D;
 
-        var selectedTool = GetSelectedTool();
-        if (selectedTool == null)
-            throw new System.Exception("Tool not equipped");
-        if (libIdx >= selectedTool.AnimationLibraries.Length)
-            throw new System.Exception("Invalid animation library index");
+        ToolData selectedTool = GetSelectedTool();
+        if (libIdx >= selectedTool.AnimationLibraries.Length) { return; }
 
         // Find the local library name
-        string toolLibName = "";
+        string toolLibName = string.Empty;
         foreach (string libName in animationTree.GetAnimationLibraryList())
         {
-            var lib = animationTree.GetAnimationLibrary(libName);
+            AnimationLibrary lib = animationTree.GetAnimationLibrary(libName);
             if (lib == selectedTool.AnimationLibraries[libIdx])
             {
                 toolLibName = libName + "/";
@@ -148,8 +131,9 @@ public sealed partial class ToolManager : Node
         // Update the blend point animations for each direction
         foreach (string animName in selectedTool.AnimationLibraries[libIdx].GetAnimationList())
         {
-            var animNode = new AnimationNodeAnimation();
+            AnimationNodeAnimation animNode = new AnimationNodeAnimation();
             animNode.Animation = toolLibName + animName;
+            
             foreach (string key in _blendPointIdxMap.Keys)
             {
                 if (animName.Contains(key))
@@ -162,15 +146,7 @@ public sealed partial class ToolManager : Node
 
     private ToolData GetSelectedTool() { return _toolData[_currentToolIdx]; }
 
-    private void OnResetCooldownTimeout()
-    {
-        if (IsToolSelected())
-        {
-            GetSelectedTool().ResetAnimationLibrariesIdx();
-        }
-    }
-
-    private string VectorToDirection(Vector2 vec)
+    private static string VectorToDirection(Vector2 vec)
     {
         if (Mathf.Abs(vec.X) > Mathf.Abs(vec.Y))
             return vec.X > 0 ? "right" : "left";
