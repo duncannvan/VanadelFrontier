@@ -86,9 +86,9 @@ public partial class Main : Node2D
 		_baseHealthBar.Call("update", _baseStatsComponent.Call("get_health"));
 	}
 
-	private void OnLootDropped(GodotObject item, byte count)
+	private void OnLootDropped(ItemStack item)
 	{
-		_inventoryManager.Call("add_item", item);
+		_inventoryManager.AddItem(item);
 	}
 
 	private void OnMobSpawned(Mob mob)

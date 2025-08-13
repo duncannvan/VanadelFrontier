@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 [GlobalClass]
@@ -10,24 +9,32 @@ public sealed partial class InventoryManager : Node
 
 	public const int MaxInventorySize = 10;
 
-	private List<ItemStack> inventory = new List<ItemStack>();
+	public List<ItemStack> Inventory { get; private set; } = new List<ItemStack>();
 
-	public void AddItem(ItemData item)
+	public void AddItem(ItemStack newItemStack)
 	{
-		if (inventory.Count >= MaxInventorySize)
+		if (Inventory.Count > MaxInventorySize)
 			return;
 
-		foreach (ItemStack stack in inventory)
+		foreach (ItemStack stack in Inventory)
 		{
-			if (stack.ItemData == item && stack.ItemStackCount < ItemStack.MaxCount)
+			if (stack.ItemData == newItemStack.ItemData)
 			{
-				stack.ItemStackCount++;
-				EmitSignal(SignalName.RefreshInventory);
-				return;
+				if ((stack.ItemStackCount + newItemStack.ItemStackCount) < ItemStack.MaxCount)
+				{
+					stack.ItemStackCount += newItemStack.ItemStackCount;
+					EmitSignal(SignalName.RefreshInventory);
+					return;
+				}
+				else
+				{
+					newItemStack.ItemStackCount = ItemStack.MaxCount - stack.ItemStackCount;
+					stack.ItemStackCount = ItemStack.MaxCount;
+				}
 			}
 		}
 
-		inventory.Add(new ItemStack(item));
+		Inventory.Add(newItemStack);
 		EmitSignal(SignalName.RefreshInventory);
 	}
 
@@ -42,7 +49,7 @@ public sealed partial class InventoryManager : Node
 			return false;
 
 		// Remove items in inventory
-		foreach (ItemStack stack in inventory)
+		foreach (ItemStack stack in Inventory)
 		{
 			if (stack.ItemData == itemStack.ItemData)
 			{
@@ -62,26 +69,21 @@ public sealed partial class InventoryManager : Node
 		// Remove item stacks
 		foreach (var stack in stacksToRemove)
 		{
-			inventory.Remove(stack);
+			Inventory.Remove(stack);
 		}
 
 		EmitSignal(SignalName.RefreshInventory);
 		return true;
 	}
 
-	public int GetCount(ItemData item)
+	private int GetCount(ItemData item)
 	{
 		int count = 0;
-		foreach (ItemStack stack in inventory)
+		foreach (ItemStack stack in Inventory)
 		{
 			if (stack.ItemData == item)
 				count += stack.ItemStackCount;
 		}
 		return count;
-	}
-
-	public List<ItemStack> GetInventory()
-	{
-		return inventory;
 	}
 }

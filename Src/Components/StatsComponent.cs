@@ -138,5 +138,5 @@ public sealed partial class StatsComponent : Node
     public ItemStack GetItemDrop()
     {
         return _statsSheet.ItemDropped;
-    } 
+    }
 }
