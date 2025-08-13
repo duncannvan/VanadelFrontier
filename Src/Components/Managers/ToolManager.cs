@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 [GlobalClass]
@@ -16,7 +15,7 @@ public sealed partial class ToolManager : Node
 
     public const byte NoToolSelected = 0;
     private const byte MaxToolSlots = 5;
-    private const float CooldownResetTimeSec = 0.3f;
+    private const float CooldownResetTimeSec = 0.5f;
 
     private byte _currentToolIdx = NoToolSelected;
     private Dictionary<byte, ToolData> _toolData = new Dictionary<byte, ToolData>();

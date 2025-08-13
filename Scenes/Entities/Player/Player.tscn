@@ -1,4 +1,4 @@
-[gd_scene load_steps=232 format=3 uid="uid://brbvn765ayawe"]
+[gd_scene load_steps=228 format=3 uid="uid://brbvn765ayawe"]
 
 [ext_resource type="Script" uid="uid://c852l2gmjvd0g" path="res://Src/Components/Objects/Player.cs" id="1_g2els"]
 [ext_resource type="Shader" uid="uid://dwchh8ht60aqq" path="res://Scenes/Entities/Player/PlayerShader.gdshader" id="2_r8fok"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ocq0relo4oi" path="res://Assets/Sprites/Player/blockout_top_down.png" id="3_lub02"]
 [ext_resource type="Texture2D" uid="uid://chgkaybc5pxuh" path="res://Assets/Sprites/Player/sword_attacks.png" id="3_ppdlg"]
 [ext_resource type="Script" uid="uid://fy7sw6t3gnh3" path="res://Src/Components/AreaDetection/Hurtbox.cs" id="5_8fjmc"]
+[ext_resource type="AnimationLibrary" uid="uid://oxllbaqwr0c5" path="res://AnimationLibs/basic_magic_blast.res" id="12_ukh28"]
 [ext_resource type="AnimationLibrary" uid="uid://dwsy11utst63p" path="res://AnimationLibs/basic_harvest.res" id="12_v7p16"]
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="13_a8wow"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="14_avsg8"]
@@ -1811,118 +1812,6 @@ _data = {
 &"use_tool_up": SubResource("Animation_mr25g")
 }
 
-[sub_resource type="Animation" id="Animation_a8wow"]
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_down"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_0poeq"]
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_left"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_ppdlg"]
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_right"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_avsg8"]
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_up"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppdlg"]
-_data = {
-&"magic_blast_down": SubResource("Animation_a8wow"),
-&"magic_blast_left": SubResource("Animation_0poeq"),
-&"magic_blast_right": SubResource("Animation_ppdlg"),
-&"magic_blast_up": SubResource("Animation_avsg8")
-}
-
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_g2els")
@@ -1999,7 +1888,7 @@ one_shot = true
 libraries = {
 &"": SubResource("AnimationLibrary_0poeq"),
 &"basic_harvest": ExtResource("12_v7p16"),
-&"basic_magic_blast": SubResource("AnimationLibrary_ppdlg"),
+&"basic_magic_blast": ExtResource("12_ukh28"),
 &"basic_melee_slash_1": ExtResource("13_a8wow"),
 &"basic_melee_slash_2": ExtResource("14_avsg8"),
 &"basic_melee_slash_3": ExtResource("15_dv6dp")
