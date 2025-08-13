@@ -7,28 +7,16 @@ public partial class Main : Node2D
 	private byte _currentWave = 0;
 
 	[Export]
-	private WaveData[] _waves = Array.Empty<WaveData>(); 
+	private WaveData[] _waves = Array.Empty<WaveData>();
 
-	[Export]
 	private Timer _waveCountdownTimer = null;
-
-	[Export]
 	private StatsComponent _baseStatsComponent;
-
-	[Export]
 	private MobSpawner _mobSpawner;
-
-	[Export]
 	private TextureProgressBar _baseHealthBar;
-
-	[Export]
 	private Player _player;
-
-	[Export]
 	private InventoryManager _inventoryManager;
-
-	[Export]
 	private NatureSpawner _natureSpawner;
+	private UIManager _uiManager;
 
 	public override void _Ready()
 	{
@@ -38,12 +26,13 @@ public partial class Main : Node2D
 		//_baseHealthBar = GetNode<TextureProgressBar>("UI/BaseHealthBar");
 		_player = GetNode<Player>("Player");
 		_natureSpawner = GetNode<NatureSpawner>("NatureSpawner");
-
+		_uiManager = GetNode<UIManager>("UIManager");
+		_uiManager.Init(_player);
 		_waveCountdownTimer.Timeout += StartWave;
 		if (_mobSpawner != null)
 			_mobSpawner.WaveCleared += StartWaveCountdown;
 		_baseStatsComponent.Died += OnBaseDied;
-		//_baseStatsComponent.HealthChanged += OnHealthChanged;
+		_baseStatsComponent.HealthChanged += OnHealthChanged;
 		//_baseHealthBar.Call("initialize", _baseStatsComponent.Call("get_health"));
 
 
@@ -72,7 +61,7 @@ public partial class Main : Node2D
 		if (_waves == null || _currentWave >= _waves.Length)
 			return;
 		//_waveCountdownTimerUi.Call("start_countdown", _waveCountdownTimer);
-		_waveCountdownTimer.Start();
+		_waveCountdownTimer.Start(1);
 	}
 
 	private void OnBaseDied()

@@ -1,9 +1,12 @@
-[gd_scene load_steps=26 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=30 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://brbvn765ayawe" path="res://Scenes/Entities/Player/Player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://d2vgqy8witel6" path="res://Src/Main.cs" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://bt6g4jgrw32l" path="res://Src/World.cs" id="2_r6hqv"]
+[ext_resource type="Resource" uid="uid://dpyjxhxfilq4t" path="res://Data/Waves/WaveData1.tres" id="2_smjng"]
+[ext_resource type="Resource" uid="uid://v7ln72wt84c2" path="res://Data/Waves/WaveData2.tres" id="3_hu0go"]
+[ext_resource type="Resource" uid="uid://ckete5umgdb1f" path="res://Data/Waves/WaveData3.tres" id="4_poxgx"]
 [ext_resource type="Script" uid="uid://b8at0kl3vnptu" path="res://Src/UI/BaseHealth.cs" id="5_m0hhd"]
 [ext_resource type="Script" uid="uid://bnbr1vj6fsk7u" path="res://Src/UI/ToolBar.cs" id="5_r6hqv"]
 [ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/GUIs/health_bar_under.png" id="6_rqan7"]
@@ -19,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://b8wgn38g22fvs" path="res://Scenes/Harvestables/Tree.tscn" id="17_lh7yw"]
 [ext_resource type="PackedScene" uid="uid://bq8enjaug7mue" path="res://Scenes/Harvestables/Rock.tscn" id="17_r6hqv"]
 [ext_resource type="Script" uid="uid://dr8ml5mgrtkvx" path="res://Src/NatureSpawner.cs" id="18_lh7yw"]
+[ext_resource type="Script" uid="uid://cwpmkjqullyun" path="res://Src/Components/Managers/UIManager.cs" id="23_hu0go"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_td74h"]
 
@@ -1058,6 +1062,7 @@ sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_tbgi4")
+_waves = [ExtResource("2_smjng"), ExtResource("3_hu0go"), ExtResource("4_poxgx")]
 metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -1437,3 +1442,8 @@ script = null
 [node name="WaveCountdownTimer" type="Timer" parent="."]
 wait_time = 60.0
 one_shot = true
+
+[node name="UIManager" type="Node" parent="." node_paths=PackedStringArray("_toolbarUI")]
+script = ExtResource("23_hu0go")
+_toolbarUI = NodePath("../UI/ToolBar")
+metadata/_custom_type_script = "uid://cwpmkjqullyun"

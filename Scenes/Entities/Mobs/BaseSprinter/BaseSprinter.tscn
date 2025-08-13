@@ -95,6 +95,9 @@ animations = [{
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_ghef8")
 
+[node name="BodyHitbox" parent="." index="2"]
+position = Vector2(0, -2)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_eoco3")
 
@@ -111,4 +114,4 @@ frame_progress = 0.905606
 position = Vector2(0, 3)
 
 [node name="StatsComponents" parent="." index="10"]
-_stats = ExtResource("5_8b7ej")
+_statsSheet = ExtResource("5_8b7ej")

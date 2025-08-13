@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://sxcrwq6qjmwq"]
+[gd_scene load_steps=19 format=3 uid="uid://sxcrwq6qjmwq"]
 
 [ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_0lovs"]
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/Mobs/slime.png" id="1_371uh"]
+[ext_resource type="Script" uid="uid://banl3ijb4ru26" path="res://Src/Components/AreaDetection/Hitbox.cs" id="2_l03h6"]
+[ext_resource type="Resource" uid="uid://k6pqyad7rdpg" path="res://Data/Stats/SlimeStats.tres" id="3_pfuje"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
 radius = 7.0
@@ -112,15 +114,12 @@ script = null
 [node name="CollisionShape2D" parent="." index="0"]
 visible = false
 
-[node name="Hurtbox" parent="." index="1"]
-script = null
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_b7js1")
 
 [node name="BodyHitbox" parent="." index="2"]
 visible = false
-script = null
+script = ExtResource("2_l03h6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
 shape = SubResource("CircleShape2D_6f406")
@@ -138,4 +137,4 @@ frame_progress = 0.887163
 position = Vector2(0, 3)
 
 [node name="StatsComponents" parent="." index="10"]
-script = null
+_statsSheet = ExtResource("3_pfuje")

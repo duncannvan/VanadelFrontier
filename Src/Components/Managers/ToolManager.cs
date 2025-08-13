@@ -11,7 +11,7 @@ public sealed partial class ToolManager : Node
     public delegate void ToolBarModifiedEventHandler(Godot.Collections.Dictionary toolData);
 
     [Signal]
-    public delegate void ToolUsedEventHandler(byte cooldown, byte slotIdx);
+    public delegate void ToolUsedEventHandler(float cooldown, byte slotIdx);
 
     public const byte NoToolSelected = 0;
     private const byte MaxToolSlots = 5;

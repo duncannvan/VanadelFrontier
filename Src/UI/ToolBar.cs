@@ -1,20 +1,19 @@
 using Godot;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 public partial class ToolBar : Control
 {
 	[Signal]
-	public delegate void ToolSlotClickedEventHandler(int slotIdx);
+	public delegate void ToolSlotClickedEventHandler(byte slotIdx);
 
-	private int _slotIdx = ToolManager.NoToolSelected;
 	private List<TextureButton> toolbar = new List<TextureButton>();
 
-	private Container toolbarUi;
+	private Godot.Container toolbarUi;
 
 	public override void _Ready()
 	{
-		toolbarUi = GetNode<Container>("%ToolSlotsContainer");
+		toolbarUi = GetNode<Godot.Container>("%ToolSlotsContainer");
 		foreach (Node child in toolbarUi.GetChildren())
 		{
 			if (child is TextureButton slot)
@@ -26,7 +25,7 @@ public partial class ToolBar : Control
 		}
 	}
 
-	public void UpdateSelectedTool(int slotIdx)
+	public void UpdateSelectedTool(byte slotIdx)
 	{
 		foreach (TextureButton slot in toolbar)
 		{
@@ -41,15 +40,14 @@ public partial class ToolBar : Control
 		}
 	}
 
-	public void RefreshToolbar(ToolData[] tools)
+	public void RefreshToolbar(Godot.Collections.Dictionary tools)
 	{
 		foreach (TextureButton slot in toolbar)
 		{
-			int idx = slot.GetIndex();
-			if (idx < tools.Length && tools[idx] is not null)
+			if (tools.ContainsKey(slot.GetIndex()))
 			{
 				var slotTextureRect = slot.GetNode<TextureRect>("%ItemTextureRect");
-				slotTextureRect.Texture = (tools[idx]).ToolTexture;
+				slotTextureRect.Texture = ((ToolData)tools[slot.GetIndex()]).ToolTexture;
 			}
 		}
 	}
@@ -60,7 +58,7 @@ public partial class ToolBar : Control
 		EmitSignal(SignalName.ToolSlotClicked, slotIdx);
 	}
 
-	public void StartCooldown(float cooldownSec, int selectedToolIdx)
+	public void StartCooldown(float cooldownSec, byte selectedToolIdx)
 	{
 		var tween = GetTree().CreateTween();
 		var slot = toolbar[selectedToolIdx];

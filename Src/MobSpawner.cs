@@ -9,7 +9,7 @@ public sealed partial class MobSpawner : Node2D
 	private Queue<PackedScene> _mobQueue = new Queue<PackedScene>();
 
 	[Export]
-	private Base _base = null;
+	private Base _base;
 
 	public async void StartWave(WaveData wave)
 	{
