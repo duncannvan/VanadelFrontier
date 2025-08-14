@@ -104,6 +104,9 @@ frame_progress = 0.763791
 [node name="StatsComponent" parent="." index="9"]
 _statsSheet = ExtResource("3_pfuje")
 
+[node name="Hitbox" parent="." index="11"]
+scale = Vector2(0.998965, 0.986715)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
-scale = Vector2(-0.731577, -0.731577)
+scale = Vector2(0.311396, 0.310888)
 shape = SubResource("CircleShape2D_l03h6")

@@ -57,13 +57,18 @@ public partial class Mob : CharacterBody2D, IHittable
 
     private void OnVelocityComputed(Vector2 adjustedVelocity)
     {
+        if (_target == null)
+        {
+            Velocity = Vector2.Zero;
+        }
+
         if (_state != IHittable.States.KNOCKBACK)
         {
             Velocity = adjustedVelocity;
         }
-        else if (_target == null)
+        else
         {
-            Velocity = Vector2.Zero;
+            Velocity = StatsComponent.GetKnockbackVector();
         }
 
         MoveAndSlide();

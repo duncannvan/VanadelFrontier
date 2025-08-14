@@ -51,9 +51,9 @@ public sealed partial class ToolManager : Node
         }
         else
         {
-            if (IsToolSelected()) { GetSelectedTool().OnSwitchIn(player); }
+            if (IsToolSelected()) { GetSelectedTool().OnSwitchOut(player); }
             _currentToolIdx = slotIdx;
-            GetSelectedTool().OnSwitchOut(player);
+            GetSelectedTool().OnSwitchIn(player);
             SetToolAnimation(player.AnimationTree);
         }
     }

@@ -8,6 +8,6 @@ public sealed partial class DamageEffect : HitEffect
 
     public override void ApplyEffect(IHittable target, Vector2 hitboxPosition)
     {
-        target.StatsComponent.ApplyDamage(target, _damage);        
+        target.StatsComponent.ApplyDamage(target, _damage);
     }
 }
