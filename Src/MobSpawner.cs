@@ -1,7 +1,8 @@
 using Godot;
 using System.Collections.Generic;
 
-public sealed partial class MobSpawner : Node2D
+[GlobalClass]
+public sealed partial class MobSpawner : Marker2D
 {
 	[Signal]
 	public delegate void WaveClearedEventHandler();
@@ -28,8 +29,7 @@ public sealed partial class MobSpawner : Node2D
 
 	private void OnMobDied()
 	{
-		//TODO: Why 1 mob in scene check
-		// The ordering is OnMobDied()-> mob.QueueFree(), meaning 1 mob in group at function call == wave cleared
+		// The last mob that just died has not exited scene tree yet
 		if (GetTree().GetNodesInGroup("mobs").Count == 1 && _mobQueue.Count == 0)
 		{
 			EmitSignal(nameof(WaveCleared));

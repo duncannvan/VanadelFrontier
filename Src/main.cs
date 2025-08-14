@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 
 public partial class Main : Node2D
 {
@@ -16,7 +15,7 @@ public partial class Main : Node2D
 	private Player _player;
 	private InventoryManager _inventoryManager;
 	private NatureSpawner _natureSpawner;
-	private UIManager _uiManager;
+	private UIManager _UiManager;
 
 	public override void _Ready()
 	{
@@ -26,13 +25,13 @@ public partial class Main : Node2D
 		//_baseHealthBar = GetNode<TextureProgressBar>("UI/BaseHealthBar");
 		_player = GetNode<Player>("Player");
 		_natureSpawner = GetNode<NatureSpawner>("NatureSpawner");
-		_uiManager = GetNode<UIManager>("UIManager");
-		_uiManager.Init(_player);
-		_waveCountdownTimer.Timeout += StartWave;
-		if (_mobSpawner != null)
-			_mobSpawner.WaveCleared += StartWaveCountdown;
-		_baseStatsComponent.Died += OnBaseDied;
-		_baseStatsComponent.HealthChanged += OnHealthChanged;
+		_UiManager = GetNode<UIManager>("UIManager");
+		_UiManager.Init(_player);
+		//5_waveCountdownTimer.Timeout += StartWave;
+		// if (_mobSpawner != null)
+		// 	_mobSpawner.WaveCleared += StartWaveCountdown;
+		// _baseStatsComponent.Died += OnBaseDied;
+		// _baseStatsComponent.HealthChanged += OnHealthChanged;
 		//_baseHealthBar.Call("initialize", _baseStatsComponent.Call("get_health"));
 
 
@@ -44,31 +43,31 @@ public partial class Main : Node2D
 		// 	obj.ItemDropped += OnLootDropped;
 		// }
 
-		StartWaveCountdown();
+		//StartWaveCountdown();
 	}
 
-	private void StartWave()
-	{
-		if (_mobSpawner != null && _waves != null && _currentWave < _waves.Length)
-		{
-			_mobSpawner.StartWave(_waves[_currentWave]);
-			_currentWave++;
-		}
-	}
+	// private void StartWave()
+	// {
+	// 	if (_mobSpawner != null && _waves != null && _currentWave < _waves.Length)
+	// 	{
+	// 		_mobSpawner.StartWave(_waves[_currentWave]);
+	// 		_currentWave++;
+	// 	}
+	// }
 
-	private void StartWaveCountdown()
-	{
-		if (_waves == null || _currentWave >= _waves.Length)
-			return;
-		//_waveCountdownTimerUi.Call("start_countdown", _waveCountdownTimer);
-		_waveCountdownTimer.Start(1);
-	}
+	// private void StartWaveCountdown()
+	// {
+	// 	if (_waves == null || _currentWave >= _waves.Length)
+	// 		return;
+	// 	//_waveCountdownTimerUi.Call("start_countdown", _waveCountdownTimer);
+	// 	_waveCountdownTimer.Start(1);
+	// }
 
-	private void OnBaseDied()
-	{
-		if (_mobSpawner != null)
-			_mobSpawner.Call("disable");
-	}
+	// private void OnBaseDied()
+	// {
+	// 	if (_mobSpawner != null)
+	// 		_mobSpawner.Call("disable");
+	// }
 
 	private void OnHealthChanged(float newHealth)
 	{

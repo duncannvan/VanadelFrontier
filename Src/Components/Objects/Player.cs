@@ -49,12 +49,12 @@ public sealed partial class Player : CharacterBody2D, IHittable
 
         ToolManager.SetBlendPointIdxMapping(AnimationTree);
     }
-    
+
     public override void _PhysicsProcess(double delta)
     {
         string currentStateStr = _animationStateMachine.GetCurrentNode();
         if(!_states.ContainsKey(currentStateStr)) { return; };
-        
+
         switch (_states[currentStateStr])
         {
             case IHittable.States.MOVE:
@@ -76,7 +76,7 @@ public sealed partial class Player : CharacterBody2D, IHittable
             // Check if the key pressed is between KEY_1 and KEY_9
             if (eventKey.Keycode >= Key.Key1 && eventKey.Keycode <= Key.Key9)
             {
-                var slotIndex = eventKey.Keycode - Key.Key0;
+                var slotIndex = eventKey.Keycode - Key.Key1;
                 ToolManager.SetSelectedTool(this, (byte)slotIndex);
             }
         }

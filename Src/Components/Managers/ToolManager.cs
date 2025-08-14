@@ -13,7 +13,7 @@ public sealed partial class ToolManager : Node
     [Signal]
     public delegate void ToolUsedEventHandler(float cooldown, byte slotIdx);
 
-    public const byte NoToolSelected = 0;
+    public const byte NoToolSelected = byte.MaxValue;
     private const byte MaxToolSlots = 5;
     private const float CooldownResetTimeSec = 0.5f;
 
@@ -30,7 +30,7 @@ public sealed partial class ToolManager : Node
         AddChild(_resetAnimationTimer);
 
         // Temporary load tools for now. Player will probably spawn with nothing in the future
-        byte slotIdx = 1;
+        byte slotIdx = 0;
         _toolData.Add(slotIdx++, (ToolData)GD.Load("res://Data/Tools/StarterHarvestTool.tres"));
         _toolData.Add(slotIdx++, (ToolData)GD.Load("res://Data/Tools/StarterMeleeWeapon.tres"));
         _toolData.Add(slotIdx++, (ToolData)GD.Load("res://Data/Tools/StarterRangedWeapon.tres"));
@@ -38,7 +38,7 @@ public sealed partial class ToolManager : Node
 
     public void SetSelectedTool(Player player, byte slotIdx)
     {
-        if (slotIdx > MaxToolSlots) { return; }
+        if (slotIdx >= MaxToolSlots) { return; }
 
         if (IsToolSelected()) { GetSelectedTool().ResetAnimationLibrariesIdx(); }
         if (!_resetAnimationTimer.IsStopped()) { _resetAnimationTimer.Stop(); }
@@ -92,9 +92,9 @@ public sealed partial class ToolManager : Node
 
     public bool AddTool(ToolData toolData)
     {
-        if (_toolData.Count > MaxToolSlots) { return false; }
+        if (_toolData.Count >= MaxToolSlots) { return false; }
 
-        for (byte slotPos = 1; slotPos <= MaxToolSlots; slotPos++)
+        for (byte slotPos = 0; slotPos < MaxToolSlots; slotPos++)
         {
             if (!_toolData.ContainsKey(slotPos))
             {
@@ -175,14 +175,14 @@ public sealed partial class ToolManager : Node
     }
 
     // Godot signals do not support C# dictionary as a param so manually convert C# dict to Godot dict
-    private Godot.Collections.Dictionary GetToolsGodotDict()
+    public Godot.Collections.Dictionary GetToolsGodotDict()
     {
         var gdDict = new Godot.Collections.Dictionary();
         foreach (var kvp in _toolData)
             gdDict[kvp.Key] = kvp.Value;
         return gdDict;
     }
-    
+
     private static string VectorToDirection(Vector2 vec)
     {
         if (Mathf.Abs(vec.X) > Mathf.Abs(vec.Y))

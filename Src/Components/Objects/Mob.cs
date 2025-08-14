@@ -20,7 +20,7 @@ public partial class Mob : CharacterBody2D, IHittable
     }
 
     public void Init(IHittable target) => _target = target;
-    
+
     public override void _PhysicsProcess(double delta)
     {
         if (_target is null || _navAgent is null) { return; }

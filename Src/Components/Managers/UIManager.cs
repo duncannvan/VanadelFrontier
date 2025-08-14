@@ -12,7 +12,7 @@ public sealed partial class UIManager : Node
         player.ToolManager.ToolBarModified += _toolbarUI.RefreshToolbar;
         player.ToolManager.ToolUsed += _toolbarUI.StartCooldown;
         _toolbarUI.ToolSlotClicked += _toolbarUI.UpdateSelectedTool;
-        // _toolbarUI.refresh_toolbar(_tool_manager.get_all_tools)
+        _toolbarUI.RefreshToolbar(player.ToolManager.GetToolsGodotDict());
     }
 
 }

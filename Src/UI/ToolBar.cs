@@ -11,6 +11,11 @@ public partial class ToolBar : Control
 
 	private Godot.Container toolbarUi;
 
+	public void Init(Player player)
+	{
+
+	}
+
 	public override void _Ready()
 	{
 		toolbarUi = GetNode<Godot.Container>("%ToolSlotsContainer");
