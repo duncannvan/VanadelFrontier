@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_k6ory")
-_slowedFactor = 1.0
-_slowedDuration = 0.0
+_slowedFactor = 0.5
+_slowedDuration = 0.5
 metadata/_custom_type_script = "uid://d2k1oes03402r"

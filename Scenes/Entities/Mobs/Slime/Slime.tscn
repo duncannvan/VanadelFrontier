@@ -105,6 +105,7 @@ frame_progress = 0.763791
 _statsSheet = ExtResource("3_pfuje")
 
 [node name="Hitbox" parent="." index="11"]
+position = Vector2(3, -2)
 scale = Vector2(0.998965, 0.986715)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]

@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_x27iy")
-Health = 3
+Health = 5
 Speed = 20
 HitEffects = Array[Resource]([ExtResource("1_mbx6n"), ExtResource("2_a8h68")])
 metadata/_custom_type_script = "uid://c34bmwdhusa0h"
