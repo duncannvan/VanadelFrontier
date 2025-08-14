@@ -12,7 +12,7 @@ public interface IHittable
     }
 
     public StatsComponent StatsComponent { get; }
-    public AnimationPlayer EffectAnimations { get; }
+    public AnimationPlayer HitEffectAnimations { get; }
 
     public void SetState(States newState);
 }

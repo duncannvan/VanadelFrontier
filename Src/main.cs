@@ -20,13 +20,15 @@ public partial class Main : Node2D
 	public override void _Ready()
 	{
 		_waveCountdownTimer = GetNode<Timer>("WaveCountdownTimer");
-		_baseStatsComponent = GetNode<StatsComponent>("Base/StatsComponents");
+		_baseStatsComponent = GetNode<StatsComponent>("Base/StatsComponent");
 		_mobSpawner = GetNode<MobSpawner>("MobSpawner");
 		//_baseHealthBar = GetNode<TextureProgressBar>("UI/BaseHealthBar");
 		_player = GetNode<Player>("Player");
 		_natureSpawner = GetNode<NatureSpawner>("NatureSpawner");
 		_UiManager = GetNode<UIManager>("UIManager");
 		_UiManager.Init(_player);
+
+
 		//5_waveCountdownTimer.Timeout += StartWave;
 		// if (_mobSpawner != null)
 		// 	_mobSpawner.WaveCleared += StartWaveCountdown;
@@ -43,17 +45,18 @@ public partial class Main : Node2D
 		// 	obj.ItemDropped += OnLootDropped;
 		// }
 
-		//StartWaveCountdown();
+		StartWave();
 	}
 
-	// private void StartWave()
-	// {
-	// 	if (_mobSpawner != null && _waves != null && _currentWave < _waves.Length)
-	// 	{
-	// 		_mobSpawner.StartWave(_waves[_currentWave]);
-	// 		_currentWave++;
-	// 	}
-	// }
+	private void StartWave()
+	{
+		_mobSpawner.SpawnMob(_waves[0].Mobs[0]);
+		// if (_mobSpawner != null && _waves != null && _currentWave < _waves.Length)
+		// {
+		// 	_mobSpawner.StartWave(_waves[_currentWave]);
+		// 	_currentWave++;
+		// }
+	}
 
 	// private void StartWaveCountdown()
 	// {

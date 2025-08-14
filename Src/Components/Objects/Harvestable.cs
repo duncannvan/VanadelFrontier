@@ -10,13 +10,13 @@ public abstract partial class Harvestable : StaticBody2D, IHittable
     public int RespawnTimeSec { get; private set; } = 10;
     
     public StatsComponent StatsComponent { get; private set; }
-    public AnimationPlayer EffectAnimations { get; private set; }
+    public AnimationPlayer HitEffectAnimations { get; private set; }
 
     public override void _Ready()
     {
         AddToGroup("harvestables");
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
-        EffectAnimations = GetNode<AnimationPlayer>("EffectAnimations");
+        HitEffectAnimations = GetNode<AnimationPlayer>("EffectAnimations");
 
         StatsComponent.Died += () => { EmitSignal(SignalName.Died, this); };
     }

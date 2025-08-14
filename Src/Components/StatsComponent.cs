@@ -40,16 +40,16 @@ public sealed partial class StatsComponent : Node
 
         _statsSheet.Health -= damage;
 
-        EmitSignal(nameof(HealthChangedEventHandler), _statsSheet.Health);
+        EmitSignal(nameof(HealthChanged), _statsSheet.Health);
 
-        if (target.EffectAnimations.HasAnimation("damage_effect"))
+        if (target.HitEffectAnimations.HasAnimation("damage_effect"))
         {
-            target.EffectAnimations.Play("damage_effect");
+            target.HitEffectAnimations.Play("damage_effect");
         }
 
         if (_statsSheet.Health <= 0)
         {
-            EmitSignal(nameof(DiedEventHandler));
+            EmitSignal(nameof(Died));
             ApplyDied(target);
         }
     }
@@ -65,9 +65,9 @@ public sealed partial class StatsComponent : Node
 
         target.SetState(IHittable.States.KNOCKBACK);
 
-        if (target.EffectAnimations.HasAnimation("knockback_effect"))
+        if (target.HitEffectAnimations.HasAnimation("knockback_effect"))
         {
-            target.EffectAnimations.Play("knockback_effect");
+            target.HitEffectAnimations.Play("knockback_effect");
         }
 
         _knockbackVector = vector;
@@ -92,9 +92,9 @@ public sealed partial class StatsComponent : Node
         _slowedTimer.Timeout += () => OnSlowedTimeout(target);
         _slowedTimer.Start(duration);
 
-        if (target.EffectAnimations.HasAnimation("slowed_effect"))
+        if (target.HitEffectAnimations.HasAnimation("slowed_effect"))
         {
-            target.EffectAnimations.Play("slowed_effect");
+            target.HitEffectAnimations.Play("slowed_effect");
         }
     }
 
@@ -106,10 +106,10 @@ public sealed partial class StatsComponent : Node
     private void OnSlowedTimeout(IHittable target)
     {
         _slowedFactor = SlowedEffect.MaxSlowedFactor;
-        if (target.EffectAnimations.IsPlaying())
+        if (target.HitEffectAnimations.IsPlaying())
         {
-            target.EffectAnimations.Seek(0, false);
-            target.EffectAnimations.Stop();
+            target.HitEffectAnimations.Seek(0, false);
+            target.HitEffectAnimations.Stop();
         }
     }
 
@@ -117,9 +117,9 @@ public sealed partial class StatsComponent : Node
     {
         target.SetState(IHittable.States.DEAD);
 
-        if (target.EffectAnimations.HasAnimation("death_effect"))
+        if (target.HitEffectAnimations.HasAnimation("death_effect"))
         {
-            target.EffectAnimations.Play("death_effect");
+            target.HitEffectAnimations.Play("death_effect");
         }
 
         if (target.StatsComponent.GetItemDrop() is not null)
@@ -138,5 +138,10 @@ public sealed partial class StatsComponent : Node
     public ItemStack GetItemDrop()
     {
         return _statsSheet.ItemDropped;
+    }
+
+    public HitEffect[] GetHitEffects()
+    {
+        return _statsSheet.HitEffects;
     }
 }

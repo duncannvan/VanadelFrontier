@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class Mob : CharacterBody2D, IHittable
 {
     private IHittable _target;
@@ -7,16 +8,21 @@ public partial class Mob : CharacterBody2D, IHittable
     private NavigationAgent2D _navAgent;
 
     public StatsComponent StatsComponent { get; private set; }
-    public AnimationPlayer EffectAnimations { get; private set; }
+    public AnimationPlayer HitEffectAnimations { get; private set; }
 
     public override void _Ready()
     {
         AddToGroup("mobs");
 
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
-        EffectAnimations = GetNode<AnimationPlayer>("EffectAnimations");
+        HitEffectAnimations = GetNode<AnimationPlayer>("HitEffectAnimations");
 
         _navAgent = GetNode<NavigationAgent2D>("MobNavigation");
+
+        Hitbox hitbox = GetNode<Hitbox>("Hitbox");
+        hitbox.HitEffects = StatsComponent.GetHitEffects();
+
+        _navAgent.VelocityComputed += OnVelocityComputed;
     }
 
     public void Init(IHittable target) => _target = target;

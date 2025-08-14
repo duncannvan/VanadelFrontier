@@ -14,7 +14,7 @@ public partial class Projectile : Hitbox
         HitEffects = hitEffects;
         Rotation = rotation;
     }
-    
+
     public override void _PhysicsProcess(double delta)
     {
         GlobalPosition += _speed * _direction * (float)delta;

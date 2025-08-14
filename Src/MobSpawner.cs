@@ -12,6 +12,17 @@ public sealed partial class MobSpawner : Marker2D
 	[Export]
 	private Base _base;
 
+	public void SpawnMob(PackedScene isnt)
+	{
+		Mob mobInstance = isnt.Instantiate<Mob>();
+		mobInstance.GlobalPosition = GlobalPosition;
+		mobInstance.Init(_base);
+		//mobInstance.StatsComponent.Died += OnMobDied;
+		//GetTree().Root.CallDeferred(nameof(AddChild), mobInstance);
+		//GetTree().Root.AddChild(mobInstance);
+		GetParent().AddChild(mobInstance);
+	}
+
 	public async void StartWave(WaveData wave)
 	{
 		_mobQueue = new Queue<PackedScene>(wave.Mobs);
@@ -29,10 +40,10 @@ public sealed partial class MobSpawner : Marker2D
 
 	private void OnMobDied()
 	{
-		// The last mob that just died has not exited scene tree yet
-		if (GetTree().GetNodesInGroup("mobs").Count == 1 && _mobQueue.Count == 0)
-		{
-			EmitSignal(nameof(WaveCleared));
-		}
+	// 	// The last mob that just died has not exited scene tree yet
+	// 	if (GetTree().GetNodesInGroup("mobs").Count == 1 && _mobQueue.Count == 0)
+	// 	{
+	// 		EmitSignal(nameof(WaveCleared));
+	// 	}
 	}
 }

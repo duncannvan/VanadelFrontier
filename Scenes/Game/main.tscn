@@ -1,12 +1,10 @@
-[gd_scene load_steps=31 format=4 uid="uid://336k7yfgtxkf"]
+[gd_scene load_steps=29 format=4 uid="uid://336k7yfgtxkf"]
 
 [ext_resource type="Texture2D" uid="uid://buwi2rby1fmxy" path="res://Assets/Sprites/Map/TilesetFloor.png" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://brbvn765ayawe" path="res://Scenes/Entities/Player/Player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://d2vgqy8witel6" path="res://Src/Main.cs" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://bt6g4jgrw32l" path="res://Src/World.cs" id="2_r6hqv"]
 [ext_resource type="Resource" uid="uid://dpyjxhxfilq4t" path="res://Data/Waves/WaveData1.tres" id="2_smjng"]
-[ext_resource type="Resource" uid="uid://v7ln72wt84c2" path="res://Data/Waves/WaveData2.tres" id="3_hu0go"]
-[ext_resource type="Resource" uid="uid://ckete5umgdb1f" path="res://Data/Waves/WaveData3.tres" id="4_poxgx"]
 [ext_resource type="Script" uid="uid://b8at0kl3vnptu" path="res://Src/UI/BaseHealth.cs" id="5_m0hhd"]
 [ext_resource type="Script" uid="uid://bnbr1vj6fsk7u" path="res://Src/UI/ToolBar.cs" id="5_r6hqv"]
 [ext_resource type="Texture2D" uid="uid://c3nedjv5ng4hd" path="res://Assets/Sprites/GUIs/health_bar_under.png" id="6_rqan7"]
@@ -1062,9 +1060,9 @@ sources/3 = SubResource("TileSetAtlasSource_0wfyh")
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
+position = Vector2(1, 0)
 script = ExtResource("1_tbgi4")
-_waves = [ExtResource("2_smjng"), ExtResource("3_hu0go"), ExtResource("4_poxgx")]
-metadata/_edit_lock_ = true
+_waves = [ExtResource("2_smjng")]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -1419,10 +1417,6 @@ unique_name_in_owner = true
 position = Vector2(461, -168)
 collision_mask = 129
 
-[node name="Base" parent="." instance=ExtResource("7_o6xl0")]
-position = Vector2(474, -226)
-script = null
-
 [node name="NatureSpawner" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("18_lh7yw")
@@ -1460,6 +1454,11 @@ script = ExtResource("23_hu0go")
 _toolbarUI = NodePath("../UI/ToolBar")
 metadata/_custom_type_script = "uid://cwpmkjqullyun"
 
-[node name="MobSpawner" type="Marker2D" parent="."]
+[node name="MobSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("_base")]
+position = Vector2(275, -213)
 script = ExtResource("24_poxgx")
+_base = NodePath("../Base")
 metadata/_custom_type_script = "uid://bydal34vcj3ss"
+
+[node name="Base" parent="." instance=ExtResource("7_o6xl0")]
+position = Vector2(540, -238)

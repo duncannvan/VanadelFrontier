@@ -28,7 +28,7 @@ public sealed partial class Player : CharacterBody2D, IHittable
     */
     public StatsComponent StatsComponent { get; private set; }
     public Hitbox Hitbox { get; private set; }
-    public AnimationPlayer EffectAnimations { get; private set; }
+    public AnimationPlayer HitEffectAnimations { get; private set; }
     public ToolManager ToolManager { get; private set; }
     public InventoryManager InventoryManager { get; private set; }
     public AnimationTree AnimationTree { get; private set; }
@@ -40,7 +40,7 @@ public sealed partial class Player : CharacterBody2D, IHittable
     {
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
         Hitbox = GetNode<Hitbox>("ToolPivot/Hitbox");
-        EffectAnimations = GetNode<AnimationPlayer>("EffectsPlayer");
+        HitEffectAnimations = GetNode<AnimationPlayer>("HitEffectAnimations");
         ToolManager = GetNode<ToolManager>("ToolManager");
         InventoryManager = GetNode<InventoryManager>("InventoryManager");
         AnimationTree = GetNode<AnimationTree>("AnimationTree");

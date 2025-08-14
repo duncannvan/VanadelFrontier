@@ -1,14 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cise8u0ooajis"]
+[gd_scene load_steps=14 format=3 uid="uid://ba17hd55aq6yn"]
 
-[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_6ihyg"]
+[ext_resource type="PackedScene" uid="uid://e50lji6ca2qp" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_6ihyg"]
+[ext_resource type="Shader" uid="uid://5hylkpbpdts6" path="res://Scenes/Entities/Mobs/MobShader.gdshader" id="2_d2kpk"]
 [ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/Mobs/rolling_ball.png" id="5_6ihyg"]
 [ext_resource type="Resource" uid="uid://i5xfh1g3uyck" path="res://Data/Stats/BaseSprinterStats.tres" id="5_8b7ej"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ghef8"]
-radius = 6.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_eoco3"]
-radius = 6.0
 
 [sub_resource type="Curve" id="Curve_fg4mt"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -17,7 +12,7 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_ha687"]
 curve = SubResource("Curve_fg4mt")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qr1m2"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pj86a"]
 resource_local_to_scene = true
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
@@ -28,90 +23,59 @@ gravity = Vector3(0, 0, 0)
 scale_max = 1.5
 scale_curve = SubResource("CurveTexture_ha687")
 
-[sub_resource type="Shader" id="Shader_qr1m2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0sdm6"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform bool flash = false;
-uniform bool gray_scale = false;
-uniform vec4 flash_color: source_color = vec4(1.0, 1.0, 1.0, 1.0);
-void fragment() {
-	vec4 original_color = texture(TEXTURE, UV);
-	
-	if (flash) {
-		COLOR = vec4(flash_color.rgb, original_color.a);
-	}
-	if (gray_scale && !flash) {
-		float grayscale = (original_color.r + original_color.g + original_color.b) / 3.0;
-		COLOR.rgb = vec3(grayscale);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ihyg"]
-resource_local_to_scene = true
-shader = SubResource("Shader_qr1m2")
+shader = ExtResource("2_d2kpk")
 shader_parameter/flash = false
 shader_parameter/gray_scale = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qr1m2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkbsa"]
 atlas = ExtResource("5_6ihyg")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6ihyg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5482m"]
 atlas = ExtResource("5_6ihyg")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8b7ej"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kujoh"]
 atlas = ExtResource("5_6ihyg")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k086u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwwg4"]
 atlas = ExtResource("5_6ihyg")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_8alqs"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_x1emy"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qr1m2")
+"texture": SubResource("AtlasTexture_fkbsa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6ihyg")
+"texture": SubResource("AtlasTexture_5482m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8b7ej")
+"texture": SubResource("AtlasTexture_kujoh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k086u")
+"texture": SubResource("AtlasTexture_uwwg4")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="BaseSprinter" instance=ExtResource("1_6ihyg")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource("CircleShape2D_ghef8")
-
-[node name="BodyHitbox" parent="." index="2"]
-position = Vector2(0, -2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
-shape = SubResource("CircleShape2D_eoco3")
+[node name="Roller" instance=ExtResource("1_6ihyg")]
 
 [node name="DamagedParticles" parent="." index="6"]
-process_material = SubResource("ParticleProcessMaterial_qr1m2")
+process_material = SubResource("ParticleProcessMaterial_pj86a")
 
 [node name="MobSprite" parent="." index="8"]
-material = SubResource("ShaderMaterial_6ihyg")
-sprite_frames = SubResource("SpriteFrames_8alqs")
+material = SubResource("ShaderMaterial_0sdm6")
+sprite_frames = SubResource("SpriteFrames_x1emy")
 autoplay = "default"
-frame_progress = 0.905606
+frame_progress = 0.472074
 
-[node name="ShadowSprite" parent="." index="9"]
-position = Vector2(0, 3)
-
-[node name="StatsComponents" parent="." index="10"]
+[node name="StatsComponent" parent="." index="10"]
 _statsSheet = ExtResource("5_8b7ej")

@@ -11,4 +11,7 @@ public sealed partial class StatsSheet : Resource
 
     [Export]
     public ItemStack ItemDropped { get; private set; }
+
+    [Export]
+    public HitEffect[] HitEffects { get; private set; }
 }

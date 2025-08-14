@@ -17,7 +17,7 @@ public partial class Hitbox : Area2D
     protected virtual void OnAreaEntered(Area2D area)
     {
         if (area as Hurtbox is not Hurtbox hb || hb.IsInvincible) { return; }
-        
+
         for (Node node = area.GetParent(); node != null; node = node.GetParent())
         {
             if (node is IHittable target)

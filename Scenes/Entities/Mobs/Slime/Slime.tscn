@@ -1,15 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://sxcrwq6qjmwq"]
+[gd_scene load_steps=17 format=3 uid="uid://b8q1ebw80s05v"]
 
-[ext_resource type="PackedScene" uid="uid://dhl6f1w6yd4xm" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_0lovs"]
+[ext_resource type="PackedScene" uid="uid://e50lji6ca2qp" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_0lovs"]
 [ext_resource type="Texture2D" uid="uid://du338sefccsqy" path="res://Assets/Sprites/Mobs/slime.png" id="1_371uh"]
-[ext_resource type="Script" uid="uid://banl3ijb4ru26" path="res://Src/Components/AreaDetection/Hitbox.cs" id="2_l03h6"]
+[ext_resource type="Shader" uid="uid://5hylkpbpdts6" path="res://Scenes/Entities/Mobs/MobShader.gdshader" id="2_y6rke"]
 [ext_resource type="Resource" uid="uid://k6pqyad7rdpg" path="res://Data/Stats/SlimeStats.tres" id="3_pfuje"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b7js1"]
-radius = 7.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6f406"]
-radius = 6.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_l03h6"]
 
 [sub_resource type="Curve" id="Curve_fg4mt"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -18,7 +14,7 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_ha687"]
 curve = SubResource("Curve_fg4mt")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fg4mt"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_do8u5"]
 resource_local_to_scene = true
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
@@ -29,112 +25,85 @@ gravity = Vector3(0, 0, 0)
 scale_max = 1.5
 scale_curve = SubResource("CurveTexture_ha687")
 
-[sub_resource type="Shader" id="Shader_it1cl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qae2h"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform bool flash = false;
-uniform bool gray_scale = false;
-uniform vec4 flash_color: source_color = vec4(1.0, 1.0, 1.0, 1.0);
-void fragment() {
-	vec4 original_color = texture(TEXTURE, UV);
-	
-	if (flash) {
-		COLOR = vec4(flash_color.rgb, original_color.a);
-	}
-	if (gray_scale && !flash) {
-		float grayscale = (original_color.r + original_color.g + original_color.b) / 3.0;
-		COLOR.rgb = vec3(grayscale);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o85a5"]
-resource_local_to_scene = true
-shader = SubResource("Shader_it1cl")
+shader = ExtResource("2_y6rke")
 shader_parameter/flash = false
 shader_parameter/gray_scale = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o85a5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfuje"]
 atlas = ExtResource("1_371uh")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fg4mt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_l03h6"]
 atlas = ExtResource("1_371uh")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ha687"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x1sb"]
 atlas = ExtResource("1_371uh")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_utbsb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi8p0"]
 atlas = ExtResource("1_371uh")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7js1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfj1v"]
 atlas = ExtResource("1_371uh")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6f406"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ua1x"]
 atlas = ExtResource("1_371uh")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_y3an5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_13f6e"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o85a5")
+"texture": SubResource("AtlasTexture_pfuje")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fg4mt")
+"texture": SubResource("AtlasTexture_l03h6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ha687")
+"texture": SubResource("AtlasTexture_7x1sb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ha687")
+"texture": SubResource("AtlasTexture_7x1sb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_utbsb")
+"texture": SubResource("AtlasTexture_gi8p0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b7js1")
+"texture": SubResource("AtlasTexture_hfj1v")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6f406")
+"texture": SubResource("AtlasTexture_3ua1x")
 }],
 "loop": true,
 "name": &"default",
 "speed": 12.0
 }]
 
-[node name="Slime" instance=ExtResource("1_0lovs")]
-script = null
-
-[node name="CollisionShape2D" parent="." index="0"]
-visible = false
+[node name="Slimes" instance=ExtResource("1_0lovs")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource("CircleShape2D_b7js1")
+scale = Vector2(-0.731577, -0.731577)
+shape = SubResource("CircleShape2D_l03h6")
 
-[node name="BodyHitbox" parent="." index="2"]
-visible = false
-script = ExtResource("2_l03h6")
+[node name="DamagedParticles" parent="." index="5"]
+process_material = SubResource("ParticleProcessMaterial_do8u5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyHitbox" index="0"]
-shape = SubResource("CircleShape2D_6f406")
-
-[node name="DamagedParticles" parent="." index="6"]
-process_material = SubResource("ParticleProcessMaterial_fg4mt")
-
-[node name="MobSprite" parent="." index="8"]
-material = SubResource("ShaderMaterial_o85a5")
-sprite_frames = SubResource("SpriteFrames_y3an5")
+[node name="MobSprite" parent="." index="7"]
+material = SubResource("ShaderMaterial_qae2h")
+scale = Vector2(1.00135, 1.00468)
+sprite_frames = SubResource("SpriteFrames_13f6e")
 autoplay = "default"
-frame_progress = 0.887163
+frame_progress = 0.763791
 
-[node name="ShadowSprite" parent="." index="9"]
-position = Vector2(0, 3)
-
-[node name="StatsComponents" parent="." index="10"]
+[node name="StatsComponent" parent="." index="9"]
 _statsSheet = ExtResource("3_pfuje")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+scale = Vector2(-0.731577, -0.731577)
+shape = SubResource("CircleShape2D_l03h6")

@@ -1875,7 +1875,7 @@ parameters/StateMachine/MoveState/Idle/blend_position = 0.0
 parameters/StateMachine/MoveState/Running/blend_position = Vector2(-0.60829, 0.0461538)
 parameters/StateMachine/ToolState/blend_position = Vector2(0, 0.985267)
 
-[node name="EffectsPlayer" type="AnimationPlayer" parent="."]
+[node name="HitEffectAnimations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_w51ui")
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvs46icsemkb1"]
+[gd_scene load_steps=8 format=3 uid="uid://dvs46icsemkb1"]
 
 [ext_resource type="Texture2D" uid="uid://cw4sd6ho2yhky" path="res://Assets/Sprites/Buildings/base.png" id="1_pvqg0"]
 [ext_resource type="Script" uid="uid://clp6kagplfs2b" path="res://Src/Components/Objects/Base.cs" id="1_rx2yr"]
 [ext_resource type="Script" uid="uid://d01r8ajylwrex" path="res://Src/Components/StatsComponent.cs" id="3_3dymw"]
+[ext_resource type="Script" uid="uid://fy7sw6t3gnh3" path="res://Src/Components/AreaDetection/Hurtbox.cs" id="3_yqxv0"]
 [ext_resource type="Resource" uid="uid://clxcslbv0efkl" path="res://Data/Stats/BaseStats.tres" id="4_i4y2a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ch56s"]
@@ -13,24 +14,30 @@ size = Vector2(20, 13)
 
 [node name="Base" type="StaticBody2D"]
 script = ExtResource("1_rx2yr")
+metadata/_custom_type_script = "uid://clp6kagplfs2b"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
 scale = Vector2(0.895833, 0.895833)
 texture = ExtResource("1_pvqg0")
 
-[node name="MobDetector" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
+script = ExtResource("3_yqxv0")
+metadata/_custom_type_script = "uid://fy7sw6t3gnh3"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MobDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_ch56s")
 
-[node name="StatsComponents" type="Node" parent="."]
+[node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("3_3dymw")
 _statsSheet = ExtResource("4_i4y2a")
+metadata/_custom_type_script = "uid://d01r8ajylwrex"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_3dymw")
+
+[node name="HitEffectAnimations" type="AnimationPlayer" parent="."]
