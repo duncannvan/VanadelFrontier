@@ -1,13 +1,30 @@
-[gd_resource type="Resource" script_class="MeleeWeaponData" load_steps=9 format=3 uid="uid://cilb06nocrt5j"]
+[gd_resource type="Resource" script_class="MeleeWeaponData" load_steps=12 format=3 uid="uid://cilb06nocrt5j"]
 
 [ext_resource type="AnimationLibrary" uid="uid://dlbtmlj27pbj1" path="res://AnimationLibs/basic_melee_slash_1.res" id="1_5rcse"]
 [ext_resource type="Script" uid="uid://g2nvcygmj8sd" path="res://Src/Resources/ToolData/MeleeWeaponData.cs" id="1_tk6dl"]
 [ext_resource type="AnimationLibrary" uid="uid://c7s3fx3luyiso" path="res://AnimationLibs/basic_melee_slash_2.res" id="2_pc444"]
 [ext_resource type="AnimationLibrary" uid="uid://b4gh1fdovqfjj" path="res://AnimationLibs/basic_melee_slash3.res" id="3_2efdm"]
-[ext_resource type="Resource" uid="uid://ciw6akipt11bi" path="res://Data/HitEffects/DamageEffect.tres" id="4_vhaq1"]
-[ext_resource type="Resource" uid="uid://blifgrxg1wr30" path="res://Data/HitEffects/KnockbackEffect.tres" id="5_4taqw"]
-[ext_resource type="Resource" uid="uid://bmrbw0ph4ainf" path="res://Data/HitEffects/SlowedEffect.tres" id="6_ulu4o"]
+[ext_resource type="Script" uid="uid://4q54y6ws3wkr" path="res://Src/Resources/ToolEffects/DamageEffect.cs" id="4_5rcse"]
+[ext_resource type="Script" uid="uid://cg531t6w4330x" path="res://Src/Resources/ToolEffects/KnockbackEffect.cs" id="5_pc444"]
+[ext_resource type="Script" uid="uid://d2k1oes03402r" path="res://Src/Resources/ToolEffects/SlowedEffect.cs" id="6_2efdm"]
 [ext_resource type="Texture2D" uid="uid://djxqyjq7mnkeu" path="res://Assets/Sprites/Tools/1.png" id="7_i01w0"]
+
+[sub_resource type="Resource" id="Resource_vhaq1"]
+script = ExtResource("4_5rcse")
+_damage = 1
+metadata/_custom_type_script = "uid://4q54y6ws3wkr"
+
+[sub_resource type="Resource" id="Resource_4taqw"]
+script = ExtResource("5_pc444")
+_knockbackForce = 200
+_knockbackDuration = 0.1
+metadata/_custom_type_script = "uid://cg531t6w4330x"
+
+[sub_resource type="Resource" id="Resource_ulu4o"]
+script = ExtResource("6_2efdm")
+_slowedFactor = 0.5
+_slowedDuration = 0.5
+metadata/_custom_type_script = "uid://d2k1oes03402r"
 
 [resource]
 script = ExtResource("1_tk6dl")
@@ -15,5 +32,5 @@ ToolName = ""
 ToolTexture = ExtResource("7_i01w0")
 ToolCooldownSec = 0.5
 AnimationLibraries = [ExtResource("1_5rcse"), ExtResource("2_pc444"), ExtResource("3_2efdm")]
-HitEffects = [ExtResource("4_vhaq1"), ExtResource("5_4taqw"), ExtResource("6_ulu4o")]
+HitEffects = [SubResource("Resource_vhaq1"), SubResource("Resource_4taqw"), SubResource("Resource_ulu4o")]
 metadata/_custom_type_script = "uid://g2nvcygmj8sd"

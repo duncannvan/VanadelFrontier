@@ -91,23 +91,27 @@ animations = [{
 scale = Vector2(-0.731577, -0.731577)
 shape = SubResource("CircleShape2D_l03h6")
 
-[node name="DamagedParticles" parent="." index="5"]
+[node name="DamagedParticles" parent="." index="3"]
 process_material = SubResource("ParticleProcessMaterial_do8u5")
 
-[node name="MobSprite" parent="." index="7"]
+[node name="MobSprite" parent="." index="5"]
 material = SubResource("ShaderMaterial_qae2h")
 scale = Vector2(1.00135, 1.00468)
 sprite_frames = SubResource("SpriteFrames_13f6e")
 autoplay = "default"
-frame_progress = 0.763791
+frame_progress = 0.318653
 
-[node name="StatsComponent" parent="." index="9"]
+[node name="ShadowSprite" parent="." index="6"]
+position = Vector2(0, 6)
+
+[node name="StatsComponent" parent="." index="7"]
 _statsSheet = ExtResource("3_pfuje")
 
-[node name="Hitbox" parent="." index="11"]
+[node name="Hitbox" parent="." index="9"]
 position = Vector2(3, -2)
 scale = Vector2(0.998965, 0.986715)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-3.00311, 2.02693)
 scale = Vector2(0.311396, 0.310888)
 shape = SubResource("CircleShape2D_l03h6")

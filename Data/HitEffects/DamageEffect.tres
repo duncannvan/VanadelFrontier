@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="DamageEffect" load_steps=2 format=3 uid="uid://ciw6akipt11bi"]
-
-[ext_resource type="Script" uid="uid://4q54y6ws3wkr" path="res://Src/Resources/ToolEffects/DamageEffect.cs" id="1_aopir"]
-
-[resource]
-script = ExtResource("1_aopir")
-_damage = 1
-metadata/_custom_type_script = "uid://4q54y6ws3wkr"

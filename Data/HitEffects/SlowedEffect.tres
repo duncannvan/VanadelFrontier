@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="SlowedEffect" load_steps=2 format=3 uid="uid://bmrbw0ph4ainf"]
-
-[ext_resource type="Script" uid="uid://d2k1oes03402r" path="res://Src/Resources/ToolEffects/SlowedEffect.cs" id="1_k6ory"]
-
-[resource]
-script = ExtResource("1_k6ory")
-_slowedFactor = 0.5
-_slowedDuration = 0.5
-metadata/_custom_type_script = "uid://d2k1oes03402r"

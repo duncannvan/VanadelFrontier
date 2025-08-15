@@ -1,11 +1,22 @@
-[gd_resource type="Resource" script_class="RangedWeaponData" load_steps=7 format=3 uid="uid://b470b3fnqvugm"]
+[gd_resource type="Resource" script_class="RangedWeaponData" load_steps=9 format=3 uid="uid://b470b3fnqvugm"]
 
 [ext_resource type="Script" uid="uid://hd5386ynn4yg" path="res://Src/Resources/ToolData/RangedWeaponData.cs" id="1_6oabu"]
 [ext_resource type="AnimationLibrary" uid="uid://oxllbaqwr0c5" path="res://AnimationLibs/basic_magic_blast.res" id="1_86gak"]
-[ext_resource type="Resource" uid="uid://ciw6akipt11bi" path="res://Data/HitEffects/DamageEffect.tres" id="2_1j1gq"]
-[ext_resource type="Resource" uid="uid://blifgrxg1wr30" path="res://Data/HitEffects/KnockbackEffect.tres" id="3_mcdfk"]
+[ext_resource type="Script" uid="uid://4q54y6ws3wkr" path="res://Src/Resources/ToolEffects/DamageEffect.cs" id="2_1j1gq"]
+[ext_resource type="Script" uid="uid://cg531t6w4330x" path="res://Src/Resources/ToolEffects/KnockbackEffect.cs" id="3_mcdfk"]
 [ext_resource type="Texture2D" uid="uid://dmgr6ty0gsqxd" path="res://Assets/Sprites/Tools/21.png" id="4_2sdsq"]
 [ext_resource type="PackedScene" uid="uid://c7agehb18vowc" path="res://Scenes/Projectiles/MagicProjectile.tscn" id="5_1j1gq"]
+
+[sub_resource type="Resource" id="Resource_2sdsq"]
+script = ExtResource("2_1j1gq")
+_damage = 1
+metadata/_custom_type_script = "uid://4q54y6ws3wkr"
+
+[sub_resource type="Resource" id="Resource_qu5c4"]
+script = ExtResource("3_mcdfk")
+_knockbackForce = 200
+_knockbackDuration = 0.1
+metadata/_custom_type_script = "uid://cg531t6w4330x"
 
 [resource]
 script = ExtResource("1_6oabu")
@@ -15,5 +26,5 @@ ToolName = ""
 ToolTexture = ExtResource("4_2sdsq")
 ToolCooldownSec = 0.75
 AnimationLibraries = [ExtResource("1_86gak")]
-HitEffects = [ExtResource("2_1j1gq"), ExtResource("3_mcdfk")]
+HitEffects = [SubResource("Resource_2sdsq"), SubResource("Resource_qu5c4")]
 metadata/_custom_type_script = "uid://hd5386ynn4yg"

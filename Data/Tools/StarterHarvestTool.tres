@@ -1,9 +1,14 @@
-[gd_resource type="Resource" script_class="ToolData" load_steps=5 format=3 uid="uid://de86ofxtv8nsv"]
+[gd_resource type="Resource" script_class="ToolData" load_steps=6 format=3 uid="uid://de86ofxtv8nsv"]
 
 [ext_resource type="AnimationLibrary" uid="uid://dwsy11utst63p" path="res://AnimationLibs/basic_harvest.res" id="1_2vji7"]
 [ext_resource type="Script" uid="uid://mcx03xbg2tuh" path="res://Src/Resources/ToolData/ToolData.cs" id="1_3daty"]
-[ext_resource type="Resource" uid="uid://ciw6akipt11bi" path="res://Data/HitEffects/DamageEffect.tres" id="2_2vji7"]
+[ext_resource type="Script" uid="uid://4q54y6ws3wkr" path="res://Src/Resources/ToolEffects/DamageEffect.cs" id="2_64m7d"]
 [ext_resource type="Texture2D" uid="uid://dqiutfq6x1spu" path="res://Assets/Sprites/Tools/31.png" id="3_bggga"]
+
+[sub_resource type="Resource" id="Resource_6q6r7"]
+script = ExtResource("2_64m7d")
+_damage = 1
+metadata/_custom_type_script = "uid://4q54y6ws3wkr"
 
 [resource]
 script = ExtResource("1_3daty")
@@ -11,5 +16,5 @@ ToolName = ""
 ToolTexture = ExtResource("3_bggga")
 ToolCooldownSec = 0.5
 AnimationLibraries = [ExtResource("1_2vji7")]
-HitEffects = [ExtResource("2_2vji7")]
+HitEffects = [SubResource("Resource_6q6r7")]
 metadata/_custom_type_script = "uid://mcx03xbg2tuh"

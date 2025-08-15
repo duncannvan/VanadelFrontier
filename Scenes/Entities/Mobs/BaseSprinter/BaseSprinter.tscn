@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://ba17hd55aq6yn"]
+[gd_scene load_steps=16 format=3 uid="uid://ba17hd55aq6yn"]
 
 [ext_resource type="PackedScene" uid="uid://e50lji6ca2qp" path="res://Scenes/Entities/Mobs/Mob.tscn" id="1_6ihyg"]
 [ext_resource type="Shader" uid="uid://5hylkpbpdts6" path="res://Scenes/Entities/Mobs/MobShader.gdshader" id="2_d2kpk"]
 [ext_resource type="Texture2D" uid="uid://crmi8cqi6hkil" path="res://Assets/Sprites/Mobs/rolling_ball.png" id="5_6ihyg"]
 [ext_resource type="Resource" uid="uid://i5xfh1g3uyck" path="res://Data/Stats/BaseSprinterStats.tres" id="5_8b7ej"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5482m"]
+radius = 8.0
 
 [sub_resource type="Curve" id="Curve_fg4mt"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -66,16 +69,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Roller" instance=ExtResource("1_6ihyg")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_kujoh"]
+radius = 6.08288
 
-[node name="DamagedParticles" parent="." index="6"]
+[node name="BaseSprinter" instance=ExtResource("1_6ihyg")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_5482m")
+
+[node name="DamagedParticles" parent="." index="3"]
 process_material = SubResource("ParticleProcessMaterial_pj86a")
 
-[node name="MobSprite" parent="." index="8"]
+[node name="MobSprite" parent="." index="5"]
 material = SubResource("ShaderMaterial_0sdm6")
 sprite_frames = SubResource("SpriteFrames_x1emy")
 autoplay = "default"
 frame_progress = 0.472074
 
-[node name="StatsComponent" parent="." index="10"]
+[node name="StatsComponent" parent="." index="7"]
 _statsSheet = ExtResource("5_8b7ej")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_kujoh")

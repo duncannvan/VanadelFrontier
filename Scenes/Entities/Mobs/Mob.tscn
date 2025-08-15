@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://e50lji6ca2qp"]
+[gd_scene load_steps=17 format=3 uid="uid://e50lji6ca2qp"]
 
 [ext_resource type="Script" uid="uid://dwqsyc0ija5w7" path="res://Src/Components/Objects/Mob.cs" id="1_vi1xe"]
 [ext_resource type="Shader" uid="uid://5hylkpbpdts6" path="res://Scenes/Entities/Mobs/MobShader.gdshader" id="3_a3mig"]
@@ -13,47 +13,44 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_43g0f"]
 radius = 6.0
 
-[sub_resource type="Animation" id="Animation_owvpp"]
-length = 0.001
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ai2m6"]
+resource_local_to_scene = true
+shader = ExtResource("3_a3mig")
+shader_parameter/flash = false
+shader_parameter/gray_scale = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_td8qt"]
+resource_name = "slowed_effects"
+length = 0.4
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DamagedParticles:emitting")
+tracks/0/path = NodePath("../MobSprite:material:shader")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MobSprite:material:shader_parameter/flash")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": [ExtResource("3_a3mig")]
 }
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ou542"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_td8qt"]
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("10_ou542")
 
-[sub_resource type="Animation" id="Animation_iplt1"]
+[sub_resource type="Animation" id="Animation_muiw0"]
 resource_name = "damaged_effects"
 length = 0.30001
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DamagedParticles:emitting")
+tracks/0/path = NodePath("../DamagedParticles:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -65,7 +62,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DamagedParticles")
+tracks/1/path = NodePath("../DamagedParticles")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -79,43 +76,39 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MobSprite:material:shader_parameter/flash")
+tracks/2/path = NodePath("../MobSprite:material:shader_parameter/flash")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true, false]
+"values": [false]
 }
 tracks/3/type = "audio"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("DamagedSound")
+tracks/3/path = NodePath("../DamagedSound")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource("AudioStreamRandomizer_ou542")
+"stream": SubResource("AudioStreamRandomizer_td8qt")
 }],
 "times": PackedFloat32Array(0)
 }
 tracks/3/use_blend = true
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2tktv"]
-_data = {
-&"RESET": SubResource("Animation_owvpp"),
-&"damaged_effects": SubResource("Animation_iplt1")
-}
-
-[sub_resource type="Animation" id="Animation_a3mig"]
+[sub_resource type="Animation" id="Animation_488nh"]
+resource_name = "RESET"
 length = 0.001
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MobSprite:material:shader_parameter/gray_scale")
+tracks/0/path = NodePath("../DamagedParticles:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -124,37 +117,37 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
-
-[sub_resource type="Animation" id="Animation_2tktv"]
-resource_name = "slowed_effects"
-length = 0.4
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MobSprite:material:shader_parameter/gray_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MobSprite:material:shader_parameter/flash")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../MobSprite:material:shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_a3mig")]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3mig"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_td8qt"]
 _data = {
-&"RESET": SubResource("Animation_a3mig"),
-&"slowed_effects": SubResource("Animation_2tktv")
+&"RESET": SubResource("Animation_488nh"),
+&"damaged_effects": SubResource("Animation_muiw0"),
+&"slowed_effects": SubResource("Animation_td8qt")
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ai2m6"]
-resource_local_to_scene = true
-shader = ExtResource("3_a3mig")
-shader_parameter/flash = false
-shader_parameter/gray_scale = false
-shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [node name="Mob" type="CharacterBody2D"]
 script = ExtResource("1_vi1xe")
@@ -167,16 +160,6 @@ shape = SubResource("CircleShape2D_43g0f")
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("8_fo871")
-
-[node name="DamagedEffects" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_2tktv")
-}
-
-[node name="SlowedAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_a3mig")
-}
 
 [node name="MobNavigation" type="NavigationAgent2D" parent="."]
 target_desired_distance = 0.1
@@ -205,6 +188,9 @@ script = ExtResource("10_3msjq")
 
 [node name="HitEffectAnimations" type="AnimationPlayer" parent="."]
 root_node = NodePath("../StatsComponent")
+libraries = {
+&"": SubResource("AnimationLibrary_td8qt")
+}
 
 [node name="Hitbox" type="Area2D" parent="."]
 scale = Vector2(1, 0.999311)

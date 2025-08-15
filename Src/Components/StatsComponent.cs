@@ -26,11 +26,11 @@ public sealed partial class StatsComponent : Node
         Debug.Assert(_statsSheet is not null, "Stats sheet is null");
 
         _slowedTimer = new Timer();
-        _slowedTimer.SetOneShot(true);
+        _slowedTimer.OneShot = true;
         AddChild(_slowedTimer);
 
         _knockbackTimer = new Timer();
-        _knockbackTimer.SetOneShot(true);
+        _knockbackTimer.OneShot = true;
         AddChild(_knockbackTimer);
     }
 
@@ -49,7 +49,6 @@ public sealed partial class StatsComponent : Node
 
         if (_statsSheet.Health <= 0)
         {
-            EmitSignal(nameof(Died));
             ApplyDied(target);
         }
     }

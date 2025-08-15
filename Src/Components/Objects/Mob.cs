@@ -12,7 +12,7 @@ public partial class Mob : CharacterBody2D, IHittable
 
     public override void _Ready()
     {
-        AddToGroup("mobs");
+        AddToGroup("Mobs");
 
         StatsComponent = GetNode<StatsComponent>("StatsComponent");
         HitEffectAnimations = GetNode<AnimationPlayer>("HitEffectAnimations");

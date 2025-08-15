@@ -1,11 +1,18 @@
-[gd_resource type="Resource" script_class="StatsSheet" load_steps=3 format=3 uid="uid://i5xfh1g3uyck"]
+[gd_resource type="Resource" script_class="StatsSheet" load_steps=4 format=3 uid="uid://i5xfh1g3uyck"]
 
-[ext_resource type="Resource" uid="uid://blifgrxg1wr30" path="res://Data/HitEffects/KnockbackEffect.tres" id="1_bfc6c"]
+[ext_resource type="Script" uid="uid://cg531t6w4330x" path="res://Src/Resources/ToolEffects/KnockbackEffect.cs" id="1_bfc6c"]
 [ext_resource type="Script" uid="uid://c34bmwdhusa0h" path="res://Src/Resources/StatsSheet.cs" id="1_qywpg"]
 
+[sub_resource type="Resource" id="Resource_i5tpg"]
+script = ExtResource("1_bfc6c")
+_knockbackForce = 200
+_knockbackDuration = 0.1
+metadata/_custom_type_script = "uid://cg531t6w4330x"
+
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_qywpg")
 Health = 3
 Speed = 20
-HitEffects = Array[Resource]([ExtResource("1_bfc6c")])
+HitEffects = Array[Resource]([SubResource("Resource_i5tpg")])
 metadata/_custom_type_script = "uid://c34bmwdhusa0h"

@@ -1,32 +1,30 @@
 using Godot;
-using System;
 
-public partial class Main : Node2D
+public sealed partial class Main : Node2D
 {
-	private byte _currentWave = 0;
-
-	[Export]
-	private WaveData[] _waves = Array.Empty<WaveData>();
-
-	private Timer _waveCountdownTimer = null;
 	private StatsComponent _baseStatsComponent;
-	private MobSpawner _mobSpawner;
+	private WaveManager _waveManager;
 	private TextureProgressBar _baseHealthBar;
 	private Player _player;
 	private InventoryManager _inventoryManager;
 	private NatureSpawner _natureSpawner;
-	private UIManager _UiManager;
+	private UIManager _uiManager;
+	private WaveCountdown _waveCountDown;
 
 	public override void _Ready()
 	{
-		_waveCountdownTimer = GetNode<Timer>("WaveCountdownTimer");
 		_baseStatsComponent = GetNode<StatsComponent>("Base/StatsComponent");
-		_mobSpawner = GetNode<MobSpawner>("MobSpawner");
+		_waveManager = GetNode<WaveManager>("WaveManager");
 		//_baseHealthBar = GetNode<TextureProgressBar>("UI/BaseHealthBar");
 		_player = GetNode<Player>("Player");
 		_natureSpawner = GetNode<NatureSpawner>("NatureSpawner");
-		_UiManager = GetNode<UIManager>("UIManager");
-		_UiManager.Init(_player);
+		_uiManager = GetNode<UIManager>("UIManager");
+		_waveCountDown = GetNode<WaveCountdown>("UI/WaveCountdown");
+		_uiManager.Init(_player);
+		_waveManager.Init(GetNode<Base>("Base"), _player);
+		_waveManager.WaveCleared += _waveCountDown.StartCountdown;
+		_waveCountDown.StartWave += _waveManager.StartWave;
+		_waveCountDown.StartCountdown(WaveManager.WavePeriodSec);
 
 
 		//5_waveCountdownTimer.Timeout += StartWave;
@@ -43,28 +41,9 @@ public partial class Main : Node2D
 		// {
 
 		// 	obj.ItemDropped += OnLootDropped;
-		// }
 
-		StartWave();
-	}
-
-	private void StartWave()
-	{
-		_mobSpawner.SpawnMob(_waves[0].Mobs[0]);
-		// if (_mobSpawner != null && _waves != null && _currentWave < _waves.Length)
-		// {
-		// 	_mobSpawner.StartWave(_waves[_currentWave]);
-		// 	_currentWave++;
 		// }
 	}
-
-	// private void StartWaveCountdown()
-	// {
-	// 	if (_waves == null || _currentWave >= _waves.Length)
-	// 		return;
-	// 	//_waveCountdownTimerUi.Call("start_countdown", _waveCountdownTimer);
-	// 	_waveCountdownTimer.Start(1);
-	// }
 
 	// private void OnBaseDied()
 	// {

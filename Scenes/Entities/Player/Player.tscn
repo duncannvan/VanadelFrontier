@@ -1818,7 +1818,7 @@ script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_vskfa")
-position = Vector2(0, -5)
+position = Vector2(2, -4)
 sprite_frames = SubResource("SpriteFrames_avsg8")
 animation = &"idle_down"
 
@@ -1831,6 +1831,8 @@ position = Vector2(0, -7)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_8fjmc")
+_isInvincible = null
+_is_invincible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 7.25)
@@ -1843,6 +1845,8 @@ current = true
 [node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2(0, -7)
 script = ExtResource("16_nhbkt")
+RandomStrength = null
+ShakeFade = null
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 show_behind_parent = true
@@ -1854,7 +1858,7 @@ script = ExtResource("16_vskfa")
 _statsSheet = ExtResource("17_pjcup")
 
 [node name="ToolPivot" type="Marker2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(1, -4)
 
 [node name="Hitbox" type="Area2D" parent="ToolPivot"]
 position = Vector2(0, 17)
@@ -1863,6 +1867,7 @@ collision_mask = 32
 script = ExtResource("3_fkugw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToolPivot/Hitbox"]
+position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_pjcup")
 disabled = true
 

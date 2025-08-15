@@ -1,13 +1,24 @@
-[gd_resource type="Resource" script_class="TowerData" load_steps=5 format=3 uid="uid://bjalut6rnnn1p"]
+[gd_resource type="Resource" script_class="TowerData" load_steps=7 format=3 uid="uid://bjalut6rnnn1p"]
 
 [ext_resource type="Script" uid="uid://jdlam66xdvq" path="res://Src/Resources/TowerData.cs" id="1_gxste"]
-[ext_resource type="Resource" uid="uid://ciw6akipt11bi" path="res://Data/HitEffects/DamageEffect.tres" id="1_jm1xp"]
-[ext_resource type="Resource" uid="uid://blifgrxg1wr30" path="res://Data/HitEffects/KnockbackEffect.tres" id="2_c061a"]
+[ext_resource type="Script" uid="uid://4q54y6ws3wkr" path="res://Src/Resources/ToolEffects/DamageEffect.cs" id="1_jm1xp"]
+[ext_resource type="Script" uid="uid://cg531t6w4330x" path="res://Src/Resources/ToolEffects/KnockbackEffect.cs" id="2_c061a"]
 [ext_resource type="PackedScene" uid="uid://bbn3u2nduf6g3" path="res://Scenes/Projectiles/ArcherProjectile.tscn" id="3_txupj"]
+
+[sub_resource type="Resource" id="Resource_txupj"]
+script = ExtResource("1_jm1xp")
+_damage = 1
+metadata/_custom_type_script = "uid://4q54y6ws3wkr"
+
+[sub_resource type="Resource" id="Resource_6nb8q"]
+script = ExtResource("2_c061a")
+_knockbackForce = 200
+_knockbackDuration = 0.1
+metadata/_custom_type_script = "uid://cg531t6w4330x"
 
 [resource]
 script = ExtResource("1_gxste")
 Projectile = ExtResource("3_txupj")
-HitEffects = [ExtResource("1_jm1xp"), ExtResource("2_c061a")]
+HitEffects = [SubResource("Resource_txupj"), SubResource("Resource_6nb8q")]
 ProjectileSpeed = 100
 metadata/_custom_type_script = "uid://jdlam66xdvq"

@@ -6,4 +6,5 @@
 script = ExtResource("1_wo7xu")
 Health = 3
 Speed = 100
+HitEffects = null
 metadata/_custom_type_script = "uid://c34bmwdhusa0h"

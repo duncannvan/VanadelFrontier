@@ -1,11 +1,27 @@
-[gd_resource type="Resource" script_class="WaveData" load_steps=4 format=3 uid="uid://ckete5umgdb1f"]
+[gd_resource type="Resource" script_class="WaveData" load_steps=7 format=3 uid="uid://ckete5umgdb1f"]
 
 [ext_resource type="Script" uid="uid://c5i664igrylu5" path="res://Src/Resources/WaveData.cs" id="1_cy7s3"]
 [ext_resource type="PackedScene" uid="uid://ba17hd55aq6yn" path="res://Scenes/Entities/Mobs/BaseSprinter/BaseSprinter.tscn" id="1_ytawl"]
 [ext_resource type="PackedScene" uid="uid://b8q1ebw80s05v" path="res://Scenes/Entities/Mobs/Slime/Slime.tscn" id="2_tm0t7"]
+[ext_resource type="Script" uid="uid://cc18mg78u8huw" path="res://Src/Resources/MobSpawnData.cs" id="2_ytawl"]
+
+[sub_resource type="Resource" id="Resource_tm0t7"]
+script = ExtResource("2_ytawl")
+MobScene = ExtResource("1_ytawl")
+Count = 2
+DelaySpawnSec = 0.0
+Target = 1
+metadata/_custom_type_script = "uid://cc18mg78u8huw"
+
+[sub_resource type="Resource" id="Resource_oo0ug"]
+script = ExtResource("2_ytawl")
+MobScene = ExtResource("2_tm0t7")
+Count = 1
+DelaySpawnSec = 5.0
+Target = 0
+metadata/_custom_type_script = "uid://cc18mg78u8huw"
 
 [resource]
 script = ExtResource("1_cy7s3")
-SpawnInterval = 1.0
-Mobs = [ExtResource("1_ytawl"), ExtResource("2_tm0t7"), ExtResource("2_tm0t7")]
+MobWaveData = Array[Object]([SubResource("Resource_tm0t7"), SubResource("Resource_oo0ug")])
 metadata/_custom_type_script = "uid://c5i664igrylu5"
